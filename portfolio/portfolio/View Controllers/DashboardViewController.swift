@@ -7,23 +7,33 @@
 
 import UIKit
 
-class DashboardViewController: UIViewController {
-
+class DashboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var holdingsTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // SOURCE: https://stackoverflow.com/questions/33234180/uitableview-example-for-swift
+        // AUTHOR: Suragch - https://stackoverflow.com/users/3681880/suragch
+        self.holdingsTableView.delegate = self
+        self.holdingsTableView.dataSource = self
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        <#code#>
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        <#code#>
     }
-    */
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        <#code#>
+    }
 
 }

@@ -13,7 +13,7 @@
         <scene sceneID="fUX-c9-PF5">
             <objects>
                 <navigationController title="MarketsNavigationController" id="Kke-sA-aUS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="arP-5s-UU9"/>
+                    <tabBarItem key="tabBarItem" title="Markets" id="arP-5s-UU9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="hOP-nZ-pqS">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -103,11 +103,11 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
+                        <segue destination="P8C-Sa-rgr" kind="relationship" relationship="viewControllers" id="2xI-4E-puJ"/>
                         <segue destination="bLs-sA-R87" kind="relationship" relationship="viewControllers" id="wKs-dY-ilO"/>
                         <segue destination="BaJ-Pw-crB" kind="relationship" relationship="viewControllers" id="w1h-8c-gid"/>
                         <segue destination="Kke-sA-aUS" kind="relationship" relationship="viewControllers" id="fX3-ds-Gix"/>
                         <segue destination="GyX-Ky-gRi" kind="relationship" relationship="viewControllers" id="MWL-VN-Tya"/>
-                        <segue destination="P8C-Sa-rgr" kind="relationship" relationship="viewControllers" id="2xI-4E-puJ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3vi-xh-BbL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -118,7 +118,7 @@
         <scene sceneID="Em4-SQ-WGO">
             <objects>
                 <navigationController title="PortfolioNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="bLs-sA-R87" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 1" id="pgu-47-isI"/>
+                    <tabBarItem key="tabBarItem" title="Portfolio" id="pgu-47-isI"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="TJf-ee-3Fq">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -137,7 +137,7 @@
         <scene sceneID="4jg-qX-54J">
             <objects>
                 <navigationController title="PerformanceNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="BaJ-Pw-crB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 2" id="1Cb-ON-KYk"/>
+                    <tabBarItem key="tabBarItem" title="Performance" id="1Cb-ON-KYk"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="2mG-eO-qHQ">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -156,7 +156,7 @@
         <scene sceneID="WJr-P1-v8K">
             <objects>
                 <navigationController title="WatchlistsNavigationController" id="GyX-Ky-gRi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="xwV-P9-WIY"/>
+                    <tabBarItem key="tabBarItem" title="Watchlists" id="xwV-P9-WIY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="4dq-GT-rSm">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -202,7 +202,7 @@
         <scene sceneID="Jwy-Yp-lOM">
             <objects>
                 <navigationController title="DashboardNavigationController" id="P8C-Sa-rgr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="HYU-yj-pIY"/>
+                    <tabBarItem key="tabBarItem" title="Dashboard" id="HYU-yj-pIY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="FM1-AS-eKw">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>

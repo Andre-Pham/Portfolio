@@ -9,21 +9,31 @@
 /* Begin PBXBuildFile section */
 		65AFBE12262D64860039CB66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE11262D64860039CB66 /* AppDelegate.swift */; };
 		65AFBE14262D64860039CB66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE13262D64860039CB66 /* SceneDelegate.swift */; };
-		65AFBE16262D64860039CB66 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE15262D64860039CB66 /* ViewController.swift */; };
 		65AFBE19262D64860039CB66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65AFBE17262D64860039CB66 /* Main.storyboard */; };
 		65AFBE1B262D648D0039CB66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65AFBE1A262D648D0039CB66 /* Assets.xcassets */; };
 		65AFBE1E262D648D0039CB66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65AFBE1C262D648D0039CB66 /* LaunchScreen.storyboard */; };
+		65AFBE2B262E27FC0039CB66 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE2A262E27FB0039CB66 /* TabBarViewController.swift */; };
+		65AFBE30262E293B0039CB66 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE2F262E293B0039CB66 /* DashboardViewController.swift */; };
+		65AFBE33262E2A780039CB66 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE32262E2A780039CB66 /* PortfolioViewController.swift */; };
+		65AFBE36262E2AA20039CB66 /* PerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE35262E2AA20039CB66 /* PerformanceViewController.swift */; };
+		65AFBE39262E2AC20039CB66 /* MarketsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE38262E2AC20039CB66 /* MarketsCollectionViewController.swift */; };
+		65AFBE3C262E2AE00039CB66 /* WatchlistsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE3B262E2AE00039CB66 /* WatchlistsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		65AFBE0E262D64860039CB66 /* portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65AFBE11262D64860039CB66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65AFBE13262D64860039CB66 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		65AFBE15262D64860039CB66 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		65AFBE18262D64860039CB66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		65AFBE1A262D648D0039CB66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65AFBE1D262D648D0039CB66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65AFBE1F262D648D0039CB66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65AFBE2A262E27FB0039CB66 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		65AFBE2F262E293B0039CB66 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		65AFBE32262E2A780039CB66 /* PortfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewController.swift; sourceTree = "<group>"; };
+		65AFBE35262E2AA20039CB66 /* PerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceViewController.swift; sourceTree = "<group>"; };
+		65AFBE38262E2AC20039CB66 /* MarketsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsCollectionViewController.swift; sourceTree = "<group>"; };
+		65AFBE3B262E2AE00039CB66 /* WatchlistsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +66,28 @@
 		65AFBE10262D64860039CB66 /* portfolio */ = {
 			isa = PBXGroup;
 			children = (
+				65AFBE2D262E28010039CB66 /* View Controllers */,
 				65AFBE11262D64860039CB66 /* AppDelegate.swift */,
 				65AFBE13262D64860039CB66 /* SceneDelegate.swift */,
-				65AFBE15262D64860039CB66 /* ViewController.swift */,
 				65AFBE17262D64860039CB66 /* Main.storyboard */,
 				65AFBE1A262D648D0039CB66 /* Assets.xcassets */,
 				65AFBE1C262D648D0039CB66 /* LaunchScreen.storyboard */,
 				65AFBE1F262D648D0039CB66 /* Info.plist */,
 			);
 			path = portfolio;
+			sourceTree = "<group>";
+		};
+		65AFBE2D262E28010039CB66 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				65AFBE2A262E27FB0039CB66 /* TabBarViewController.swift */,
+				65AFBE2F262E293B0039CB66 /* DashboardViewController.swift */,
+				65AFBE32262E2A780039CB66 /* PortfolioViewController.swift */,
+				65AFBE35262E2AA20039CB66 /* PerformanceViewController.swift */,
+				65AFBE38262E2AC20039CB66 /* MarketsCollectionViewController.swift */,
+				65AFBE3B262E2AE00039CB66 /* WatchlistsTableViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +160,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65AFBE16262D64860039CB66 /* ViewController.swift in Sources */,
+				65AFBE2B262E27FC0039CB66 /* TabBarViewController.swift in Sources */,
+				65AFBE33262E2A780039CB66 /* PortfolioViewController.swift in Sources */,
+				65AFBE39262E2AC20039CB66 /* MarketsCollectionViewController.swift in Sources */,
+				65AFBE3C262E2AE00039CB66 /* WatchlistsTableViewController.swift in Sources */,
 				65AFBE12262D64860039CB66 /* AppDelegate.swift in Sources */,
 				65AFBE14262D64860039CB66 /* SceneDelegate.swift in Sources */,
+				65AFBE30262E293B0039CB66 /* DashboardViewController.swift in Sources */,
+				65AFBE36262E2AA20039CB66 /* PerformanceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

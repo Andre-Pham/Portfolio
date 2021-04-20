@@ -9,6 +9,10 @@ import UIKit
 
 class DashboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    // MARK: - Properties
+    
+    var shownWatchlist: Watchlist?
+    
     @IBOutlet weak var holdingsTableView: UITableView!
     
     override func viewDidLoad() {
@@ -21,11 +25,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        <#code#>
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return self.shownWatchlist?.holdings?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -33,7 +37,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        <#code#>
+        return true
     }
 
 }

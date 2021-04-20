@@ -18,6 +18,9 @@
 		65AFBE36262E2AA20039CB66 /* PerformanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE35262E2AA20039CB66 /* PerformanceViewController.swift */; };
 		65AFBE39262E2AC20039CB66 /* MarketsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE38262E2AC20039CB66 /* MarketsCollectionViewController.swift */; };
 		65AFBE3C262E2AE00039CB66 /* WatchlistsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE3B262E2AE00039CB66 /* WatchlistsTableViewController.swift */; };
+		65AFBE40262E5D950039CB66 /* Holding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE3F262E5D950039CB66 /* Holding.swift */; };
+		65AFBE45262E5DCE0039CB66 /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE44262E5DCE0039CB66 /* Watchlist.swift */; };
+		65AFBE4D262E624D0039CB66 /* PortfolioHoldingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE4C262E624D0039CB66 /* PortfolioHoldingTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		65AFBE35262E2AA20039CB66 /* PerformanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceViewController.swift; sourceTree = "<group>"; };
 		65AFBE38262E2AC20039CB66 /* MarketsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsCollectionViewController.swift; sourceTree = "<group>"; };
 		65AFBE3B262E2AE00039CB66 /* WatchlistsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistsTableViewController.swift; sourceTree = "<group>"; };
+		65AFBE3F262E5D950039CB66 /* Holding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Holding.swift; sourceTree = "<group>"; };
+		65AFBE44262E5DCE0039CB66 /* Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist.swift; sourceTree = "<group>"; };
+		65AFBE4C262E624D0039CB66 /* PortfolioHoldingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioHoldingTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +72,8 @@
 		65AFBE10262D64860039CB66 /* portfolio */ = {
 			isa = PBXGroup;
 			children = (
+				65AFBE4B262E61F30039CB66 /* Table View Cells */,
+				65AFBE3E262E5CEE0039CB66 /* Classes */,
 				65AFBE2D262E28010039CB66 /* View Controllers */,
 				65AFBE11262D64860039CB66 /* AppDelegate.swift */,
 				65AFBE13262D64860039CB66 /* SceneDelegate.swift */,
@@ -88,6 +96,23 @@
 				65AFBE3B262E2AE00039CB66 /* WatchlistsTableViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		65AFBE3E262E5CEE0039CB66 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				65AFBE3F262E5D950039CB66 /* Holding.swift */,
+				65AFBE44262E5DCE0039CB66 /* Watchlist.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		65AFBE4B262E61F30039CB66 /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				65AFBE4C262E624D0039CB66 /* PortfolioHoldingTableViewCell.swift */,
+			);
+			path = "Table View Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,12 +185,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65AFBE4D262E624D0039CB66 /* PortfolioHoldingTableViewCell.swift in Sources */,
 				65AFBE2B262E27FC0039CB66 /* TabBarViewController.swift in Sources */,
 				65AFBE33262E2A780039CB66 /* PortfolioViewController.swift in Sources */,
 				65AFBE39262E2AC20039CB66 /* MarketsCollectionViewController.swift in Sources */,
+				65AFBE45262E5DCE0039CB66 /* Watchlist.swift in Sources */,
 				65AFBE3C262E2AE00039CB66 /* WatchlistsTableViewController.swift in Sources */,
 				65AFBE12262D64860039CB66 /* AppDelegate.swift in Sources */,
 				65AFBE14262D64860039CB66 /* SceneDelegate.swift in Sources */,
+				65AFBE40262E5D950039CB66 /* Holding.swift in Sources */,
 				65AFBE30262E293B0039CB66 /* DashboardViewController.swift in Sources */,
 				65AFBE36262E2AA20039CB66 /* PerformanceViewController.swift in Sources */,
 			);

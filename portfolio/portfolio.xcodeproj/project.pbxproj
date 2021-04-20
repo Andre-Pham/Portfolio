@@ -21,6 +21,7 @@
 		65AFBE40262E5D950039CB66 /* Holding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE3F262E5D950039CB66 /* Holding.swift */; };
 		65AFBE45262E5DCE0039CB66 /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE44262E5DCE0039CB66 /* Watchlist.swift */; };
 		65AFBE4D262E624D0039CB66 /* PortfolioHoldingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE4C262E624D0039CB66 /* PortfolioHoldingTableViewCell.swift */; };
+		65AFBE52262F548B0039CB66 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE51262F548B0039CB66 /* Purchase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		65AFBE3F262E5D950039CB66 /* Holding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Holding.swift; sourceTree = "<group>"; };
 		65AFBE44262E5DCE0039CB66 /* Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist.swift; sourceTree = "<group>"; };
 		65AFBE4C262E624D0039CB66 /* PortfolioHoldingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioHoldingTableViewCell.swift; sourceTree = "<group>"; };
+		65AFBE51262F548B0039CB66 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				65AFBE3F262E5D950039CB66 /* Holding.swift */,
 				65AFBE44262E5DCE0039CB66 /* Watchlist.swift */,
+				65AFBE51262F548B0039CB66 /* Purchase.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				65AFBE3C262E2AE00039CB66 /* WatchlistsTableViewController.swift in Sources */,
 				65AFBE12262D64860039CB66 /* AppDelegate.swift in Sources */,
 				65AFBE14262D64860039CB66 /* SceneDelegate.swift in Sources */,
+				65AFBE52262F548B0039CB66 /* Purchase.swift in Sources */,
 				65AFBE40262E5D950039CB66 /* Holding.swift in Sources */,
 				65AFBE30262E293B0039CB66 /* DashboardViewController.swift in Sources */,
 				65AFBE36262E2AA20039CB66 /* PerformanceViewController.swift in Sources */,

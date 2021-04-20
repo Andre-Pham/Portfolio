@@ -171,7 +171,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="equityLabel" destination="y5K-LA-eCh" id="CFM-kk-Hro"/>
-                                            <outlet property="gainLabel" destination="pVx-xZ-4Dv" id="Eyw-Uu-0Q8"/>
+                                            <outlet property="returnInDollarsAndPercentage" destination="pVx-xZ-4Dv" id="Eyw-Uu-0Q8"/>
                                             <outlet property="sharesLabel" destination="DRT-5y-y1d" id="krM-BS-B9L"/>
                                             <outlet property="tickerLabel" destination="zwX-10-6c1" id="CTf-QU-EcN"/>
                                         </connections>

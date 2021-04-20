@@ -17,12 +17,9 @@ class Holding: NSObject {
     var prices: [Double]?
     var currentPrice: Double?
     
-    // Optional
-    var sharesOwned: Double?
-    var purchasePrice: Double?
-    var purchaseDate: String?
+    // Not required
+    var purchases: [Purchase] = []
     
-    // Not owned holding
     init(ticker: String, dates: [String], prices: [Double], currentPrice: Double) {
         self.ticker = ticker
         self.dates = dates
@@ -30,25 +27,33 @@ class Holding: NSObject {
         self.currentPrice = currentPrice
     }
     
-    // Owned holding
-    init(ticker: String, dates: [String], prices: [Double], currentPrice: Double, sharesOwned: Double, purchasePrice: Double, purchaseDate: String) {
-        self.ticker = ticker
-        self.dates = dates
-        self.prices = prices
-        self.currentPrice = currentPrice
-        self.sharesOwned = sharesOwned
-        self.purchasePrice = purchasePrice
-        self.purchaseDate = purchaseDate
+    func getSharesOwned() -> Double {
+        var sharesOwned = 0.0
+        for purchase in self.purchases {
+            sharesOwned += purchase.shares ?? 0
+        }
+        return sharesOwned
     }
     
     func getEquity() -> Double {
-        // MODIFY TO SUPPORT MULTIPLE PURCHASE DATES
-        return self.currentPrice! * self.sharesOwned!
+        return self.currentPrice!*self.getSharesOwned()
     }
     
-    func getGain() -> Double {
-        // MODIFY TO SUPPORT MULTIPLE PURCHASE DATES
-        return self.currentPrice! * self.sharesOwned! - self.purchasePrice! * self.sharesOwned!
+    func getReturnInDollars() -> Double {
+        var returnInDollars = 0.0
+        
+        for purchase in self.purchases {
+            returnInDollars += self.currentPrice!*purchase.shares! - purchase.price!*purchase.shares!
+        }
+        
+        return returnInDollars
+    }
+    
+    func getReturnInPercentage() -> Double {
+        let returnInDollars = self.getReturnInDollars()
+        let equity = self.getEquity()
+        
+        return 100*returnInDollars/(equity - returnInDollars)
     }
     
 }

@@ -47,7 +47,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         
         holdingCell.tickerLabel?.text = holding?.ticker
         holdingCell.sharesLabel?.text = holding?.ticker
-        holdingCell.gainLabel?.text = holding?.ticker
+        holdingCell.returnInDollarsAndPercentage?.text = holding?.ticker
         holdingCell.equityLabel?.text = holding?.ticker
         
         return holdingCell

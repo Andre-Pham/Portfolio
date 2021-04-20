@@ -12,11 +12,21 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: - Properties
     
     var shownWatchlist: Watchlist?
+    let CELL_HOLDING = "holdingCell"
     
     @IBOutlet weak var holdingsTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // TESTING
+        let holding1 = Holding(ticker: "TEST", dates: ["TEST_DATE"], prices: [100], currentPrice: 100)
+        let holding2 = Holding(ticker: "TEST2", dates: ["TEST_DATE2"], prices: [200], currentPrice: 200)
+        
+        self.shownWatchlist = Watchlist(name: "TEST_NAME", owned: false)
+        self.shownWatchlist?.holdings?.append(holding1)
+        self.shownWatchlist?.holdings?.append(holding2)
+        // TESTING END
 
         // SOURCE: https://stackoverflow.com/questions/33234180/uitableview-example-for-swift
         // AUTHOR: Suragch - https://stackoverflow.com/users/3681880/suragch
@@ -33,7 +43,14 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        // Only one section
+        let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_HOLDING, for: indexPath)
+        let holding = self.shownWatchlist?.holdings?[indexPath.row]
+        
+        holdingCell.textLabel?.text = holding?.ticker
+        holdingCell.detailTextLabel?.text = holding?.ticker
+        
+        return holdingCell
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

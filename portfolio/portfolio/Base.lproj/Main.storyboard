@@ -132,7 +132,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="83" id="lnl-f6-9yo">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="holdingCell" rowHeight="83" id="lnl-f6-9yo" customClass="PortfolioHoldingTableViewCell" customModule="portfolio" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="374" height="83"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lnl-f6-9yo" id="ORY-7K-Aps">
@@ -169,6 +169,12 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="equityLabel" destination="y5K-LA-eCh" id="CFM-kk-Hro"/>
+                                            <outlet property="gainLabel" destination="pVx-xZ-4Dv" id="Eyw-Uu-0Q8"/>
+                                            <outlet property="sharesLabel" destination="DRT-5y-y1d" id="krM-BS-B9L"/>
+                                            <outlet property="tickerLabel" destination="zwX-10-6c1" id="CTf-QU-EcN"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

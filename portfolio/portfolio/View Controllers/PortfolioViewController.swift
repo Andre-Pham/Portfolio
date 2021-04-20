@@ -9,10 +9,22 @@ import UIKit
 
 class PortfolioViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var portfolio: Watchlist?
+    let CELL_HOLDING = "holdingCell"
+    
     @IBOutlet weak var holdingsTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // TESTING
+        let holding1 = Holding(ticker: "TEST", dates: ["TEST_DATE"], prices: [100], currentPrice: 100)
+        let holding2 = Holding(ticker: "TEST2", dates: ["TEST_DATE2"], prices: [200], currentPrice: 200)
+        
+        self.portfolio = Watchlist(name: "TEST_NAME", owned: false)
+        self.portfolio?.holdings?.append(holding1)
+        self.portfolio?.holdings?.append(holding2)
+        // TESTING END
         
         // SOURCE: https://stackoverflow.com/questions/33234180/uitableview-example-for-swift
         // AUTHOR: Suragch - https://stackoverflow.com/users/3681880/suragch
@@ -21,19 +33,28 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        <#code#>
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return self.portfolio?.holdings?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        // Only one section
+        let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_HOLDING, for: indexPath) as! PortfolioHoldingTableViewCell
+        let holding = self.portfolio?.holdings?[indexPath.row]
+        
+        holdingCell.tickerLabel?.text = holding?.ticker
+        holdingCell.sharesLabel?.text = holding?.ticker
+        holdingCell.gainLabel?.text = holding?.ticker
+        holdingCell.equityLabel?.text = holding?.ticker
+        
+        return holdingCell
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        <#code#>
+        return true
     }
 
 }

@@ -8,7 +8,12 @@
 import UIKit
 
 class PortfolioHoldingTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet weak var tickerLabel: UILabel!
+    @IBOutlet weak var sharesLabel: UILabel!
+    @IBOutlet weak var gainLabel: UILabel!
+    @IBOutlet weak var equityLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

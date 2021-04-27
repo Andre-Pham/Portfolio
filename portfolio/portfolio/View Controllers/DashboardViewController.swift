@@ -17,6 +17,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     let CELL_HOLDING = "holdingCell"
     
     @IBOutlet weak var holdingsTableView: UITableView!
+    @IBOutlet weak var DashboardStatsStackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +38,21 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         self.addSwiftUIView()
         
+        // MARGINS FOR STACK VIEW
         mStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 10)
         mStackView.isLayoutMarginsRelativeArrangement = true
+        DashboardStatsStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 20)
+        DashboardStatsStackView.isLayoutMarginsRelativeArrangement = true
+        
+        
+        
+        // Add dynamic height - SEARCH UP HOW
+        NSLayoutConstraint.activate([
+            holdingsTableView.heightAnchor.constraint(equalToConstant: 200)
+        ])
+        
+        // TESTING
+        //mStackView.addBackground(color: .red)
     }
     
     func addSwiftUIView() {
@@ -75,7 +89,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
 extension DashboardViewController {
 
     func addSubSwiftUIView<Content>(_ swiftUIView: Content, to view: UIView) where Content : View {
-        let hostingController = UIHostingController(rootView: swiftUIView)
+        let chartObject = ChartObject(title: "Title", legend: "Legend", data: [100,23,54,32,12,37,7,23,43,-5])
+        
+        let hostingController = UIHostingController(rootView: swiftUIView.environmentObject(chartObject))
 
         /// Add as a child of the current view controller.
         addChild(hostingController)
@@ -87,9 +103,11 @@ extension DashboardViewController {
         /// Setup the contraints to update the SwiftUI view boundaries.
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         let constraints = [
-            hostingController.view.widthAnchor.constraint(equalTo: view.widthAnchor),
-            hostingController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
+            //hostingController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hostingController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45)
         ]
+        //hostingController.view.widthAnchor.constraint(equalTo: view.widthAnchor),
 
         NSLayoutConstraint.activate(constraints)
 
@@ -97,3 +115,15 @@ extension DashboardViewController {
         hostingController.didMove(toParent: self)
     }
 }
+
+// TESTING
+/*
+extension UIStackView {
+    func addBackground(color: UIColor) {
+        let subView = UIView(frame: bounds)
+        subView.backgroundColor = color
+        subView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        insertSubview(subView, at: 0)
+    }
+}
+*/

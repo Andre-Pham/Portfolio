@@ -78,6 +78,7 @@
 		65AFBE10262D64860039CB66 /* portfolio */ = {
 			isa = PBXGroup;
 			children = (
+				65B7D8DA2637A9A000FA8284 /* Protocols */,
 				65B7D8CC263770B300FA8284 /* SwiftUI Views */,
 				65AFBE54262F5C790039CB66 /* Web Service */,
 				65AFBE4B262E61F30039CB66 /* Table View Cells */,
@@ -137,6 +138,13 @@
 				65B7D8CD263770E400FA8284 /* ChartSwiftUIView.swift */,
 			);
 			path = "SwiftUI Views";
+			sourceTree = "<group>";
+		};
+		65B7D8DA2637A9A000FA8284 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

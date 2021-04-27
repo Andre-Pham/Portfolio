@@ -9,8 +9,10 @@ import SwiftUI
 import SwiftUICharts
 
 struct ChartSwiftUIView: View {
+    @EnvironmentObject var chartObject: ChartObject
+    
     var body: some View {
-        LineView(data: [8,23,54,32,12,37,7,23,43,-5], title: "MSFT", legend: "Percentage Gain").padding() // legend is optional, use optional .padding()
+        LineView(data: chartObject.data, title: chartObject.title, legend: chartObject.legend).padding(.top, -40.0).padding() // legend is optional, use optional .padding()
     }
 }
 
@@ -19,3 +21,16 @@ struct ChartSwiftUIView_Previews: PreviewProvider {
         ChartSwiftUIView()
     }
 }
+
+class ChartObject: ObservableObject {
+    @Published var title: String
+    @Published var legend: String
+    @Published var data: [Double]
+    
+    init(title: String, legend: String, data: [Double]) {
+        self.title = title
+        self.legend = legend
+        self.data = data
+    }
+}
+

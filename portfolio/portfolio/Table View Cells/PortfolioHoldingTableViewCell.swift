@@ -9,10 +9,14 @@ import UIKit
 
 class PortfolioHoldingTableViewCell: UITableViewCell {
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var tickerLabel: UILabel!
     @IBOutlet weak var sharesLabel: UILabel!
     @IBOutlet weak var returnInDollarsAndPercentage: UILabel!
     @IBOutlet weak var equityLabel: UILabel!
+    
+    // MARK: - Methods
     
     override func awakeFromNib() {
         super.awakeFromNib()

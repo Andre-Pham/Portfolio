@@ -15,6 +15,8 @@ class Purchase: NSObject {
     var price: Double?
     var shares: Double?
     
+    // MARK: - Constructor
+    
     init(date: String, price: Double, shares: Double) {
         self.date = date
         self.price = price

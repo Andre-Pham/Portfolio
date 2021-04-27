@@ -88,13 +88,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
     
     func addSwiftUIView() {
         let swiftUIView = ChartSwiftUIView()

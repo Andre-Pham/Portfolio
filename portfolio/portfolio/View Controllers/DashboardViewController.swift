@@ -92,7 +92,14 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func addSwiftUIView() {
         let swiftUIView = ChartSwiftUIView()
-        addSubSwiftUIView(swiftUIView, to: view)
+        let chartObject = ChartObject(title: "Title", legend: "Legend", data: [100,23,54,32,12,37,7,23,43,-5])
+        addSubSwiftUIView(swiftUIView, to: view, chartData: chartObject)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            chartObject.data = [5, 10, 100.0]
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+            chartObject.data = [5, 10, 10000.0]
+        }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -123,10 +130,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
 // https://www.avanderlee.com/swiftui/integrating-swiftui-with-uikit/
 extension DashboardViewController {
 
-    func addSubSwiftUIView<Content>(_ swiftUIView: Content, to view: UIView) where Content : View {
-        let chartObject = ChartObject(title: "Title", legend: "Legend", data: [100,23,54,32,12,37,7,23,43,-5])
+    func addSubSwiftUIView<Content>(_ swiftUIView: Content, to view: UIView, chartData: ChartObject) where Content : View {
         
-        let hostingController = UIHostingController(rootView: swiftUIView.environmentObject(chartObject))
+        
+        let hostingController = UIHostingController(rootView: swiftUIView.environmentObject(chartData))
 
         /// Add as a child of the current view controller.
         addChild(hostingController)

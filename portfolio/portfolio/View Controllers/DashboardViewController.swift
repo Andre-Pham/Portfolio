@@ -12,12 +12,16 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: - Properties
     
-    @IBOutlet weak var mStackView: UIStackView!
     var shownWatchlist: Watchlist?
     let CELL_HOLDING = "holdingCell"
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var holdingsTableView: UITableView!
     @IBOutlet weak var DashboardStatsStackView: UIStackView!
+    @IBOutlet weak var mStackView: UIStackView!
+    // MIGHT NEED TO BE DELETED IF NOT USED
+    @IBOutlet weak var holdingsTableViewHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +32,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         self.shownWatchlist = Watchlist(name: "TEST_NAME", owned: false)
         self.shownWatchlist?.holdings?.append(holding1)
+        self.shownWatchlist?.holdings?.append(holding2)
+        self.shownWatchlist?.holdings?.append(holding2)
+        self.shownWatchlist?.holdings?.append(holding2)
+        self.shownWatchlist?.holdings?.append(holding2)
+        self.shownWatchlist?.holdings?.append(holding2)
         self.shownWatchlist?.holdings?.append(holding2)
         // TESTING END
 
@@ -44,12 +53,14 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         DashboardStatsStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 20)
         DashboardStatsStackView.isLayoutMarginsRelativeArrangement = true
         
-        
-        
         // Add dynamic height - SEARCH UP HOW
+        // https://www.youtube.com/watch?v=INkeINPZddo
+        /*
         NSLayoutConstraint.activate([
             holdingsTableView.heightAnchor.constraint(equalToConstant: 200)
         ])
+         */
+        
         
         // TESTING
         //mStackView.addBackground(color: .red)
@@ -57,6 +68,32 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // Scrolling
         // SOURCE: https://stevenpcurtis.medium.com/create-a-uistackview-in-a-uiscrollview-e2a959fa061
         // Author: Steven Curtis - https://stevenpcurtis.medium.com/
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.holdingsTableView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
+        self.holdingsTableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.holdingsTableView.removeObserver(self, forKeyPath: "contentSize")
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "contentSize" {
+            if let newValue = change?[.newKey] {
+                let newSize = newValue as! CGSize
+                self.holdingsTableViewHeight.constant = newSize.width
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
     func addSwiftUIView() {

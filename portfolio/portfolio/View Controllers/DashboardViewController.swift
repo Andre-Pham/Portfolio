@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import SwiftUI
 
 class DashboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Properties
     
+    @IBOutlet weak var mStackView: UIStackView!
     var shownWatchlist: Watchlist?
     let CELL_HOLDING = "holdingCell"
     
@@ -32,6 +34,16 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // AUTHOR: Suragch - https://stackoverflow.com/users/3681880/suragch
         self.holdingsTableView.delegate = self
         self.holdingsTableView.dataSource = self
+        
+        self.addSwiftUIView()
+        
+        mStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 10)
+        mStackView.isLayoutMarginsRelativeArrangement = true
+    }
+    
+    func addSwiftUIView() {
+        let swiftUIView = ChartSwiftUIView()
+        addSubSwiftUIView(swiftUIView, to: view)
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -57,4 +69,31 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         return true
     }
 
+}
+
+// https://www.avanderlee.com/swiftui/integrating-swiftui-with-uikit/
+extension DashboardViewController {
+
+    func addSubSwiftUIView<Content>(_ swiftUIView: Content, to view: UIView) where Content : View {
+        let hostingController = UIHostingController(rootView: swiftUIView)
+
+        /// Add as a child of the current view controller.
+        addChild(hostingController)
+
+        /// Add the SwiftUI view to the view controller view hierarchy.
+//        view.addSubview(hostingController.view)
+        mStackView.insertArrangedSubview(hostingController.view, at: 0)
+
+        /// Setup the contraints to update the SwiftUI view boundaries.
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        let constraints = [
+            hostingController.view.widthAnchor.constraint(equalTo: view.widthAnchor),
+            hostingController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
+        ]
+
+        NSLayoutConstraint.activate(constraints)
+
+        /// Notify the hosting controller that it has been moved to the current view controller.
+        hostingController.didMove(toParent: self)
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  ChartSwiftUIView.swift
+//  ChartView.swift
 //  portfolio
 //
 //  Created by Andre Pham on 27/4/21.
@@ -9,26 +9,40 @@ import SwiftUI
 import SwiftUICharts
 
 struct ChartView: View {
-    @EnvironmentObject var chartObject: ChartObject
+    
+    // MARK: - ChartView Properties
+    
+    @EnvironmentObject var chartData: ChartData
+    
+    // MARK: - ChartView Views
     
     var body: some View {
-        LineView(data: chartObject.data, title: chartObject.title, legend: chartObject.legend, style: chartObject.lineColour).padding(.top, -40.0).padding() // legend is optional, use optional .padding()
+        // Create line chart
+        LineView(data: chartData.data, title: chartData.title, legend: chartData.legend, style: chartData.lineColour).padding(.top, -40.0).padding() // legend is optional, use optional .padding()
     }
+    
 }
 
 struct ChartSwiftUIView_Previews: PreviewProvider {
+    
     static var previews: some View {
         ChartView()
     }
+    
 }
 
-// SOURCE: https://stackoverflow.com/questions/61732887/pass-data-from-uikit-to-swiftui-container-uihostingcontroller
-// AUTHOR: James - https://stackoverflow.com/users/828768/james
-class ChartObject: ObservableObject {
+class ChartData: ObservableObject {
+    // SOURCE: https://stackoverflow.com/questions/61732887/pass-data-from-uikit-to-swiftui-container-uihostingcontroller
+    // AUTHOR: James - https://stackoverflow.com/users/828768/james
+    
+    // MARK: - ChartData Properties
+    
     @Published var title: String
     @Published var legend: String
     @Published var data: [Double]
     @Published var lineColour = Styles.lineChartStyleOne
+    
+    // MARK: - ChartData Constructor
     
     init(title: String, legend: String, data: [Double]) {
         self.title = title
@@ -48,5 +62,6 @@ class ChartObject: ObservableObject {
             }
         }
     }
+    
 }
 

@@ -139,21 +139,21 @@ extension DashboardViewController {
     func addChartView() {
         let swiftUIView = ChartView()
         
-        let chartObject = ChartObject(title: "Title", legend: "Legend", data: [100,23,54,32,12,37,7,23,43,-5])
-        addSubSwiftUIView(swiftUIView, to: view, chartData: chartObject)
+        let chartData = ChartData(title: "Title", legend: "Legend", data: [100,23,54,32,12,37,7,23,43,-5])
+        addSubSwiftUIView(swiftUIView, to: view, chartData: chartData)
         
         // TESTING
         DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-            chartObject.data = [5, 10, 100.0]
+            chartData.data = [5, 10, 100.0]
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
-            chartObject.data = [5, 10, 10000.0]
+            chartData.data = [5, 10, 10000.0]
         }
         // TESTING END
     }
 
     /// Adds the SwiftUI chart view as a child to DashboardViewController
-    func addSubSwiftUIView<Content>(_ swiftUIView: Content, to view: UIView, chartData: ChartObject) where Content : View {
+    func addSubSwiftUIView<Content>(_ swiftUIView: Content, to view: UIView, chartData: ChartData) where Content : View {
         // SOURCE: https://www.avanderlee.com/swiftui/integrating-swiftui-with-uikit/
         // AUTHOR: ANTOINE VAN DER LEE - https://www.avanderlee.com/
         

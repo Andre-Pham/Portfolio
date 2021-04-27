@@ -424,10 +424,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Dashboard" id="Fci-nK-j3e"/>
                     <connections>
-                        <outlet property="DashboardStatsStackView" destination="ACy-e7-mwa" id="ts8-X1-UI1"/>
+                        <outlet property="dateAndReturnsStackView" destination="ACy-e7-mwa" id="ts8-X1-UI1"/>
                         <outlet property="holdingsTableView" destination="kwX-gr-7JY" id="ChD-yr-dKJ"/>
                         <outlet property="holdingsTableViewHeight" destination="PPc-7f-r2Z" id="O1D-24-CNV"/>
-                        <outlet property="mStackView" destination="Are-Ri-qD4" id="oat-zy-Cvh"/>
+                        <outlet property="rootStackView" destination="Are-Ri-qD4" id="oat-zy-Cvh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CCv-Ap-Jp2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

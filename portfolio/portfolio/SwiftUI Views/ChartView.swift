@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftUICharts
 
-struct ChartSwiftUIView: View {
+struct ChartView: View {
     @EnvironmentObject var chartObject: ChartObject
     
     var body: some View {
@@ -18,7 +18,7 @@ struct ChartSwiftUIView: View {
 
 struct ChartSwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        ChartSwiftUIView()
+        ChartView()
     }
 }
 

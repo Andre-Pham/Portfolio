@@ -12,7 +12,7 @@ struct ChartSwiftUIView: View {
     @EnvironmentObject var chartObject: ChartObject
     
     var body: some View {
-        LineView(data: chartObject.data, title: chartObject.title, legend: chartObject.legend).padding(.top, -40.0).padding() // legend is optional, use optional .padding()
+        LineView(data: chartObject.data, title: chartObject.title, legend: chartObject.legend, style: chartObject.lineColour).padding(.top, -40.0).padding() // legend is optional, use optional .padding()
     }
 }
 
@@ -28,11 +28,25 @@ class ChartObject: ObservableObject {
     @Published var title: String
     @Published var legend: String
     @Published var data: [Double]
+    @Published var lineColour = Styles.lineChartStyleOne
     
     init(title: String, legend: String, data: [Double]) {
         self.title = title
         self.legend = legend
         self.data = data
+        
+        if !data.isEmpty {
+            if data.last! > 0 {
+                let newGradient = GradientColor(start: Color.green, end: Color.green)
+                let newStyle = ChartStyle(backgroundColor: Color.white, accentColor: Color.black, gradientColor: newGradient, textColor: Color.black, legendTextColor: Color.gray, dropShadowColor: Color.black)
+                self.lineColour = newStyle
+            }
+            else if data.last! == 0 {
+                let newGradient = GradientColor(start: Color.gray, end: Color.gray)
+                let newStyle = ChartStyle(backgroundColor: Color.white, accentColor: Color.black, gradientColor: newGradient, textColor: Color.black, legendTextColor: Color.gray, dropShadowColor: Color.black)
+                self.lineColour = newStyle
+            }
+        }
     }
 }
 

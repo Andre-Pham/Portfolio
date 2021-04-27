@@ -53,6 +53,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // TESTING
         //mStackView.addBackground(color: .red)
+        
+        // Scrolling
+        // SOURCE: https://stevenpcurtis.medium.com/create-a-uistackview-in-a-uiscrollview-e2a959fa061
+        // Author: Steven Curtis - https://stevenpcurtis.medium.com/
     }
     
     func addSwiftUIView() {

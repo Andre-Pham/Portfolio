@@ -22,6 +22,8 @@ struct ChartSwiftUIView_Previews: PreviewProvider {
     }
 }
 
+// SOURCE: https://stackoverflow.com/questions/61732887/pass-data-from-uikit-to-swiftui-container-uihostingcontroller
+// AUTHOR: James - https://stackoverflow.com/users/828768/james
 class ChartObject: ObservableObject {
     @Published var title: String
     @Published var legend: String

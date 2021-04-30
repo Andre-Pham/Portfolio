@@ -325,25 +325,36 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Are-Ri-qD4">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="462"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="513"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ACy-e7-mwa">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="101.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="152.5"/>
                                                 <subviews>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ELh-J5-QXa">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
+                                                        <segments>
+                                                            <segment title="24H"/>
+                                                            <segment title="1W"/>
+                                                            <segment title="1M"/>
+                                                            <segment title="1Y"/>
+                                                            <segment title="5Y"/>
+                                                            <segment title="10Y"/>
+                                                        </segments>
+                                                    </segmentedControl>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Date &quot;Tuesday 29th March&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VYt-PP-odL">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="51" width="414" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day's Gain &quot;+ $18.22 (22.03%) Day&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zbK-fU-lq5">
-                                                        <rect key="frame" x="0.0" y="40.5" width="414" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="91.5" width="414" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Gain &quot;+ $18.22 (22.03%) Total&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fX8-TX-BhC">
-                                                        <rect key="frame" x="0.0" y="81" width="414" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="132" width="414" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -351,7 +362,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="SP5-F3-xPQ">
-                                                <rect key="frame" x="0.0" y="121.5" width="414" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="172.5" width="414" height="20.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="&quot;Holdings&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AnE-tN-mol">
                                                         <rect key="frame" x="0.0" y="0.0" width="272.5" height="20.5"/>
@@ -368,7 +379,7 @@
                                                 </subviews>
                                             </stackView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kwX-gr-7JY">
-                                                <rect key="frame" x="0.0" y="162" width="414" height="300"/>
+                                                <rect key="frame" x="0.0" y="213" width="414" height="300"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="300" id="PPc-7f-r2Z"/>
                                                 </constraints>

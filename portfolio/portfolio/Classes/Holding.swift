@@ -20,12 +20,16 @@ class Holding: NSObject {
     // Not required
     var purchases: [Purchase] = []
     
+    // MARK: - Constructor
+    
     init(ticker: String, dates: [String], prices: [Double], currentPrice: Double) {
         self.ticker = ticker
         self.dates = dates
         self.prices = prices
         self.currentPrice = currentPrice
     }
+    
+    // MARK: - Methods
     
     func getSharesOwned() -> Double {
         var sharesOwned = 0.0

@@ -7,12 +7,37 @@
 
 import Foundation
 
-struct Ticker: Decodable {
-    var MSFT: TimeSeries
-    var AMZN: TimeSeries
+struct DecodedTickerArray: Decodable {
+    var tickerArray: [Ticker]
+    
+    private struct DynamicCodingKeys: CodingKey {
+        
+        var stringValue: String
+        init?(stringValue: String) {
+            self.stringValue = stringValue
+        }
+        
+        var intValue: Int?
+        init?(intValue: Int) {
+            return nil
+        }
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: DynamicCodingKeys.self)
+        
+        var tempArray = [Ticker]()
+        
+        for key in container.allKeys {
+            let decodedObject = try container.decode(Ticker.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
+            tempArray.append(decodedObject)
+        }
+        
+        self.tickerArray = tempArray
+    }
 }
 
-struct TimeSeries: Decodable {
+struct Ticker: Decodable {
     var values: [TimeSeriesCloses]
 }
 

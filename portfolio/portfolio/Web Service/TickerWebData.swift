@@ -24,8 +24,6 @@ class TickerWebData: NSObject, Decodable {
     
     required init(from decoder: Decoder) throws {
         
-        
-        /*
         let values = try decoder.container(keyedBy: tickerKeys.self)
         
         do {
@@ -35,7 +33,7 @@ class TickerWebData: NSObject, Decodable {
         catch {
             self.currency = ""
         }
-        */
+        
     }
 
 }

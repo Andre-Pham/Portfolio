@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		659C8F71263C62AB004D1E30 /* TickerWebDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8F70263C62AB004D1E30 /* TickerWebDataModel.swift */; };
+		659C8F73263C649A004D1E30 /* TickerWebDataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8F72263C649A004D1E30 /* TickerWebDataRequest.swift */; };
 		65AFBE12262D64860039CB66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE11262D64860039CB66 /* AppDelegate.swift */; };
 		65AFBE14262D64860039CB66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE13262D64860039CB66 /* SceneDelegate.swift */; };
 		65AFBE19262D64860039CB66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65AFBE17262D64860039CB66 /* Main.storyboard */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		659C8F70263C62AB004D1E30 /* TickerWebDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerWebDataModel.swift; sourceTree = "<group>"; };
+		659C8F72263C649A004D1E30 /* TickerWebDataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerWebDataRequest.swift; sourceTree = "<group>"; };
 		65AFBE0E262D64860039CB66 /* portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65AFBE11262D64860039CB66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65AFBE13262D64860039CB66 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +138,8 @@
 			children = (
 				65B7D8E2263B96B900FA8284 /* TickerRootWebData.swift */,
 				65B7D8E5263B99B900FA8284 /* TickerWebData.swift */,
+				659C8F70263C62AB004D1E30 /* TickerWebDataModel.swift */,
+				659C8F72263C649A004D1E30 /* TickerWebDataRequest.swift */,
 			);
 			path = "Web Service";
 			sourceTree = "<group>";
@@ -233,6 +239,7 @@
 				65AFBE2B262E27FC0039CB66 /* TabBarViewController.swift in Sources */,
 				65AFBE33262E2A780039CB66 /* PortfolioViewController.swift in Sources */,
 				65AFBE39262E2AC20039CB66 /* MarketsCollectionViewController.swift in Sources */,
+				659C8F73263C649A004D1E30 /* TickerWebDataRequest.swift in Sources */,
 				65AFBE45262E5DCE0039CB66 /* Watchlist.swift in Sources */,
 				65AFBE3C262E2AE00039CB66 /* WatchlistsTableViewController.swift in Sources */,
 				65AFBE12262D64860039CB66 /* AppDelegate.swift in Sources */,
@@ -243,6 +250,7 @@
 				65AFBE30262E293B0039CB66 /* DashboardViewController.swift in Sources */,
 				65B7D8E3263B96B900FA8284 /* TickerRootWebData.swift in Sources */,
 				65B7D8CE263770E400FA8284 /* ChartView.swift in Sources */,
+				659C8F71263C62AB004D1E30 /* TickerWebDataModel.swift in Sources */,
 				65AFBE36262E2AA20039CB66 /* PerformanceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

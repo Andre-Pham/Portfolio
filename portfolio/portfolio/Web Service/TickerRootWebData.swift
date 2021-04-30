@@ -17,7 +17,7 @@ class TickerRootWebData: NSObject, Decodable {
     // MARK: - Coding Keys
     
     private enum CodingKeys: String, CodingKey {
-        case tickerData = "values"
+        case tickerData = "meta"
     }
    
 }

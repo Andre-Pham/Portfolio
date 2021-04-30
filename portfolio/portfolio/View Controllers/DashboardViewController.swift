@@ -68,7 +68,16 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // TESTING WEB DATA
         
-        self.requestTickerWebData(ticker: "MSFT")
+        //self.requestTickerWebData(ticker: "MSFT")
+        let tickerRequest = TickerWebDataRequest(tickerQuery: "MSFT,AMZN")
+        tickerRequest.requestTickerWebData { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let data):
+                print(data)
+            }
+        }
         
         // END TESTING WEB DATA
     }

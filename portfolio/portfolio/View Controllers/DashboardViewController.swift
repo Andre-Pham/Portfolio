@@ -65,6 +65,83 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         rootStackView.isLayoutMarginsRelativeArrangement = true
         dateAndReturnsStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 20)
         dateAndReturnsStackView.isLayoutMarginsRelativeArrangement = true
+        
+        // TESTING WEB DATA
+        
+        self.requestTickerWebData(ticker: "MSFT")
+        
+        // END TESTING WEB DATA
+    }
+    
+    func requestTickerWebData(ticker: String) {
+        // https://api.twelvedata.com/time_series?symbol=MSFT,AMZN&interval=5min&start_date=2021-4-26&timezone=Australia/Sydney&apikey=fb1e4d1cdf934bdd8ef247ea380bd80a
+        
+        // Form URL from different components
+        var requestURLComponents = URLComponents()
+        requestURLComponents.scheme = "https"
+        requestURLComponents.host = "api.twelvedata.com"
+        requestURLComponents.path = "/time_series"
+        requestURLComponents.queryItems = [
+            URLQueryItem(
+                name: "symbol",
+                value: ticker
+            ),
+            URLQueryItem(
+                name: "interval",
+                value: "5min"
+            ),
+            URLQueryItem(
+                name: "start_date",
+                value: "2021-4-26"
+            ),
+            URLQueryItem(
+                name: "timezone",
+                value: "Australia/Sydney"
+            ),
+            URLQueryItem(
+                name: "apikey",
+                value: "fb1e4d1cdf934bdd8ef247ea380bd80a"
+            ),
+        ]
+        
+        print(requestURLComponents.url)
+        
+        // Ensure URL is valid
+        guard let requestURL = requestURLComponents.url else {
+            print("Invalid URL.")
+            return
+        }
+        
+        // Occurs on a new thread
+        let task = URLSession.shared.dataTask(with: requestURL) {
+            (data, response, error) in
+            
+            // If we have recieved an error message
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            // Parse data
+            do {
+                print("started parsing")
+                let decoder = JSONDecoder()
+                let tickerRootWebData = try decoder.decode(TickerRootWebData.self, from: data!)
+                print("defined tickerRootWebData")
+                
+                if let tickers = tickerRootWebData.tickerData {
+                    for tickerWebData in tickers {
+                        //print(tickerWebData.currency ?? "ooops")
+                    }
+                }
+            
+            }
+            catch let err {
+                print(err)
+            }
+        }
+        
+        task.resume()
     }
     
     /// Calls before the view appears on screen

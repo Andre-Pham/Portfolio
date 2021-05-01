@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		659C8F71263C62AB004D1E30 /* TickerWebData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8F70263C62AB004D1E30 /* TickerWebData.swift */; };
-		659C8F75263E0B63004D1E30 /* WebServiceRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8F74263E0B63004D1E30 /* WebServiceRequests.swift */; };
 		65AFBE12262D64860039CB66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE11262D64860039CB66 /* AppDelegate.swift */; };
 		65AFBE14262D64860039CB66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE13262D64860039CB66 /* SceneDelegate.swift */; };
 		65AFBE19262D64860039CB66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65AFBE17262D64860039CB66 /* Main.storyboard */; };
@@ -30,7 +29,6 @@
 
 /* Begin PBXFileReference section */
 		659C8F70263C62AB004D1E30 /* TickerWebData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerWebData.swift; sourceTree = "<group>"; };
-		659C8F74263E0B63004D1E30 /* WebServiceRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceRequests.swift; sourceTree = "<group>"; };
 		65AFBE0E262D64860039CB66 /* portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65AFBE11262D64860039CB66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65AFBE13262D64860039CB66 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,7 +131,6 @@
 			isa = PBXGroup;
 			children = (
 				659C8F70263C62AB004D1E30 /* TickerWebData.swift */,
-				659C8F74263E0B63004D1E30 /* WebServiceRequests.swift */,
 			);
 			path = "Web Service";
 			sourceTree = "<group>";
@@ -243,7 +240,6 @@
 				65B7D8CE263770E400FA8284 /* ChartView.swift in Sources */,
 				659C8F71263C62AB004D1E30 /* TickerWebData.swift in Sources */,
 				65AFBE36262E2AA20039CB66 /* PerformanceViewController.swift in Sources */,
-				659C8F75263E0B63004D1E30 /* WebServiceRequests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

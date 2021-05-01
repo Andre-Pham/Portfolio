@@ -68,18 +68,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // TESTING WEB DATA
         
-        self.requestTickerWebData(ticker: "MSFT,AMZN")
-        //let tickerRequest = TickerWebDataRequest(tickerQuery: "MSFT,AMZN")
-        /*
-        tickerRequest.requestTickerWebData { [weak self] result in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let data):
-                print(data)
-            }
-        }
-        */
+        //self.requestTickerWebData(ticker: "MSFT")
         
         // END TESTING WEB DATA
     }
@@ -134,9 +123,20 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             // Parse data
             do {
                 let decoder = JSONDecoder()
-                let tickerResponse = try decoder.decode(DecodedTickerArray.self, from: data!)
+                if ticker.contains(",") {
+                    // Multiple ticker request
+                    let tickerResponse = try decoder.decode(DecodedTickerArray.self, from: data!)
+                    print(tickerResponse.tickerArray)
+                }
+                else {
+                    // Single ticker request
+                    let tickerResponse = try decoder.decode(Ticker.self, from: data!)
+                    print(tickerResponse.values)
+                    print(tickerResponse.meta)
+                }
                 
-                print(tickerResponse.tickerArray)
+                
+                
                 
                 /*
                 if let tickers = tickerRootWebData.tickerData {

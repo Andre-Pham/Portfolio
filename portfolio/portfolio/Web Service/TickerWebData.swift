@@ -2,38 +2,52 @@
 //  TickerWebData.swift
 //  portfolio
 //
-//  Created by Andre Pham on 30/4/21.
+//  Created by Andre Pham on 1/5/21.
 //
 
-import UIKit
+import Foundation
 
-class TickerWebData: NSObject, Decodable {
+struct DecodedTickerArray: Decodable {
+    var tickerArray: [Ticker]
     
-    // MARK: - Properties
-    
-    // Web service
-    var currency: String?
-    var exchangeTimezone: String?
-    var closeValues = [Double]()
-    
-    // MARK: - Coding Keys
-    
-    private enum tickerKeys: String, CodingKey {
-        case closeValues = "close"
-    }
-    
-    required init(from decoder: Decoder) throws {
+    private struct DynamicCodingKeys: CodingKey {
         
-        let values = try decoder.container(keyedBy: tickerKeys.self)
-        
-        do {
-            print(type(of: (try values.decode(String.self, forKey: .closeValues))))
-            self.currency = try values.decode(String.self, forKey: .closeValues)
-        }
-        catch {
-            self.currency = ""
+        var stringValue: String
+        init?(stringValue: String) {
+            self.stringValue = stringValue
         }
         
+        var intValue: Int?
+        init?(intValue: Int) {
+            return nil
+        }
     }
+    
+    init(from decoder: Decoder) throws {
+        // Retrieve close values and meta data
+        let container = try decoder.container(keyedBy: DynamicCodingKeys.self)
+        
+        var tempArray = [Ticker]()
+        
+        for key in container.allKeys {
+            let decodedObject = try container.decode(Ticker.self, forKey: DynamicCodingKeys(stringValue: key.stringValue)!)
+            tempArray.append(decodedObject)
+        }
+        
+        self.tickerArray = tempArray
+    }
+}
 
+struct Ticker: Decodable {
+    var values: [TimeSeriesCloses]
+    var meta: MetaData
+}
+
+struct MetaData: Decodable {
+    var symbol: String
+    var currency: String
+}
+
+struct TimeSeriesCloses: Decodable {
+    var close: String
 }

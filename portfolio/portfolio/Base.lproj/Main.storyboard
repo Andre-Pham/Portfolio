@@ -528,7 +528,7 @@
                                 <rect key="frame" x="280" y="172" width="97" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DQQ-U9-vrt">
                                 <rect key="frame" x="20" y="179" width="39" height="21"/>
@@ -548,15 +548,24 @@
                                 <rect key="frame" x="280" y="223" width="97" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9U7-eq-b0M"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="TICKER" id="jyB-nY-FVf">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="85e-wf-z7b"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="85e-wf-z7b">
+                            <connections>
+                                <action selector="saveBarButtonPressed:" destination="BeY-gR-m69" id="45u-hr-7mW"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="priceTextField" destination="r0x-ay-QYg" id="lTm-Jl-JFv"/>
+                        <outlet property="purchaseDatePicker" destination="em9-Oz-dyH" id="jWS-oH-HOz"/>
+                        <outlet property="sharesTextField" destination="jvL-Lc-CUo" id="KyJ-lw-fRf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="spb-iG-RQK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

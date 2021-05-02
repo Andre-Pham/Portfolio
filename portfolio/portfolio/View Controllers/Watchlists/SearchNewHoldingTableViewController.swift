@@ -100,7 +100,13 @@ class SearchNewHoldingTableViewController: UITableViewController {
     
     /// Transfers the name, instructions and ingredients of the selected meal to the CreateMealTableViewController when the user travels there
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        if segue.identifier == SEGUE_OWNED_HOLDING {
+            let destination = segue.destination as! NewOwnedHoldingViewController
+            let holding = self.searchResultsHoldings[tableView.indexPathForSelectedRow!.row]
+            
+            destination.watchlist = self.watchlist
+            destination.holding = holding
+        }
         /*
         if segue.identifier == "searchMealSegue" {
             // Define meal from cell being selected

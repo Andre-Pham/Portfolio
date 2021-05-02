@@ -26,6 +26,7 @@ class NewWatchlistViewController: UIViewController {
     @IBAction func saveBarButtonPressed(_ sender: Any) {
         // TODO - ADD POPUP VALIDATION FOR NAME ENTERED
         let _ = databaseController?.addCoreWatchlist(name: nameTextField.text ?? "", owned: ownedSwitch.isOn)
+        databaseController?.saveChanges()
         
         navigationController?.popViewController(animated: true)
         return

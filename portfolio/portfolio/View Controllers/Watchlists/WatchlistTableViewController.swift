@@ -16,6 +16,8 @@ class WatchlistTableViewController: UITableViewController {
     
     let SECTION_HOLDING = 0
     let SECTION_RENAME = 1
+    
+    let SEGUE_ADD_HOLDING = "addHoldingSegue"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +72,13 @@ class WatchlistTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Holdings can be deleted
         return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == SEGUE_ADD_HOLDING {
+            let destination = segue.destination as! SearchNewHoldingTableViewController
+            destination.watchlist = self.shownWatchlist
+        }
     }
 
 }

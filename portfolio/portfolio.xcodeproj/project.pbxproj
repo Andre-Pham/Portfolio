@@ -25,6 +25,7 @@
 		659C8FC1263E7765004D1E30 /* HoldingPurchasesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FC0263E7765004D1E30 /* HoldingPurchasesTableViewController.swift */; };
 		659C8FC3263E778C004D1E30 /* HoldingPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FC2263E778C004D1E30 /* HoldingPurchaseViewController.swift */; };
 		659C8FC7263E85ED004D1E30 /* TickerSearchWebData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FC6263E85ED004D1E30 /* TickerSearchWebData.swift */; };
+		659C8FC9263EA34E004D1E30 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FC8263EA34E004D1E30 /* Popup.swift */; };
 		65AFBE12262D64860039CB66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE11262D64860039CB66 /* AppDelegate.swift */; };
 		65AFBE14262D64860039CB66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE13262D64860039CB66 /* SceneDelegate.swift */; };
 		65AFBE19262D64860039CB66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65AFBE17262D64860039CB66 /* Main.storyboard */; };
@@ -63,6 +64,7 @@
 		659C8FC0263E7765004D1E30 /* HoldingPurchasesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingPurchasesTableViewController.swift; sourceTree = "<group>"; };
 		659C8FC2263E778C004D1E30 /* HoldingPurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingPurchaseViewController.swift; sourceTree = "<group>"; };
 		659C8FC6263E85ED004D1E30 /* TickerSearchWebData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerSearchWebData.swift; sourceTree = "<group>"; };
+		659C8FC8263EA34E004D1E30 /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		65AFBE0E262D64860039CB66 /* portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65AFBE11262D64860039CB66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65AFBE13262D64860039CB66 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				65AFBE1A262D648D0039CB66 /* Assets.xcassets */,
 				65AFBE1C262D648D0039CB66 /* LaunchScreen.storyboard */,
 				65AFBE1F262D648D0039CB66 /* Info.plist */,
+				659C8FC8263EA34E004D1E30 /* Popup.swift */,
 			);
 			path = portfolio;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				659C8FA4263E3ACB004D1E30 /* MulticastDelegate.swift in Sources */,
 				659C8FB7263E741A004D1E30 /* NewWatchlistViewController.swift in Sources */,
 				659C8FB0263E41E1004D1E30 /* CoreWatchlist+CoreDataProperties.swift in Sources */,
+				659C8FC9263EA34E004D1E30 /* Popup.swift in Sources */,
 				659C8FAE263E41E1004D1E30 /* CorePurchase+CoreDataProperties.swift in Sources */,
 				659C8F71263C62AB004D1E30 /* TickerWebData.swift in Sources */,
 				659C8FC7263E85ED004D1E30 /* TickerSearchWebData.swift in Sources */,

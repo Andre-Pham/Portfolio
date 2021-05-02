@@ -78,7 +78,16 @@ class WatchlistTableViewController: UITableViewController {
         if segue.identifier == SEGUE_ADD_HOLDING {
             let destination = segue.destination as! SearchNewHoldingTableViewController
             destination.watchlist = self.shownWatchlist
+            destination.refreshTableViewDelegate = self
         }
     }
 
+}
+
+extension WatchlistTableViewController: RefreshTableViewDelegate {
+    
+    func refreshTableview() {
+        tableView.reloadData()
+    }
+    
 }

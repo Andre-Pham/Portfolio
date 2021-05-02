@@ -8,22 +8,27 @@
 import UIKit
 
 class NewWatchlistViewController: UIViewController {
+    
+    weak var databaseController: DatabaseProtocol?
 
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var ownedSwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        // Sets property databaseController to reference to the databaseController
+        // from AppDelegate
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func saveBarButtonPressed(_ sender: Any) {
+        // TODO - ADD POPUP VALIDATION FOR NAME ENTERED
+        let _ = databaseController?.addCoreWatchlist(name: nameTextField.text ?? "", owned: ownedSwitch.isOn)
+        
+        navigationController?.popViewController(animated: true)
+        return
     }
-    */
-
+    
 }

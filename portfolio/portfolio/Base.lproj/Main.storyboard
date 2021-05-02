@@ -284,7 +284,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="mqu-Oc-uG4" kind="show" id="WDy-AK-FAi"/>
+                                    <segue destination="mqu-Oc-uG4" kind="show" identifier="selectWatchlistSegue" id="WDy-AK-FAi"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -349,8 +349,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Watchlist" id="UWK-qp-xqi">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="M01-yt-eI8"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="M01-yt-eI8">
+                            <connections>
+                                <action selector="saveBarButtonPressed:" destination="4AB-Lq-VgT" id="xEC-aF-CWE"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="nameTextField" destination="p6l-g8-Xz1" id="pIX-Qb-IhC"/>
+                        <outlet property="ownedSwitch" destination="0b4-7p-tZS" id="5Aa-tW-TPm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z90-IY-oZ8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -365,7 +373,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="OlK-69-hcX">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="holdingCell" id="OlK-69-hcX">
                                 <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OlK-69-hcX" id="jWB-xf-EyC">
@@ -376,7 +384,7 @@
                                     <segue destination="MNB-bh-0FE" kind="show" id="9FT-8Z-r1W"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="N6H-5X-XDJ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="renameCell" id="N6H-5X-XDJ">
                                 <rect key="frame" x="0.0" y="68" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N6H-5X-XDJ" id="CKX-7q-54d">

@@ -15,6 +15,8 @@ class WatchlistsTableViewController: UITableViewController {
     weak var databaseController: DatabaseProtocol?
     
     let CELL_WATCHLIST = "watchlistCell"
+    
+    let SEGUE_SELECT_WATCHLIST = "selectWatchlistSegue"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +76,17 @@ class WatchlistsTableViewController: UITableViewController {
             let watchlist = shownWatchlists[indexPath.row]
             databaseController?.deleteCoreWatchlist(coreWatchlist: watchlist)
             databaseController?.saveChanges()
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == SEGUE_SELECT_WATCHLIST {
+            // SOURCE: https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
+            // AUTHOR: GetSwifty
+            let watchlist = self.shownWatchlists[tableView.indexPathForSelectedRow!.row]
+            let destination = segue.destination as! WatchlistTableViewController
+            
+            destination.shownWatchlist = watchlist
         }
     }
 

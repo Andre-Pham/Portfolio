@@ -39,7 +39,7 @@ class NewOwnedHoldingViewController: UIViewController {
             let _ = databaseController?.addCorePurchaseToCoreHolding(shares: shares, date: date, price: price, coreHolding: newCoreHolding!)
             databaseController?.saveChanges()
             
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadHoldings"), object: nil)
 
             // https://stackoverflow.com/questions/30003814/how-can-i-pop-specific-view-controller-in-swift
             for controller in self.navigationController!.viewControllers as Array {

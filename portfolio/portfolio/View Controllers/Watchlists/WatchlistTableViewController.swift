@@ -23,14 +23,14 @@ class WatchlistTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableview), name: NSNotification.Name(rawValue: "reloadHoldings"), object: nil)
         
         // Sets title to watchlist name
         self.title = self.shownWatchlist?.name
     }
     
     // https://stackoverflow.com/questions/25921623/how-to-reload-tableview-from-another-view-controller-in-swift
-    @objc func loadList(notification: NSNotification){
+    @objc func reloadTableview(notification: NSNotification){
         //load data here
         self.tableView.reloadData()
     }
@@ -80,6 +80,16 @@ class WatchlistTableViewController: UITableViewController {
     /// Returns whether a given section can be edited
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Holdings can be deleted
+        return true
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
+        if identifier == SEGUE_PURCHASES {
+            if let ownedWatchlist = self.shownWatchlist?.owned {
+                return ownedWatchlist
+            }
+        }
+        
         return true
     }
     

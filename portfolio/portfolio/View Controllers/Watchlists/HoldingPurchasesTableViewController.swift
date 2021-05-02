@@ -12,11 +12,22 @@ class HoldingPurchasesTableViewController: UITableViewController {
     var coreHolding: CoreHolding?
     
     let CELL_PURCHASE = "purchaseCell"
+    
+    let SEGUE_EDIT_PURCHASE = "editPurchaseSegue"
+    let SEGUE_NEW_PURCHASE = "newPurchaseSegue"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableview), name: NSNotification.Name(rawValue: "reloadPurchases"), object: nil)
 
         self.title = self.coreHolding?.ticker
+    }
+    
+    // https://stackoverflow.com/questions/25921623/how-to-reload-tableview-from-another-view-controller-in-swift
+    @objc func reloadTableview(notification: NSNotification){
+        //load data here
+        self.tableView.reloadData()
     }
 
     /// Returns how many sections the TableView has
@@ -50,6 +61,17 @@ class HoldingPurchasesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // CHANGE TO TRUE LATER
         return false
+    }
+    
+    /// Transfers the name, instructions and ingredients of the selected meal to the CreateMealTableViewController when the user travels there
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! HoldingPurchaseViewController
+        destination.holding = self.coreHolding
+        
+        if segue.identifier == SEGUE_EDIT_PURCHASE {
+            let purchases = self.coreHolding?.purchases?.allObjects as! [CorePurchase]
+            destination.purchaseToEdit = purchases[tableView.indexPathForSelectedRow!.row]
+        }
     }
 
 }

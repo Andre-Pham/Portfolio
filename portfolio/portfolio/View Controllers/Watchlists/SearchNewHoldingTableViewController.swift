@@ -85,7 +85,7 @@ class SearchNewHoldingTableViewController: UITableViewController {
                 let _ = databaseController?.addCoreHoldingToCoreWatchlist(ticker: holding.ticker!, coreWatchlist: self.watchlist!)
                 databaseController?.saveChanges()
                 
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadHoldings"), object: nil)
                 
                 navigationController?.popViewController(animated: true)
                 

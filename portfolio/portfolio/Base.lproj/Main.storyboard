@@ -443,7 +443,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="EWR-DL-SKm" kind="show" identifier="" id="wOQ-g9-E0K"/>
+                                    <segue destination="EWR-DL-SKm" kind="show" identifier="editPurchaseSegue" id="wOQ-g9-E0K"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -455,7 +455,7 @@
                     <navigationItem key="navigationItem" title="TICKER Purchases" id="r0V-TE-7Rz">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="tXA-Ej-kHj">
                             <connections>
-                                <segue destination="EWR-DL-SKm" kind="show" id="cPp-pW-5Jy"/>
+                                <segue destination="EWR-DL-SKm" kind="show" identifier="newPurchaseSegue" id="cPp-pW-5Jy"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -736,7 +736,7 @@
                                 <rect key="frame" x="280" y="172" width="97" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vqx-qP-7yL">
                                 <rect key="frame" x="20" y="179" width="39" height="21"/>
@@ -756,15 +756,24 @@
                                 <rect key="frame" x="280" y="223" width="97" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kh3-0U-aOH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="TICKER" id="xS6-an-yvA">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="qcv-Cs-4Qx"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="qcv-Cs-4Qx">
+                            <connections>
+                                <action selector="saveBarButtonPressed:" destination="EWR-DL-SKm" id="RJz-co-E09"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="priceTextField" destination="VCz-hF-jp1" id="mDZ-9F-keL"/>
+                        <outlet property="purchaseDatePicker" destination="IeN-0z-F7H" id="O6P-mf-91G"/>
+                        <outlet property="sharesTextField" destination="VBy-t9-eRz" id="u8f-V4-srL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9jg-MQ-XhR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -772,7 +781,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wOQ-g9-E0K"/>
+        <segue reference="cPp-pW-5Jy"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

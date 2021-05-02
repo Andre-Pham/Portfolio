@@ -18,6 +18,7 @@ class WatchlistTableViewController: UITableViewController {
     let SECTION_RENAME = 1
     
     let SEGUE_ADD_HOLDING = "addHoldingSegue"
+    let SEGUE_PURCHASES = "holdingPurchasesSegue"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +87,12 @@ class WatchlistTableViewController: UITableViewController {
         if segue.identifier == SEGUE_ADD_HOLDING {
             let destination = segue.destination as! SearchNewHoldingTableViewController
             destination.watchlist = self.shownWatchlist
+        }
+        else if segue.identifier == SEGUE_PURCHASES {
+            let destination = segue.destination as! HoldingPurchasesTableViewController
+            let holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
+            let holding = holdings[tableView.indexPathForSelectedRow!.row]
+            destination.coreHolding = holding
         }
     }
 

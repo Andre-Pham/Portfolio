@@ -381,7 +381,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="MNB-bh-0FE" kind="show" id="9FT-8Z-r1W"/>
+                                    <segue destination="MNB-bh-0FE" kind="show" identifier="holdingPurchasesSegue" id="9FT-8Z-r1W"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="renameCell" id="N6H-5X-XDJ">
@@ -419,7 +419,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="xib-Gj-nlQ" detailTextLabel="kvi-cp-qdk" style="IBUITableViewCellStyleSubtitle" id="A4e-6F-Dxd">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="purchaseCell" textLabel="xib-Gj-nlQ" detailTextLabel="kvi-cp-qdk" style="IBUITableViewCellStyleSubtitle" id="A4e-6F-Dxd">
                                 <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A4e-6F-Dxd" id="LUj-qt-fSa">
@@ -443,7 +443,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="EWR-DL-SKm" kind="show" id="wOQ-g9-E0K"/>
+                                    <segue destination="EWR-DL-SKm" kind="show" identifier="" id="wOQ-g9-E0K"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -772,7 +772,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="cPp-pW-5Jy"/>
+        <segue reference="wOQ-g9-E0K"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

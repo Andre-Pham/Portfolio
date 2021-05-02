@@ -23,6 +23,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     // Other properties
     var shownWatchlist: Watchlist?
     
+    weak var databaseController: DatabaseProtocol?
+    
     // MARK: - Outlets
     
     @IBOutlet weak var holdingsTableView: UITableView!
@@ -36,18 +38,15 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TESTING
-        let holding1 = Holding(ticker: "TEST", dates: ["TEST_DATE"], prices: [100], currentPrice: 100)
-        let holding2 = Holding(ticker: "TEST2", dates: ["TEST_DATE2"], prices: [200], currentPrice: 200)
+        // Sets property databaseController to reference to the databaseController
+        // from AppDelegate
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
         
-        self.shownWatchlist = Watchlist(name: "TEST_NAME", owned: false)
-        self.shownWatchlist?.holdings?.append(holding1)
-        self.shownWatchlist?.holdings?.append(holding2)
-        self.shownWatchlist?.holdings?.append(holding2)
-        self.shownWatchlist?.holdings?.append(holding2)
-        self.shownWatchlist?.holdings?.append(holding2)
-        self.shownWatchlist?.holdings?.append(holding2)
-        self.shownWatchlist?.holdings?.append(holding2)
+        // TESTING
+        //let _ = databaseController?.addCoreWatchlist(name: "test watchlist", owned: true)
+        //let _ = databaseController?.addCoreWatchlist(name: "test watchlist2", owned: false)
+        //databaseController?.saveChanges()
         
         //rootStackView.addBackground(color: .red)
         // TESTING END

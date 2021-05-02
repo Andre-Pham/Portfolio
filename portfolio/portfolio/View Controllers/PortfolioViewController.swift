@@ -18,12 +18,14 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         // TESTING
+        /*
         let holding1 = Holding(ticker: "TEST", dates: ["TEST_DATE"], prices: [100], currentPrice: 100)
         let holding2 = Holding(ticker: "TEST2", dates: ["TEST_DATE2"], prices: [200], currentPrice: 200)
         
         self.portfolio = Watchlist(name: "TEST_NAME", owned: false)
         self.portfolio?.holdings?.append(holding1)
         self.portfolio?.holdings?.append(holding2)
+        */
         // TESTING END
         
         // SOURCE: https://stackoverflow.com/questions/33234180/uitableview-example-for-swift

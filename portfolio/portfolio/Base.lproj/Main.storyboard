@@ -308,7 +308,7 @@
         <!--New Watchlist-->
         <scene sceneID="Gau-5o-HsP">
             <objects>
-                <viewController id="4AB-Lq-VgT" sceneMemberID="viewController">
+                <viewController id="4AB-Lq-VgT" customClass="NewWatchlistViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xbu-6F-2Ab">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -359,7 +359,7 @@
         <!--WATCHLIST NAME-->
         <scene sceneID="mD2-js-FO7">
             <objects>
-                <tableViewController id="mqu-Oc-uG4" sceneMemberID="viewController">
+                <tableViewController id="mqu-Oc-uG4" customClass="WatchlistTableViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pmU-t9-67a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -405,7 +405,7 @@
         <!--TICKER Purchases-->
         <scene sceneID="GfJ-2N-t8Q">
             <objects>
-                <tableViewController id="MNB-bh-0FE" sceneMemberID="viewController">
+                <tableViewController id="MNB-bh-0FE" customClass="HoldingPurchasesTableViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="755-A9-k7A">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -459,7 +459,7 @@
         <!--Add Holding-->
         <scene sceneID="ZXn-EH-GmI">
             <objects>
-                <tableViewController id="hgo-46-Zbb" sceneMemberID="viewController">
+                <tableViewController id="hgo-46-Zbb" customClass="SearchNewHoldingTableViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Zo9-hb-eXs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -491,7 +491,7 @@
         <!--TICKER-->
         <scene sceneID="1et-6D-f6d">
             <objects>
-                <viewController id="BeY-gR-m69" sceneMemberID="viewController">
+                <viewController id="BeY-gR-m69" customClass="NewOwnedHoldingViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LXe-4k-Rrf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -690,7 +690,7 @@
         <!--TICKER-->
         <scene sceneID="4YZ-IQ-XAd">
             <objects>
-                <viewController id="EWR-DL-SKm" sceneMemberID="viewController">
+                <viewController id="EWR-DL-SKm" customClass="HoldingPurchaseViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="edp-fo-oiY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

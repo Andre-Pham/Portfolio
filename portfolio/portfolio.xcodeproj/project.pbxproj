@@ -24,6 +24,7 @@
 		659C8FBF263E773B004D1E30 /* SearchNewHoldingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FBE263E773B004D1E30 /* SearchNewHoldingTableViewController.swift */; };
 		659C8FC1263E7765004D1E30 /* HoldingPurchasesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FC0263E7765004D1E30 /* HoldingPurchasesTableViewController.swift */; };
 		659C8FC3263E778C004D1E30 /* HoldingPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FC2263E778C004D1E30 /* HoldingPurchaseViewController.swift */; };
+		659C8FC7263E85ED004D1E30 /* TickerSearchWebData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FC6263E85ED004D1E30 /* TickerSearchWebData.swift */; };
 		65AFBE12262D64860039CB66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE11262D64860039CB66 /* AppDelegate.swift */; };
 		65AFBE14262D64860039CB66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE13262D64860039CB66 /* SceneDelegate.swift */; };
 		65AFBE19262D64860039CB66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65AFBE17262D64860039CB66 /* Main.storyboard */; };
@@ -61,6 +62,7 @@
 		659C8FBE263E773B004D1E30 /* SearchNewHoldingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewHoldingTableViewController.swift; sourceTree = "<group>"; };
 		659C8FC0263E7765004D1E30 /* HoldingPurchasesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingPurchasesTableViewController.swift; sourceTree = "<group>"; };
 		659C8FC2263E778C004D1E30 /* HoldingPurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingPurchaseViewController.swift; sourceTree = "<group>"; };
+		659C8FC6263E85ED004D1E30 /* TickerSearchWebData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerSearchWebData.swift; sourceTree = "<group>"; };
 		65AFBE0E262D64860039CB66 /* portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65AFBE11262D64860039CB66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65AFBE13262D64860039CB66 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				659C8F70263C62AB004D1E30 /* TickerWebData.swift */,
+				659C8FC6263E85ED004D1E30 /* TickerSearchWebData.swift */,
 			);
 			path = "Web Service";
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				659C8FB0263E41E1004D1E30 /* CoreWatchlist+CoreDataProperties.swift in Sources */,
 				659C8FAE263E41E1004D1E30 /* CorePurchase+CoreDataProperties.swift in Sources */,
 				659C8F71263C62AB004D1E30 /* TickerWebData.swift in Sources */,
+				659C8FC7263E85ED004D1E30 /* TickerSearchWebData.swift in Sources */,
 				65AFBE36262E2AA20039CB66 /* PerformanceViewController.swift in Sources */,
 				659C8FC1263E7765004D1E30 /* HoldingPurchasesTableViewController.swift in Sources */,
 			);

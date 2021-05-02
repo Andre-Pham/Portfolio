@@ -16,10 +16,23 @@ class Holding: NSObject {
     var prices: [Double]?
     var currentPrice: Double?
     
+    var instrument: String?
+    var exchange: String?
+    var currency: String?
+    
+    
     // Not required
     var purchases: [Purchase] = []
     
     // MARK: - Constructor
+    
+    // Searched holding
+    init(ticker: String, instrument: String, exchange: String, currency: String) {
+        self.ticker = ticker
+        self.instrument = instrument
+        self.exchange = exchange
+        self.currency = currency
+    }
     
     init(ticker: String, prices: [Double], currentPrice: Double) {
         self.ticker = ticker

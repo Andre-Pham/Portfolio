@@ -18,6 +18,12 @@
 		659C8FB1263E41E1004D1E30 /* CoreHolding+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FAB263E41E1004D1E30 /* CoreHolding+CoreDataClass.swift */; };
 		659C8FB2263E41E1004D1E30 /* CoreHolding+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FAC263E41E1004D1E30 /* CoreHolding+CoreDataProperties.swift */; };
 		659C8FB4263E4437004D1E30 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FB3263E4437004D1E30 /* CoreDataController.swift */; };
+		659C8FB7263E741A004D1E30 /* NewWatchlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FB6263E741A004D1E30 /* NewWatchlistViewController.swift */; };
+		659C8FB9263E75A7004D1E30 /* WatchlistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FB8263E75A7004D1E30 /* WatchlistTableViewController.swift */; };
+		659C8FBB263E76CB004D1E30 /* NewOwnedHoldingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FBA263E76CB004D1E30 /* NewOwnedHoldingViewController.swift */; };
+		659C8FBF263E773B004D1E30 /* SearchNewHoldingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FBE263E773B004D1E30 /* SearchNewHoldingTableViewController.swift */; };
+		659C8FC1263E7765004D1E30 /* HoldingPurchasesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FC0263E7765004D1E30 /* HoldingPurchasesTableViewController.swift */; };
+		659C8FC3263E778C004D1E30 /* HoldingPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FC2263E778C004D1E30 /* HoldingPurchaseViewController.swift */; };
 		65AFBE12262D64860039CB66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE11262D64860039CB66 /* AppDelegate.swift */; };
 		65AFBE14262D64860039CB66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE13262D64860039CB66 /* SceneDelegate.swift */; };
 		65AFBE19262D64860039CB66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65AFBE17262D64860039CB66 /* Main.storyboard */; };
@@ -49,6 +55,12 @@
 		659C8FAB263E41E1004D1E30 /* CoreHolding+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreHolding+CoreDataClass.swift"; sourceTree = "<group>"; };
 		659C8FAC263E41E1004D1E30 /* CoreHolding+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreHolding+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		659C8FB3263E4437004D1E30 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		659C8FB6263E741A004D1E30 /* NewWatchlistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWatchlistViewController.swift; sourceTree = "<group>"; };
+		659C8FB8263E75A7004D1E30 /* WatchlistTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTableViewController.swift; sourceTree = "<group>"; };
+		659C8FBA263E76CB004D1E30 /* NewOwnedHoldingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOwnedHoldingViewController.swift; sourceTree = "<group>"; };
+		659C8FBE263E773B004D1E30 /* SearchNewHoldingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewHoldingTableViewController.swift; sourceTree = "<group>"; };
+		659C8FC0263E7765004D1E30 /* HoldingPurchasesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingPurchasesTableViewController.swift; sourceTree = "<group>"; };
+		659C8FC2263E778C004D1E30 /* HoldingPurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingPurchaseViewController.swift; sourceTree = "<group>"; };
 		65AFBE0E262D64860039CB66 /* portfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = portfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65AFBE11262D64860039CB66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65AFBE13262D64860039CB66 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +110,20 @@
 			path = "Core Data";
 			sourceTree = "<group>";
 		};
+		659C8FB5263E72BA004D1E30 /* Watchlists */ = {
+			isa = PBXGroup;
+			children = (
+				65AFBE3B262E2AE00039CB66 /* WatchlistsTableViewController.swift */,
+				659C8FB6263E741A004D1E30 /* NewWatchlistViewController.swift */,
+				659C8FB8263E75A7004D1E30 /* WatchlistTableViewController.swift */,
+				659C8FBA263E76CB004D1E30 /* NewOwnedHoldingViewController.swift */,
+				659C8FBE263E773B004D1E30 /* SearchNewHoldingTableViewController.swift */,
+				659C8FC0263E7765004D1E30 /* HoldingPurchasesTableViewController.swift */,
+				659C8FC2263E778C004D1E30 /* HoldingPurchaseViewController.swift */,
+			);
+			path = Watchlists;
+			sourceTree = "<group>";
+		};
 		65AFBE05262D64850039CB66 = {
 			isa = PBXGroup;
 			children = (
@@ -137,12 +163,12 @@
 		65AFBE2D262E28010039CB66 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				659C8FB5263E72BA004D1E30 /* Watchlists */,
 				65AFBE2F262E293B0039CB66 /* DashboardViewController.swift */,
 				65AFBE2A262E27FB0039CB66 /* TabBarViewController.swift */,
 				65AFBE32262E2A780039CB66 /* PortfolioViewController.swift */,
 				65AFBE35262E2AA20039CB66 /* PerformanceViewController.swift */,
 				65AFBE38262E2AC20039CB66 /* MarketsCollectionViewController.swift */,
-				65AFBE3B262E2AE00039CB66 /* WatchlistsTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -272,6 +298,7 @@
 				65AFBE2B262E27FC0039CB66 /* TabBarViewController.swift in Sources */,
 				659C8FAF263E41E1004D1E30 /* CoreWatchlist+CoreDataClass.swift in Sources */,
 				65AFBE33262E2A780039CB66 /* PortfolioViewController.swift in Sources */,
+				659C8FBB263E76CB004D1E30 /* NewOwnedHoldingViewController.swift in Sources */,
 				65AFBE39262E2AC20039CB66 /* MarketsCollectionViewController.swift in Sources */,
 				659C8FAD263E41E1004D1E30 /* CorePurchase+CoreDataClass.swift in Sources */,
 				65AFBE45262E5DCE0039CB66 /* Watchlist.swift in Sources */,
@@ -283,11 +310,16 @@
 				65AFBE40262E5D950039CB66 /* Holding.swift in Sources */,
 				65AFBE30262E293B0039CB66 /* DashboardViewController.swift in Sources */,
 				65B7D8CE263770E400FA8284 /* ChartView.swift in Sources */,
+				659C8FBF263E773B004D1E30 /* SearchNewHoldingTableViewController.swift in Sources */,
+				659C8FC3263E778C004D1E30 /* HoldingPurchaseViewController.swift in Sources */,
+				659C8FB9263E75A7004D1E30 /* WatchlistTableViewController.swift in Sources */,
 				659C8FA4263E3ACB004D1E30 /* MulticastDelegate.swift in Sources */,
+				659C8FB7263E741A004D1E30 /* NewWatchlistViewController.swift in Sources */,
 				659C8FB0263E41E1004D1E30 /* CoreWatchlist+CoreDataProperties.swift in Sources */,
 				659C8FAE263E41E1004D1E30 /* CorePurchase+CoreDataProperties.swift in Sources */,
 				659C8F71263C62AB004D1E30 /* TickerWebData.swift in Sources */,
 				65AFBE36262E2AA20039CB66 /* PerformanceViewController.swift in Sources */,
+				659C8FC1263E7765004D1E30 /* HoldingPurchasesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

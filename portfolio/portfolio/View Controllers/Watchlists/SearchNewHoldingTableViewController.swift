@@ -9,8 +9,6 @@ import UIKit
 
 class SearchNewHoldingTableViewController: UITableViewController {
     
-    weak var refreshTableViewDelegate: RefreshTableViewDelegate?
-    
     weak var databaseController: DatabaseProtocol?
     
     var watchlist: CoreWatchlist?
@@ -87,7 +85,7 @@ class SearchNewHoldingTableViewController: UITableViewController {
                 let _ = databaseController?.addCoreHoldingToCoreWatchlist(ticker: holding.ticker!, coreWatchlist: self.watchlist!)
                 databaseController?.saveChanges()
                 
-                self.refreshTableViewDelegate?.refreshTableview()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                 
                 navigationController?.popViewController(animated: true)
                 

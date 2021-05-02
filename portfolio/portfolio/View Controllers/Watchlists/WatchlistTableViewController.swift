@@ -22,8 +22,16 @@ class WatchlistTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
+        
         // Sets title to watchlist name
         self.title = self.shownWatchlist?.name
+    }
+    
+    // https://stackoverflow.com/questions/25921623/how-to-reload-tableview-from-another-view-controller-in-swift
+    @objc func loadList(notification: NSNotification){
+        //load data here
+        self.tableView.reloadData()
     }
 
     /// Returns how many sections the TableView has
@@ -78,16 +86,7 @@ class WatchlistTableViewController: UITableViewController {
         if segue.identifier == SEGUE_ADD_HOLDING {
             let destination = segue.destination as! SearchNewHoldingTableViewController
             destination.watchlist = self.shownWatchlist
-            destination.refreshTableViewDelegate = self
         }
     }
 
-}
-
-extension WatchlistTableViewController: RefreshTableViewDelegate {
-    
-    func refreshTableview() {
-        tableView.reloadData()
-    }
-    
 }

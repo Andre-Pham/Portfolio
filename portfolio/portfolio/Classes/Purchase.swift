@@ -11,13 +11,13 @@ class Purchase: NSObject {
     
     // MARK: - Properties
     
-    var date: String?
+    var date: Date?
     var price: Double?
     var shares: Double?
     
     // MARK: - Constructor
     
-    init(date: String, price: Double, shares: Double) {
+    init(date: Date, price: Double, shares: Double) {
         self.date = date
         self.price = price
         self.shares = shares

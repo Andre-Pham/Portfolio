@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E232" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CoreHolding" representedClassName="CoreHolding" syncable="YES">
+        <attribute name="ticker" optional="YES" attributeType="String"/>
+        <relationship name="purchases" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CorePurchase" inverseName="holding" inverseEntity="CorePurchase"/>
+        <relationship name="watchlist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreWatchlist" inverseName="holdings" inverseEntity="CoreWatchlist"/>
+    </entity>
+    <entity name="CorePurchase" representedClassName="CorePurchase" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="shares" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="holding" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreHolding" inverseName="purchases" inverseEntity="CoreHolding"/>
+    </entity>
+    <entity name="CoreWatchlist" representedClassName="CoreWatchlist" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="owned" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="holdings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CoreHolding" inverseName="watchlist" inverseEntity="CoreHolding"/>
+    </entity>
+    <elements>
+        <element name="CoreHolding" positionX="-58.1171875" positionY="-10.97265625" width="128" height="88"/>
+        <element name="CoreWatchlist" positionX="-228.984375" positionY="122" width="128" height="88"/>
+        <element name="CorePurchase" positionX="206.51953125" positionY="152.30859375" width="128" height="103"/>
+    </elements>
+</model>

@@ -13,7 +13,6 @@ class Holding: NSObject {
     
     // Required
     var ticker: String?
-    var dates: [String]?
     var prices: [Double]?
     var currentPrice: Double?
     
@@ -22,9 +21,8 @@ class Holding: NSObject {
     
     // MARK: - Constructor
     
-    init(ticker: String, dates: [String], prices: [Double], currentPrice: Double) {
+    init(ticker: String, prices: [Double], currentPrice: Double) {
         self.ticker = ticker
-        self.dates = dates
         self.prices = prices
         self.currentPrice = currentPrice
     }

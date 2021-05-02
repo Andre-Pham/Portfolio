@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E232" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Holding" representedClassName="Holding" syncable="YES" codeGenerationType="class">
+        <attribute name="ticker" optional="YES"/>
+    </entity>
+    <entity name="Purchase" representedClassName="Purchase" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES"/>
+        <attribute name="price" optional="YES"/>
+        <attribute name="shares" optional="YES"/>
+    </entity>
+    <entity name="Watchlist" representedClassName="Watchlist" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES"/>
+        <attribute name="owned" optional="YES"/>
+    </entity>
+    <elements>
+        <element name="Watchlist" positionX="-63" positionY="-18" width="128" height="59"/>
+        <element name="Holding" positionX="-54" positionY="-9" width="128" height="44"/>
+        <element name="Purchase" positionX="-36" positionY="9" width="128" height="74"/>
+    </elements>
+</model>

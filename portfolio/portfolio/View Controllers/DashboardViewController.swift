@@ -47,7 +47,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
-        self.shownWatchlist = databaseController?.retrievePortfolio()
+        //self.shownWatchlist = databaseController?.retrievePortfolio()
 
         // SOURCE: https://stackoverflow.com/questions/33234180/uitableview-example-for-swift
         // AUTHOR: Suragch - https://stackoverflow.com/users/3681880/suragch
@@ -67,7 +67,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // TESTING WEB DATA
         
         //self.requestTickerWebData(tickers: "MSFT", startDate: "2021-4-26")
-        self.loadChart()
+        //self.loadChart()
         // END TESTING WEB DATA
     }
     
@@ -218,6 +218,14 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Calls before the view appears on screen
     override func viewWillAppear(_ animated: Bool) {
+        let portfolio = databaseController?.retrievePortfolio()
+        if portfolio != self.shownWatchlist {
+            self.shownWatchlist = portfolio
+            self.shownHoldings.removeAll()
+            self.loadChart()
+            self.holdingsTableView.reloadData()
+        }
+        
         // Adds an observer which calls observeValue when number of cells changes
         self.holdingsTableView.addObserver(self, forKeyPath: KEYPATH_TABLEVIEW_HEIGHT, options: .new, context: nil)
         self.holdingsTableView.reloadData()

@@ -29,6 +29,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     let swiftUIView = ChartView()
     var chartData = ChartData(title: "Title", legend: "Legend", data: [])
     
+    var indicator = UIActivityIndicatorView()
+    
     // MARK: - Outlets
     
     @IBOutlet weak var holdingsTableView: UITableView!
@@ -69,6 +71,17 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         //self.requestTickerWebData(tickers: "MSFT", startDate: "2021-4-26")
         //self.loadChart()
         // END TESTING WEB DATA
+        
+        // Add a loading indicator view
+        self.indicator.style = UIActivityIndicatorView.Style.large
+        self.indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.indicator)
+        
+        // Centres the loading indicator view
+        NSLayoutConstraint.activate([
+            self.indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            self.indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
     }
     
     func loadChart() {
@@ -93,6 +106,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         print(tickers.dropLast())
         print(earlierDateString)
         print("-----")
+        indicator.startAnimating()
         self.requestTickerWebData(tickers: String(tickers.dropLast()), startDate: earlierDateString)
         
     }
@@ -137,6 +151,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // Occurs on a new thread
         let task = URLSession.shared.dataTask(with: requestURL) {
             (data, response, error) in
+            
+            DispatchQueue.main.async {
+                self.indicator.stopAnimating()
+            }
             
             // If we have recieved an error message
             if let error = error {

@@ -2,7 +2,7 @@
 //  CoreWatchlist+CoreDataProperties.swift
 //  portfolio
 //
-//  Created by Andre Pham on 2/5/21.
+//  Created by Andre Pham on 3/5/21.
 //
 //
 
@@ -18,6 +18,7 @@ extension CoreWatchlist {
 
     @NSManaged public var name: String?
     @NSManaged public var owned: Bool
+    @NSManaged public var isPortfolio: Bool
     @NSManaged public var holdings: NSSet?
 
 }

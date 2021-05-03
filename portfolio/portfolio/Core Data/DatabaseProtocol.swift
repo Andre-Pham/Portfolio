@@ -38,11 +38,13 @@ protocol DatabaseProtocol: AnyObject {
     func addCoreWatchlist(name: String, owned: Bool) -> CoreWatchlist
     func deleteCoreWatchlist(coreWatchlist: CoreWatchlist)
     
-    func addCoreHoldingToCoreWatchlist(ticker: String, coreWatchlist: CoreWatchlist) -> CoreHolding
+    func addCoreHoldingToCoreWatchlist(ticker: String, currency: String, coreWatchlist: CoreWatchlist) -> CoreHolding
     func deleteCoreHoldingFromCoreWatchlist(coreHolding: CoreHolding, coreWatchlist: CoreWatchlist)
     
     func addCorePurchaseToCoreHolding(shares: Double, date: Date, price: Double, coreHolding: CoreHolding) -> CorePurchase
     func deleteCorePurchaseFromCoreHolding(corePurchase: CorePurchase, coreHolding: CoreHolding)
     
     func editCoreWatchlist(coreWatchlist: CoreWatchlist, newName: String, newOwned: Bool)
+    
+    func portfolioAssigned() -> Bool
 }

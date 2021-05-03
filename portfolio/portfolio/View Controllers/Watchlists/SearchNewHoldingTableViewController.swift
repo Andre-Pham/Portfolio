@@ -82,7 +82,7 @@ class SearchNewHoldingTableViewController: UITableViewController {
         if let ownedWatchlist = self.watchlist?.owned {
             if !ownedWatchlist {
                 let holding = self.searchResultsHoldings[tableView.indexPathForSelectedRow!.row]
-                let _ = databaseController?.addCoreHoldingToCoreWatchlist(ticker: holding.ticker!, coreWatchlist: self.watchlist!)
+                let _ = databaseController?.addCoreHoldingToCoreWatchlist(ticker: holding.ticker!, currency: holding.currency!, coreWatchlist: self.watchlist!)
                 databaseController?.saveChanges()
                 
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadHoldings"), object: nil)

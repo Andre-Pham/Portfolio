@@ -118,6 +118,7 @@ extension CoreDataController: DatabaseProtocol {
         // Assign attributes to CoreWatchlist entity
         coreWatchlist.name = name
         coreWatchlist.owned = owned
+        coreWatchlist.isPortfolio = false
         
         // CoreWatchlist is returned in case it has to be used after its added to Core Data
         return coreWatchlist
@@ -127,12 +128,13 @@ extension CoreDataController: DatabaseProtocol {
         persistentContainer.viewContext.delete(coreWatchlist)
     }
     
-    func addCoreHoldingToCoreWatchlist(ticker: String, coreWatchlist: CoreWatchlist) -> CoreHolding {
+    func addCoreHoldingToCoreWatchlist(ticker: String, currency: String, coreWatchlist: CoreWatchlist) -> CoreHolding {
         // Create CoreHolding entity
         let coreHolding = NSEntityDescription.insertNewObject(forEntityName: "CoreHolding", into: persistentContainer.viewContext) as! CoreHolding
         
         // Assign attributes to CoreHolding entity
         coreHolding.ticker = ticker
+        coreHolding.currency = currency
         
         // Add to CoreWatchlist entity
         coreWatchlist.addToHoldings(coreHolding)
@@ -168,6 +170,16 @@ extension CoreDataController: DatabaseProtocol {
     func editCoreWatchlist(coreWatchlist: CoreWatchlist, newName: String, newOwned: Bool) {
         coreWatchlist.name = newName
         coreWatchlist.owned = newOwned
+    }
+    
+    func portfolioAssigned() -> Bool {
+        for coreWatchlist in self.fetchAllCoreWatchlists() {
+            if coreWatchlist.isPortfolio {
+                return true
+            }
+        }
+        
+        return false
     }
     
 }

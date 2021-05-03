@@ -35,7 +35,7 @@ class NewOwnedHoldingViewController: UIViewController {
         let date = formatter.date(from: dateTextInput)
         
         if let price = Double(self.priceTextField.text!), let shares = Double(self.sharesTextField.text!), let date = date {
-            let newCoreHolding = databaseController?.addCoreHoldingToCoreWatchlist(ticker: self.holding?.ticker ?? "[?]", coreWatchlist: self.watchlist!)
+            let newCoreHolding = databaseController?.addCoreHoldingToCoreWatchlist(ticker: self.holding?.ticker ?? "[?]", currency: self.holding?.currency ?? "[?]", coreWatchlist: self.watchlist!)
             let _ = databaseController?.addCorePurchaseToCoreHolding(shares: shares, date: date, price: price, coreHolding: newCoreHolding!)
             databaseController?.saveChanges()
             

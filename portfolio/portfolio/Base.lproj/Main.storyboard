@@ -600,7 +600,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Are-Ri-qD4">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="513"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="293"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ACy-e7-mwa">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="152.5"/>
@@ -654,9 +654,9 @@
                                                 </subviews>
                                             </stackView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kwX-gr-7JY">
-                                                <rect key="frame" x="0.0" y="213" width="414" height="300"/>
+                                                <rect key="frame" x="0.0" y="213" width="414" height="80"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="300" id="PPc-7f-r2Z"/>
+                                                    <constraint firstAttribute="height" constant="80" id="PPc-7f-r2Z"/>
                                                 </constraints>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="holdingCell" textLabel="6tl-ZS-vZf" detailTextLabel="W2E-gK-5xD" style="IBUITableViewCellStyleValue1" id="WFy-w2-TRD">

@@ -182,6 +182,14 @@ extension CoreDataController: DatabaseProtocol {
         return false
     }
     
+    func reassignPortfolio(newPortfolio: CoreWatchlist) {
+        for coreWatchlist in self.fetchAllCoreWatchlists() {
+            coreWatchlist.isPortfolio = false
+        }
+        
+        newPortfolio.isPortfolio = true
+    }
+    
 }
 
 extension CoreDataController: NSFetchedResultsControllerDelegate {

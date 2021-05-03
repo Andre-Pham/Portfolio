@@ -45,6 +45,6 @@ protocol DatabaseProtocol: AnyObject {
     func deleteCorePurchaseFromCoreHolding(corePurchase: CorePurchase, coreHolding: CoreHolding)
     
     func editCoreWatchlist(coreWatchlist: CoreWatchlist, newName: String, newOwned: Bool)
-    
     func portfolioAssigned() -> Bool
+    func reassignPortfolio(newPortfolio: CoreWatchlist)
 }

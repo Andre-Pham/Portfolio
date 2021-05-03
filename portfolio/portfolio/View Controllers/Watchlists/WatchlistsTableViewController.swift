@@ -86,6 +86,39 @@ class WatchlistsTableViewController: UITableViewController {
         }
     }
     
+    // https://developer.apple.com/forums/thread/131056
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let watchlist = self.shownWatchlists[indexPath.row]
+        
+        let delete = UIContextualAction(style: .destructive, title: "delete") {
+            (action, view, completion) in
+        
+            self.databaseController?.deleteCoreWatchlist(coreWatchlist: watchlist)
+            self.databaseController?.saveChanges()
+            completion(true)
+        }
+        delete.image = UIImage(systemName: "trash.fill")
+        
+        let setToPortfolio = UIContextualAction(style: .normal, title: "set to portfolio") {
+            (action, view, completion) in
+            
+            self.databaseController?.reassignPortfolio(newPortfolio: watchlist)
+            self.databaseController?.saveChanges()
+            completion(true)
+        }
+        setToPortfolio.image = UIImage(systemName: "chart.pie.fill")
+        setToPortfolio.backgroundColor = UIColor(red: 0.20, green: 0.48, blue: 0.97, alpha: 1.00)
+        
+        var swipeActions = UISwipeActionsConfiguration(actions: [delete])
+        if !watchlist.isPortfolio && watchlist.owned {
+            swipeActions = UISwipeActionsConfiguration(actions: [delete, setToPortfolio])
+        }
+        swipeActions.performsFirstActionWithFullSwipe = false
+        
+        return swipeActions
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SEGUE_SELECT_WATCHLIST {
             // SOURCE: https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell

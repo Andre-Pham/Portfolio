@@ -190,6 +190,16 @@ extension CoreDataController: DatabaseProtocol {
         newPortfolio.isPortfolio = true
     }
     
+    func retrievePortfolio() -> CoreWatchlist? {
+        for coreWatchlist in self.fetchAllCoreWatchlists() {
+            if coreWatchlist.isPortfolio {
+                return coreWatchlist
+            }
+        }
+        
+        return nil
+    }
+    
 }
 
 extension CoreDataController: NSFetchedResultsControllerDelegate {

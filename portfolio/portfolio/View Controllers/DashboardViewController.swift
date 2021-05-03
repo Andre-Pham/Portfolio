@@ -21,9 +21,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     let KEYPATH_TABLEVIEW_HEIGHT = "tableViewHeightKeyPath"
     
     // Other properties
-    var shownWatchlist: Watchlist?
+    var shownWatchlist: CoreWatchlist?
+    var shownHoldings: [Holding] = []
     
     weak var databaseController: DatabaseProtocol?
+    
+    let swiftUIView = ChartView()
+    var chartData = ChartData(title: "Title", legend: "Legend", data: [])
     
     // MARK: - Outlets
     
@@ -43,13 +47,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
-        // TESTING
-        //let _ = databaseController?.addCoreWatchlist(name: "test watchlist", owned: true)
-        //let _ = databaseController?.addCoreWatchlist(name: "test watchlist2", owned: false)
-        //databaseController?.saveChanges()
-        
-        //rootStackView.addBackground(color: .red)
-        // TESTING END
+        self.shownWatchlist = databaseController?.retrievePortfolio()
 
         // SOURCE: https://stackoverflow.com/questions/33234180/uitableview-example-for-swift
         // AUTHOR: Suragch - https://stackoverflow.com/users/3681880/suragch
@@ -57,7 +55,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.holdingsTableView.dataSource = self
         
         // Add the line chart to the view
-        self.addChartView()
+        //self.addChartView()
+        addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
         
         // Add margins to the stack views
         rootStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 10)
@@ -67,12 +66,38 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // TESTING WEB DATA
         
-        //self.requestTickerWebData(ticker: "MSFT")
-        
+        //self.requestTickerWebData(tickers: "MSFT", startDate: "2021-4-26")
+        self.loadChart()
         // END TESTING WEB DATA
     }
     
-    func requestTickerWebData(ticker: String) {
+    func loadChart() {
+        
+        var tickers = ""
+        
+        let earlierDate = Calendar.current.date(
+            byAdding: .day,
+            value: -1,
+            to: Date()
+        )
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let earlierDateString = formatter.string(from: earlierDate!)
+        
+        let holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
+        for holding in holdings {
+            tickers += holding.ticker ?? ""
+            tickers += ","
+        }
+        print("-----")
+        print(tickers.dropLast())
+        print(earlierDateString)
+        print("-----")
+        self.requestTickerWebData(tickers: String(tickers.dropLast()), startDate: earlierDateString)
+        
+    }
+    
+    func requestTickerWebData(tickers: String, startDate: String) {
         // https://api.twelvedata.com/time_series?symbol=MSFT,AMZN&interval=5min&start_date=2021-4-26&timezone=Australia/Sydney&apikey=fb1e4d1cdf934bdd8ef247ea380bd80a
         
         // Form URL from different components
@@ -83,7 +108,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         requestURLComponents.queryItems = [
             URLQueryItem(
                 name: "symbol",
-                value: ticker
+                value: tickers
             ),
             URLQueryItem(
                 name: "interval",
@@ -91,7 +116,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             ),
             URLQueryItem(
                 name: "start_date",
-                value: "2021-4-26"
+                value: startDate // e.g. "2021-4-26"
             ),
             URLQueryItem(
                 name: "timezone",
@@ -122,26 +147,63 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             // Parse data
             do {
                 let decoder = JSONDecoder()
-                if ticker.contains(",") {
+                if tickers.contains(",") {
                     // Multiple ticker request
                     let tickerResponse = try decoder.decode(DecodedTickerArray.self, from: data!)
                     print(tickerResponse.tickerArray)
+                    
+                    for ticker in tickerResponse.tickerArray {
+                        var prices: [Double] = []
+                        for stringPrice in ticker.values {
+                            if let price = Double(stringPrice.close) {
+                                prices.append(price)
+                            }
+                        }
+                        
+                        self.shownHoldings.append(
+                            Holding(ticker: ticker.meta.symbol, prices: prices, currentPrice: prices.last ?? 0)
+                        )
+                    }
+                    
                 }
                 else {
                     // Single ticker request
                     let tickerResponse = try decoder.decode(Ticker.self, from: data!)
                     print(tickerResponse.values)
                     print(tickerResponse.meta)
+                    
+                    var prices: [Double] = []
+                    for stringPrice in tickerResponse.values {
+                        if let price = Double(stringPrice.close) {
+                            prices.append(price)
+                        }
+                    }
+                    
+                    self.shownHoldings.append(
+                        Holding(ticker: tickerResponse.meta.symbol, prices: prices, currentPrice: prices.last ?? 0)
+                    )
                 }
                 
-                
-                
+                if self.shownHoldings.count > 0 {
+                    var combinedPrices = [Double](repeating: 0.0, count: self.shownHoldings[0].prices!.count)
+                    for holding in self.shownHoldings {
+                        for priceIndex in 0..<holding.prices!.count {
+                            // API provides values in reverse order -_-
+                            let reverseIndex = abs(priceIndex - (holding.prices!.count-1))
+                            
+                            combinedPrices[reverseIndex] += holding.prices![priceIndex]
+                        }
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.chartData.data = combinedPrices
+                        self.holdingsTableView.reloadData()
+                    }
+                }
                 
                 /*
-                if let tickers = tickerRootWebData.tickerData {
-                    for tickerWebData in tickers {
-                        //print(tickerWebData.currency ?? "ooops")
-                    }
+                DispatchQueue.main.async {
+                    self.holdingsTableView.reloadData()
                 }
                 */
             
@@ -194,7 +256,8 @@ extension DashboardViewController {
     
     /// Returns the number of rows in any given section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.shownWatchlist?.holdings?.count ?? 0
+        //return self.shownWatchlist?.holdings?.count ?? 0
+        return self.shownHoldings.count
     }
     
     /// Creates the cells and contents of the TableView
@@ -202,10 +265,12 @@ extension DashboardViewController {
         // Only one section: holdings in watchlist
         
         let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_HOLDING, for: indexPath)
-        let holding = self.shownWatchlist?.holdings?[indexPath.row]
+        //let holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
+        //let holding = holdings[indexPath.row]
+        let holding = self.shownHoldings[indexPath.row]
         
-        holdingCell.textLabel?.text = holding?.ticker
-        holdingCell.detailTextLabel?.text = holding?.ticker
+        holdingCell.textLabel?.text = holding.ticker
+        holdingCell.detailTextLabel?.text = String(holding.currentPrice!)
         
         return holdingCell
     }
@@ -223,6 +288,7 @@ extension DashboardViewController {
 extension DashboardViewController {
     
     /// Creates then adds a SwiftUI chart to the current view
+    /*
     func addChartView() {
         let swiftUIView = ChartView()
         
@@ -238,6 +304,7 @@ extension DashboardViewController {
         }
         // TESTING END
     }
+    */
 
     /// Adds the SwiftUI chart view as a child to DashboardViewController
     func addSubSwiftUIView<Content>(_ swiftUIView: Content, to view: UIView, chartData: ChartData) where Content : View {

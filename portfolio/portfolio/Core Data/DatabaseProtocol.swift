@@ -47,4 +47,5 @@ protocol DatabaseProtocol: AnyObject {
     func editCoreWatchlist(coreWatchlist: CoreWatchlist, newName: String, newOwned: Bool)
     func portfolioAssigned() -> Bool
     func reassignPortfolio(newPortfolio: CoreWatchlist)
+    func retrievePortfolio() -> CoreWatchlist?
 }

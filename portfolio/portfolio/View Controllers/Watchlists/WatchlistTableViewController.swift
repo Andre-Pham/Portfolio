@@ -9,19 +9,29 @@ import UIKit
 
 class WatchlistTableViewController: UITableViewController {
     
-    var shownWatchlist: CoreWatchlist?
+    // MARK: - Properties
     
+    // Cell identifiers
     let CELL_HOLDING = "holdingCell"
     let CELL_RENAME = "renameCell"
     
+    // Section identifiers
     let SECTION_HOLDING = 0
     let SECTION_RENAME = 1
     
+    // Segue identifiers
     let SEGUE_ADD_HOLDING = "addHoldingSegue"
     let SEGUE_PURCHASES = "holdingPurchasesSegue"
     
+    // Core Data
     weak var databaseController: DatabaseProtocol?
-
+    
+    // Other properties
+    var shownWatchlist: CoreWatchlist?
+    
+    // MARK: - Methods
+    
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,9 +45,10 @@ class WatchlistTableViewController: UITableViewController {
         self.title = self.shownWatchlist?.name
     }
     
-    // https://stackoverflow.com/questions/25921623/how-to-reload-tableview-from-another-view-controller-in-swift
+    // SOURCE: https://stackoverflow.com/questions/25921623/how-to-reload-tableview-from-another-view-controller-in-swift
+    // AUTHOR: Sebasitan - https://stackoverflow.com/users/673526/sebastian
+    /// Allows other pages to refresh the contents of this page
     @objc func reloadTableview(notification: NSNotification){
-        //load data here
         self.tableView.reloadData()
     }
 
@@ -80,7 +91,6 @@ class WatchlistTableViewController: UITableViewController {
             
             return renameCell
         }
-        
     }
     
     /// Returns whether a given section can be edited
@@ -89,6 +99,7 @@ class WatchlistTableViewController: UITableViewController {
         return true
     }
     
+    /// If the watchlist isn't owned, then the holding can't have purchases added to it, so no segue to add purchases
     override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
         if identifier == SEGUE_PURCHASES {
             if let ownedWatchlist = self.shownWatchlist?.owned {
@@ -99,19 +110,23 @@ class WatchlistTableViewController: UITableViewController {
         return true
     }
     
+    /// Assigns properties of destination ViewControllers
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SEGUE_ADD_HOLDING {
             let destination = segue.destination as! SearchNewHoldingTableViewController
+            // So watchlist can have the holding added to it
             destination.watchlist = self.shownWatchlist
         }
         else if segue.identifier == SEGUE_PURCHASES {
             let destination = segue.destination as! HoldingPurchasesTableViewController
+            // Holding is provided to load its purchases
             let holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
             let holding = holdings[tableView.indexPathForSelectedRow!.row]
             destination.coreHolding = holding
         }
     }
     
+    /// If the rename cell is selected, creates a popup to retrieve a new name from the user
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == SECTION_RENAME {
             self.displayRenameWatchlistPopup()
@@ -120,6 +135,7 @@ class WatchlistTableViewController: UITableViewController {
         }
     }
     
+    /// A popup that prompts the user for a new name for the watchlist
     func displayRenameWatchlistPopup() {
         // SOURCE: https://medium.com/swift-india/uialertcontroller-in-swift-22f3c5b1dd68
         // AUTHOR: Balaji Malliswamy - https://medium.com/@blahji

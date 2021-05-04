@@ -61,6 +61,15 @@ class WatchlistsTableViewController: UITableViewController {
         let watchlist = self.shownWatchlists[indexPath.row]
         
         watchlistCell.textLabel?.text = watchlist.name
+        if watchlist.isPortfolio {
+            watchlistCell.detailTextLabel?.text = "Portfolio"
+        }
+        else if watchlist.owned {
+            watchlistCell.detailTextLabel?.text = "Owned"
+        }
+        else {
+            watchlistCell.detailTextLabel?.text = nil
+        }
         
         if watchlist.isPortfolio {
             watchlistCell.imageView?.image = UIImage(systemName: "chart.pie.fill")

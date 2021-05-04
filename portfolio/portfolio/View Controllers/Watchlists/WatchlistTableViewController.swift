@@ -19,9 +19,15 @@ class WatchlistTableViewController: UITableViewController {
     
     let SEGUE_ADD_HOLDING = "addHoldingSegue"
     let SEGUE_PURCHASES = "holdingPurchasesSegue"
+    
+    weak var databaseController: DatabaseProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Sets property databaseController to reference to the databaseController from AppDelegate
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableview), name: NSNotification.Name(rawValue: "reloadHoldings"), object: nil)
         
@@ -104,6 +110,55 @@ class WatchlistTableViewController: UITableViewController {
             let holding = holdings[tableView.indexPathForSelectedRow!.row]
             destination.coreHolding = holding
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == SECTION_RENAME {
+            self.displayRenameWatchlistPopup()
+            
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
+    func displayRenameWatchlistPopup() {
+        // SOURCE: https://medium.com/swift-india/uialertcontroller-in-swift-22f3c5b1dd68
+        // AUTHOR: Balaji Malliswamy - https://medium.com/@blahji
+        
+        // Define alert
+        let alertController = UIAlertController(
+            title: "Rename Watchlist",
+            message: "Enter the new name below.",
+            preferredStyle: .alert
+        )
+        // Add "done" button
+        alertController.addAction(
+            UIAlertAction(title: "Done", style: .default) { (_) in
+                if let textField = alertController.textFields?.first, let textInput = textField.text {
+                    // After the user selects "done"
+                    let trimmedTextInput = textInput.trimmingCharacters(in: .whitespacesAndNewlines)
+                    
+                    // Validation
+                    if trimmedTextInput == "" {
+                        Popup.displayPopup(title: "No Name Provided", message: "You must enter a name with at least one character.", viewController: self)
+                        return
+                    }
+                    
+                    self.shownWatchlist?.name = trimmedTextInput
+                    self.title = trimmedTextInput
+                    self.databaseController?.saveChanges()
+                }
+            }
+        )
+        // Add "cancel" button
+        alertController.addAction(
+            UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        )
+        // Add text field
+        alertController.addTextField {
+            (textField) in textField.placeholder = "New Name"
+        }
+        // Display popup
+        self.present(alertController, animated: true, completion: nil)
     }
 
 }

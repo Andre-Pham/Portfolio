@@ -17,8 +17,7 @@ class NewWatchlistViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Sets property databaseController to reference to the databaseController
-        // from AppDelegate
+        // Sets property databaseController to reference to the databaseController from AppDelegate
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
     }

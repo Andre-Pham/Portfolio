@@ -19,17 +19,21 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     // Constants
     let CELL_HOLDING = "holdingCell"
     let KEYPATH_TABLEVIEW_HEIGHT = "tableViewHeightKeyPath"
+    let API_KEY = "fb1e4d1cdf934bdd8ef247ea380bd80a"
+    
+    // Core Data
+    weak var databaseController: DatabaseProtocol?
+    
+    // ChartView
+    let swiftUIView = ChartView()
+    var chartData = ChartData(title: "Title", legend: "Legend", data: [])
+    
+    // Indicator
+    var indicator = UIActivityIndicatorView()
     
     // Other properties
     var shownWatchlist: CoreWatchlist?
     var shownHoldings: [Holding] = []
-    
-    weak var databaseController: DatabaseProtocol?
-    
-    let swiftUIView = ChartView()
-    var chartData = ChartData(title: "Title", legend: "Legend", data: [])
-    
-    var indicator = UIActivityIndicatorView()
     
     // MARK: - Outlets
     
@@ -44,20 +48,16 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Sets property databaseController to reference to the databaseController
-        // from AppDelegate
+        // Sets property databaseController to reference to the databaseController from AppDelegate
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
-        
-        //self.shownWatchlist = databaseController?.retrievePortfolio()
 
         // SOURCE: https://stackoverflow.com/questions/33234180/uitableview-example-for-swift
         // AUTHOR: Suragch - https://stackoverflow.com/users/3681880/suragch
         self.holdingsTableView.delegate = self
         self.holdingsTableView.dataSource = self
         
-        // Add the line chart to the view
-        //self.addChartView()
+        // Add the chart to the view
         addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
         
         // Add margins to the stack views
@@ -66,28 +66,66 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         dateAndReturnsStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 20)
         dateAndReturnsStackView.isLayoutMarginsRelativeArrangement = true
         
-        // TESTING WEB DATA
-        
-        //self.requestTickerWebData(tickers: "MSFT", startDate: "2021-4-26")
-        //self.loadChart()
-        // END TESTING WEB DATA
-        
-        // Add a loading indicator view
+        // Add a loading indicator
         self.indicator.style = UIActivityIndicatorView.Style.large
         self.indicator.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.indicator)
         
-        // Centres the loading indicator view
+        // Centres the loading indicator
         NSLayoutConstraint.activate([
             self.indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             self.indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
     }
     
-    func loadChart() {
+    /// Calls before the view appears on screen
+    override func viewWillAppear(_ animated: Bool) {
+        // If the user has designated a different or new watchlist to be their portfolio, refresh the page's content
+        let portfolio = databaseController?.retrievePortfolio()
+        if portfolio != self.shownWatchlist {
+            self.shownWatchlist = portfolio
+            self.shownHoldings.removeAll()
+            self.generateChartData()
+            self.holdingsTableView.reloadData()
+        }
         
+        // Adds observer which calls observeValue when number of tableview cells changes
+        self.holdingsTableView.addObserver(self, forKeyPath: KEYPATH_TABLEVIEW_HEIGHT, options: .new, context: nil)
+        self.holdingsTableView.reloadData()
+    }
+    
+    /// Calls before the view disappears on screen
+    override func viewWillDisappear(_ animated: Bool) {
+        // Removes observer which calls observeValue when number of tableview cells changes
+        self.holdingsTableView.removeObserver(self, forKeyPath: KEYPATH_TABLEVIEW_HEIGHT)
+    }
+    
+    /// Calls when triggered by an observer
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        // SOURCE: https://www.youtube.com/watch?v=INkeINPZddo
+        // AUTHOR: Divyesh Gondaliya - https://www.youtube.com/channel/UC4pRJw6rNrHuFZV3aOELJkA
+        if keyPath == KEYPATH_TABLEVIEW_HEIGHT {
+            // Changes TableView height based on number of cells so they're not squished into a nested scroll view
+            if let newValue = change?[.newKey] {
+                let newSize = newValue as! CGSize
+                self.holdingsTableViewHeight.constant = newSize.width
+            }
+        }
+    }
+    
+    /// Assigns calls a request to the API which in turn loads data into the chart
+    func generateChartData() {
+        // Generates argument for what tickers data will be retrieved for
         var tickers = ""
+        let holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
+        for holding in holdings {
+            tickers += holding.ticker ?? ""
+            tickers += ","
+        }
+        // Remove unnecessary extra ","
+        tickers = String(tickers.dropLast())
         
+        // Generates the previous day's date, so we can retrieve intraday prices
         let earlierDate = Calendar.current.date(
             byAdding: .day,
             value: -1,
@@ -95,22 +133,14 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         )
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        let earlierDateString = formatter.string(from: earlierDate!)
+        let earlierDateFormatted = formatter.string(from: earlierDate!)
         
-        let holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
-        for holding in holdings {
-            tickers += holding.ticker ?? ""
-            tickers += ","
-        }
-        print("-----")
-        print(tickers.dropLast())
-        print(earlierDateString)
-        print("-----")
+        // Calls the API which in turn provides data to the chart
         indicator.startAnimating()
-        self.requestTickerWebData(tickers: String(tickers.dropLast()), startDate: earlierDateString)
-        
+        self.requestTickerWebData(tickers: tickers, startDate: earlierDateFormatted)
     }
     
+    /// Calls a TwelveData request for time series prices for ticker(s), as well as other data
     func requestTickerWebData(tickers: String, startDate: String) {
         // https://api.twelvedata.com/time_series?symbol=MSFT,AMZN&interval=5min&start_date=2021-4-26&timezone=Australia/Sydney&apikey=fb1e4d1cdf934bdd8ef247ea380bd80a
         
@@ -120,26 +150,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         requestURLComponents.host = "api.twelvedata.com"
         requestURLComponents.path = "/time_series"
         requestURLComponents.queryItems = [
-            URLQueryItem(
-                name: "symbol",
-                value: tickers
-            ),
-            URLQueryItem(
-                name: "interval",
-                value: "5min"
-            ),
-            URLQueryItem(
-                name: "start_date",
-                value: startDate // e.g. "2021-4-26"
-            ),
-            URLQueryItem(
-                name: "timezone",
-                value: "Australia/Sydney"
-            ),
-            URLQueryItem(
-                name: "apikey",
-                value: "fb1e4d1cdf934bdd8ef247ea380bd80a"
-            ),
+            URLQueryItem(name: "symbol", value: tickers),
+            URLQueryItem(name: "interval", value: "5min"),
+            URLQueryItem(name: "start_date", value: startDate), // yyyy-mm-dd
+            URLQueryItem(name: "timezone", value: "Australia/Sydney"),
+            URLQueryItem(name: "apikey", value: self.API_KEY),
         ]
         
         // Ensure URL is valid
@@ -156,7 +171,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 self.indicator.stopAnimating()
             }
             
-            // If we have recieved an error message
             if let error = error {
                 print(error)
                 return
@@ -165,48 +179,50 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             // Parse data
             do {
                 let decoder = JSONDecoder()
+                
                 if tickers.contains(",") {
                     // Multiple ticker request
                     let tickerResponse = try decoder.decode(DecodedTickerArray.self, from: data!)
-                    print(tickerResponse.tickerArray)
                     
+                    // For every ticker with data returned, create a new Holding with its data
                     for ticker in tickerResponse.tickerArray {
+                        // Get price data in Double type retrieved from API
                         var prices: [Double] = []
                         for stringPrice in ticker.values {
                             if let price = Double(stringPrice.close) {
                                 prices.append(price)
                             }
                         }
-                        
+                        // Create Holding
                         self.shownHoldings.append(
                             Holding(ticker: ticker.meta.symbol, prices: prices, currentPrice: prices.last ?? 0)
                         )
                     }
-                    
                 }
                 else {
                     // Single ticker request
                     let tickerResponse = try decoder.decode(Ticker.self, from: data!)
-                    print(tickerResponse.values)
-                    print(tickerResponse.meta)
                     
+                    // Get price data in Double type retreived from API
                     var prices: [Double] = []
                     for stringPrice in tickerResponse.values {
                         if let price = Double(stringPrice.close) {
                             prices.append(price)
                         }
                     }
-                    
+                    // Create Holding
                     self.shownHoldings.append(
                         Holding(ticker: tickerResponse.meta.symbol, prices: prices, currentPrice: prices.last ?? 0)
                     )
                 }
                 
+                // If no holdings were created from the API request, don't run the following code because it'll crash
                 if self.shownHoldings.count > 0 {
+                    // Merge all the prices of the holdings to create the single graph
                     var combinedPrices = [Double](repeating: 0.0, count: self.shownHoldings[0].prices!.count)
                     for holding in self.shownHoldings {
                         for priceIndex in 0..<holding.prices!.count {
-                            // API provides values in reverse order -_-
+                            // API provides values in reverse order
                             let reverseIndex = abs(priceIndex - (holding.prices!.count-1))
                             
                             combinedPrices[reverseIndex] += holding.prices![priceIndex]
@@ -214,17 +230,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     }
                     
                     DispatchQueue.main.async {
+                        // Update chart and tableview
                         self.chartData.data = combinedPrices
                         self.holdingsTableView.reloadData()
                     }
                 }
-                
-                /*
-                DispatchQueue.main.async {
-                    self.holdingsTableView.reloadData()
-                }
-                */
-            
             }
             catch let err {
                 print(err)
@@ -232,40 +242,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         task.resume()
-    }
-    
-    /// Calls before the view appears on screen
-    override func viewWillAppear(_ animated: Bool) {
-        let portfolio = databaseController?.retrievePortfolio()
-        if portfolio != self.shownWatchlist {
-            self.shownWatchlist = portfolio
-            self.shownHoldings.removeAll()
-            self.loadChart()
-            self.holdingsTableView.reloadData()
-        }
-        
-        // Adds an observer which calls observeValue when number of cells changes
-        self.holdingsTableView.addObserver(self, forKeyPath: KEYPATH_TABLEVIEW_HEIGHT, options: .new, context: nil)
-        self.holdingsTableView.reloadData()
-    }
-    
-    /// Calls before the view disappears on screen
-    override func viewWillDisappear(_ animated: Bool) {
-        // Remove observer which calls observeValue when number of cells changes
-        self.holdingsTableView.removeObserver(self, forKeyPath: KEYPATH_TABLEVIEW_HEIGHT)
-    }
-    
-    /// Calls when triggered by an observer
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        // SOURCE: https://www.youtube.com/watch?v=INkeINPZddo
-        // AUTHOR: Divyesh Gondaliya - https://www.youtube.com/channel/UC4pRJw6rNrHuFZV3aOELJkA
-        if keyPath == KEYPATH_TABLEVIEW_HEIGHT {
-            // Changes TableView height based on number of cells so they're not squished into a nested scroll view
-            if let newValue = change?[.newKey] {
-                let newSize = newValue as! CGSize
-                self.holdingsTableViewHeight.constant = newSize.width
-            }
-        }
     }
 
 }
@@ -282,7 +258,6 @@ extension DashboardViewController {
     
     /// Returns the number of rows in any given section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return self.shownWatchlist?.holdings?.count ?? 0
         return self.shownHoldings.count
     }
     
@@ -291,8 +266,6 @@ extension DashboardViewController {
         // Only one section: holdings in watchlist
         
         let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_HOLDING, for: indexPath)
-        //let holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
-        //let holding = holdings[indexPath.row]
         let holding = self.shownHoldings[indexPath.row]
         
         holdingCell.textLabel?.text = holding.ticker
@@ -303,8 +276,8 @@ extension DashboardViewController {
     
     /// Returns whether a given section can be edited
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Holdings can be deleted
-        return true
+        // Holdings can't be deleted from this page
+        return false
     }
     
 }
@@ -312,25 +285,6 @@ extension DashboardViewController {
 // MARK: - SwiftUI Chart Methods Extension
 
 extension DashboardViewController {
-    
-    /// Creates then adds a SwiftUI chart to the current view
-    /*
-    func addChartView() {
-        let swiftUIView = ChartView()
-        
-        let chartData = ChartData(title: "Title", legend: "Legend", data: [100,23,54,32,12,37,7,23,43,-5])
-        addSubSwiftUIView(swiftUIView, to: view, chartData: chartData)
-        
-        // TESTING
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-            chartData.data = [5, 10, 100.0]
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
-            chartData.data = [5, 10, 10000.0]
-        }
-        // TESTING END
-    }
-    */
 
     /// Adds the SwiftUI chart view as a child to DashboardViewController
     func addSubSwiftUIView<Content>(_ swiftUIView: Content, to view: UIView, chartData: ChartData) where Content : View {
@@ -357,16 +311,3 @@ extension DashboardViewController {
     }
     
 }
-
-// TESTING
-/*
-extension UIStackView {
-    func addBackground(color: UIColor) {
-        let subView = UIView(frame: bounds)
-        subView.backgroundColor = color
-        subView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        insertSubview(subView, at: 0)
-    }
-}
-*/
-// TESTING END

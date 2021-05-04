@@ -9,19 +9,28 @@ import UIKit
 
 class WatchlistsTableViewController: UITableViewController {
     
-    var shownWatchlists: [CoreWatchlist] = []
+    // MARK: - Properties
     
-    var listenerType = ListenerType.watchlist
+    // Constants
+    let CELL_WATCHLIST = "watchlistCell"
+    let SEGUE_SELECT_WATCHLIST = "selectWatchlistSegue"
+    
+    // Core data
     weak var databaseController: DatabaseProtocol?
     
-    let CELL_WATCHLIST = "watchlistCell"
+    // Listeners
+    var listenerType = ListenerType.watchlist
     
-    let SEGUE_SELECT_WATCHLIST = "selectWatchlistSegue"
-
+    // Other properties
+    var shownWatchlists: [CoreWatchlist] = []
+    
+    // MARK: - Methods
+    
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Sets property databaseController to reference to the databaseController
-        // from AppDelegate
+        
+        // Sets property databaseController to reference to the databaseController from AppDelegate
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
     }
@@ -32,19 +41,21 @@ class WatchlistsTableViewController: UITableViewController {
         return 1
     }
     
-    // Calls before the view appears on screen
+    /// Calls before the view appears on screen
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         // Adds the class to the database listeners
         // (to recieve updates from the database)
-        super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
     }
     
-    // Calls before the view disappears on screen
+    /// Calls before the view disappears on screen
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         // Removes the class from the database listeners
         // (to not recieve updates from the database)
-        super.viewWillDisappear(animated)
         databaseController?.removeListener(listener: self)
     }
     
@@ -61,6 +72,7 @@ class WatchlistsTableViewController: UITableViewController {
         let watchlist = self.shownWatchlists[indexPath.row]
         
         watchlistCell.textLabel?.text = watchlist.name
+        // Subtitle indicates if the watchlist is the portfolio or owned (otherwise no subtitle)
         if watchlist.isPortfolio {
             watchlistCell.detailTextLabel?.text = "Portfolio"
         }
@@ -71,6 +83,7 @@ class WatchlistsTableViewController: UITableViewController {
             watchlistCell.detailTextLabel?.text = nil
         }
         
+        // If the watchlist is the portfolio, add an icon to indicate it
         if watchlist.isPortfolio {
             watchlistCell.imageView?.image = UIImage(systemName: "chart.pie.fill")
         }
@@ -87,19 +100,14 @@ class WatchlistsTableViewController: UITableViewController {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let watchlist = shownWatchlists[indexPath.row]
-            databaseController?.deleteCoreWatchlist(coreWatchlist: watchlist)
-            databaseController?.saveChanges()
-        }
-    }
-    
-    // https://developer.apple.com/forums/thread/131056
+    // SOURCE: https://developer.apple.com/forums/thread/131056
+    // AUTHOR: Claude31 - https://developer.apple.com/forums/profile/Claude31
+    /// Adds extra actions on the cell when swiped left
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let watchlist = self.shownWatchlists[indexPath.row]
         
+        // Delete action - deletes the watchlist
         let delete = UIContextualAction(style: .destructive, title: "delete") {
             (action, view, completion) in
         
@@ -109,6 +117,7 @@ class WatchlistsTableViewController: UITableViewController {
         }
         delete.image = UIImage(systemName: "trash.fill")
         
+        // Portfolio action - sets the watchlist to be the user's 'portfolio'
         let setToPortfolio = UIContextualAction(style: .normal, title: "set to portfolio") {
             (action, view, completion) in
             
@@ -119,6 +128,9 @@ class WatchlistsTableViewController: UITableViewController {
         setToPortfolio.image = UIImage(systemName: "chart.pie.fill")
         setToPortfolio.backgroundColor = UIColor(red: 0.20, green: 0.48, blue: 0.97, alpha: 1.00)
         
+        // Add actions to the relevant cells
+        // * The user's portfolio can't be re-selected as the portfolio
+        // * Watchlists that aren't owned can't be selected as the portfolio
         var swipeActions = UISwipeActionsConfiguration(actions: [delete])
         if !watchlist.isPortfolio && watchlist.owned {
             swipeActions = UISwipeActionsConfiguration(actions: [delete, setToPortfolio])
@@ -131,15 +143,17 @@ class WatchlistsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SEGUE_SELECT_WATCHLIST {
             // SOURCE: https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
-            // AUTHOR: GetSwifty
+            // AUTHOR: GetSwifty - https://stackoverflow.com/users/1852164/getswifty
+            // The page that shows the watchlist (WatchlistTableViewController) requires access to the watchlist
             let watchlist = self.shownWatchlists[tableView.indexPathForSelectedRow!.row]
             let destination = segue.destination as! WatchlistTableViewController
-            
             destination.shownWatchlist = watchlist
         }
     }
 
 }
+
+// MARK: - DatabaseListener Extension
 
 extension WatchlistsTableViewController: DatabaseListener {
     

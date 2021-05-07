@@ -207,14 +207,18 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     
                     // Get price data in Double type retreived from API
                     var prices: [Double] = []
+                    var currentPrice: Double? = nil
                     for stringPrice in tickerResponse.values {
                         if let price = Double(stringPrice.open) {
                             prices.append(price)
                         }
+                        if currentPrice == nil {
+                            currentPrice = Double(stringPrice.close)
+                        }
                     }
                     // Create Holding
                     self.shownHoldings.append(
-                        Holding(ticker: tickerResponse.meta.symbol, prices: prices, currentPrice: prices.first ?? 0)
+                        Holding(ticker: tickerResponse.meta.symbol, prices: prices, currentPrice: currentPrice ?? 0)
                     )
                 }
                 

@@ -50,4 +50,5 @@ struct MetaData: Decodable {
 
 struct TimeSeriesCloses: Decodable {
     var open: String
+    var close: String
 }

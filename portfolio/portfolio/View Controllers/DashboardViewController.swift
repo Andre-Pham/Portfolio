@@ -154,7 +154,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             URLQueryItem(name: "symbol", value: tickers),
             URLQueryItem(name: "interval", value: "5min"),
             URLQueryItem(name: "start_date", value: startDate), // yyyy-mm-dd
-            URLQueryItem(name: "timezone", value: "Australia/Sydney"),
             URLQueryItem(name: "apikey", value: self.API_KEY),
         ]
         
@@ -163,6 +162,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             print("Invalid URL.")
             return
         }
+        
+        print(requestURL)
         
         // Occurs on a new thread
         let task = URLSession.shared.dataTask(with: requestURL) {
@@ -190,7 +191,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                         // Get price data in Double type retrieved from API
                         var prices: [Double] = []
                         for stringPrice in ticker.values {
-                            if let price = Double(stringPrice.close) {
+                            if let price = Double(stringPrice.open) {
                                 prices.append(price)
                             }
                         }
@@ -207,13 +208,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     // Get price data in Double type retreived from API
                     var prices: [Double] = []
                     for stringPrice in tickerResponse.values {
-                        if let price = Double(stringPrice.close) {
+                        if let price = Double(stringPrice.open) {
                             prices.append(price)
                         }
                     }
                     // Create Holding
                     self.shownHoldings.append(
-                        Holding(ticker: tickerResponse.meta.symbol, prices: prices, currentPrice: prices.last ?? 0)
+                        Holding(ticker: tickerResponse.meta.symbol, prices: prices, currentPrice: prices.first ?? 0)
                     )
                 }
                 
@@ -222,18 +223,19 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     // Find how many prices to plot
                     var num_prices = 0
                     for holding in self.shownHoldings {
-                        if holding.prices!.count > num_prices {
-                            num_prices = holding.prices!.count
+                        if holding.prices.count > num_prices {
+                            num_prices = holding.prices.count
                         }
                     }
                     // Merge all the prices of the holdings to create the single graph
                     var combinedPrices = [Double](repeating: 0.0, count: num_prices)
                     for holding in self.shownHoldings {
-                        for priceIndex in 0..<holding.prices!.count {
+                        let holdingPercentages = holding.convertPricesToPercentages()
+                        for priceIndex in 0..<holdingPercentages.count {
                             // API provides values in reverse order
-                            let reverseIndex = abs(priceIndex - (holding.prices!.count-1))
+                            let reverseIndex = abs(priceIndex - (holdingPercentages.count-1))
                             
-                            combinedPrices[reverseIndex] += holding.prices![priceIndex]
+                            combinedPrices[reverseIndex] += holdingPercentages[priceIndex]
                         }
                     }
                     

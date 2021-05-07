@@ -13,7 +13,7 @@ class Holding: NSObject {
     
     // Required
     var ticker: String?
-    var prices: [Double]?
+    var prices: [Double] = []
     var currentPrice: Double?
     
     var instrument: String?
@@ -41,6 +41,21 @@ class Holding: NSObject {
     }
     
     // MARK: - Methods
+    
+    func convertPricesToPercentages() -> [Double] {
+        if self.prices.count > 0 {
+            let startingPrice = self.prices.last!
+            var percentages: [Double] = []
+            
+            for price in self.prices {
+                percentages.append(100*(price/startingPrice - 1))
+            }
+            
+            return percentages
+        }
+        
+        return []
+    }
     
     func getSharesOwned() -> Double {
         var sharesOwned = 0.0

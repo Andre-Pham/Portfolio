@@ -82,9 +82,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         // If the user has designated a different or new watchlist to be their portfolio, refresh the page's content
         let portfolio = databaseController?.retrievePortfolio()
-        if portfolio != self.shownWatchlist {
+        if portfolio != self.shownWatchlist || self.shownWatchlist?.holdings?.count != self.shownHoldings.count {
             self.shownWatchlist = portfolio
             self.shownHoldings.removeAll()
+            self.chartData.data = []
             self.generateChartData()
             self.holdingsTableView.reloadData()
         }

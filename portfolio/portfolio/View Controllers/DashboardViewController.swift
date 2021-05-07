@@ -18,7 +18,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // Constants
     let CELL_HOLDING = "holdingCell"
-    let KEYPATH_TABLEVIEW_HEIGHT = "tableViewHeightKeyPath"
+    let KEYPATH_TABLEVIEW_HEIGHT = "contentSize"
     let API_KEY = "fb1e4d1cdf934bdd8ef247ea380bd80a"
     
     // Core Data
@@ -108,7 +108,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             // Changes TableView height based on number of cells so they're not squished into a nested scroll view
             if let newValue = change?[.newKey] {
                 let newSize = newValue as! CGSize
-                self.holdingsTableViewHeight.constant = newSize.width
+                self.holdingsTableViewHeight.constant = newSize.height
             }
         }
     }
@@ -218,8 +218,15 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 
                 // If no holdings were created from the API request, don't run the following code because it'll crash
                 if self.shownHoldings.count > 0 {
+                    // Find how many prices to plot
+                    var num_prices = 0
+                    for holding in self.shownHoldings {
+                        if holding.prices!.count > num_prices {
+                            num_prices = holding.prices!.count
+                        }
+                    }
                     // Merge all the prices of the holdings to create the single graph
-                    var combinedPrices = [Double](repeating: 0.0, count: self.shownHoldings[0].prices!.count)
+                    var combinedPrices = [Double](repeating: 0.0, count: num_prices)
                     for holding in self.shownHoldings {
                         for priceIndex in 0..<holding.prices!.count {
                             // API provides values in reverse order

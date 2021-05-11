@@ -44,8 +44,15 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     // Stack views
     @IBOutlet weak var rootStackView: UIStackView!
     @IBOutlet weak var graphDurationStackView: UIStackView!
-    @IBOutlet weak var dateAndReturnsStackView: UIStackView!
+    @IBOutlet weak var dateStackView: UIStackView!
+    @IBOutlet weak var dayAndTotalGainStackView: UIStackView!
     @IBOutlet weak var holdingsTitleStackView: UIStackView!
+    // Labels
+    @IBOutlet weak var todaysDateLabel: UILabel!
+    @IBOutlet weak var daysGainLabel: UILabel!
+    @IBOutlet weak var totalGainLabel: UILabel!
+    @IBOutlet weak var holdingsTitleLabel: UILabel!
+    @IBOutlet weak var holdingsTitleDetailLabel: UILabel!
     
     // MARK: - Methods
     
@@ -66,14 +73,16 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
         
         // Add margins to the stack views
-        rootStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 10)
-        graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 10, trailing: 15)
-        dateAndReturnsStackView.directionalLayoutMargins = .init(top: 20, leading: 10, bottom: 20, trailing: 10)
-        holdingsTitleStackView.directionalLayoutMargins = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
-        rootStackView.isLayoutMarginsRelativeArrangement = true
-        graphDurationStackView.isLayoutMarginsRelativeArrangement = true
-        dateAndReturnsStackView.isLayoutMarginsRelativeArrangement = true
-        holdingsTitleStackView.isLayoutMarginsRelativeArrangement = true
+        self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 10)
+        self.graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
+        self.dateStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 0, trailing: 15)
+        self.dayAndTotalGainStackView.directionalLayoutMargins = .init(top: 10, leading: 15, bottom: 0, trailing: 15)
+        self.holdingsTitleStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 5, trailing: 15)
+        self.rootStackView.isLayoutMarginsRelativeArrangement = true
+        self.graphDurationStackView.isLayoutMarginsRelativeArrangement = true
+        self.dateStackView.isLayoutMarginsRelativeArrangement = true
+        self.dayAndTotalGainStackView.isLayoutMarginsRelativeArrangement = true
+        self.holdingsTitleStackView.isLayoutMarginsRelativeArrangement = true
         
         // Add a loading indicator
         self.indicator.style = UIActivityIndicatorView.Style.large
@@ -87,7 +96,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         ])
         
         // Make it so page scrolls even if all the contents fits on one page
-        scrollView.alwaysBounceVertical = true
+        self.scrollView.alwaysBounceVertical = true
+        
+        self.todaysDateLabel.font = CustomFont.setLargeSubtitleFont()
+        self.daysGainLabel.font = CustomFont.setBodyFont()
+        self.totalGainLabel.font = CustomFont.setBodyFont()
+        self.holdingsTitleLabel.font = CustomFont.setLargeSubtitleFont()
+        self.holdingsTitleDetailLabel.font = CustomFont.setLargeSubtitleDetailFont()
     }
     
     /// Calls before the view appears on screen
@@ -332,6 +347,9 @@ extension DashboardViewController {
         holdingCell.textLabel?.text = holding.ticker
         holdingCell.detailTextLabel?.text = String(holding.currentPrice!)
         
+        holdingCell.textLabel?.font = CustomFont.setBodyFont()
+        holdingCell.detailTextLabel?.font = CustomFont.setBodyFont()
+        
         return holdingCell
     }
     
@@ -339,6 +357,11 @@ extension DashboardViewController {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Holdings can't be deleted from this page
         return false
+    }
+    
+    /// Returns the height of each cell
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 30.0
     }
     
 }

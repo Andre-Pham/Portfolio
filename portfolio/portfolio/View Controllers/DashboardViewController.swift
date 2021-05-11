@@ -98,11 +98,21 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // Make it so page scrolls even if all the contents fits on one page
         self.scrollView.alwaysBounceVertical = true
         
+        // Fonts
         self.todaysDateLabel.font = CustomFont.setLargeSubtitleFont()
         self.daysGainLabel.font = CustomFont.setBodyFont()
         self.totalGainLabel.font = CustomFont.setBodyFont()
         self.holdingsTitleLabel.font = CustomFont.setLargeSubtitleFont()
         self.holdingsTitleDetailLabel.font = CustomFont.setLargeSubtitleDetailFont()
+        
+        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
+        var currentDateFormatted = formatter.string(from: currentDate)
+        formatter.dateFormat = "yyyy"
+        let currentYearFormatted = formatter.string(from: currentDate)
+        currentDateFormatted = currentDateFormatted.replacingOccurrences(of: ", \(currentYearFormatted)", with: "")
+        self.todaysDateLabel.text = currentDateFormatted
     }
     
     /// Calls before the view appears on screen

@@ -615,11 +615,11 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uaO-xE-mzs">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Are-Ri-qD4">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="293"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Are-Ri-qD4">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="223"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ACy-e7-mwa">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="152.5"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rya-gJ-jCl">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="31"/>
                                                 <subviews>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ELh-J5-QXa">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
@@ -635,20 +635,25 @@
                                                             <action selector="graphDurationSegmentedControlChanged:" destination="hKd-Wq-cug" eventType="valueChanged" id="Lcc-mw-cMq"/>
                                                         </connections>
                                                     </segmentedControl>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ACy-e7-mwa">
+                                                <rect key="frame" x="0.0" y="31" width="414" height="91.5"/>
+                                                <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Date &quot;Tuesday 29th March&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VYt-PP-odL">
-                                                        <rect key="frame" x="0.0" y="51" width="414" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day's Gain &quot;+ $18.22 (22.03%) Day&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zbK-fU-lq5">
-                                                        <rect key="frame" x="0.0" y="91.5" width="414" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="35.5" width="414" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Gain &quot;+ $18.22 (22.03%) Total&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fX8-TX-BhC">
-                                                        <rect key="frame" x="0.0" y="132" width="414" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="71" width="414" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -656,7 +661,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="SP5-F3-xPQ">
-                                                <rect key="frame" x="0.0" y="172.5" width="414" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="122.5" width="414" height="20.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="&quot;Holdings&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AnE-tN-mol">
                                                         <rect key="frame" x="0.0" y="0.0" width="272.5" height="20.5"/>
@@ -673,7 +678,7 @@
                                                 </subviews>
                                             </stackView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kwX-gr-7JY">
-                                                <rect key="frame" x="0.0" y="213" width="414" height="80"/>
+                                                <rect key="frame" x="0.0" y="143" width="414" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="PPc-7f-r2Z"/>
                                                 </constraints>
@@ -731,9 +736,12 @@
                     <connections>
                         <outlet property="dateAndReturnsStackView" destination="ACy-e7-mwa" id="ts8-X1-UI1"/>
                         <outlet property="graphDurationSegmentedControl" destination="ELh-J5-QXa" id="YrX-vr-hwq"/>
+                        <outlet property="graphDurationStackView" destination="rya-gJ-jCl" id="CDe-CT-xTl"/>
                         <outlet property="holdingsTableView" destination="kwX-gr-7JY" id="ChD-yr-dKJ"/>
                         <outlet property="holdingsTableViewHeight" destination="PPc-7f-r2Z" id="O1D-24-CNV"/>
+                        <outlet property="holdingsTitleStackView" destination="SP5-F3-xPQ" id="41R-QP-3vk"/>
                         <outlet property="rootStackView" destination="Are-Ri-qD4" id="oat-zy-Cvh"/>
+                        <outlet property="scrollView" destination="uaO-xE-mzs" id="lxy-8k-5wo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CCv-Ap-Jp2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

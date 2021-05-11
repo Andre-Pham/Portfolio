@@ -38,10 +38,14 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: - Outlets
     
     @IBOutlet weak var holdingsTableView: UITableView!
-    @IBOutlet weak var dateAndReturnsStackView: UIStackView!
-    @IBOutlet weak var rootStackView: UIStackView!
     @IBOutlet weak var holdingsTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var graphDurationSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var scrollView: UIScrollView!
+    // Stack views
+    @IBOutlet weak var rootStackView: UIStackView!
+    @IBOutlet weak var graphDurationStackView: UIStackView!
+    @IBOutlet weak var dateAndReturnsStackView: UIStackView!
+    @IBOutlet weak var holdingsTitleStackView: UIStackView!
     
     // MARK: - Methods
     
@@ -63,9 +67,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Add margins to the stack views
         rootStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 10)
+        graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 10, trailing: 15)
+        dateAndReturnsStackView.directionalLayoutMargins = .init(top: 20, leading: 10, bottom: 20, trailing: 10)
+        holdingsTitleStackView.directionalLayoutMargins = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
         rootStackView.isLayoutMarginsRelativeArrangement = true
-        dateAndReturnsStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 20)
+        graphDurationStackView.isLayoutMarginsRelativeArrangement = true
         dateAndReturnsStackView.isLayoutMarginsRelativeArrangement = true
+        holdingsTitleStackView.isLayoutMarginsRelativeArrangement = true
         
         // Add a loading indicator
         self.indicator.style = UIActivityIndicatorView.Style.large
@@ -77,6 +85,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             self.indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             self.indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
+        
+        // Make it so page scrolls even if all the contents fits on one page
+        scrollView.alwaysBounceVertical = true
     }
     
     /// Calls before the view appears on screen
@@ -352,7 +363,7 @@ extension DashboardViewController {
         chartViewHostingController.view.translatesAutoresizingMaskIntoConstraints = false
         let constraints = [
             chartViewHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            chartViewHostingController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45)
+            chartViewHostingController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.40)
         ]
         NSLayoutConstraint.activate(constraints)
 

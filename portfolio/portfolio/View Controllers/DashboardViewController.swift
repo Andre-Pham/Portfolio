@@ -104,6 +104,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.totalGainLabel.font = CustomFont.setBodyFont()
         self.holdingsTitleLabel.font = CustomFont.setLargeSubtitleFont()
         self.holdingsTitleDetailLabel.font = CustomFont.setLargeSubtitleDetailFont()
+        //self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: CustomFont.setLargeSubtitleFont()]
         
         let currentDate = Date()
         let formatter = DateFormatter()
@@ -123,6 +124,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             self.shownWatchlist = portfolio
             self.shownHoldings.removeAll()
             self.chartData.data = []
+            self.chartData.title = self.shownWatchlist?.name ?? "Watchlist Name Not Found"
             self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min")
             self.holdingsTableView.reloadData()
         }

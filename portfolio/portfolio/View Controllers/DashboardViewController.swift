@@ -41,6 +41,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var dateAndReturnsStackView: UIStackView!
     @IBOutlet weak var rootStackView: UIStackView!
     @IBOutlet weak var holdingsTableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var graphDurationSegmentedControl: UISegmentedControl!
     
     // MARK: - Methods
     
@@ -86,7 +87,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             self.shownWatchlist = portfolio
             self.shownHoldings.removeAll()
             self.chartData.data = []
-            self.generateChartData()
+            self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min")
             self.holdingsTableView.reloadData()
         }
         
@@ -114,8 +115,35 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    @IBAction func graphDurationSegmentedControlChanged(_ sender: Any) {
+        let graphDuration = self.graphDurationSegmentedControl.titleForSegment(at: self.graphDurationSegmentedControl.selectedSegmentIndex)
+        self.chartData.data = []
+        switch graphDuration {
+        case "24H":
+            self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min")
+            break
+        case "1W":
+            self.generateChartData(unitsBackwards: 7, unit: .day, interval: "30min")
+            break
+        case "1M":
+            self.generateChartData(unitsBackwards: 1, unit: .month, interval: "1day")
+            break
+        case "1Y":
+            self.generateChartData(unitsBackwards: 1, unit: .year, interval: "1week")
+            break
+        case "5Y":
+            self.generateChartData(unitsBackwards: 5, unit: .year, interval: "1month")
+            break
+        case "10Y":
+            self.generateChartData(unitsBackwards: 10, unit: .year, interval: "1month")
+            break
+        default:
+            break
+        }
+    }
+    
     /// Assigns calls a request to the API which in turn loads data into the chart
-    func generateChartData() {
+    func generateChartData(unitsBackwards: Int, unit: Calendar.Component, interval: String) {
         // Generates argument for what tickers data will be retrieved for
         var tickers = ""
         let holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
@@ -127,22 +155,30 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         tickers = String(tickers.dropLast())
         
         // Generates the previous day's date, so we can retrieve intraday prices
-        let earlierDate = Calendar.current.date(
-            byAdding: .day,
-            value: -1,
+        var earlierDate = Calendar.current.date(
+            byAdding: unit,
+            value: -unitsBackwards,
             to: Date()
         )
+        if Calendar.current.dateComponents([.weekday], from: earlierDate!).weekday == 7 {
+            // If the data being requested is for a Saturday, change it to a Friday, because the stockmarket would be closed
+            earlierDate = Calendar.current.date(
+                byAdding: .day,
+                value: -1,
+                to: earlierDate!
+            )
+        }
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let earlierDateFormatted = formatter.string(from: earlierDate!)
         
         // Calls the API which in turn provides data to the chart
         indicator.startAnimating()
-        self.requestTickerWebData(tickers: tickers, startDate: earlierDateFormatted)
+        self.requestTickerWebData(tickers: tickers, startDate: earlierDateFormatted, interval: interval)
     }
     
     /// Calls a TwelveData request for time series prices for ticker(s), as well as other data
-    func requestTickerWebData(tickers: String, startDate: String) {
+    func requestTickerWebData(tickers: String, startDate: String, interval: String) {
         // https://api.twelvedata.com/time_series?symbol=MSFT,AMZN&interval=5min&start_date=2021-4-26&timezone=Australia/Sydney&apikey=fb1e4d1cdf934bdd8ef247ea380bd80a
         
         // Form URL from different components
@@ -152,7 +188,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         requestURLComponents.path = "/time_series"
         requestURLComponents.queryItems = [
             URLQueryItem(name: "symbol", value: tickers),
-            URLQueryItem(name: "interval", value: "5min"),
+            URLQueryItem(name: "interval", value: interval),
             URLQueryItem(name: "start_date", value: startDate), // yyyy-mm-dd
             URLQueryItem(name: "apikey", value: self.API_KEY),
         ]

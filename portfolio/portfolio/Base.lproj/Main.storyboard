@@ -631,6 +631,9 @@
                                                             <segment title="5Y"/>
                                                             <segment title="10Y"/>
                                                         </segments>
+                                                        <connections>
+                                                            <action selector="graphDurationSegmentedControlChanged:" destination="hKd-Wq-cug" eventType="valueChanged" id="Lcc-mw-cMq"/>
+                                                        </connections>
                                                     </segmentedControl>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Date &quot;Tuesday 29th March&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VYt-PP-odL">
                                                         <rect key="frame" x="0.0" y="51" width="414" height="20.5"/>
@@ -727,6 +730,7 @@
                     <navigationItem key="navigationItem" title="Dashboard" id="Fci-nK-j3e"/>
                     <connections>
                         <outlet property="dateAndReturnsStackView" destination="ACy-e7-mwa" id="ts8-X1-UI1"/>
+                        <outlet property="graphDurationSegmentedControl" destination="ELh-J5-QXa" id="YrX-vr-hwq"/>
                         <outlet property="holdingsTableView" destination="kwX-gr-7JY" id="ChD-yr-dKJ"/>
                         <outlet property="holdingsTableViewHeight" destination="PPc-7f-r2Z" id="O1D-24-CNV"/>
                         <outlet property="rootStackView" destination="Are-Ri-qD4" id="oat-zy-Cvh"/>

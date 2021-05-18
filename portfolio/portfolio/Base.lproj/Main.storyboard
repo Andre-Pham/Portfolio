@@ -275,7 +275,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="GId-wn-YSN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="tableviewBackground"/>
+                        <color key="backgroundColor" name="GreyBlack1"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="watchlistCell" textLabel="J9L-g6-784" detailTextLabel="TtJ-oL-zrT" style="IBUITableViewCellStyleSubtitle" id="NJw-Tr-9Ri">
                                 <rect key="frame" x="20" y="49.5" width="374" height="43.5"/>
@@ -358,7 +358,7 @@
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gU9-Pg-ndo"/>
-                        <color key="backgroundColor" name="tableviewBackground"/>
+                        <color key="backgroundColor" name="GreyBlack1"/>
                         <constraints>
                             <constraint firstItem="gU9-Pg-ndo" firstAttribute="trailing" secondItem="SeZ-oG-ebM" secondAttribute="trailing" constant="15" id="0VB-NK-uAz"/>
                             <constraint firstItem="SeZ-oG-ebM" firstAttribute="top" secondItem="gU9-Pg-ndo" secondAttribute="top" constant="15" id="1SD-Rm-TL9"/>
@@ -401,7 +401,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="pmU-t9-67a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="tableviewBackground"/>
+                        <color key="backgroundColor" name="GreyBlack1"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="holdingCell" id="OlK-69-hcX">
                                 <rect key="frame" x="20" y="49.5" width="374" height="43.5"/>
@@ -447,7 +447,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="755-A9-k7A">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="tableviewBackground"/>
+                        <color key="backgroundColor" name="GreyBlack1"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="purchaseCell" textLabel="xib-Gj-nlQ" detailTextLabel="kvi-cp-qdk" style="IBUITableViewCellStyleSubtitle" id="A4e-6F-Dxd">
                                 <rect key="frame" x="20" y="49.5" width="374" height="43.5"/>
@@ -501,7 +501,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Zo9-hb-eXs">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                        <color key="backgroundColor" name="GreyBlack1"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchResultHoldingCell" textLabel="uTI-Yq-tWN" detailTextLabel="g9h-Wf-0dE" style="IBUITableViewCellStyleSubtitle" id="Gxb-ZC-IN9">
                                 <rect key="frame" x="0.0" y="49.5" width="414" height="44"/>
@@ -582,7 +582,7 @@
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9U7-eq-b0M"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="GreyBlack1"/>
                     </view>
                     <navigationItem key="navigationItem" title="TICKER" id="jyB-nY-FVf">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="85e-wf-z7b">
@@ -813,7 +813,7 @@
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kh3-0U-aOH"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="GreyBlack1"/>
                     </view>
                     <navigationItem key="navigationItem" title="TICKER" id="xS6-an-yvA">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="qcv-Cs-4Qx">
@@ -837,12 +837,9 @@
         <segue reference="cPp-pW-5Jy"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <namedColor name="tableviewBackground">
+        <namedColor name="GreyBlack1">
             <color red="0.93725490196078431" green="0.94117647058823528" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="secondarySystemGroupedBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

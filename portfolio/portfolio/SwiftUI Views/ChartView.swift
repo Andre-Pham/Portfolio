@@ -53,13 +53,43 @@ class ChartData: ObservableObject {
     func updateColour() {
         if !data.isEmpty {
             if data.last! > 0 {
-                let newGradient = GradientColor(start: Color.green, end: Color.green)
-                let newStyle = ChartStyle(backgroundColor: Color.white, accentColor: Color.black, gradientColor: newGradient, textColor: Color.black, legendTextColor: Color.gray, dropShadowColor: Color.black)
+                let newGradient = GradientColor(
+                    start: Color(UIColor(named: "Green1") ??
+                                UIColor(
+                                    red: 0.00, green: 0.80,
+                                    blue: 0.24, alpha: 1.00
+                                )
+                    ),
+                    end: Color(UIColor(named: "Green2") ??
+                                UIColor(
+                                    red: 0.06, green: 0.85,
+                                    blue: 0.47, alpha: 1.00
+                                )
+                    )
+                )
+                let newStyle = ChartStyle(
+                    backgroundColor: Color.white,
+                    accentColor: Color.black,
+                    gradientColor: newGradient,
+                    textColor: Color.black,
+                    legendTextColor: Color.gray,
+                    dropShadowColor: Color.black
+                )
                 self.lineColour = newStyle
             }
             else if data.last! == 0 {
-                let newGradient = GradientColor(start: Color.gray, end: Color.gray)
-                let newStyle = ChartStyle(backgroundColor: Color.white, accentColor: Color.black, gradientColor: newGradient, textColor: Color.black, legendTextColor: Color.gray, dropShadowColor: Color.black)
+                let newGradient = GradientColor(
+                    start: Color.gray,
+                    end: Color.gray
+                )
+                let newStyle = ChartStyle(
+                    backgroundColor: Color.white,
+                    accentColor: Color.black,
+                    gradientColor: newGradient,
+                    textColor: Color.black,
+                    legendTextColor: Color.gray,
+                    dropShadowColor: Color.black
+                )
                 self.lineColour = newStyle
             }
             else {

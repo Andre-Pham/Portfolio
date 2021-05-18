@@ -12,24 +12,24 @@ class CustomFont: UIFont {
     // MARK: - Properties
     
     // Default sizes and weights for large subtitle
-    static let LARGE_SUBTITLE_SIZE = 25.0
-    static let LARGE_SUBTITLE_STYLE: TextStyle = .body
-    static let LARGE_SUBTITLE_WEIGHT: Weight = .bold
+    static let SUBTITLE_SIZE = 25.0
+    static let SUBTITLE_STYLE: TextStyle = .body
+    static let SUBTITLE_WEIGHT: Weight = .bold
     
-    // Default sizes and weights for large subtitle detail
-    static let LARGE_DETAIL_SUBTITLE_SIZE = 17.0
-    static let LARGE_DETAIL_SUBTITLE_STYLE: TextStyle = .body
-    static let LARGE_DETAIL_SUBTITLE_WEIGHT: Weight = .bold
-    
-    // Default sizes and weights for small subtitle
-    static let SMALL_SUBTITLE_SIZE = 17.0
-    static let SMALL_SUBTITLE_STYLE: TextStyle = .body
-    static let SMALL_SUBTITLE_WEIGHT: Weight = .bold
+    // Default sizes and weights for subtitle compliment
+    static let SUBTITLE_COMPLIMENT_SIZE = 17.0
+    static let SUBTITLE_COMPLIMENT_STYLE: TextStyle = .body
+    static let SUBTITLE_COMPLIMENT_WEIGHT: Weight = .bold
     
     // Default sizes and weights for body
     static let BODY_SIZE = 16.0
     static let BODY_STYLE: TextStyle = .body
     static let BODY_WEIGHT: Weight = .regular
+    
+    // Default sizes and weights for detail
+    static let DETAIL_SIZE = 13.0
+    static let DETAIL_STYLE: TextStyle = .body
+    static let DETAIL_WEIGHT: Weight = .thin
     
     // MARK: - Methods
 
@@ -43,22 +43,22 @@ class CustomFont: UIFont {
     }
     
     /// Assigns a font to a text field with the parameters to make a subtitle font
-    static func setLargeSubtitleFont() -> UIFont {
-        return self.setFont(size: self.LARGE_SUBTITLE_SIZE, style: self.LARGE_SUBTITLE_STYLE, weight: self.LARGE_SUBTITLE_WEIGHT)
+    static func setSubtitleFont() -> UIFont {
+        return self.setFont(size: self.SUBTITLE_SIZE, style: self.SUBTITLE_STYLE, weight: self.SUBTITLE_WEIGHT)
     }
     
-    /// Assigns a font to a text field with the parameters to make a subtitle font
-    static func setSmallSubtitleFont() -> UIFont {
-        return self.setFont(size: self.SMALL_SUBTITLE_SIZE, style: self.SMALL_SUBTITLE_STYLE, weight: self.SMALL_SUBTITLE_WEIGHT)
-    }
-    
-    static func setLargeSubtitleDetailFont() -> UIFont {
-        return self.setFont(size: self.LARGE_DETAIL_SUBTITLE_SIZE, style: LARGE_DETAIL_SUBTITLE_STYLE, weight: LARGE_DETAIL_SUBTITLE_WEIGHT).italic
+    static func setSubtitleComplementaryFont() -> UIFont {
+        return self.setFont(size: self.SUBTITLE_COMPLIMENT_SIZE, style: SUBTITLE_COMPLIMENT_STYLE, weight: SUBTITLE_COMPLIMENT_WEIGHT).italic
     }
     
     /// Assigns a font to a text field with the parameters to make a body font
     static func setBodyFont() -> UIFont {
         return self.setFont(size: self.BODY_SIZE, style: self.BODY_STYLE, weight: self.BODY_WEIGHT)
+    }
+    
+    /// Assigns a font to a text field with the parameters to make a detail font, i.e. detail text field in tableview
+    static func setDetailFont() -> UIFont {
+        return self.setFont(size: self.DETAIL_SIZE, style: self.DETAIL_STYLE, weight: self.DETAIL_WEIGHT)
     }
     
 }

@@ -99,11 +99,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.scrollView.alwaysBounceVertical = true
         
         // Fonts
-        self.todaysDateLabel.font = CustomFont.setLargeSubtitleFont()
+        self.todaysDateLabel.font = CustomFont.setSubtitleFont()
         self.daysGainLabel.font = CustomFont.setBodyFont()
         self.totalGainLabel.font = CustomFont.setBodyFont()
-        self.holdingsTitleLabel.font = CustomFont.setLargeSubtitleFont()
-        self.holdingsTitleDetailLabel.font = CustomFont.setLargeSubtitleDetailFont()
+        self.holdingsTitleLabel.font = CustomFont.setSubtitleFont()
+        self.holdingsTitleDetailLabel.font = CustomFont.setSubtitleComplementaryFont()
         
         let currentDate = Date()
         let formatter = DateFormatter()

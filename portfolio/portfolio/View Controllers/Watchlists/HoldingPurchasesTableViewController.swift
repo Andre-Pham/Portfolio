@@ -54,6 +54,9 @@ class HoldingPurchasesTableViewController: UITableViewController {
         purchaseCell.textLabel?.text = formatter.string(from: purchaseDate!)
         purchaseCell.detailTextLabel?.text = "\(purchase.shares) shares at $\(purchase.price)"
         
+        purchaseCell.textLabel?.font = CustomFont.setBodyFont()
+        purchaseCell.detailTextLabel?.font = CustomFont.setDetailFont()
+        
         return purchaseCell
     }
     

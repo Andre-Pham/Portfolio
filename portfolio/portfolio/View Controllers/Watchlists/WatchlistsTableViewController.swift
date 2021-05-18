@@ -83,6 +83,9 @@ class WatchlistsTableViewController: UITableViewController {
             watchlistCell.detailTextLabel?.text = nil
         }
         
+        watchlistCell.textLabel?.font = CustomFont.setBodyFont()
+        watchlistCell.detailTextLabel?.font = CustomFont.setDetailFont()
+        
         // If the watchlist is the portfolio, add an icon to indicate it
         if watchlist.isPortfolio {
             watchlistCell.imageView?.image = UIImage(systemName: "chart.pie.fill")

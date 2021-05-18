@@ -12,7 +12,7 @@ class CustomFont: UIFont {
     // MARK: - Properties
     
     // Default sizes and weights for large subtitle
-    static let LARGE_SUBTITLE_SIZE = 28.0
+    static let LARGE_SUBTITLE_SIZE = 25.0
     static let LARGE_SUBTITLE_STYLE: TextStyle = .body
     static let LARGE_SUBTITLE_WEIGHT: Weight = .bold
     

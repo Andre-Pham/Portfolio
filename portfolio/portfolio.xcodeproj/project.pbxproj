@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		65511732264A133200CBABAF /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511731264A133200CBABAF /* CustomFont.swift */; };
+		65511734264A8F3100CBABAF /* Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511733264A8F3100CBABAF /* Calculations.swift */; };
 		659C8F71263C62AB004D1E30 /* TickerWebData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8F70263C62AB004D1E30 /* TickerWebData.swift */; };
 		659C8F7E263E159C004D1E30 /* PortfolioDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 659C8F7C263E159C004D1E30 /* PortfolioDataModel.xcdatamodeld */; };
 		659C8FA4263E3ACB004D1E30 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C8FA3263E3ACB004D1E30 /* MulticastDelegate.swift */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		65511731264A133200CBABAF /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
+		65511733264A8F3100CBABAF /* Calculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculations.swift; sourceTree = "<group>"; };
 		659C8F70263C62AB004D1E30 /* TickerWebData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerWebData.swift; sourceTree = "<group>"; };
 		659C8F7D263E159C004D1E30 /* PortfolioDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PortfolioDataModel.xcdatamodel; sourceTree = "<group>"; };
 		659C8FA3263E3ACB004D1E30 /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				65AFBE1F262D648D0039CB66 /* Info.plist */,
 				659C8FC8263EA34E004D1E30 /* Popup.swift */,
 				65511731264A133200CBABAF /* CustomFont.swift */,
+				65511733264A8F3100CBABAF /* Calculations.swift */,
 			);
 			path = portfolio;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				659C8FD6263F7519004D1E30 /* CoreWatchlist+CoreDataClass.swift in Sources */,
 				659C8FA6263E3B14004D1E30 /* DatabaseProtocol.swift in Sources */,
 				659C8FB4263E4437004D1E30 /* CoreDataController.swift in Sources */,
+				65511734264A8F3100CBABAF /* Calculations.swift in Sources */,
 				659C8FD8263F7519004D1E30 /* CorePurchase+CoreDataClass.swift in Sources */,
 				659C8F7E263E159C004D1E30 /* PortfolioDataModel.xcdatamodeld in Sources */,
 				65AFBE4D262E624D0039CB66 /* PortfolioHoldingTableViewCell.swift in Sources */,

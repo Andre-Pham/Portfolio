@@ -22,7 +22,7 @@ class Holding: NSObject {
     
     
     // Not required
-    var purchases: [Purchase] = []
+    var purchases: [CorePurchase] = []
     
     // MARK: - Constructor
     
@@ -60,7 +60,7 @@ class Holding: NSObject {
     func getSharesOwned() -> Double {
         var sharesOwned = 0.0
         for purchase in self.purchases {
-            sharesOwned += purchase.shares ?? 0
+            sharesOwned += purchase.shares
         }
         return sharesOwned
     }
@@ -73,7 +73,7 @@ class Holding: NSObject {
         var returnInDollars = 0.0
         
         for purchase in self.purchases {
-            returnInDollars += self.currentPrice!*purchase.shares! - purchase.price!*purchase.shares!
+            returnInDollars += self.currentPrice!*purchase.shares - purchase.price*purchase.shares
         }
         
         return returnInDollars

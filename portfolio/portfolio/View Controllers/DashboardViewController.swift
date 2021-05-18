@@ -104,7 +104,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.totalGainLabel.font = CustomFont.setBodyFont()
         self.holdingsTitleLabel.font = CustomFont.setLargeSubtitleFont()
         self.holdingsTitleDetailLabel.font = CustomFont.setLargeSubtitleDetailFont()
-        //self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: CustomFont.setLargeSubtitleFont()]
         
         let currentDate = Date()
         let formatter = DateFormatter()
@@ -126,7 +125,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             self.chartData.data = []
             self.chartData.title = self.shownWatchlist?.name ?? "Watchlist Name Not Found"
             self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min")
-            self.holdingsTableView.reloadData()
+            //self.holdingsTableView.reloadData()
         }
         
         // Adds observer which calls observeValue when number of tableview cells changes
@@ -295,6 +294,15 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                         Holding(ticker: tickerResponse.meta.symbol, prices: prices, currentPrice: currentPrice ?? 0)
                     )
                 }
+                // Add the purchase data for each holding created
+                let coreHoldings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
+                for coreHolding in coreHoldings {
+                    for holding in self.shownHoldings {
+                        if coreHolding.ticker == holding.ticker {
+                            holding.purchases = coreHolding.purchases?.allObjects as! [CorePurchase]
+                        }
+                    }
+                }
                 
                 // If no holdings were created from the API request, don't run the following code because it'll crash
                 if self.shownHoldings.count > 0 {
@@ -321,6 +329,33 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                         // Update chart and tableview
                         self.chartData.data = combinedPrices
                         self.holdingsTableView.reloadData()
+                        
+                        if let watchlistIsOwned = self.shownWatchlist?.owned {
+                            if watchlistIsOwned {
+                                var dayGainDollars = 0.0
+                                var dayGainPercentage = 0.0
+                                
+                                for holding in self.shownHoldings {
+                                    if let currentPrice = holding.currentPrice, let previousPrice = holding.prices.first {
+                                        
+                                        dayGainDollars += holding.getSharesOwned()*(currentPrice - previousPrice)
+                                        //dayGainPercentage += 100*(currentPrice/previousPrice - 1)
+                                        dayGainPercentage += 100*(holding.getEquity()/(holding.getEquity() - dayGainDollars) - 1)
+                                    }
+                                }
+                                
+                                // Round to 2 decimal places
+                                dayGainDollars = Calculations.roundToTwo(dayGainDollars)
+                                dayGainPercentage = Calculations.roundToTwo(dayGainPercentage)
+                                
+                                var prefix = "+"
+                                if dayGainDollars < 0 {
+                                    prefix = "-"
+                                }
+                                
+                                self.daysGainLabel.text = "\(prefix) $\(abs(dayGainDollars)) (\(dayGainPercentage)%) Day"
+                            }
+                        }
                     }
                 }
             }
@@ -356,8 +391,24 @@ extension DashboardViewController {
         let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_HOLDING, for: indexPath)
         let holding = self.shownHoldings[indexPath.row]
         
+        let currentPrice = holding.currentPrice!
+        let previousPrice = holding.prices.first!
+        
+        var dayGainDollars = holding.getSharesOwned()*(currentPrice - previousPrice)
+        var dayGainPercentage = 100*(holding.getEquity()/(holding.getEquity() - dayGainDollars) - 1)
+        
+        // Round to 2 decimal places
+        dayGainDollars = Calculations.roundToTwo(dayGainDollars)
+        dayGainPercentage = Calculations.roundToTwo(dayGainPercentage)
+        
+        var prefix = "+"
+        if dayGainDollars < 0 {
+            prefix = "-"
+        }
+        
         holdingCell.textLabel?.text = holding.ticker
-        holdingCell.detailTextLabel?.text = String(holding.currentPrice!)
+        //holdingCell.detailTextLabel?.text = String(holding.currentPrice!)
+        holdingCell.detailTextLabel?.text = "\(prefix) $\(abs(dayGainDollars)) (\(dayGainPercentage)%)"
         
         holdingCell.textLabel?.font = CustomFont.setBodyFont()
         holdingCell.detailTextLabel?.font = CustomFont.setBodyFont()

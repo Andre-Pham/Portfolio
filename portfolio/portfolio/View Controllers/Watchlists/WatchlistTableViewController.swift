@@ -99,6 +99,33 @@ class WatchlistTableViewController: UITableViewController {
         return true
     }
     
+    // SOURCE: https://developer.apple.com/forums/thread/131056
+    // AUTHOR: Claude31 - https://developer.apple.com/forums/profile/Claude31
+    /// Adds extra actions on the cell when swiped left
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let holding = self.shownWatchlist?.holdings?.allObjects[indexPath.row]
+        
+        // Delete action - deletes the watchlist
+        let delete = UIContextualAction(style: .destructive, title: "delete") {
+            (action, view, completion) in
+        
+            self.databaseController?.deleteCoreHoldingFromCoreWatchlist(coreHolding: holding as! CoreHolding, coreWatchlist: self.shownWatchlist!)
+            self.databaseController?.saveChanges()
+            
+            tableView.reloadData()
+            
+            completion(true)
+        }
+        delete.image = UIImage(systemName: "trash.fill")
+        
+        // Add actions to the cells
+        let swipeActions = UISwipeActionsConfiguration(actions: [delete])
+        swipeActions.performsFirstActionWithFullSwipe = false
+        
+        return swipeActions
+    }
+    
     /// If the watchlist isn't owned, then the holding can't have purchases added to it, so no segue to add purchases
     override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
         if identifier == SEGUE_PURCHASES {

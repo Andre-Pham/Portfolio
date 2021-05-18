@@ -15,9 +15,16 @@ class HoldingPurchasesTableViewController: UITableViewController {
     
     let SEGUE_EDIT_PURCHASE = "editPurchaseSegue"
     let SEGUE_NEW_PURCHASE = "newPurchaseSegue"
+    
+    // Core Data
+    weak var databaseController: DatabaseProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Sets property databaseController to reference to the databaseController from AppDelegate
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableview), name: NSNotification.Name(rawValue: "reloadPurchases"), object: nil)
 
@@ -62,8 +69,37 @@ class HoldingPurchasesTableViewController: UITableViewController {
     
     /// Returns whether a given section can be edited
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // CHANGE TO TRUE LATER
-        return false
+        return true
+    }
+    
+    // SOURCE: https://developer.apple.com/forums/thread/131056
+    // AUTHOR: Claude31 - https://developer.apple.com/forums/profile/Claude31
+    /// Adds extra actions on the cell when swiped left
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let purchase = self.coreHolding?.purchases?.allObjects[indexPath.row]
+        
+        // Delete action - deletes the watchlist
+        let delete = UIContextualAction(style: .destructive, title: "delete") {
+            (action, view, completion) in
+            
+            self.databaseController?.deleteCorePurchaseFromCoreHolding(corePurchase: purchase as! CorePurchase, coreHolding: self.coreHolding!)
+            self.databaseController?.saveChanges()
+            
+            tableView.reloadData()
+            
+            completion(true)
+        }
+        delete.image = UIImage(systemName: "trash.fill")
+        
+        // Add actions to the cells - if there's only one purchase, you can't remove it
+        var swipeActions = UISwipeActionsConfiguration(actions: [delete])
+        if self.coreHolding?.purchases?.count == 1 {
+            swipeActions = UISwipeActionsConfiguration(actions: [])
+        }
+        swipeActions.performsFirstActionWithFullSwipe = false
+        
+        return swipeActions
     }
     
     /// Transfers the name, instructions and ingredients of the selected meal to the CreateMealTableViewController when the user travels there

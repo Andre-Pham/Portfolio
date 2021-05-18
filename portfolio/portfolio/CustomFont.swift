@@ -17,7 +17,7 @@ class CustomFont: UIFont {
     static let SUBTITLE_WEIGHT: Weight = .bold
     
     // Default sizes and weights for subtitle2
-    static let SUBTITLE2_SIZE = 22.0
+    static let SUBTITLE2_SIZE = 21.0
     static let SUBTITLE2_STYLE: TextStyle = .body
     static let SUBTITLE2_WEIGHT: Weight = .bold
     

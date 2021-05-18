@@ -24,6 +24,11 @@ class NewOwnedHoldingViewController: UIViewController {
     @IBOutlet weak var sharesTextField: UITextField!
     @IBOutlet weak var purchaseDatePicker: UIDatePicker!
     
+    // Labels
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var sharesLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    
     // MARK: - Methods
     
     /// Calls on page load
@@ -34,6 +39,11 @@ class NewOwnedHoldingViewController: UIViewController {
         databaseController = appDelegate?.databaseController
 
         self.title = self.holding?.ticker
+        
+        // Label fonts
+        self.priceLabel.font = CustomFont.setSubtitle2Font()
+        self.sharesLabel.font = CustomFont.setSubtitle2Font()
+        self.dateLabel.font = CustomFont.setSubtitle2Font()
     }
     
     // MARK: - Actions

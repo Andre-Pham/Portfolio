@@ -48,7 +48,9 @@ class ChartData: ObservableObject {
         self.title = title
         self.legend = legend
         self.data = data
-        
+    }
+    
+    func updateColour() {
         if !data.isEmpty {
             if data.last! > 0 {
                 let newGradient = GradientColor(start: Color.green, end: Color.green)
@@ -59,6 +61,9 @@ class ChartData: ObservableObject {
                 let newGradient = GradientColor(start: Color.gray, end: Color.gray)
                 let newStyle = ChartStyle(backgroundColor: Color.white, accentColor: Color.black, gradientColor: newGradient, textColor: Color.black, legendTextColor: Color.gray, dropShadowColor: Color.black)
                 self.lineColour = newStyle
+            }
+            else {
+                self.lineColour = Styles.lineChartStyleOne
             }
         }
     }

@@ -255,6 +255,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             do {
                 let decoder = JSONDecoder()
                 
+                // Remove previous holdings data
+                self.shownHoldings = []
+                
                 if tickers.contains(",") {
                     // Multiple ticker request
                     let tickerResponse = try decoder.decode(DecodedTickerArray.self, from: data!)
@@ -328,6 +331,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     DispatchQueue.main.async {
                         // Update chart and tableview
                         self.chartData.data = combinedPrices
+                        self.chartData.updateColour()
                         self.holdingsTableView.reloadData()
                         
                         if let watchlistIsOwned = self.shownWatchlist?.owned {

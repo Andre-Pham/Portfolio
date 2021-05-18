@@ -330,40 +330,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeZ-oG-ebM">
-                                <rect key="frame" x="20" y="159" width="45" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeZ-oG-ebM">
+                                <rect key="frame" x="15" y="155" width="384" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Owned" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlS-KF-Aq7">
-                                <rect key="frame" x="20" y="222" width="55" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Owned" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlS-KF-Aq7">
+                                <rect key="frame" x="15" y="250" width="54.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p6l-g8-Xz1">
-                                <rect key="frame" x="266" y="152" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0b4-7p-tZS">
+                                <rect key="frame" x="350" y="250" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="An &quot;Owned&quot; watchlist means that the watchlist holdings are treated like assets you own, with purchase dates and prices." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2a-Rp-jVA">
+                                <rect key="frame" x="15" y="281" width="299" height="81.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p6l-g8-Xz1">
+                                <rect key="frame" x="15" y="186" width="384" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0b4-7p-tZS">
-                                <rect key="frame" x="316" y="217" width="49" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Disclaimer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2a-Rp-jVA">
-                                <rect key="frame" x="20" y="269" width="80" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gU9-Pg-ndo"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="tableviewBackground"/>
+                        <constraints>
+                            <constraint firstItem="gU9-Pg-ndo" firstAttribute="trailing" secondItem="SeZ-oG-ebM" secondAttribute="trailing" constant="15" id="0VB-NK-uAz"/>
+                            <constraint firstItem="SeZ-oG-ebM" firstAttribute="top" secondItem="gU9-Pg-ndo" secondAttribute="top" constant="15" id="1SD-Rm-TL9"/>
+                            <constraint firstItem="c2a-Rp-jVA" firstAttribute="leading" secondItem="gU9-Pg-ndo" secondAttribute="leading" constant="15" id="3sh-c9-v9r"/>
+                            <constraint firstItem="gU9-Pg-ndo" firstAttribute="trailing" secondItem="p6l-g8-Xz1" secondAttribute="trailing" constant="15" id="77r-fJ-4S6"/>
+                            <constraint firstItem="zlS-KF-Aq7" firstAttribute="top" secondItem="p6l-g8-Xz1" secondAttribute="bottom" constant="30" id="Hmz-4r-eKt"/>
+                            <constraint firstAttribute="trailing" secondItem="c2a-Rp-jVA" secondAttribute="trailing" constant="100" id="RsT-9p-ozz"/>
+                            <constraint firstItem="gU9-Pg-ndo" firstAttribute="trailing" secondItem="0b4-7p-tZS" secondAttribute="trailing" constant="15" id="V3W-Vm-qUA"/>
+                            <constraint firstItem="zlS-KF-Aq7" firstAttribute="leading" secondItem="gU9-Pg-ndo" secondAttribute="leading" constant="15" id="auM-EB-Q8w"/>
+                            <constraint firstItem="p6l-g8-Xz1" firstAttribute="top" secondItem="SeZ-oG-ebM" secondAttribute="bottom" constant="10" id="dRE-4c-kU7"/>
+                            <constraint firstItem="SeZ-oG-ebM" firstAttribute="leading" secondItem="gU9-Pg-ndo" secondAttribute="leading" constant="15" id="h5n-rh-y7t"/>
+                            <constraint firstItem="0b4-7p-tZS" firstAttribute="top" secondItem="p6l-g8-Xz1" secondAttribute="bottom" constant="30" id="nbB-jN-ftM"/>
+                            <constraint firstItem="p6l-g8-Xz1" firstAttribute="leading" secondItem="gU9-Pg-ndo" secondAttribute="leading" constant="15" id="t9d-qp-kQJ"/>
+                            <constraint firstItem="c2a-Rp-jVA" firstAttribute="top" secondItem="zlS-KF-Aq7" secondAttribute="bottom" constant="10" id="zse-V1-Lyb"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Watchlist" id="UWK-qp-xqi">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="M01-yt-eI8">
@@ -373,7 +383,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="disclaimerLabel" destination="c2a-Rp-jVA" id="4wx-U0-smu"/>
+                        <outlet property="nameLabel" destination="SeZ-oG-ebM" id="mBp-Z6-5aG"/>
                         <outlet property="nameTextField" destination="p6l-g8-Xz1" id="pIX-Qb-IhC"/>
+                        <outlet property="ownedLabel" destination="zlS-KF-Aq7" id="MMX-tJ-zmk"/>
                         <outlet property="ownedSwitch" destination="0b4-7p-tZS" id="5Aa-tW-TPm"/>
                     </connections>
                 </viewController>

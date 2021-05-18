@@ -11,10 +11,15 @@ class CustomFont: UIFont {
     
     // MARK: - Properties
     
-    // Default sizes and weights for large subtitle
+    // Default sizes and weights for subtitle
     static let SUBTITLE_SIZE = 25.0
     static let SUBTITLE_STYLE: TextStyle = .body
     static let SUBTITLE_WEIGHT: Weight = .bold
+    
+    // Default sizes and weights for subtitle2
+    static let SUBTITLE2_SIZE = 22.0
+    static let SUBTITLE2_STYLE: TextStyle = .body
+    static let SUBTITLE2_WEIGHT: Weight = .bold
     
     // Default sizes and weights for subtitle compliment
     static let SUBTITLE_COMPLIMENT_SIZE = 17.0
@@ -27,9 +32,9 @@ class CustomFont: UIFont {
     static let BODY_WEIGHT: Weight = .regular
     
     // Default sizes and weights for detail
-    static let DETAIL_SIZE = 13.0
+    static let DETAIL_SIZE = 12.0
     static let DETAIL_STYLE: TextStyle = .body
-    static let DETAIL_WEIGHT: Weight = .thin
+    static let DETAIL_WEIGHT: Weight = .light
     
     // MARK: - Methods
 
@@ -45,6 +50,10 @@ class CustomFont: UIFont {
     /// Assigns a font to a text field with the parameters to make a subtitle font
     static func setSubtitleFont() -> UIFont {
         return self.setFont(size: self.SUBTITLE_SIZE, style: self.SUBTITLE_STYLE, weight: self.SUBTITLE_WEIGHT)
+    }
+    
+    static func setSubtitle2Font() -> UIFont {
+        return self.setFont(size: self.SUBTITLE2_SIZE, style: self.SUBTITLE2_STYLE, weight: self.SUBTITLE2_WEIGHT)
     }
     
     static func setSubtitleComplementaryFont() -> UIFont {

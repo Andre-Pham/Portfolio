@@ -19,6 +19,11 @@ class NewWatchlistViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var ownedSwitch: UISwitch!
     
+    // Labels
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var ownedLabel: UILabel!
+    @IBOutlet weak var disclaimerLabel: UILabel!
+    
     // MARK: - Methods
     
     /// Calls on page load
@@ -28,6 +33,10 @@ class NewWatchlistViewController: UIViewController {
         // Sets property databaseController to reference to the databaseController from AppDelegate
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+        
+        self.nameLabel.font = CustomFont.setSubtitle2Font()
+        self.ownedLabel.font = CustomFont.setSubtitle2Font()
+        self.disclaimerLabel.font = CustomFont.setDetailFont()
     }
     
     // MARK: - Actions

@@ -332,7 +332,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                         // Update chart and tableview
                         self.chartData.data = combinedPrices
                         self.chartData.updateColour()
-                        self.holdingsTableView.reloadData()
+                        
+                        if !onlyUpdateGraph {
+                            self.holdingsTableView.reloadData()
+                        }
                         
                         if let watchlistIsOwned = self.shownWatchlist?.owned {
                             if watchlistIsOwned && !onlyUpdateGraph {

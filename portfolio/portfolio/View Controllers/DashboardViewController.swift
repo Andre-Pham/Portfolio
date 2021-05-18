@@ -124,7 +124,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             self.shownHoldings.removeAll()
             self.chartData.data = []
             self.chartData.title = self.shownWatchlist?.name ?? "Watchlist Name Not Found"
-            self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min")
+            self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: false)
             //self.holdingsTableView.reloadData()
         }
         
@@ -157,22 +157,22 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.chartData.data = []
         switch graphDuration {
         case "24H":
-            self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min")
+            self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: true)
             break
         case "1W":
-            self.generateChartData(unitsBackwards: 7, unit: .day, interval: "30min")
+            self.generateChartData(unitsBackwards: 7, unit: .day, interval: "30min", onlyUpdateGraph: true)
             break
         case "1M":
-            self.generateChartData(unitsBackwards: 1, unit: .month, interval: "1day")
+            self.generateChartData(unitsBackwards: 1, unit: .month, interval: "1day", onlyUpdateGraph: true)
             break
         case "1Y":
-            self.generateChartData(unitsBackwards: 1, unit: .year, interval: "1week")
+            self.generateChartData(unitsBackwards: 1, unit: .year, interval: "1week", onlyUpdateGraph: true)
             break
         case "5Y":
-            self.generateChartData(unitsBackwards: 5, unit: .year, interval: "1month")
+            self.generateChartData(unitsBackwards: 5, unit: .year, interval: "1month", onlyUpdateGraph: true)
             break
         case "10Y":
-            self.generateChartData(unitsBackwards: 10, unit: .year, interval: "1month")
+            self.generateChartData(unitsBackwards: 10, unit: .year, interval: "1month", onlyUpdateGraph: true)
             break
         default:
             break
@@ -180,7 +180,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     /// Assigns calls a request to the API which in turn loads data into the chart
-    func generateChartData(unitsBackwards: Int, unit: Calendar.Component, interval: String) {
+    func generateChartData(unitsBackwards: Int, unit: Calendar.Component, interval: String, onlyUpdateGraph: Bool) {
         // Generates argument for what tickers data will be retrieved for
         var tickers = ""
         let holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
@@ -211,11 +211,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Calls the API which in turn provides data to the chart
         indicator.startAnimating()
-        self.requestTickerWebData(tickers: tickers, startDate: earlierDateFormatted, interval: interval)
+        self.requestTickerWebData(tickers: tickers, startDate: earlierDateFormatted, interval: interval, onlyUpdateGraph: onlyUpdateGraph)
     }
     
     /// Calls a TwelveData request for time series prices for ticker(s), as well as other data
-    func requestTickerWebData(tickers: String, startDate: String, interval: String) {
+    func requestTickerWebData(tickers: String, startDate: String, interval: String, onlyUpdateGraph: Bool) {
         // https://api.twelvedata.com/time_series?symbol=MSFT,AMZN&interval=5min&start_date=2021-4-26&timezone=Australia/Sydney&apikey=fb1e4d1cdf934bdd8ef247ea380bd80a
         
         // Form URL from different components
@@ -335,7 +335,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                         self.holdingsTableView.reloadData()
                         
                         if let watchlistIsOwned = self.shownWatchlist?.owned {
-                            if watchlistIsOwned {
+                            if watchlistIsOwned && !onlyUpdateGraph {
                                 var dayGainDollars = 0.0
                                 var dayGainPercentage = 0.0
                                 

@@ -13,13 +13,9 @@ class CustomFont: UIFont {
     
     // Default sizes and weights for subtitle
     static let SUBTITLE_SIZE = 25.0
+    static let SUBTITLE2_SIZE = 21.0
     static let SUBTITLE_STYLE: TextStyle = .body
     static let SUBTITLE_WEIGHT: Weight = .bold
-    
-    // Default sizes and weights for subtitle2
-    static let SUBTITLE2_SIZE = 21.0
-    static let SUBTITLE2_STYLE: TextStyle = .body
-    static let SUBTITLE2_WEIGHT: Weight = .bold
     
     // Default sizes and weights for subtitle compliment
     static let SUBTITLE_COMPLIMENT_SIZE = 17.0
@@ -35,6 +31,11 @@ class CustomFont: UIFont {
     static let DETAIL_SIZE = 12.0
     static let DETAIL_STYLE: TextStyle = .body
     static let DETAIL_WEIGHT: Weight = .light
+    
+    static let LARGE_SIZE = 50.0
+    static let LARGE2_SIZE = 35.0
+    static let LARGE_STYLE: TextStyle = .body
+    static let LARGE_WEIGHT: Weight = .semibold
     
     // MARK: - Methods
 
@@ -53,7 +54,7 @@ class CustomFont: UIFont {
     }
     
     static func setSubtitle2Font() -> UIFont {
-        return self.setFont(size: self.SUBTITLE2_SIZE, style: self.SUBTITLE2_STYLE, weight: self.SUBTITLE2_WEIGHT)
+        return self.setFont(size: self.SUBTITLE2_SIZE, style: self.SUBTITLE_STYLE, weight: self.SUBTITLE_WEIGHT)
     }
     
     static func setSubtitleComplementaryFont() -> UIFont {
@@ -68,6 +69,14 @@ class CustomFont: UIFont {
     /// Assigns a font to a text field with the parameters to make a detail font, i.e. detail text field in tableview
     static func setDetailFont() -> UIFont {
         return self.setFont(size: self.DETAIL_SIZE, style: self.DETAIL_STYLE, weight: self.DETAIL_WEIGHT)
+    }
+    
+    static func setLargeFont() -> UIFont {
+        return self.setFont(size: self.LARGE_SIZE, style: self.LARGE_STYLE, weight: self.LARGE_WEIGHT)
+    }
+    
+    static func setLarge2Font() -> UIFont {
+        return self.setFont(size: self.LARGE2_SIZE, style: self.LARGE_STYLE, weight: self.LARGE_WEIGHT)
     }
     
 }

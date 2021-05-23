@@ -11,8 +11,25 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     
     var portfolio: Watchlist?
     let CELL_HOLDING = "holdingCell"
-    
     @IBOutlet weak var holdingsTableView: UITableView!
+    @IBOutlet weak var holdingsTableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var graphDurationSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var scrollView: UIScrollView!
+    // Stack views
+    @IBOutlet weak var rootStackView: UIStackView!
+    @IBOutlet weak var graphDurationStackView: UIStackView!
+    @IBOutlet weak var subtitleStackView: UIStackView!
+    @IBOutlet weak var totalGainStackView: UIStackView!
+    @IBOutlet weak var totalEquitiesStackView: UIStackView!
+    @IBOutlet weak var holdingsTitleStackView: UIStackView!
+    // Labels
+    @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet weak var totalGainLabel: UILabel!
+    @IBOutlet weak var totalGainValueLabel: UILabel!
+    @IBOutlet weak var totalEquitiesLabel: UILabel!
+    @IBOutlet weak var totalEquitiesValueLabel: UILabel!
+    @IBOutlet weak var holdingsTitleLabel: UILabel!
+    @IBOutlet weak var holdingsTitleDetailLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()

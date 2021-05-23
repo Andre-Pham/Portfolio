@@ -86,106 +86,186 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;Total P/L&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUm-bA-Hdg">
-                                <rect key="frame" x="20" y="233" width="79" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gain &quot;+ $18.22 (22.03%)&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ui8-gb-2Ug">
-                                <rect key="frame" x="198" y="233" width="196" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Amount Invested &quot;$80.00&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJ9-TL-VBF">
-                                <rect key="frame" x="191" y="262" width="203" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;Total Equities&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syT-HW-kRU">
-                                <rect key="frame" x="20" y="262" width="117" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;Holdings&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJ3-Cj-tSz">
-                                <rect key="frame" x="20" y="397" width="83" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&quot;Total P/L &amp; Equities&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fia-a7-9Go">
-                                <rect key="frame" x="233" y="397" width="161" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="rKt-xg-JhK">
-                                <rect key="frame" x="0.0" y="447" width="414" height="329"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="holdingCell" rowHeight="83" id="lnl-f6-9yo" customClass="PortfolioHoldingTableViewCell" customModule="portfolio" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49.5" width="414" height="83"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lnl-f6-9yo" id="ORY-7K-Aps">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="83"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TICKER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zwX-10-6c1">
-                                                    <rect key="frame" x="20" y="19" width="58" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shares" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRT-5y-y1d">
-                                                    <rect key="frame" x="20" y="48" width="53" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gain" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVx-xZ-4Dv">
-                                                    <rect key="frame" x="219" y="18" width="74" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Equity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y5K-LA-eCh">
-                                                    <rect key="frame" x="219" y="48" width="74" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="equityLabel" destination="y5K-LA-eCh" id="CFM-kk-Hro"/>
-                                            <outlet property="returnInDollarsAndPercentage" destination="pVx-xZ-4Dv" id="Eyw-Uu-0Q8"/>
-                                            <outlet property="sharesLabel" destination="DRT-5y-y1d" id="krM-BS-B9L"/>
-                                            <outlet property="tickerLabel" destination="zwX-10-6c1" id="CTf-QU-EcN"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u8J-Jy-dSM">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hwk-dF-REl" userLabel="Root Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="193"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="G94-uw-twD" userLabel="Graph Duration Stack View">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="31"/>
+                                                <subviews>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LhD-Jm-hOC">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
+                                                        <segments>
+                                                            <segment title="24H"/>
+                                                            <segment title="1W"/>
+                                                            <segment title="1M"/>
+                                                            <segment title="1Y"/>
+                                                            <segment title="5Y"/>
+                                                            <segment title="10Y"/>
+                                                        </segments>
+                                                        <connections>
+                                                            <action selector="graphDurationSegmentedControlChanged:" destination="hKd-Wq-cug" eventType="valueChanged" id="pc3-9e-ZGq"/>
+                                                        </connections>
+                                                    </segmentedControl>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wIf-gW-Sii" userLabel="Subtitle Stack View">
+                                                <rect key="frame" x="0.0" y="31" width="414" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;Total P/L &amp; Equities&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Atr-ni-RBO">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Tmq-Pp-tBe" userLabel="Total Gain Stack View">
+                                                <rect key="frame" x="0.0" y="51.5" width="414" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="&quot;Total P/L&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKX-cr-wVL">
+                                                        <rect key="frame" x="0.0" y="0.0" width="198" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Gain &quot;+ $18.22 (22.03%)&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A29-nK-wNY">
+                                                        <rect key="frame" x="218" y="0.0" width="196" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="cYY-Ne-TFR" userLabel="Total Equities Stack View">
+                                                <rect key="frame" x="0.0" y="72" width="414" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="&quot;Total Equities&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZM-LO-M3Z">
+                                                        <rect key="frame" x="0.0" y="0.0" width="171" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Amount Invested &quot;$80.00&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UaL-EX-gGs">
+                                                        <rect key="frame" x="211" y="0.0" width="203" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="101-hH-oXQ" userLabel="Holdings Title Stack View">
+                                                <rect key="frame" x="0.0" y="92.5" width="414" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="&quot;Holdings&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7i-9h-H4P">
+                                                        <rect key="frame" x="0.0" y="0.0" width="246.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Last Close P/L" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ukb-Od-mgC">
+                                                        <rect key="frame" x="306.5" y="0.0" width="107.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="OFD-nL-DNr">
+                                                <rect key="frame" x="0.0" y="113" width="414" height="80"/>
+                                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="ohC-V4-gRN"/>
+                                                </constraints>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="holdingCell" rowHeight="83" id="l2G-Ee-dyq" customClass="PortfolioHoldingTableViewCell" customModule="portfolio" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="49.5" width="414" height="83"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l2G-Ee-dyq" id="fOF-Zw-WgS">
+                                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="83"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TICKER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jsa-tM-mnK">
+                                                                    <rect key="frame" x="20" y="19" width="58" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shares" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hK7-OJ-hXZ">
+                                                                    <rect key="frame" x="20" y="48" width="53" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Gain" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wUQ-Kq-TV7">
+                                                                    <rect key="frame" x="219" y="18" width="74" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Equity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mP-zr-RHK">
+                                                                    <rect key="frame" x="219" y="48" width="74" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="equityLabel" destination="8mP-zr-RHK" id="KCD-KG-S2M"/>
+                                                            <outlet property="returnInDollarsAndPercentage" destination="wUQ-Kq-TV7" id="ahZ-6e-TAg"/>
+                                                            <outlet property="sharesLabel" destination="hK7-OJ-hXZ" id="TAp-99-iKL"/>
+                                                            <outlet property="tickerLabel" destination="Jsa-tM-mnK" id="s3J-xB-mEv"/>
+                                                        </connections>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                            </tableView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="hwk-dF-REl" firstAttribute="leading" secondItem="hRO-tj-rw1" secondAttribute="leading" id="Hlk-Yi-yS8"/>
+                                    <constraint firstItem="hwk-dF-REl" firstAttribute="width" secondItem="u8J-Jy-dSM" secondAttribute="width" id="W6u-Vn-x2i"/>
+                                    <constraint firstItem="hRO-tj-rw1" firstAttribute="trailing" secondItem="hwk-dF-REl" secondAttribute="trailing" id="heE-Hp-Lxc"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="xFM-9R-a5d"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="hRO-tj-rw1"/>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nQZ-un-mxT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="nQZ-un-mxT" firstAttribute="trailing" secondItem="u8J-Jy-dSM" secondAttribute="trailing" id="7CQ-Ya-TqF"/>
+                            <constraint firstItem="u8J-Jy-dSM" firstAttribute="top" secondItem="W4M-4E-aPR" secondAttribute="top" id="JXn-qR-BPm"/>
+                            <constraint firstItem="u8J-Jy-dSM" firstAttribute="leading" secondItem="nQZ-un-mxT" secondAttribute="leading" id="Wev-je-De5"/>
+                            <constraint firstItem="nQZ-un-mxT" firstAttribute="bottom" secondItem="u8J-Jy-dSM" secondAttribute="bottom" id="ZBO-uQ-xo2"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Portfolio" id="6Ic-4w-VzH"/>
                     <connections>
-                        <outlet property="holdingsTableView" destination="rKt-xg-JhK" id="0dj-0I-20F"/>
+                        <outlet property="graphDurationSegmentedControl" destination="LhD-Jm-hOC" id="ANj-v2-cKK"/>
+                        <outlet property="graphDurationStackView" destination="G94-uw-twD" id="e1t-hM-KDv"/>
+                        <outlet property="holdingsTableView" destination="OFD-nL-DNr" id="E9e-9P-mxQ"/>
+                        <outlet property="holdingsTableViewHeight" destination="ohC-V4-gRN" id="AS4-KU-D3h"/>
+                        <outlet property="holdingsTitleDetailLabel" destination="Ukb-Od-mgC" id="oAR-gU-bCz"/>
+                        <outlet property="holdingsTitleLabel" destination="k7i-9h-H4P" id="NOJ-yv-hyu"/>
+                        <outlet property="holdingsTitleStackView" destination="101-hH-oXQ" id="ZWM-b7-akW"/>
+                        <outlet property="rootStackView" destination="hwk-dF-REl" id="Wjn-Ev-lUb"/>
+                        <outlet property="scrollView" destination="u8J-Jy-dSM" id="0R0-vX-FwM"/>
+                        <outlet property="subtitleLabel" destination="Atr-ni-RBO" id="kqx-ms-hyi"/>
+                        <outlet property="subtitleStackView" destination="wIf-gW-Sii" id="EKh-HV-UF3"/>
+                        <outlet property="totalEquitiesLabel" destination="yZM-LO-M3Z" id="irw-U9-htw"/>
+                        <outlet property="totalEquitiesStackView" destination="cYY-Ne-TFR" id="yEy-df-jCe"/>
+                        <outlet property="totalEquitiesValueLabel" destination="UaL-EX-gGs" id="F5r-o2-nea"/>
+                        <outlet property="totalGainLabel" destination="UKX-cr-wVL" id="bZu-jt-m0L"/>
+                        <outlet property="totalGainStackView" destination="Tmq-Pp-tBe" id="xLw-H8-9Gf"/>
+                        <outlet property="totalGainValueLabel" destination="A29-nK-wNY" id="DP3-S0-e1a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vkd-BE-AOT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

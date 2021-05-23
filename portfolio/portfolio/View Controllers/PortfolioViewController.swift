@@ -20,7 +20,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     let CELL_HOLDING = "holdingCell"
     let KEYPATH_TABLEVIEW_HEIGHT = "contentSize"
     let API_KEY = "fb1e4d1cdf934bdd8ef247ea380bd80a"
-    let CELL_HEIGHT: CGFloat = 80.0
+    let CELL_HEIGHT: CGFloat = 65.0
     
     // Core Data
     weak var databaseController: DatabaseProtocol?
@@ -76,7 +76,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
         
         // Add margins to the stack views
-        self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 0, bottom: 0, trailing: 20)
+        self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 0, bottom: 0, trailing: 0)
         self.graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
         self.subtitleStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 0, trailing: 15)
         self.totalGainStackView.directionalLayoutMargins = .init(top: 10, leading: 15, bottom: 0, trailing: 15)

@@ -74,7 +74,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
         
         // Add margins to the stack views
-        self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 10)
+        self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 0)
         self.graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
         self.dateStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 0, trailing: 15)
         self.dayAndTotalGainStackView.directionalLayoutMargins = .init(top: 10, leading: 15, bottom: 0, trailing: 15)

@@ -86,10 +86,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u8J-Jy-dSM">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u8J-Jy-dSM">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hwk-dF-REl" userLabel="Root Stack View">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hwk-dF-REl" userLabel="Root Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="193"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="G94-uw-twD" userLabel="Graph Duration Stack View">
@@ -106,6 +106,7 @@
                                                             <segment title="10Y"/>
                                                         </segments>
                                                         <connections>
+                                                            <action selector="graphDurationSegmentedControlChanged:" destination="ych-yu-AOy" eventType="valueChanged" id="dWV-v9-G69"/>
                                                             <action selector="graphDurationSegmentedControlChanged:" destination="hKd-Wq-cug" eventType="valueChanged" id="pc3-9e-ZGq"/>
                                                         </connections>
                                                     </segmentedControl>
@@ -114,7 +115,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wIf-gW-Sii" userLabel="Subtitle Stack View">
                                                 <rect key="frame" x="0.0" y="31" width="414" height="20.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;Total P/L &amp; Equities&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Atr-ni-RBO">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total P/L &amp; Equities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Atr-ni-RBO">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -125,7 +126,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Tmq-Pp-tBe" userLabel="Total Gain Stack View">
                                                 <rect key="frame" x="0.0" y="51.5" width="414" height="20.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="&quot;Total P/L&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKX-cr-wVL">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total P/L" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKX-cr-wVL">
                                                         <rect key="frame" x="0.0" y="0.0" width="198" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -142,7 +143,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="cYY-Ne-TFR" userLabel="Total Equities Stack View">
                                                 <rect key="frame" x="0.0" y="72" width="414" height="20.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="&quot;Total Equities&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZM-LO-M3Z">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total Equities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yZM-LO-M3Z">
                                                         <rect key="frame" x="0.0" y="0.0" width="171" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -159,7 +160,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="101-hH-oXQ" userLabel="Holdings Title Stack View">
                                                 <rect key="frame" x="0.0" y="92.5" width="414" height="20.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="&quot;Holdings&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7i-9h-H4P">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Holdings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7i-9h-H4P">
                                                         <rect key="frame" x="0.0" y="0.0" width="246.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -231,7 +232,10 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="hwk-dF-REl" firstAttribute="leading" secondItem="hRO-tj-rw1" secondAttribute="leading" id="Hlk-Yi-yS8"/>
+                                    <constraint firstAttribute="bottom" secondItem="hwk-dF-REl" secondAttribute="bottom" constant="480" id="SBp-Up-Opg"/>
+                                    <constraint firstItem="hwk-dF-REl" firstAttribute="top" secondItem="xFM-9R-a5d" secondAttribute="top" id="Tlx-Ck-8gc"/>
                                     <constraint firstItem="hwk-dF-REl" firstAttribute="width" secondItem="u8J-Jy-dSM" secondAttribute="width" id="W6u-Vn-x2i"/>
+                                    <constraint firstAttribute="trailing" secondItem="hwk-dF-REl" secondAttribute="trailing" id="cPk-pj-IgU"/>
                                     <constraint firstItem="hRO-tj-rw1" firstAttribute="trailing" secondItem="hwk-dF-REl" secondAttribute="trailing" id="heE-Hp-Lxc"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="xFM-9R-a5d"/>

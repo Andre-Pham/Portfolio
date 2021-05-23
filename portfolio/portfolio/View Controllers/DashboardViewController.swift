@@ -20,6 +20,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     let CELL_HOLDING = "holdingCell"
     let KEYPATH_TABLEVIEW_HEIGHT = "contentSize"
     let API_KEY = "fb1e4d1cdf934bdd8ef247ea380bd80a"
+    let CELL_HEIGHT: CGFloat = 30.0
     
     // Core Data
     weak var databaseController: DatabaseProtocol?
@@ -431,7 +432,7 @@ extension DashboardViewController {
     
     /// Returns the height of each cell
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30.0
+        return self.CELL_HEIGHT
     }
     
 }

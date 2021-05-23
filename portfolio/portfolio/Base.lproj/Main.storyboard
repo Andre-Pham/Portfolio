@@ -237,11 +237,10 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="hwk-dF-REl" firstAttribute="leading" secondItem="hRO-tj-rw1" secondAttribute="leading" id="Hlk-Yi-yS8"/>
-                                    <constraint firstAttribute="bottom" secondItem="hwk-dF-REl" secondAttribute="bottom" constant="480" id="SBp-Up-Opg"/>
+                                    <constraint firstAttribute="bottom" secondItem="hwk-dF-REl" secondAttribute="bottom" id="SBp-Up-Opg"/>
                                     <constraint firstItem="hwk-dF-REl" firstAttribute="top" secondItem="xFM-9R-a5d" secondAttribute="top" id="Tlx-Ck-8gc"/>
                                     <constraint firstItem="hwk-dF-REl" firstAttribute="width" secondItem="u8J-Jy-dSM" secondAttribute="width" id="W6u-Vn-x2i"/>
                                     <constraint firstAttribute="trailing" secondItem="hwk-dF-REl" secondAttribute="trailing" id="cPk-pj-IgU"/>
-                                    <constraint firstItem="hRO-tj-rw1" firstAttribute="trailing" secondItem="hwk-dF-REl" secondAttribute="trailing" id="heE-Hp-Lxc"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="xFM-9R-a5d"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="hRO-tj-rw1"/>

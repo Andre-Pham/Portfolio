@@ -76,7 +76,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
         
         // Add margins to the stack views
-        self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 0, bottom: 0, trailing: 0)
+        self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 0, bottom: 20, trailing: 0)
         self.graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
         self.subtitleStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 0, trailing: 15)
         self.totalGainStackView.directionalLayoutMargins = .init(top: 10, leading: 15, bottom: 0, trailing: 15)
@@ -101,7 +101,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         ])
         
         // Make it so page scrolls even if all the contents fits on one page
-        //self.scrollView.alwaysBounceVertical = true
+        self.scrollView.alwaysBounceVertical = true
         
         // Fonts
         self.subtitleLabel.font = CustomFont.setSubtitleFont()

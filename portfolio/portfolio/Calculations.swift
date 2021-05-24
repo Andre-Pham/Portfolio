@@ -48,5 +48,26 @@ class Calculations: NSObject {
         let totalEquities = self.getTotalEquities(holdings)
         return 100*(totalEquities/(totalEquities - totalReturnInDollars) - 1)
     }
+    
+    static func getAverageAnnualReturnInPercentage(_ holdings: [Holding]) -> Double {
+        
+        let totalEquity = self.getTotalEquities(holdings)
+        var furthestDateBack = Date()
+        var totalInitialEquities = 0.0
+        for holding in holdings {
+            for purchase in holding.purchases {
+                totalInitialEquities += purchase.price*purchase.shares
+                if let purchaseDate = purchase.date, purchaseDate < furthestDateBack {
+                    furthestDateBack = purchaseDate
+                }
+            }
+        }
+        
+        let daysBetweenFirstDate = Calendar.current.dateComponents([.day], from: furthestDateBack, to: Date()).day!
+        let yearsBetweenFirstDate = Double(daysBetweenFirstDate)/365.25
+        
+        // Derived from initialInvestment*averageAnnualReturn^years = totalEquity
+        return pow((totalEquity/totalInitialEquities), (1/yearsBetweenFirstDate))
+    }
 
 }

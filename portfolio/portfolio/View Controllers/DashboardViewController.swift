@@ -198,13 +198,20 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             value: -unitsBackwards,
             to: Date()
         )
-        if Calendar.current.dateComponents([.weekday], from: earlierDate!).weekday == 7 {
-            // If the data being requested is for a Saturday, change it to a Friday, because the stockmarket would be closed
+        var weekdayNumber = Int(Calendar.current.dateComponents([.weekday], from: earlierDate!).weekday ?? 2)
+        while [1, 7].contains(weekdayNumber) {
+            // 1: Sunday, 7: Saturday
+            // If the data being requested is for Saturday/Sunday, change it to a Friday, because the stockmarket would be closed
             earlierDate = Calendar.current.date(
                 byAdding: .day,
                 value: -1,
                 to: earlierDate!
             )
+            // One day backwards; 1 (Sun) -> 7 (Sat), 7 (Sat) -> 6 (Fri)
+            weekdayNumber -= 1
+            if weekdayNumber == 0 {
+                weekdayNumber = 7
+            }
         }
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"

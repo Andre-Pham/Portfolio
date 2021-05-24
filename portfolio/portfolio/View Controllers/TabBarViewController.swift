@@ -11,7 +11,7 @@ class TabBarViewController: UITabBarController {
     
     // MARK: - Properties
     
-    let TABBAR_ICONS = ["sun.max", "chart.pie", "chart.bar", "newspaper", "bookmark"]
+    let TABBAR_ICONS = ["newspaper", "chart.pie", "chart.bar", "bookmark", "info.circle"]
     
     // MARK: - Methods
 

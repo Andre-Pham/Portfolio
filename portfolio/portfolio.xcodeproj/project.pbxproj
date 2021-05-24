@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		654217CF265C5950007F9E4D /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654217CE265C5950007F9E4D /* InformationViewController.swift */; };
 		65511732264A133200CBABAF /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511731264A133200CBABAF /* CustomFont.swift */; };
 		65511734264A8F3100CBABAF /* Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511733264A8F3100CBABAF /* Calculations.swift */; };
 		65511736265A650D00CBABAF /* PerformanceCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511735265A650D00CBABAF /* PerformanceCollectionViewController.swift */; };
@@ -40,7 +41,6 @@
 		65AFBE2B262E27FC0039CB66 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE2A262E27FB0039CB66 /* TabBarViewController.swift */; };
 		65AFBE30262E293B0039CB66 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE2F262E293B0039CB66 /* DashboardViewController.swift */; };
 		65AFBE33262E2A780039CB66 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE32262E2A780039CB66 /* PortfolioViewController.swift */; };
-		65AFBE39262E2AC20039CB66 /* MarketsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE38262E2AC20039CB66 /* MarketsCollectionViewController.swift */; };
 		65AFBE3C262E2AE00039CB66 /* WatchlistsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE3B262E2AE00039CB66 /* WatchlistsTableViewController.swift */; };
 		65AFBE40262E5D950039CB66 /* Holding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE3F262E5D950039CB66 /* Holding.swift */; };
 		65AFBE45262E5DCE0039CB66 /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE44262E5DCE0039CB66 /* Watchlist.swift */; };
@@ -51,6 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		654217CE265C5950007F9E4D /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		65511731264A133200CBABAF /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		65511733264A8F3100CBABAF /* Calculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculations.swift; sourceTree = "<group>"; };
 		65511735265A650D00CBABAF /* PerformanceCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceCollectionViewController.swift; sourceTree = "<group>"; };
@@ -86,7 +87,6 @@
 		65AFBE2A262E27FB0039CB66 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		65AFBE2F262E293B0039CB66 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		65AFBE32262E2A780039CB66 /* PortfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewController.swift; sourceTree = "<group>"; };
-		65AFBE38262E2AC20039CB66 /* MarketsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsCollectionViewController.swift; sourceTree = "<group>"; };
 		65AFBE3B262E2AE00039CB66 /* WatchlistsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistsTableViewController.swift; sourceTree = "<group>"; };
 		65AFBE3F262E5D950039CB66 /* Holding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Holding.swift; sourceTree = "<group>"; };
 		65AFBE44262E5DCE0039CB66 /* Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist.swift; sourceTree = "<group>"; };
@@ -184,8 +184,8 @@
 				65AFBE2F262E293B0039CB66 /* DashboardViewController.swift */,
 				65AFBE2A262E27FB0039CB66 /* TabBarViewController.swift */,
 				65AFBE32262E2A780039CB66 /* PortfolioViewController.swift */,
-				65AFBE38262E2AC20039CB66 /* MarketsCollectionViewController.swift */,
 				65511735265A650D00CBABAF /* PerformanceCollectionViewController.swift */,
+				654217CE265C5950007F9E4D /* InformationViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -326,8 +326,8 @@
 				6551173A265A6C3E00CBABAF /* SinglePerformanceCollectionViewCell.swift in Sources */,
 				65511738265A65A700CBABAF /* WidePerformanceCollectionViewCell.swift in Sources */,
 				659C8FDB263F7519004D1E30 /* CoreHolding+CoreDataProperties.swift in Sources */,
+				654217CF265C5950007F9E4D /* InformationViewController.swift in Sources */,
 				659C8FBB263E76CB004D1E30 /* NewOwnedHoldingViewController.swift in Sources */,
-				65AFBE39262E2AC20039CB66 /* MarketsCollectionViewController.swift in Sources */,
 				65AFBE45262E5DCE0039CB66 /* Watchlist.swift in Sources */,
 				65AFBE3C262E2AE00039CB66 /* WatchlistsTableViewController.swift in Sources */,
 				65AFBE12262D64860039CB66 /* AppDelegate.swift in Sources */,

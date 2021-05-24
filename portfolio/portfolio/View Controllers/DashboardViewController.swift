@@ -355,15 +355,24 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                                         
                                         dayGainDollars += holding.getSharesOwned()*(currentPrice - previousPrice)
                                         //dayGainPercentage += 100*(currentPrice/previousPrice - 1)
-                                        dayGainPercentage += 100*(holding.getEquity()/(holding.getEquity() - dayGainDollars) - 1)
+                                        //dayGainPercentage += 100*(holding.getEquity()/(holding.getEquity() - dayGainDollars) - 1)
                                     }
                                 }
+                                let totalEquity = Calculations.getTotalEquities(self.shownHoldings)
+                                dayGainPercentage = 100*((totalEquity/(totalEquity - dayGainDollars) - 1))
                                 
                                 // Round to 2 decimal places
                                 dayGainDollars = Calculations.roundToTwo(dayGainDollars)
                                 dayGainPercentage = Calculations.roundToTwo(dayGainPercentage)
                                 
                                 self.daysGainLabel.text = "\(Calculations.getPrefix(dayGainDollars)) $\(abs(dayGainDollars)) (\(dayGainPercentage)%) Day"
+                                self.daysGainLabel.textColor = Calculations.getReturnColour(dayGainDollars)
+                                
+                                let shownTotalReturnInDollars = Calculations.roundToTwo(Calculations.getTotalReturnInDollars(self.shownHoldings))
+                                let shownTotalReturnInPercentage = Calculations.roundToTwo(Calculations.getTotalReturnInPercentage(self.shownHoldings))
+                                let shownPrefix = Calculations.getPrefix(shownTotalReturnInDollars)
+                                self.totalGainLabel.text = "\(shownPrefix) $\(shownTotalReturnInDollars) (\(shownTotalReturnInPercentage)%) Total"
+                                self.totalGainLabel.textColor = Calculations.getReturnColour(shownTotalReturnInDollars)
                             }
                         }
                     }
@@ -411,10 +420,7 @@ extension DashboardViewController {
         dayGainDollars = Calculations.roundToTwo(dayGainDollars)
         dayGainPercentage = Calculations.roundToTwo(dayGainPercentage)
         
-        var prefix = "+"
-        if dayGainDollars < 0 {
-            prefix = "-"
-        }
+        let prefix = Calculations.getPrefix(dayGainDollars)
         
         holdingCell.textLabel?.text = holding.ticker
         //holdingCell.detailTextLabel?.text = String(holding.currentPrice!)
@@ -422,6 +428,8 @@ extension DashboardViewController {
         
         holdingCell.textLabel?.font = CustomFont.setBodyFont()
         holdingCell.detailTextLabel?.font = CustomFont.setBodyFont()
+        
+        holdingCell.detailTextLabel?.textColor = Calculations.getReturnColour(dayGainDollars)
         
         return holdingCell
     }

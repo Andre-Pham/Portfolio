@@ -19,6 +19,13 @@ class PerformanceCollectionViewController: UICollectionViewController {
     let WIDE_CELL_INDICES = [0]
     let SINGLE_CELL_INDICES = [1, 2, 3, 4]
     let TALL_CELL_INDICES = [5, 6]
+    
+    let API_KEY = "fb1e4d1cdf934bdd8ef247ea380bd80a"
+    
+    var portfolio: CoreWatchlist?
+    var shownHoldings: [Holding] = []
+    // Indicator
+    var indicator = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +45,189 @@ class PerformanceCollectionViewController: UICollectionViewController {
         self.collectionView.frame = self.view.frame
         self.collectionView.collectionViewLayout = layout
 
+        
+        // Add a loading indicator
+        self.indicator.style = UIActivityIndicatorView.Style.large
+        self.indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.indicator)
+        
+        // Centres the loading indicator
+        NSLayoutConstraint.activate([
+            self.indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            self.indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
         // Do any additional setup after loading the view.
+        self.generateChartData(unitsBackwards: 1, unit: .day, interval: "30min", onlyUpdateGraph: false)
+    }
+    
+    /// Assigns calls a request to the API which in turn loads data into the chart
+    func generateChartData(unitsBackwards: Int, unit: Calendar.Component, interval: String, onlyUpdateGraph: Bool) {
+        // Generates argument for what tickers data will be retrieved for
+        var tickers = ""
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let databaseController = appDelegate?.databaseController
+        self.portfolio = databaseController?.retrievePortfolio()
+        let holdings = self.portfolio?.holdings?.allObjects as! [CoreHolding]
+        for holding in holdings {
+            tickers += holding.ticker ?? ""
+            tickers += ","
+        }
+        // Remove unnecessary extra ","
+        tickers = String(tickers.dropLast())
+        
+        // Generates the previous day's date, so we can retrieve intraday prices
+        var earlierDate = Calendar.current.date(
+            byAdding: unit,
+            value: -unitsBackwards,
+            to: Date()
+        )
+        var weekdayNumber = Int(Calendar.current.dateComponents([.weekday], from: earlierDate!).weekday ?? 2)
+        while [1, 7].contains(weekdayNumber) {
+            // 1: Sunday, 7: Saturday
+            // If the data being requested is for Saturday/Sunday, change it to a Friday, because the stockmarket would be closed
+            earlierDate = Calendar.current.date(
+                byAdding: .day,
+                value: -1,
+                to: earlierDate!
+            )
+            // One day backwards; 1 (Sun) -> 7 (Sat), 7 (Sat) -> 6 (Fri)
+            weekdayNumber -= 1
+            if weekdayNumber == 0 {
+                weekdayNumber = 7
+            }
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let earlierDateFormatted = formatter.string(from: earlierDate!)
+        
+        // Calls the API which in turn provides data to the chart
+        indicator.startAnimating()
+        self.requestTickerWebData(tickers: tickers, startDate: earlierDateFormatted, interval: interval, onlyUpdateGraph: onlyUpdateGraph)
+    }
+    
+    /// Calls a TwelveData request for time series prices for ticker(s), as well as other data
+    func requestTickerWebData(tickers: String, startDate: String, interval: String, onlyUpdateGraph: Bool) {
+        // https://api.twelvedata.com/time_series?symbol=MSFT,AMZN&interval=5min&start_date=2021-4-26&timezone=Australia/Sydney&apikey=fb1e4d1cdf934bdd8ef247ea380bd80a
+        
+        // Form URL from different components
+        var requestURLComponents = URLComponents()
+        requestURLComponents.scheme = "https"
+        requestURLComponents.host = "api.twelvedata.com"
+        requestURLComponents.path = "/time_series"
+        requestURLComponents.queryItems = [
+            URLQueryItem(name: "symbol", value: tickers),
+            URLQueryItem(name: "interval", value: interval),
+            URLQueryItem(name: "start_date", value: startDate), // yyyy-mm-dd
+            URLQueryItem(name: "apikey", value: self.API_KEY),
+        ]
+        
+        // Ensure URL is valid
+        guard let requestURL = requestURLComponents.url else {
+            print("Invalid URL.")
+            return
+        }
+        
+        print(requestURL)
+        
+        // Occurs on a new thread
+        let task = URLSession.shared.dataTask(with: requestURL) {
+            (data, response, error) in
+            
+            DispatchQueue.main.async {
+                self.indicator.stopAnimating()
+            }
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            // Parse data
+            do {
+                let decoder = JSONDecoder()
+                
+                if tickers.contains(",") {
+                    // Multiple ticker request
+                    let tickerResponse = try decoder.decode(DecodedTickerArray.self, from: data!)
+                    
+                    // For every ticker with data returned, create a new Holding with its data
+                    for ticker in tickerResponse.tickerArray {
+                        // Get price data in Double type retrieved from API
+                        var prices: [Double] = []
+                        for stringPrice in ticker.values {
+                            if let price = Double(stringPrice.open) {
+                                prices.append(price)
+                            }
+                        }
+                        // Create Holding
+                        self.shownHoldings.append(
+                            Holding(ticker: ticker.meta.symbol, prices: prices, currentPrice: prices.last ?? 0)
+                        )
+                    }
+                }
+                else {
+                    // Single ticker request
+                    let tickerResponse = try decoder.decode(Ticker.self, from: data!)
+                    
+                    // Get price data in Double type retreived from API
+                    var prices: [Double] = []
+                    var currentPrice: Double? = nil
+                    for stringPrice in tickerResponse.values {
+                        if let price = Double(stringPrice.open) {
+                            prices.append(price)
+                        }
+                        if currentPrice == nil {
+                            currentPrice = Double(stringPrice.close)
+                        }
+                    }
+                    // Create Holding
+                    self.shownHoldings.append(
+                        Holding(ticker: tickerResponse.meta.symbol, prices: prices, currentPrice: currentPrice ?? 0)
+                    )
+                }
+                // Add the purchase data for each holding created
+                let coreHoldings = self.portfolio?.holdings?.allObjects as! [CoreHolding]
+                for coreHolding in coreHoldings {
+                    for holding in self.shownHoldings {
+                        if coreHolding.ticker == holding.ticker {
+                            holding.purchases = coreHolding.purchases?.allObjects as! [CorePurchase]
+                        }
+                    }
+                }
+                
+                // If no holdings were created from the API request, don't run the following code because it'll crash
+                if self.shownHoldings.count > 0 {
+                    // Find how many prices to plot
+                    var num_prices = 0
+                    for holding in self.shownHoldings {
+                        if holding.prices.count > num_prices {
+                            num_prices = holding.prices.count
+                        }
+                    }
+                    // Merge all the prices of the holdings to create the single graph
+                    var combinedPrices = [Double](repeating: 0.0, count: num_prices)
+                    for holding in self.shownHoldings {
+                        let holdingPercentages = holding.convertPricesToPercentages()
+                        for priceIndex in 0..<holdingPercentages.count {
+                            // API provides values in reverse order
+                            let reverseIndex = abs(priceIndex - (holdingPercentages.count-1))
+                            
+                            combinedPrices[reverseIndex] += holdingPercentages[priceIndex]
+                        }
+                    }
+                    
+                    DispatchQueue.main.async {
+                        // Do nothing for now
+                        self.collectionView.reloadData()
+                    }
+                }
+            }
+            catch let err {
+                print(err)
+            }
+        }
+        
+        task.resume()
     }
 
     // MARK: UICollectionViewDataSource
@@ -58,6 +247,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
             
             cell.titleLabel.text = "Average\nAnnual\nReturn"
             cell.percentGainLabel.text = "+300.0%"
+            //cell.percentGainLabel.text = "\(Calculations.getAverageAnnualReturnInPercentage(shownHoldings))"
             
             cell.titleLabel.font = CustomFont.setSubtitle2Font()
             cell.percentGainLabel.font = CustomFont.setLargeFont()

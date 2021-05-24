@@ -363,12 +363,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                                 dayGainDollars = Calculations.roundToTwo(dayGainDollars)
                                 dayGainPercentage = Calculations.roundToTwo(dayGainPercentage)
                                 
-                                var prefix = "+"
-                                if dayGainDollars < 0 {
-                                    prefix = "-"
-                                }
-                                
-                                self.daysGainLabel.text = "\(prefix) $\(abs(dayGainDollars)) (\(dayGainPercentage)%) Day"
+                                self.daysGainLabel.text = "\(Calculations.getPrefix(dayGainDollars)) $\(abs(dayGainDollars)) (\(dayGainPercentage)%) Day"
                             }
                         }
                     }

@@ -372,10 +372,23 @@ extension PortfolioViewController {
         let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_HOLDING, for: indexPath) as! PortfolioHoldingTableViewCell
         let holding = self.shownHoldings[indexPath.row]
         
-        holdingCell.tickerLabel?.text = "test"
-        holdingCell.sharesLabel?.text = "test"
-        holdingCell.returnInDollarsAndPercentage?.text = "test"
-        holdingCell.equityLabel?.text = "test"
+        let shownShares = Calculations.roundToTwo(holding.getSharesOwned())
+        let shownReturnInDollars = Calculations.roundToTwo(holding.getReturnInDollars())
+        let shownReturnInPercentage = Calculations.roundToTwo(holding.getReturnInPercentage())
+        let shownPrefix = Calculations.getPrefix(holding.getReturnInDollars())
+        let shownEquity = Calculations.roundToTwo(holding.getEquity())
+        
+        holdingCell.tickerLabel?.text = holding.ticker
+        holdingCell.sharesLabel?.text = "\(shownShares) Shares"
+        holdingCell.returnInDollarsAndPercentage?.text = "\(shownPrefix) $\(shownReturnInDollars) (\(shownReturnInPercentage)%)"
+        holdingCell.equityLabel?.text = "$\(shownEquity)"
+        
+        holdingCell.tickerLabel?.font = CustomFont.setFont(size: CustomFont.BODY_SIZE, style: CustomFont.BODY_STYLE, weight: .bold)
+        holdingCell.sharesLabel?.font = CustomFont.setItalicBodyFont()
+        holdingCell.returnInDollarsAndPercentage?.font = CustomFont.setBodyFont()
+        holdingCell.equityLabel?.font = CustomFont.setBodyFont()
+        
+        holdingCell.returnInDollarsAndPercentage?.textColor = Calculations.getReturnColour(shownReturnInDollars)
         
         return holdingCell
     }

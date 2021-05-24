@@ -66,6 +66,10 @@ class CustomFont: UIFont {
         return self.setFont(size: self.BODY_SIZE, style: self.BODY_STYLE, weight: self.BODY_WEIGHT)
     }
     
+    static func setItalicBodyFont() -> UIFont {
+        return self.setFont(size: self.BODY_SIZE, style: self.BODY_STYLE, weight: self.BODY_WEIGHT).italic
+    }
+    
     /// Assigns a font to a text field with the parameters to make a detail font, i.e. detail text field in tableview
     static func setDetailFont() -> UIFont {
         return self.setFont(size: self.DETAIL_SIZE, style: self.DETAIL_STYLE, weight: self.DETAIL_WEIGHT)

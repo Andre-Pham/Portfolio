@@ -5,6 +5,8 @@
 //  Created by Andre Pham on 25/5/21.
 //
 
+// https://stackoverflow.com/questions/31668970/is-it-possible-for-uistackview-to-scroll
+
 import UIKit
 
 class InformationViewController: UIViewController {

@@ -184,6 +184,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     func generateChartData(unitsBackwards: Int, unit: Calendar.Component, interval: String, onlyUpdateGraph: Bool) {
         // Generates argument for what tickers data will be retrieved for
         var tickers = ""
+        // TODO: Use guard statement to end early if there are no holdings
         let holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
         for holding in holdings {
             tickers += holding.ticker ?? ""
@@ -274,14 +275,18 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     for ticker in tickerResponse.tickerArray {
                         // Get price data in Double type retrieved from API
                         var prices: [Double] = []
+                        var currentPrice: Double? = nil
                         for stringPrice in ticker.values {
                             if let price = Double(stringPrice.open) {
                                 prices.append(price)
                             }
+                            if currentPrice == nil {
+                                currentPrice = Double(stringPrice.close)
+                            }
                         }
                         // Create Holding
                         self.shownHoldings.append(
-                            Holding(ticker: ticker.meta.symbol, prices: prices, currentPrice: prices.last ?? 0)
+                            Holding(ticker: ticker.meta.symbol, prices: prices, currentPrice: currentPrice ?? 0)
                         )
                     }
                 }
@@ -351,7 +356,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                                 var dayGainPercentage = 0.0
                                 
                                 for holding in self.shownHoldings {
-                                    if let currentPrice = holding.currentPrice, let previousPrice = holding.prices.first {
+                                    if let currentPrice = holding.currentPrice, let previousPrice = holding.prices.last {
                                         
                                         dayGainDollars += holding.getSharesOwned()*(currentPrice - previousPrice)
                                         //dayGainPercentage += 100*(currentPrice/previousPrice - 1)
@@ -411,7 +416,7 @@ extension DashboardViewController {
         let holding = self.shownHoldings[indexPath.row]
         
         let currentPrice = holding.currentPrice!
-        let previousPrice = holding.prices.first!
+        let previousPrice = holding.prices.last!
         
         var dayGainDollars = holding.getSharesOwned()*(currentPrice - previousPrice)
         var dayGainPercentage = 100*(holding.getEquity()/(holding.getEquity() - dayGainDollars) - 1)

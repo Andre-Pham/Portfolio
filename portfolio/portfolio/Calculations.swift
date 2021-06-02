@@ -126,21 +126,21 @@ class Calculations: NSObject {
             var loserHoldings: [Holding] = []
             let rankedHoldingsInPercentage = self.getRankedHoldings(holdings, Percentage_or_Dollars: "Percentage")
             let rankedHoldingsInDollars = self.getRankedHoldings(holdings, Percentage_or_Dollars: "Dollars")
-            var scores = [Int: Holding]()
+            var scores = [Holding: Int]()
             for holding in holdings {
                 if let percentageScore = rankedHoldingsInPercentage.firstIndex(of: holding), let dollarsScore = rankedHoldingsInDollars.firstIndex(of: holding) {
-                    scores[percentageScore + dollarsScore] = holding
+                    scores[holding] = percentageScore + dollarsScore
                 }
             }
             
             // SOURCE: https://stackoverflow.com/questions/25377177/sort-dictionary-by-keys
             // AUTHOR: rks - Dan Beaulieu - https://stackoverflow.com/users/1664443/dan-beaulieu
-            let rankedHoldings = scores.sorted(by: {$0.0 < $1.0})
+            let rankedHoldings = scores.sorted(by: {$0.1 < $1.1})
             
             for i in 0...2 {
                 if holdings.count > i {
-                    winnerHoldings.append(rankedHoldings[i].value)
-                    loserHoldings.append(rankedHoldings[holdings.count-i-1].value)
+                    winnerHoldings.append(rankedHoldings[i].key)
+                    loserHoldings.append(rankedHoldings[holdings.count-i-1].key)
                 }
             }
             

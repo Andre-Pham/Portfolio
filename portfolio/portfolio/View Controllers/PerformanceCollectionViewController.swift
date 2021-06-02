@@ -282,7 +282,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
             if indexPath.row <= 2 {
                 rank = "Best"
             }
-            let returnFormat = ["Percentage", "Dollars"][indexPath.row%2]
+            let returnFormat = ["Dollars", "Percentage"][indexPath.row%2]
             if let holding = Calculations.getBestOrWorstHolding(self.shownHoldings, Best_or_Worst: rank, Percentage_or_Dollars: returnFormat) {
                 let ticker = holding.ticker
                 var returnValue: Double
@@ -297,10 +297,10 @@ class PerformanceCollectionViewController: UICollectionViewController {
                 
                 cell.tickerLabel.text = ticker
                 if returnFormat == "Dollars" {
-                    cell.percentGainLabel.text = "\(prefix) \(returnValue)%"
+                    cell.percentGainLabel.text = "\(prefix) $\(abs(returnValue))"
                 }
                 else {
-                    cell.percentGainLabel.text = "\(prefix) $\(returnValue)"
+                    cell.percentGainLabel.text = "\(prefix) \(abs(returnValue))%"
                 }
                 cell.percentGainLabel.textColor = colour
             }
@@ -347,8 +347,8 @@ class PerformanceCollectionViewController: UICollectionViewController {
                     let colour = Calculations.getReturnColour(shownGainInDollars)
                     
                     labels[i][0]?.text = holding.ticker
-                    labels[i][1]?.text = "\(prefix) \(shownGainInPercentage)%"
-                    labels[i][2]?.text = "\(prefix) $\(shownGainInDollars)"
+                    labels[i][1]?.text = "\(prefix) \(abs(shownGainInPercentage))%"
+                    labels[i][2]?.text = "\(prefix) $\(abs(shownGainInDollars))"
                     
                     labels[i][1]?.textColor = colour
                     labels[i][2]?.textColor = colour

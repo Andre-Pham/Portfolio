@@ -69,9 +69,9 @@ class Calculations: NSObject {
         return 100*(pow((totalEquity/totalInitialEquities), (1/yearsBetweenFirstDate)) - 1)
     }
     
-    static func getCertainHolding(_ holdings: [Holding], Best_or_Worst: String, Percentage_or_Dollars: String) -> Holding? {
+    static func getBestOrWorstHolding(_ holdings: [Holding], Best_or_Worst: String, Percentage_or_Dollars: String) -> Holding? {
         if !["Best", "Worst"].contains(Best_or_Worst) || !["Percentage", "Dollars"].contains(Percentage_or_Dollars) {
-            fatalError("method getCertainHolding used incorrectly, invalid parameters given")
+            fatalError("method getBestOrWorstHolding used incorrectly, invalid parameters given")
         }
         
         if holdings.count > 0 {
@@ -93,6 +93,60 @@ class Calculations: NSObject {
             return certainHolding
         }
         return nil
+    }
+    
+    static func getRankedHoldings(_ holdings: [Holding], Percentage_or_Dollars: String) -> [Holding] {
+        if !["Percentage", "Dollars"].contains(Percentage_or_Dollars) {
+            fatalError("method getBestOrWorstHolding used incorrectly, invalid parameters given")
+        }
+        var sortedHoldings: [Holding] = []
+        for holding in holdings {
+            sortedHoldings.append(holding)
+        }
+        
+        // SOURCE: https://www.hackingwithswift.com/example-code/arrays/how-to-sort-an-array-using-sort
+        // AUTHOR: Paul Hudson - https://www.hackingwithswift.com/about
+        sortedHoldings.sort {
+            // From lowest return to highest return
+            if Percentage_or_Dollars == "Percentage" {
+                return $0.getReturnInPercentage() > $1.getReturnInPercentage()
+            }
+            else {
+                // Dollars
+                return $0.getReturnInDollars() > $1.getReturnInDollars()
+            }
+        }
+        
+        return sortedHoldings
+    }
+    
+    static func getWinnerAndLoserHoldings(_ holdings: [Holding]) -> [[Holding]] {
+        if holdings.count > 0 {
+            var winnerHoldings: [Holding] = []
+            var loserHoldings: [Holding] = []
+            let rankedHoldingsInPercentage = self.getRankedHoldings(holdings, Percentage_or_Dollars: "Percentage")
+            let rankedHoldingsInDollars = self.getRankedHoldings(holdings, Percentage_or_Dollars: "Dollars")
+            var scores = [Int: Holding]()
+            for holding in holdings {
+                if let percentageScore = rankedHoldingsInPercentage.firstIndex(of: holding), let dollarsScore = rankedHoldingsInDollars.firstIndex(of: holding) {
+                    scores[percentageScore + dollarsScore] = holding
+                }
+            }
+            
+            // SOURCE: https://stackoverflow.com/questions/25377177/sort-dictionary-by-keys
+            // AUTHOR: rks - Dan Beaulieu - https://stackoverflow.com/users/1664443/dan-beaulieu
+            let rankedHoldings = scores.sorted(by: {$0.0 < $1.0})
+            
+            for i in 0...2 {
+                if holdings.count > i {
+                    winnerHoldings.append(rankedHoldings[i].value)
+                    loserHoldings.append(rankedHoldings[holdings.count-i-1].value)
+                }
+            }
+            
+            return [winnerHoldings, loserHoldings]
+        }
+        return [[], []]
     }
     
 }

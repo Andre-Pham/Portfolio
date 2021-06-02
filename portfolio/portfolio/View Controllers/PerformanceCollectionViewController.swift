@@ -283,7 +283,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
                 rank = "Best"
             }
             let returnFormat = ["Percentage", "Dollars"][indexPath.row%2]
-            if let holding = Calculations.getCertainHolding(self.shownHoldings, Best_or_Worst: rank, Percentage_or_Dollars: returnFormat) {
+            if let holding = Calculations.getBestOrWorstHolding(self.shownHoldings, Best_or_Worst: rank, Percentage_or_Dollars: returnFormat) {
                 let ticker = holding.ticker
                 var returnValue: Double
                 if returnFormat == "Dollars" {
@@ -330,6 +330,35 @@ class PerformanceCollectionViewController: UICollectionViewController {
             cell.tickerLabel3.font = CustomFont.setLarge2Font()
             cell.gainInPercentageLabel3.font = CustomFont.setBodyFont()
             cell.gainInDollarsLabel3.font = CustomFont.setBodyFont()
+            
+            let holdings = Calculations.getWinnerAndLoserHoldings(self.shownHoldings)[indexPath.row-5]
+            let labels = [
+                [cell.tickerLabel1, cell.gainInPercentageLabel1, cell.gainInDollarsLabel1],
+                [cell.tickerLabel2, cell.gainInPercentageLabel2, cell.gainInDollarsLabel2],
+                [cell.tickerLabel3, cell.gainInPercentageLabel3, cell.gainInDollarsLabel3]
+            ]
+            
+            for i in 0...2 {
+                if holdings.count > i {
+                    let holding = holdings[i]
+                    let shownGainInPercentage = Calculations.roundToTwo(holding.getReturnInPercentage())
+                    let shownGainInDollars = Calculations.roundToTwo(holding.getReturnInDollars())
+                    let prefix = Calculations.getPrefix(shownGainInDollars)
+                    let colour = Calculations.getReturnColour(shownGainInDollars)
+                    
+                    labels[i][0]?.text = holding.ticker
+                    labels[i][1]?.text = "\(prefix) \(shownGainInPercentage)%"
+                    labels[i][2]?.text = "\(prefix) $\(shownGainInDollars)"
+                    
+                    labels[i][1]?.textColor = colour
+                    labels[i][2]?.textColor = colour
+                }
+                else {
+                    labels[i][0]?.text = "-"
+                    labels[i][1]?.text = "-"
+                    labels[i][2]?.text = "-"
+                }
+            }
             
             cell.backgroundColor = UIColor(named: "GreyBlack1")
             

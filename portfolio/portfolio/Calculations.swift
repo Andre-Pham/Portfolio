@@ -13,6 +13,19 @@ class Calculations: NSObject {
         return round(number * 100)/100.0
     }
     
+    static func convertToScientific(_ number: Double) -> String {
+        if abs(number) >= 10000 {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .scientific
+            formatter.positiveFormat = "0.#E+0"
+            formatter.exponentSymbol = "e"
+            if let scientificNotation = formatter.string(for: number) {
+                return scientificNotation
+            }
+        }
+        return String(number)
+    }
+    
     static func getPrefix(_ number: Double) -> String {
         if number < 0 {
             return "-"
@@ -50,7 +63,6 @@ class Calculations: NSObject {
     }
     
     static func getAverageAnnualReturnInPercentage(_ holdings: [Holding]) -> Double {
-        
         let totalEquity = self.getTotalEquities(holdings)
         var furthestDateBack = Date()
         var totalInitialEquities = 0.0
@@ -67,7 +79,7 @@ class Calculations: NSObject {
         let yearsBetweenFirstDate = Double(daysBetweenFirstDate)/365.25
         
         // Derived from initialInvestment*averageAnnualReturn^years = totalEquity
-        return pow((totalEquity/totalInitialEquities), (1/yearsBetweenFirstDate))
+        return 100*(pow((totalEquity/totalInitialEquities), (1/yearsBetweenFirstDate)) - 1)
     }
 
 }

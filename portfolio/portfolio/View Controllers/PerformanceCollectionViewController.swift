@@ -245,15 +245,22 @@ class PerformanceCollectionViewController: UICollectionViewController {
         if self.WIDE_CELL_INDICES.contains(indexPath.row) {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_WIDE, for: indexPath as IndexPath) as! WidePerformanceCollectionViewCell
             
+            let shownReturnInPercentage = Calculations.roundToTwo(Calculations.getAverageAnnualReturnInPercentage(shownHoldings))
+            let prefix = Calculations.getPrefix(shownReturnInPercentage)
+            
             cell.titleLabel.text = "Average\nAnnual\nReturn"
-            cell.percentGainLabel.text = "+300.0%"
-            //cell.percentGainLabel.text = "\(Calculations.getAverageAnnualReturnInPercentage(shownHoldings))"
+            cell.percentGainLabel.text = "\(prefix) \(abs(shownReturnInPercentage))%"
             
             cell.titleLabel.font = CustomFont.setSubtitle2Font()
             cell.percentGainLabel.font = CustomFont.setLargeFont()
+            var sizeReduction = 0.0
+            if abs(shownReturnInPercentage) >= 100 {
+                sizeReduction += shownReturnInPercentage*0.0009 + 2.5556
+            }
+            cell.percentGainLabel.font = CustomFont.setFont(size: CustomFont.LARGE_SIZE - sizeReduction, style: CustomFont.LARGE_STYLE, weight: CustomFont.LARGE_WEIGHT)
             
             cell.backgroundColor = UIColor(named: "GreyBlack1")
-            cell.percentGainLabel.textColor = UIColor(named: "Green1")
+            cell.percentGainLabel.textColor = Calculations.getReturnColour(shownReturnInPercentage)
         
             return cell
         }

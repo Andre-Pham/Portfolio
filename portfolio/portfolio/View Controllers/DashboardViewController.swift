@@ -124,7 +124,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             self.shownWatchlist = portfolio
             self.shownHoldings.removeAll()
             self.chartData.data = []
-            self.chartData.title = self.shownWatchlist?.name ?? "Watchlist Name Not Found"
+            self.chartData.title = self.shownWatchlist?.name ?? "-"
             self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: false)
             //self.holdingsTableView.reloadData()
         }

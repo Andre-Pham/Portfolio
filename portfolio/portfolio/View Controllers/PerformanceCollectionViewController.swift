@@ -15,10 +15,11 @@ class PerformanceCollectionViewController: UICollectionViewController {
     let CELL_WIDE = "wideCell"
     let CELL_SINGLE = "singleCell"
     let CELL_TALL = "tallCell"
-    var items = ["1", "2", "3", "4", "5", "6", "7"]
     let WIDE_CELL_INDICES = [0]
     let SINGLE_CELL_INDICES = [1, 2, 3, 4]
+    let SINGLE_CELL_TITLES = ["Best Growth", "Most Profit", "Worst Growth", "Least Profit"]
     let TALL_CELL_INDICES = [5, 6]
+    let TALL_CELL_TITLES = ["Winners", "Losers"]
     
     let API_KEY = "fb1e4d1cdf934bdd8ef247ea380bd80a"
     
@@ -238,10 +239,106 @@ class PerformanceCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.items.count
+        return 7
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch indexPath.row {
+        case 0:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_WIDE, for: indexPath as IndexPath) as! WidePerformanceCollectionViewCell
+            
+            let shownReturnInPercentage = Calculations.roundToTwo(Calculations.getAverageAnnualReturnInPercentage(shownHoldings))
+            let prefix = Calculations.getPrefix(shownReturnInPercentage)
+            
+            cell.titleLabel.text = "Average\nAnnual\nReturn"
+            cell.percentGainLabel.text = "\(prefix) \(abs(shownReturnInPercentage))%"
+            
+            cell.titleLabel.font = CustomFont.setSubtitle2Font()
+            cell.percentGainLabel.font = CustomFont.setLargeFont()
+            var sizeReduction = 0.0
+            if abs(shownReturnInPercentage) >= 100 {
+                sizeReduction += shownReturnInPercentage*0.0009 + 2.5556
+            }
+            cell.percentGainLabel.font = CustomFont.setFont(size: CustomFont.LARGE_SIZE - sizeReduction, style: CustomFont.LARGE_STYLE, weight: CustomFont.LARGE_WEIGHT)
+            
+            cell.backgroundColor = UIColor(named: "GreyBlack1")
+            cell.percentGainLabel.textColor = Calculations.getReturnColour(shownReturnInPercentage)
+        
+            return cell
+            
+        case 1...4:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_SINGLE, for: indexPath as IndexPath) as! SinglePerformanceCollectionViewCell
+            
+            let titles = ["Most Growth", "Most Return", "Least Growth", "Least Return"]
+            cell.titleLabel.text = titles[indexPath.row-1]
+            
+            cell.titleLabel.font = CustomFont.setFont(size: CustomFont.BODY_SIZE, style: CustomFont.BODY_STYLE, weight: .bold)
+            cell.tickerLabel.font = CustomFont.setLarge2Font()
+            cell.percentGainLabel.font = CustomFont.setBodyFont()
+            
+            cell.backgroundColor = UIColor(named: "GreyBlack1")
+            
+            var rank = "Worst"
+            if indexPath.row <= 2 {
+                rank = "Best"
+            }
+            let returnFormat = ["Percentage", "Dollars"][indexPath.row%2]
+            if let holding = Calculations.getCertainHolding(self.shownHoldings, Best_or_Worst: rank, Percentage_or_Dollars: returnFormat) {
+                let ticker = holding.ticker
+                var returnValue: Double
+                if returnFormat == "Dollars" {
+                    returnValue = Calculations.roundToTwo(holding.getReturnInDollars())
+                }
+                else {
+                    returnValue = Calculations.roundToTwo(holding.getReturnInPercentage())
+                }
+                let prefix = Calculations.getPrefix(returnValue)
+                let colour = Calculations.getReturnColour(returnValue)
+                
+                cell.tickerLabel.text = ticker
+                if returnFormat == "Dollars" {
+                    cell.percentGainLabel.text = "\(prefix) \(returnValue)%"
+                }
+                else {
+                    cell.percentGainLabel.text = "\(prefix) $\(returnValue)"
+                }
+                cell.percentGainLabel.textColor = colour
+            }
+            else {
+                cell.tickerLabel.text = "-"
+                cell.percentGainLabel.text = "-"
+            }
+            
+            return cell
+            
+        case 5...6:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_TALL, for: indexPath as IndexPath) as! TallPerformanceCollectionViewCell
+            
+            let titles = ["Winners", "Losers"]
+            cell.titleLabel.text = titles[indexPath.row-5]
+            
+            cell.titleLabel.font = CustomFont.setFont(size: CustomFont.BODY_SIZE, style: CustomFont.BODY_STYLE, weight: .bold)
+            
+            cell.tickerLabel1.font = CustomFont.setLarge2Font()
+            cell.gainInPercentageLabel1.font = CustomFont.setBodyFont()
+            cell.gainInDollarsLabel1.font = CustomFont.setBodyFont()
+            
+            cell.tickerLabel2.font = CustomFont.setLarge2Font()
+            cell.gainInPercentageLabel2.font = CustomFont.setBodyFont()
+            cell.gainInDollarsLabel2.font = CustomFont.setBodyFont()
+            
+            cell.tickerLabel3.font = CustomFont.setLarge2Font()
+            cell.gainInPercentageLabel3.font = CustomFont.setBodyFont()
+            cell.gainInDollarsLabel3.font = CustomFont.setBodyFont()
+            
+            cell.backgroundColor = UIColor(named: "GreyBlack1")
+            
+            return cell
+            
+        default:
+            break
+        }
+        /*
         if self.WIDE_CELL_INDICES.contains(indexPath.row) {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_WIDE, for: indexPath as IndexPath) as! WidePerformanceCollectionViewCell
             
@@ -267,7 +364,10 @@ class PerformanceCollectionViewController: UICollectionViewController {
         else if self.SINGLE_CELL_INDICES.contains(indexPath.row) {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_SINGLE, for: indexPath as IndexPath) as! SinglePerformanceCollectionViewCell
             
-            cell.titleLabel.text = "Best Growth"
+            let holding = Calculations.getBestGrowth(self.shownHoldings)
+            let ticker =
+            
+            cell.titleLabel.text = self.SINGLE_CELL_TITLES[indexPath.row]
             cell.tickerLabel.text = "MMMM"
             cell.percentGainLabel.text = "-10.24%"
             
@@ -316,7 +416,8 @@ class PerformanceCollectionViewController: UICollectionViewController {
             
             return cell
         }
-        
+        */
+        fatalError("Wrong number of cells indicated for PerformanceCollectionViewController")
     }
 
 }

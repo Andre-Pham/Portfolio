@@ -13,19 +13,6 @@ class Calculations: NSObject {
         return round(number * 100)/100.0
     }
     
-    static func convertToScientific(_ number: Double) -> String {
-        if abs(number) >= 10000 {
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .scientific
-            formatter.positiveFormat = "0.#E+0"
-            formatter.exponentSymbol = "e"
-            if let scientificNotation = formatter.string(for: number) {
-                return scientificNotation
-            }
-        }
-        return String(number)
-    }
-    
     static func getPrefix(_ number: Double) -> String {
         if number < 0 {
             return "-"
@@ -81,5 +68,31 @@ class Calculations: NSObject {
         // Derived from initialInvestment*averageAnnualReturn^years = totalEquity
         return 100*(pow((totalEquity/totalInitialEquities), (1/yearsBetweenFirstDate)) - 1)
     }
-
+    
+    static func getCertainHolding(_ holdings: [Holding], Best_or_Worst: String, Percentage_or_Dollars: String) -> Holding? {
+        if !["Best", "Worst"].contains(Best_or_Worst) || !["Percentage", "Dollars"].contains(Percentage_or_Dollars) {
+            fatalError("method getCertainHolding used incorrectly, invalid parameters given")
+        }
+        
+        if holdings.count > 0 {
+            var certainHolding = holdings[0]
+            for holding in holdings.dropFirst() {
+                if Best_or_Worst == "Best" && Percentage_or_Dollars == "Percentage" && holding.getReturnInPercentage() > certainHolding.getReturnInPercentage() {
+                    certainHolding = holding
+                }
+                else if Best_or_Worst == "Worst" && Percentage_or_Dollars == "Percentage" && holding.getReturnInPercentage() < certainHolding.getReturnInPercentage() {
+                    certainHolding = holding
+                }
+                else if Best_or_Worst == "Best" && Percentage_or_Dollars == "Dollars" && holding.getReturnInDollars() > certainHolding.getReturnInDollars() {
+                    certainHolding = holding
+                }
+                else if Best_or_Worst == "Worst" && Percentage_or_Dollars == "Dollars" && holding.getReturnInDollars() < certainHolding.getReturnInDollars() {
+                    certainHolding = holding
+                }
+            }
+            return certainHolding
+        }
+        return nil
+    }
+    
 }

@@ -9,6 +9,8 @@ import UIKit
 
 class Algorithm: NSObject {
     
+    // MARK: - Description Algorithms
+    
     static func roundToTwo(_ number: Double) -> Double {
         return round(number * 100)/100.0
     }
@@ -57,6 +59,8 @@ class Algorithm: NSObject {
         return currentDateFormatted
     }
     
+    // MARK: - API Request Algorithms
+    
     static func getTickerQuery(_ coreWatchlist: CoreWatchlist) -> String {
         // Generates argument for what tickers data will be retrieved for
         var tickers = ""
@@ -96,6 +100,8 @@ class Algorithm: NSObject {
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: earlierDate!)
     }
+    
+    // MARK: - Finance Algorithms
     
     static func getTotalReturnInDollars(_ holdings: [Holding]) -> Double {
         var totalReturnInDollars = 0.0
@@ -138,6 +144,8 @@ class Algorithm: NSObject {
         // Derived from initialInvestment*averageAnnualReturn^years = totalEquity
         return 100*(pow((totalEquity/totalInitialEquities), (1/yearsBetweenFirstDate)) - 1)
     }
+    
+    // MARK: - Watchlist Algorithms
     
     static func getBestOrWorstHolding(_ holdings: [Holding], Best_or_Worst: String, Percentage_or_Dollars: String) -> Holding? {
         if !["Best", "Worst"].contains(Best_or_Worst) || !["Percentage", "Dollars"].contains(Percentage_or_Dollars) {

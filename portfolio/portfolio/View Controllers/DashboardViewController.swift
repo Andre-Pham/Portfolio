@@ -208,9 +208,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         let tickers = Algorithm.getTickerQuery(watchlist)
         let previousOpenDate = Algorithm.getPreviousOpenDateQuery(unit: unit, unitsBackwards: unitsBackwards)
         
-        // Calls the API which in turn provides data to the chart
         indicator.startAnimating()
         
+        // Calls the API which in turn provides data to the chart
         self.requestTickerWebData(tickers: tickers, startDate: previousOpenDate, interval: interval, onlyUpdateGraph: onlyUpdateGraph)
     }
     

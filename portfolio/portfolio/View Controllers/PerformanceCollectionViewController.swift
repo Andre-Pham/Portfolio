@@ -95,11 +95,11 @@ class PerformanceCollectionViewController: UICollectionViewController {
     func refresh() {
         self.shownHoldings.removeAll()
         self.refreshControl.endRefreshing() // End before loading indicator begins
-        self.generateChartData(unitsBackwards: 1, unit: .day, interval: "30min", onlyUpdateGraph: false)
+        self.generateData(unitsBackwards: 1, unit: .day, interval: "30min", onlyUpdateGraph: false)
     }
     
     /// Assigns calls a request to the API which in turn loads data into the chart
-    func generateChartData(unitsBackwards: Int, unit: Calendar.Component, interval: String, onlyUpdateGraph: Bool) {
+    func generateData(unitsBackwards: Int, unit: Calendar.Component, interval: String, onlyUpdateGraph: Bool) {
         
         self.portfolio = self.databaseController?.retrievePortfolio()
         guard let portfolio = self.portfolio else {
@@ -109,8 +109,9 @@ class PerformanceCollectionViewController: UICollectionViewController {
         let tickers = Algorithm.getTickerQuery(portfolio)
         let previousOpenDate = Algorithm.getPreviousOpenDateQuery(unit: unit, unitsBackwards: unitsBackwards)
         
-        // Calls the API which in turn provides data to the chart
         indicator.startAnimating()
+        
+        // Calls the API which in turn provides data to the chart
         self.requestTickerWebData(tickers: tickers, startDate: previousOpenDate, interval: interval, onlyUpdateGraph: onlyUpdateGraph)
     }
     

@@ -23,17 +23,27 @@ class PerformanceCollectionViewController: UICollectionViewController {
     
     let API_KEY = "fb1e4d1cdf934bdd8ef247ea380bd80a"
     
+    // Core Data
+    weak var databaseController: DatabaseProtocol?
+    
     var portfolio: CoreWatchlist?
     var shownHoldings: [Holding] = []
     // Indicator
     var indicator = UIActivityIndicatorView()
+    var refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
+        
+        // Sets property databaseController to reference to the databaseController from AppDelegate
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        self.databaseController = appDelegate?.databaseController
+        
+        // SOURCE: https://stackoverflow.com/questions/24475792/how-to-use-pull-to-refresh-in-swift
+        // AUTHOR: Ahmad F - https://stackoverflow.com/users/5501940/ahmad-f
+        self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
+        self.collectionView.refreshControl = self.refreshControl
+        
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
@@ -57,7 +67,35 @@ class PerformanceCollectionViewController: UICollectionViewController {
             self.indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             self.indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
-        // Do any additional setup after loading the view.
+    }
+    
+    /// Calls before the view appears on screen
+    override func viewWillAppear(_ animated: Bool) {
+        // If the user has designated a different or new watchlist to be their portfolio, refresh the page's content
+        let portfolio = databaseController?.retrievePortfolio()
+        if portfolio != self.portfolio || self.portfolio?.holdings?.count != self.shownHoldings.count {
+            self.portfolio = portfolio
+            self.refresh()
+        }
+    }
+    
+    @objc func refreshControlChanged(_ sender: AnyObject) {
+        if !self.collectionView.isDragging {
+            self.refresh()
+        }
+    }
+    
+    // SOURCE: https://stackoverflow.com/questions/22225207/uirefreshcontrol-jitters-when-pulled-down-and-held
+    // AUTHOR: Devin - https://stackoverflow.com/users/968108/devin
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if self.refreshControl.isRefreshing {
+            self.refresh()
+        }
+    }
+    
+    func refresh() {
+        self.shownHoldings.removeAll()
+        self.refreshControl.endRefreshing() // End before loading indicator begins
         self.generateChartData(unitsBackwards: 1, unit: .day, interval: "30min", onlyUpdateGraph: false)
     }
     
@@ -65,9 +103,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
     func generateChartData(unitsBackwards: Int, unit: Calendar.Component, interval: String, onlyUpdateGraph: Bool) {
         // Generates argument for what tickers data will be retrieved for
         var tickers = ""
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let databaseController = appDelegate?.databaseController
-        self.portfolio = databaseController?.retrievePortfolio()
+        self.portfolio = self.databaseController?.retrievePortfolio()
         let holdings = self.portfolio?.holdings?.allObjects as! [CoreHolding]
         for holding in holdings {
             tickers += holding.ticker ?? ""
@@ -357,6 +393,9 @@ class PerformanceCollectionViewController: UICollectionViewController {
                     labels[i][0]?.text = "-"
                     labels[i][1]?.text = "-"
                     labels[i][2]?.text = "-"
+                    
+                    labels[i][1]?.textColor = UIColor.black
+                    labels[i][2]?.textColor = UIColor.black
                 }
             }
             

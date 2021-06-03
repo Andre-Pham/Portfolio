@@ -31,6 +31,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // Indicator
     var indicator = UIActivityIndicatorView()
+    var refreshControl = UIRefreshControl()
     
     // Other properties
     var portfolio: CoreWatchlist?
@@ -62,6 +63,11 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // SOURCE: https://stackoverflow.com/questions/24475792/how-to-use-pull-to-refresh-in-swift
+        // AUTHOR: Ahmad F - https://stackoverflow.com/users/5501940/ahmad-f
+        self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
+        self.scrollView.refreshControl = self.refreshControl
         
         // Sets property databaseController to reference to the databaseController from AppDelegate
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -102,6 +108,8 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Make it so page scrolls even if all the contents fits on one page
         self.scrollView.alwaysBounceVertical = true
+        // Delegate used for checking when user stops scrolling, so page can refresh
+        self.scrollView.delegate = self
         
         // Fonts
         self.subtitleLabel.font = CustomFont.setSubtitleFont()
@@ -119,10 +127,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         let portfolio = databaseController?.retrievePortfolio()
         if portfolio != self.portfolio || self.portfolio?.holdings?.count != self.shownHoldings.count {
             self.portfolio = portfolio
-            self.shownHoldings.removeAll()
-            self.chartData.data = []
-            self.chartData.title = self.portfolio?.name ?? "Watchlist Name Not Found"
-            self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: false)
+            self.refresh()
         }
         
         // Adds observer which calls observeValue when number of tableview cells changes
@@ -134,6 +139,28 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillDisappear(_ animated: Bool) {
         // Removes observer which calls observeValue when number of tableview cells changes
         self.holdingsTableView.removeObserver(self, forKeyPath: KEYPATH_TABLEVIEW_HEIGHT)
+    }
+    
+    @objc func refreshControlChanged(_ sender: AnyObject) {
+        if !self.scrollView.isDragging {
+            self.refresh()
+        }
+    }
+    
+    // SOURCE: https://stackoverflow.com/questions/22225207/uirefreshcontrol-jitters-when-pulled-down-and-held
+    // AUTHOR: Devin - https://stackoverflow.com/users/968108/devin
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if self.refreshControl.isRefreshing {
+            self.refresh()
+        }
+    }
+    
+    func refresh() {
+        self.shownHoldings.removeAll()
+        self.chartData.data = []
+        self.chartData.title = self.portfolio?.name ?? "-"
+        self.refreshControl.endRefreshing() // End before loading indicator begins
+        self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: false)
     }
     
     /// Calls when triggered by an observer

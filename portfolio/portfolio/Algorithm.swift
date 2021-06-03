@@ -46,6 +46,30 @@ class Algorithm: NSObject {
         return "\(prefix) \(shownReturnInPercentage)%"
     }
     
+    static func getCurrentDateDescription() -> String {
+        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
+        var currentDateFormatted = formatter.string(from: currentDate)
+        formatter.dateFormat = "yyyy"
+        let currentYearFormatted = formatter.string(from: currentDate)
+        currentDateFormatted = currentDateFormatted.replacingOccurrences(of: ", \(currentYearFormatted)", with: "")
+        return currentDateFormatted
+    }
+    
+    static func getTickerQuery(_ coreWatchlist: CoreWatchlist) -> String {
+        // Generates argument for what tickers data will be retrieved for
+        var tickers = ""
+        // TODO: Use guard statement to end early if there are no holdings
+        let holdings = coreWatchlist.holdings?.allObjects as! [CoreHolding]
+        for holding in holdings {
+            tickers += holding.ticker ?? ""
+            tickers += ","
+        }
+        // Remove unnecessary extra ","
+        return String(tickers.dropLast())
+    }
+    
     static func getTotalReturnInDollars(_ holdings: [Holding]) -> Double {
         var totalReturnInDollars = 0.0
         for holding in holdings {

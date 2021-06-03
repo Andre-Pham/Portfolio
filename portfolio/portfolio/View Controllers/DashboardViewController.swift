@@ -113,14 +113,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // Delegate used for checking when user stops scrolling, so page can refresh
         self.scrollView.delegate = self
         
-        let currentDate = Date()
-        let formatter = DateFormatter()
-        formatter.dateStyle = .full
-        var currentDateFormatted = formatter.string(from: currentDate)
-        formatter.dateFormat = "yyyy"
-        let currentYearFormatted = formatter.string(from: currentDate)
-        currentDateFormatted = currentDateFormatted.replacingOccurrences(of: ", \(currentYearFormatted)", with: "")
-        self.todaysDateLabel.text = currentDateFormatted
+        self.todaysDateLabel.text = Algorithm.getCurrentDateDescription()
     }
     
     /// Calls before the view appears on screen
@@ -207,16 +200,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Assigns calls a request to the API which in turn loads data into the chart
     func generateChartData(unitsBackwards: Int, unit: Calendar.Component, interval: String, onlyUpdateGraph: Bool) {
-        // Generates argument for what tickers data will be retrieved for
-        var tickers = ""
-        // TODO: Use guard statement to end early if there are no holdings
-        let holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
-        for holding in holdings {
-            tickers += holding.ticker ?? ""
-            tickers += ","
+        
+        guard let watchlist = self.shownWatchlist else {
+            return
         }
-        // Remove unnecessary extra ","
-        tickers = String(tickers.dropLast())
+        
+        let tickers = Algorithm.getTickerQuery(watchlist)
         
         // Generates the previous day's date, so we can retrieve intraday prices
         var earlierDate = Calendar.current.date(

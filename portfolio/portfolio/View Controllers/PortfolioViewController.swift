@@ -367,15 +367,14 @@ extension PortfolioViewController {
         let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_HOLDING, for: indexPath) as! PortfolioHoldingTableViewCell
         let holding = self.shownHoldings[indexPath.row]
         
-        let shownShares = Algorithm.roundToTwo(holding.getSharesOwned())
-        let shownReturnInDollars = Algorithm.roundToTwo(holding.getReturnInDollars())
-        let shownReturnInPercentage = Algorithm.roundToTwo(holding.getReturnInPercentage())
-        let shownPrefix = Algorithm.getPrefix(holding.getReturnInDollars())
+        let shares = Algorithm.roundToTwo(holding.getSharesOwned())
+        let totalReturnInDollars = holding.getReturnInDollars()
+        let totalReturnInPercentage = holding.getReturnInPercentage()
         let shownEquity = Algorithm.roundToTwo(holding.getEquity())
         
         holdingCell.tickerLabel?.text = holding.ticker
-        holdingCell.sharesLabel?.text = "\(shownShares) Shares"
-        holdingCell.returnInDollarsAndPercentage?.text = "\(shownPrefix) $\(shownReturnInDollars) (\(shownReturnInPercentage)%)"
+        holdingCell.sharesLabel?.text = "\(shares) Shares"
+        holdingCell.returnInDollarsAndPercentage?.text = Algorithm.getReturnDescription(returnInDollars: totalReturnInDollars, returnInPercentage: totalReturnInPercentage)
         holdingCell.equityLabel?.text = "$\(shownEquity)"
         
         holdingCell.tickerLabel?.font = CustomFont.setFont(size: CustomFont.BODY_SIZE, style: CustomFont.BODY_STYLE, weight: .bold)
@@ -383,7 +382,7 @@ extension PortfolioViewController {
         holdingCell.returnInDollarsAndPercentage?.font = CustomFont.setBodyFont()
         holdingCell.equityLabel?.font = CustomFont.setBodyFont()
         
-        holdingCell.returnInDollarsAndPercentage?.textColor = Algorithm.getReturnColour(shownReturnInDollars)
+        holdingCell.returnInDollarsAndPercentage?.textColor = Algorithm.getReturnColour(totalReturnInDollars)
         
         return holdingCell
     }

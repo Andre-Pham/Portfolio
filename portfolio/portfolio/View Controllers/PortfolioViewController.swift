@@ -281,11 +281,10 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
                         if !onlyUpdateGraph {
                             self.holdingsTableView.reloadData()
                             
-                            let shownTotalReturnInDollars = Algorithm.roundToTwo(Algorithm.getTotalReturnInDollars(self.shownHoldings))
-                            let shownTotalReturnInPercentage = Algorithm.roundToTwo(Algorithm.getTotalReturnInPercentage(self.shownHoldings))
-                            let shownPrefix = Algorithm.getPrefix(shownTotalReturnInDollars)
-                            self.totalGainValueLabel.text = "\(shownPrefix) $\(shownTotalReturnInDollars) (\(shownTotalReturnInPercentage)%)"
-                            self.totalGainValueLabel.textColor = Algorithm.getReturnColour(shownTotalReturnInDollars)
+                            let totalReturnInDollars = Algorithm.getTotalReturnInDollars(self.shownHoldings)
+                            let totalReturnInPercentage = Algorithm.getTotalReturnInPercentage(self.shownHoldings)
+                            self.totalGainValueLabel.text = Algorithm.getReturnDescription(returnInDollars: totalReturnInDollars, returnInPercentage: totalReturnInPercentage)
+                            self.totalGainValueLabel.textColor = Algorithm.getReturnColour(totalReturnInDollars)
                             
                             let shownTotalEquities = Algorithm.roundToTwo(Algorithm.getTotalEquities(self.shownHoldings))
                             self.totalEquitiesValueLabel.text = "$\(shownTotalEquities)"

@@ -390,7 +390,29 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         task.resume()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "switchWatchlist" {
+            // Define the destination ViewController to assign its properties
+            let destination = segue.destination as! SwitchDashboardWatchlistViewController
+            
+            // Assign properties to the destination ViewController
+            destination.switchWatchlistDelegate = self
+        }
+    }
 
+}
+
+extension DashboardViewController: SwitchWatchlistDelegate {
+    
+    func switchWatchlist(_ newWatchlist: CoreWatchlist) {
+        self.shownWatchlist = newWatchlist
+        self.shownHoldings.removeAll()
+        self.chartData.data = []
+        self.chartData.title = self.shownWatchlist?.name ?? "-"
+        self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: false)
+    }
+    
 }
 
 // MARK: - TableView Methods Extension

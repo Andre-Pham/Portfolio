@@ -62,6 +62,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // SOURCE: https://stackoverflow.com/questions/24475792/how-to-use-pull-to-refresh-in-swift
+        // AUTHOR: Ahmad F - https://stackoverflow.com/users/5501940/ahmad-f
         self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
         self.scrollView.refreshControl = self.refreshControl
         
@@ -102,6 +104,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Make it so page scrolls even if all the contents fits on one page
         self.scrollView.alwaysBounceVertical = true
+        // Delegate used for checking when user stops scrolling, so page can refresh
         self.scrollView.delegate = self
         
         // Fonts
@@ -127,11 +130,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         let portfolio = databaseController?.retrievePortfolio()
         if portfolio != self.shownWatchlist || self.shownWatchlist?.holdings?.count != self.shownHoldings.count {
             self.shownWatchlist = portfolio
-            self.shownHoldings.removeAll()
-            self.chartData.data = []
-            self.chartData.title = self.shownWatchlist?.name ?? "-"
-            self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: false)
-            //self.holdingsTableView.reloadData()
+            self.refresh()
         }
         
         // Adds observer which calls observeValue when number of tableview cells changes
@@ -151,6 +150,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    // SOURCE: https://stackoverflow.com/questions/22225207/uirefreshcontrol-jitters-when-pulled-down-and-held
+    // AUTHOR: Devin - https://stackoverflow.com/users/968108/devin
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if self.refreshControl.isRefreshing {
             self.refresh()
@@ -432,10 +433,7 @@ extension DashboardViewController: SwitchWatchlistDelegate {
     
     func switchWatchlist(_ newWatchlist: CoreWatchlist) {
         self.shownWatchlist = newWatchlist
-        self.shownHoldings.removeAll()
-        self.chartData.data = []
-        self.chartData.title = self.shownWatchlist?.name ?? "-"
-        self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: false)
+        self.refresh()
     }
     
 }

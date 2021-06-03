@@ -174,7 +174,7 @@ class Algorithm: NSObject {
         return combinedPrices
     }
     
-    static func addPurchasesFromCoreToHoldings(coreHoldings: [CoreHolding], holdings: [Holding]) {
+    static func transferPurchasesFromCoreToHoldings(coreHoldings: [CoreHolding], holdings: [Holding]) {
         // Add the purchase data for each holding created
         for coreHolding in coreHoldings {
             for holding in holdings {

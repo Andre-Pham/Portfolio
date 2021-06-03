@@ -269,13 +269,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
                 }
                 // Add the purchase data for each holding created
                 let coreHoldings = self.portfolio?.holdings?.allObjects as! [CoreHolding]
-                for coreHolding in coreHoldings {
-                    for holding in self.shownHoldings {
-                        if coreHolding.ticker == holding.ticker {
-                            holding.purchases = coreHolding.purchases?.allObjects as! [CorePurchase]
-                        }
-                    }
-                }
+                Algorithm.transferPurchasesFromCoreToHoldings(coreHoldings: coreHoldings, holdings: self.shownHoldings)
                 
                 // If no holdings were created from the API request, don't run the following code because it'll crash
                 if self.shownHoldings.count > 0 {

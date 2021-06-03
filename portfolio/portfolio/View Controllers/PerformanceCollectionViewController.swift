@@ -305,8 +305,8 @@ class PerformanceCollectionViewController: UICollectionViewController {
                 cell.percentGainLabel.textColor = colour
             }
             else {
-                cell.tickerLabel.text = "-"
-                cell.percentGainLabel.text = "-"
+                cell.tickerLabel.text = Constant.DEFAULT_LABEL
+                cell.percentGainLabel.text = Constant.DEFAULT_LABEL
             }
             
             return cell
@@ -353,9 +353,9 @@ class PerformanceCollectionViewController: UICollectionViewController {
                     labels[i][2]?.textColor = colour
                 }
                 else {
-                    labels[i][0]?.text = "-"
-                    labels[i][1]?.text = "-"
-                    labels[i][2]?.text = "-"
+                    labels[i][0]?.text = Constant.DEFAULT_LABEL
+                    labels[i][1]?.text = Constant.DEFAULT_LABEL
+                    labels[i][2]?.text = Constant.DEFAULT_LABEL
                     
                     labels[i][1]?.textColor = UIColor.black
                     labels[i][2]?.textColor = UIColor.black
@@ -380,16 +380,16 @@ extension PerformanceCollectionViewController: UICollectionViewDelegateFlowLayou
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if self.WIDE_CELL_INDICES.contains(indexPath.row) {
-            let width = UIScreen.main.bounds.width - 15*2
+            let width = UIScreen.main.bounds.width - CGFloat(Constant.LEADING)*2
             return CGSize(width: width, height: 100)
         }
         else if self.SINGLE_CELL_INDICES.contains(indexPath.row) {
-            let width = (UIScreen.main.bounds.width - 15*3)/2
+            let width = (UIScreen.main.bounds.width - CGFloat(Constant.LEADING)*3)/2
             return CGSize(width: width, height: 100)
         }
         else {
             // self.TALL_CELL_INDICES.contains(indexPath.row)
-            let width = (UIScreen.main.bounds.width - 15*3)/2
+            let width = (UIScreen.main.bounds.width - CGFloat(Constant.LEADING)*3)/2
             return CGSize(width: width, height: 320)
         }
     }

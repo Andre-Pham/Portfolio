@@ -157,7 +157,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     func refresh() {
         self.shownHoldings.removeAll()
         self.chartData.data = []
-        self.chartData.title = self.portfolio?.name ?? "-"
+        self.chartData.title = self.portfolio?.name ?? Constant.DEFAULT_LABEL
         self.refreshControl.endRefreshing() // End before loading indicator begins
         self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: false)
     }

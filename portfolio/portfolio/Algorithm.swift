@@ -174,6 +174,17 @@ class Algorithm: NSObject {
         return combinedPrices
     }
     
+    static func addPurchasesFromCoreToHoldings(coreHoldings: [CoreHolding], holdings: [Holding]) {
+        // Add the purchase data for each holding created
+        for coreHolding in coreHoldings {
+            for holding in holdings {
+                if coreHolding.ticker == holding.ticker {
+                    holding.purchases = coreHolding.purchases?.allObjects as! [CorePurchase]
+                }
+            }
+        }
+    }
+    
     // MARK: - Finance Algorithms
     
     static func getTotalReturnInDollars(_ holdings: [Holding]) -> Double {

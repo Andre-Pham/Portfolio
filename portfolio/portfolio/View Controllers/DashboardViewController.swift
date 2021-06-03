@@ -275,28 +275,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 
                 // If no holdings were created from the API request, don't run the following code because it'll crash
                 if self.shownHoldings.count > 0 {
-                    // Find how many prices to plot
-                    var num_prices = 0
-                    for holding in self.shownHoldings {
-                        if holding.prices.count > num_prices {
-                            num_prices = holding.prices.count
-                        }
-                    }
-                    // Merge all the prices of the holdings to create the single graph
-                    var combinedPrices = [Double](repeating: 0.0, count: num_prices)
-                    for holding in self.shownHoldings {
-                        let holdingPercentages = holding.convertPricesToPercentages()
-                        for priceIndex in 0..<holdingPercentages.count {
-                            // API provides values in reverse order
-                            let reverseIndex = abs(priceIndex - (holdingPercentages.count-1))
-                            
-                            combinedPrices[reverseIndex] += holdingPercentages[priceIndex]
-                        }
-                    }
-                    
                     DispatchQueue.main.async {
                         // Update chart and tableview
-                        self.chartData.data = combinedPrices
+                        self.chartData.data = Algorithm.getChartPlots(holdings: self.shownHoldings)
                         self.chartData.updateColour()
                         
                         if !onlyUpdateGraph {

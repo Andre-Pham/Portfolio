@@ -151,6 +151,29 @@ class Algorithm: NSObject {
         return nil
     }
     
+    static func getChartPlots(holdings: [Holding]) -> [Double] {
+        // Find how many prices to plot
+        var num_prices = 0
+        for holding in holdings {
+            if holding.prices.count > num_prices {
+                num_prices = holding.prices.count
+            }
+        }
+        // Merge all the prices of the holdings to create the single graph
+        var combinedPrices = [Double](repeating: 0.0, count: num_prices)
+        for holding in holdings {
+            let holdingPercentages = holding.convertPricesToPercentages()
+            for priceIndex in 0..<holdingPercentages.count {
+                // API provides values in reverse order
+                let reverseIndex = abs(priceIndex - (holdingPercentages.count-1))
+                
+                combinedPrices[reverseIndex] += holdingPercentages[priceIndex]
+            }
+        }
+        
+        return combinedPrices
+    }
+    
     // MARK: - Finance Algorithms
     
     static func getTotalReturnInDollars(_ holdings: [Holding]) -> Double {

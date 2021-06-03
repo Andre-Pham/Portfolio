@@ -119,6 +119,38 @@ class Algorithm: NSObject {
         return requestURLComponents
     }
     
+    // MARK: - API Response Algorithms
+    
+    static func getPrices(_ tickerResponse: Ticker) -> [Double]? {
+        // Get price data in Double type retreived from API
+        var prices: [Double] = []
+        var currentPrice: Double? = nil
+        for stringPrice in tickerResponse.values {
+            if let price = Double(stringPrice.open) {
+                prices.append(price)
+            }
+            if currentPrice == nil {
+                currentPrice = Double(stringPrice.close)
+            }
+        }
+        if let currentPrice = currentPrice {
+            prices.append(currentPrice)
+            return prices
+        }
+        return nil
+    }
+    
+    static func createHoldingFromTickerResponse(_ tickerResponse: Ticker) -> Holding? {
+        // Get price data in Double type retreived from API
+        if let allPrices = Algorithm.getPrices(tickerResponse) {
+            let prices = Array(allPrices.dropLast())
+            let currentPrice = allPrices.last
+            
+            return Holding(ticker: tickerResponse.meta.symbol, prices: prices, currentPrice: currentPrice!)
+        }
+        return nil
+    }
+    
     // MARK: - Finance Algorithms
     
     static func getTotalReturnInDollars(_ holdings: [Holding]) -> Double {

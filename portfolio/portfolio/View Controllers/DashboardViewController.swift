@@ -250,42 +250,18 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     
                     // For every ticker with data returned, create a new Holding with its data
                     for ticker in tickerResponse.tickerArray {
-                        // Get price data in Double type retrieved from API
-                        var prices: [Double] = []
-                        var currentPrice: Double? = nil
-                        for stringPrice in ticker.values {
-                            if let price = Double(stringPrice.open) {
-                                prices.append(price)
-                            }
-                            if currentPrice == nil {
-                                currentPrice = Double(stringPrice.close)
-                            }
+                        if let holding = Algorithm.createHoldingFromTickerResponse(ticker) {
+                            self.shownHoldings.append(holding)
                         }
-                        // Create Holding
-                        self.shownHoldings.append(
-                            Holding(ticker: ticker.meta.symbol, prices: prices, currentPrice: currentPrice ?? 0)
-                        )
                     }
                 }
                 else {
                     // Single ticker request
                     let tickerResponse = try decoder.decode(Ticker.self, from: data!)
                     
-                    // Get price data in Double type retreived from API
-                    var prices: [Double] = []
-                    var currentPrice: Double? = nil
-                    for stringPrice in tickerResponse.values {
-                        if let price = Double(stringPrice.open) {
-                            prices.append(price)
-                        }
-                        if currentPrice == nil {
-                            currentPrice = Double(stringPrice.close)
-                        }
+                    if let holding = Algorithm.createHoldingFromTickerResponse(tickerResponse) {
+                        self.shownHoldings.append(holding)
                     }
-                    // Create Holding
-                    self.shownHoldings.append(
-                        Holding(ticker: tickerResponse.meta.symbol, prices: prices, currentPrice: currentPrice ?? 0)
-                    )
                 }
                 // Add the purchase data for each holding created
                 let coreHoldings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]

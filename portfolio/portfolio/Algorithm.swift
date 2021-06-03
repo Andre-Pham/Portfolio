@@ -101,6 +101,24 @@ class Algorithm: NSObject {
         return formatter.string(from: earlierDate!)
     }
     
+    static func getRequestURLComponents(tickers: String, interval: String, startDate: String) -> URLComponents {
+        // https://api.twelvedata.com/time_series?symbol=MSFT,AMZN&interval=5min&start_date=2021-4-26&timezone=Australia/Sydney&apikey=fb1e4d1cdf934bdd8ef247ea380bd80a
+        
+        // Form URL from different components
+        var requestURLComponents = URLComponents()
+        requestURLComponents.scheme = "https"
+        requestURLComponents.host = "api.twelvedata.com"
+        requestURLComponents.path = "/time_series"
+        requestURLComponents.queryItems = [
+            URLQueryItem(name: "symbol", value: tickers),
+            URLQueryItem(name: "interval", value: interval),
+            URLQueryItem(name: "start_date", value: startDate), // yyyy-mm-dd
+            URLQueryItem(name: "apikey", value: Constant.API_KEY),
+        ]
+        
+        return requestURLComponents
+    }
+    
     // MARK: - Finance Algorithms
     
     static func getTotalReturnInDollars(_ holdings: [Holding]) -> Double {

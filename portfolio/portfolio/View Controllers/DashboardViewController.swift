@@ -216,27 +216,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Calls a TwelveData request for time series prices for ticker(s), as well as other data
     func requestTickerWebData(tickers: String, startDate: String, interval: String, onlyUpdateGraph: Bool) {
-        // https://api.twelvedata.com/time_series?symbol=MSFT,AMZN&interval=5min&start_date=2021-4-26&timezone=Australia/Sydney&apikey=fb1e4d1cdf934bdd8ef247ea380bd80a
-        
-        // Form URL from different components
-        var requestURLComponents = URLComponents()
-        requestURLComponents.scheme = "https"
-        requestURLComponents.host = "api.twelvedata.com"
-        requestURLComponents.path = "/time_series"
-        requestURLComponents.queryItems = [
-            URLQueryItem(name: "symbol", value: tickers),
-            URLQueryItem(name: "interval", value: interval),
-            URLQueryItem(name: "start_date", value: startDate), // yyyy-mm-dd
-            URLQueryItem(name: "apikey", value: Constant.API_KEY),
-        ]
+        let requestURLComponents = Algorithm.getRequestURLComponents(tickers: tickers, interval: interval, startDate: startDate)
         
         // Ensure URL is valid
         guard let requestURL = requestURLComponents.url else {
             print("Invalid URL.")
             return
         }
-        
-        print(requestURL)
         
         // Occurs on a new thread
         let task = URLSession.shared.dataTask(with: requestURL) {

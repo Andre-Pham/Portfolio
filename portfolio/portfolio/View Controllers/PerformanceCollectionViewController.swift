@@ -242,23 +242,29 @@ class PerformanceCollectionViewController: UICollectionViewController {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_WIDE, for: indexPath as IndexPath) as! WidePerformanceCollectionViewCell
             
-            let shownReturnInPercentage = Algorithm.roundToTwo(Algorithm.getAverageAnnualReturnInPercentage(shownHoldings))
-            let prefix = Algorithm.getPrefix(shownReturnInPercentage)
+            let totalReturnInPercentage = Algorithm.getAverageAnnualReturnInPercentage(shownHoldings)
             
             cell.titleLabel.text = "Average\nAnnual\nReturn"
-            cell.percentGainLabel.text = "\(prefix) \(abs(shownReturnInPercentage))%"
+            if totalReturnInPercentage.isNaN {
+                cell.percentGainLabel.text = Constant.DEFAULT_LABEL
+                cell.percentGainLabel.textColor = UIColor.black
+            }
+            else {
+                cell.percentGainLabel.text = Algorithm.getReturnInPercentageDescription(totalReturnInPercentage)
+                cell.percentGainLabel.textColor = Algorithm.getReturnColour(totalReturnInPercentage)
+            }
+            
             
             cell.titleLabel.font = CustomFont.setSubtitle2Font()
             cell.percentGainLabel.font = CustomFont.setLargeFont()
             var sizeReduction = 0.0
-            if abs(shownReturnInPercentage) >= 100 {
-                sizeReduction += shownReturnInPercentage*0.0009 + 2.5556
+            if abs(totalReturnInPercentage) >= 100 {
+                sizeReduction += totalReturnInPercentage*0.0009 + 2.5556
             }
             cell.percentGainLabel.font = CustomFont.setFont(size: CustomFont.LARGE_SIZE - sizeReduction, style: CustomFont.LARGE_STYLE, weight: CustomFont.LARGE_WEIGHT)
             
             cell.backgroundColor = UIColor(named: "GreyBlack1")
-            cell.percentGainLabel.textColor = Algorithm.getReturnColour(shownReturnInPercentage)
-        
+            
             return cell
             
         case 1...4:

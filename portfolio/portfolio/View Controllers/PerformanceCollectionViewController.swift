@@ -21,7 +21,6 @@ class PerformanceCollectionViewController: UICollectionViewController {
     let TALL_CELL_INDICES = [5, 6]
     let TALL_CELL_TITLES = ["Winners", "Losers"]
     
-    let API_KEY = "fb1e4d1cdf934bdd8ef247ea380bd80a"
     
     // Core Data
     weak var databaseController: DatabaseProtocol?
@@ -155,7 +154,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
             URLQueryItem(name: "symbol", value: tickers),
             URLQueryItem(name: "interval", value: interval),
             URLQueryItem(name: "start_date", value: startDate), // yyyy-mm-dd
-            URLQueryItem(name: "apikey", value: self.API_KEY),
+            URLQueryItem(name: "apikey", value: Constant.API_KEY),
         ]
         
         // Ensure URL is valid
@@ -283,8 +282,8 @@ class PerformanceCollectionViewController: UICollectionViewController {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_WIDE, for: indexPath as IndexPath) as! WidePerformanceCollectionViewCell
             
-            let shownReturnInPercentage = Calculations.roundToTwo(Calculations.getAverageAnnualReturnInPercentage(shownHoldings))
-            let prefix = Calculations.getPrefix(shownReturnInPercentage)
+            let shownReturnInPercentage = Algorithm.roundToTwo(Algorithm.getAverageAnnualReturnInPercentage(shownHoldings))
+            let prefix = Algorithm.getPrefix(shownReturnInPercentage)
             
             cell.titleLabel.text = "Average\nAnnual\nReturn"
             cell.percentGainLabel.text = "\(prefix) \(abs(shownReturnInPercentage))%"
@@ -298,7 +297,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
             cell.percentGainLabel.font = CustomFont.setFont(size: CustomFont.LARGE_SIZE - sizeReduction, style: CustomFont.LARGE_STYLE, weight: CustomFont.LARGE_WEIGHT)
             
             cell.backgroundColor = UIColor(named: "GreyBlack1")
-            cell.percentGainLabel.textColor = Calculations.getReturnColour(shownReturnInPercentage)
+            cell.percentGainLabel.textColor = Algorithm.getReturnColour(shownReturnInPercentage)
         
             return cell
             
@@ -319,17 +318,17 @@ class PerformanceCollectionViewController: UICollectionViewController {
                 rank = "Best"
             }
             let returnFormat = ["Dollars", "Percentage"][indexPath.row%2]
-            if let holding = Calculations.getBestOrWorstHolding(self.shownHoldings, Best_or_Worst: rank, Percentage_or_Dollars: returnFormat) {
+            if let holding = Algorithm.getBestOrWorstHolding(self.shownHoldings, Best_or_Worst: rank, Percentage_or_Dollars: returnFormat) {
                 let ticker = holding.ticker
                 var returnValue: Double
                 if returnFormat == "Dollars" {
-                    returnValue = Calculations.roundToTwo(holding.getReturnInDollars())
+                    returnValue = Algorithm.roundToTwo(holding.getReturnInDollars())
                 }
                 else {
-                    returnValue = Calculations.roundToTwo(holding.getReturnInPercentage())
+                    returnValue = Algorithm.roundToTwo(holding.getReturnInPercentage())
                 }
-                let prefix = Calculations.getPrefix(returnValue)
-                let colour = Calculations.getReturnColour(returnValue)
+                let prefix = Algorithm.getPrefix(returnValue)
+                let colour = Algorithm.getReturnColour(returnValue)
                 
                 cell.tickerLabel.text = ticker
                 if returnFormat == "Dollars" {
@@ -367,7 +366,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
             cell.gainInPercentageLabel3.font = CustomFont.setBodyFont()
             cell.gainInDollarsLabel3.font = CustomFont.setBodyFont()
             
-            let holdings = Calculations.getWinnerAndLoserHoldings(self.shownHoldings)[indexPath.row-5]
+            let holdings = Algorithm.getWinnerAndLoserHoldings(self.shownHoldings)[indexPath.row-5]
             let labels = [
                 [cell.tickerLabel1, cell.gainInPercentageLabel1, cell.gainInDollarsLabel1],
                 [cell.tickerLabel2, cell.gainInPercentageLabel2, cell.gainInDollarsLabel2],
@@ -377,10 +376,10 @@ class PerformanceCollectionViewController: UICollectionViewController {
             for i in 0...2 {
                 if holdings.count > i {
                     let holding = holdings[i]
-                    let shownGainInPercentage = Calculations.roundToTwo(holding.getReturnInPercentage())
-                    let shownGainInDollars = Calculations.roundToTwo(holding.getReturnInDollars())
-                    let prefix = Calculations.getPrefix(shownGainInDollars)
-                    let colour = Calculations.getReturnColour(shownGainInDollars)
+                    let shownGainInPercentage = Algorithm.roundToTwo(holding.getReturnInPercentage())
+                    let shownGainInDollars = Algorithm.roundToTwo(holding.getReturnInDollars())
+                    let prefix = Algorithm.getPrefix(shownGainInDollars)
+                    let colour = Algorithm.getReturnColour(shownGainInDollars)
                     
                     labels[i][0]?.text = holding.ticker
                     labels[i][1]?.text = "\(prefix) \(abs(shownGainInPercentage))%"

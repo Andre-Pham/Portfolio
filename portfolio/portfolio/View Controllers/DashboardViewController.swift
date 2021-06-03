@@ -19,7 +19,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     // Constants
     let CELL_HOLDING = "holdingCell"
     let KEYPATH_TABLEVIEW_HEIGHT = "contentSize"
-    let API_KEY = "fb1e4d1cdf934bdd8ef247ea380bd80a"
     let CELL_HEIGHT: CGFloat = 30.0
     
     // Core Data
@@ -29,7 +28,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     let swiftUIView = ChartView()
     var chartData = ChartData(title: "Title", legend: "Legend", data: [])
     
-    // Indicator
+    // Loading indicators
     var indicator = UIActivityIndicatorView()
     var refreshControl = UIRefreshControl()
     
@@ -67,15 +66,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
         self.scrollView.refreshControl = self.refreshControl
         
-        // Sets property databaseController to reference to the databaseController from AppDelegate
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        databaseController = appDelegate?.databaseController
-
-        // SOURCE: https://stackoverflow.com/questions/33234180/uitableview-example-for-swift
-        // AUTHOR: Suragch - https://stackoverflow.com/users/3681880/suragch
-        self.holdingsTableView.delegate = self
-        self.holdingsTableView.dataSource = self
-        
         // Add the chart to the view
         addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
         
@@ -102,17 +92,26 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             self.indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
         
-        // Make it so page scrolls even if all the contents fits on one page
-        self.scrollView.alwaysBounceVertical = true
-        // Delegate used for checking when user stops scrolling, so page can refresh
-        self.scrollView.delegate = self
-        
         // Fonts
         self.todaysDateLabel.font = CustomFont.setSubtitleFont()
         self.daysGainLabel.font = CustomFont.setBodyFont()
         self.totalGainLabel.font = CustomFont.setBodyFont()
         self.holdingsTitleLabel.font = CustomFont.setSubtitleFont()
         self.holdingsTitleDetailLabel.font = CustomFont.setSubtitleComplementaryFont()
+        
+        // Sets property databaseController to reference to the databaseController from AppDelegate
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+
+        // SOURCE: https://stackoverflow.com/questions/33234180/uitableview-example-for-swift
+        // AUTHOR: Suragch - https://stackoverflow.com/users/3681880/suragch
+        self.holdingsTableView.delegate = self
+        self.holdingsTableView.dataSource = self
+        
+        // Make it so page scrolls even if all the contents fits on one page
+        self.scrollView.alwaysBounceVertical = true
+        // Delegate used for checking when user stops scrolling, so page can refresh
+        self.scrollView.delegate = self
         
         let currentDate = Date()
         let formatter = DateFormatter()
@@ -262,7 +261,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             URLQueryItem(name: "symbol", value: tickers),
             URLQueryItem(name: "interval", value: interval),
             URLQueryItem(name: "start_date", value: startDate), // yyyy-mm-dd
-            URLQueryItem(name: "apikey", value: self.API_KEY),
+            URLQueryItem(name: "apikey", value: Constant.API_KEY),
         ]
         
         // Ensure URL is valid
@@ -389,21 +388,21 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                                         //dayGainPercentage += 100*(holding.getEquity()/(holding.getEquity() - dayGainDollars) - 1)
                                     }
                                 }
-                                let totalEquity = Calculations.getTotalEquities(self.shownHoldings)
+                                let totalEquity = Algorithm.getTotalEquities(self.shownHoldings)
                                 dayGainPercentage = 100*((totalEquity/(totalEquity - dayGainDollars) - 1))
                                 
                                 // Round to 2 decimal places
-                                dayGainDollars = Calculations.roundToTwo(dayGainDollars)
-                                dayGainPercentage = Calculations.roundToTwo(dayGainPercentage)
+                                dayGainDollars = Algorithm.roundToTwo(dayGainDollars)
+                                dayGainPercentage = Algorithm.roundToTwo(dayGainPercentage)
                                 
-                                self.daysGainLabel.text = "\(Calculations.getPrefix(dayGainDollars)) $\(abs(dayGainDollars)) (\(dayGainPercentage)%) Day"
-                                self.daysGainLabel.textColor = Calculations.getReturnColour(dayGainDollars)
+                                self.daysGainLabel.text = "\(Algorithm.getPrefix(dayGainDollars)) $\(abs(dayGainDollars)) (\(dayGainPercentage)%) Day"
+                                self.daysGainLabel.textColor = Algorithm.getReturnColour(dayGainDollars)
                                 
-                                let shownTotalReturnInDollars = Calculations.roundToTwo(Calculations.getTotalReturnInDollars(self.shownHoldings))
-                                let shownTotalReturnInPercentage = Calculations.roundToTwo(Calculations.getTotalReturnInPercentage(self.shownHoldings))
-                                let shownPrefix = Calculations.getPrefix(shownTotalReturnInDollars)
+                                let shownTotalReturnInDollars = Algorithm.roundToTwo(Algorithm.getTotalReturnInDollars(self.shownHoldings))
+                                let shownTotalReturnInPercentage = Algorithm.roundToTwo(Algorithm.getTotalReturnInPercentage(self.shownHoldings))
+                                let shownPrefix = Algorithm.getPrefix(shownTotalReturnInDollars)
                                 self.totalGainLabel.text = "\(shownPrefix) $\(shownTotalReturnInDollars) (\(shownTotalReturnInPercentage)%) Total"
-                                self.totalGainLabel.textColor = Calculations.getReturnColour(shownTotalReturnInDollars)
+                                self.totalGainLabel.textColor = Algorithm.getReturnColour(shownTotalReturnInDollars)
                             }
                         }
                     }
@@ -467,10 +466,10 @@ extension DashboardViewController {
         var dayGainPercentage = 100*(holding.getEquity()/(holding.getEquity() - dayGainDollars) - 1)
         
         // Round to 2 decimal places
-        dayGainDollars = Calculations.roundToTwo(dayGainDollars)
-        dayGainPercentage = Calculations.roundToTwo(dayGainPercentage)
+        dayGainDollars = Algorithm.roundToTwo(dayGainDollars)
+        dayGainPercentage = Algorithm.roundToTwo(dayGainPercentage)
         
-        let prefix = Calculations.getPrefix(dayGainDollars)
+        let prefix = Algorithm.getPrefix(dayGainDollars)
         
         holdingCell.textLabel?.text = holding.ticker
         //holdingCell.detailTextLabel?.text = String(holding.currentPrice!)
@@ -479,7 +478,7 @@ extension DashboardViewController {
         holdingCell.textLabel?.font = CustomFont.setBodyFont()
         holdingCell.detailTextLabel?.font = CustomFont.setBodyFont()
         
-        holdingCell.detailTextLabel?.textColor = Calculations.getReturnColour(dayGainDollars)
+        holdingCell.detailTextLabel?.textColor = Algorithm.getReturnColour(dayGainDollars)
         
         return holdingCell
     }

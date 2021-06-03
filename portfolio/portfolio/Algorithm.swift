@@ -1,5 +1,5 @@
 //
-//  Calculations.swift
+//  Algorithm.swift
 //  portfolio
 //
 //  Created by Andre Pham on 11/5/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Calculations: NSObject {
+class Algorithm: NSObject {
     
     static func roundToTwo(_ number: Double) -> Double {
         return round(number * 100)/100.0
@@ -27,6 +27,25 @@ class Calculations: NSObject {
         return UIColor(named: "Green1") ?? UIColor.black
     }
     
+    static func getReturnDescription(returnInDollars: Double, returnInPercentage: Double) -> String {
+        let prefix = Algorithm.getPrefix(returnInDollars)
+        let shownReturnInDollars = Algorithm.roundToTwo(abs(returnInDollars))
+        let shownReturnInPercentage = Algorithm.roundToTwo(abs(returnInPercentage))
+        return "\(prefix) $\(shownReturnInDollars) (\(shownReturnInPercentage)%)"
+    }
+    
+    static func getReturnInDollarsDescription(_ returnInDollars: Double) -> String {
+        let prefix = Algorithm.getPrefix(returnInDollars)
+        let shownReturnInDollars = Algorithm.roundToTwo(abs(returnInDollars))
+        return "\(prefix) $\(shownReturnInDollars)"
+    }
+    
+    static func getReturnInPercentageDescription(_ returnInPercentage: Double) -> String {
+        let prefix = Algorithm.getPrefix(returnInPercentage)
+        let shownReturnInPercentage = Algorithm.roundToTwo(abs(returnInPercentage))
+        return "\(prefix) \(shownReturnInPercentage)%"
+    }
+    
     static func getTotalReturnInDollars(_ holdings: [Holding]) -> Double {
         var totalReturnInDollars = 0.0
         for holding in holdings {
@@ -44,13 +63,13 @@ class Calculations: NSObject {
     }
     
     static func getTotalReturnInPercentage(_ holdings: [Holding]) -> Double {
-        let totalReturnInDollars = self.getTotalReturnInDollars(holdings)
-        let totalEquities = self.getTotalEquities(holdings)
+        let totalReturnInDollars = Algorithm.getTotalReturnInDollars(holdings)
+        let totalEquities = Algorithm.getTotalEquities(holdings)
         return 100*(totalEquities/(totalEquities - totalReturnInDollars) - 1)
     }
     
     static func getAverageAnnualReturnInPercentage(_ holdings: [Holding]) -> Double {
-        let totalEquity = self.getTotalEquities(holdings)
+        let totalEquity = Algorithm.getTotalEquities(holdings)
         var furthestDateBack = Date()
         var totalInitialEquities = 0.0
         for holding in holdings {
@@ -124,8 +143,8 @@ class Calculations: NSObject {
         if holdings.count > 0 {
             var winnerHoldings: [Holding] = []
             var loserHoldings: [Holding] = []
-            let rankedHoldingsInPercentage = self.getRankedHoldings(holdings, Percentage_or_Dollars: "Percentage")
-            let rankedHoldingsInDollars = self.getRankedHoldings(holdings, Percentage_or_Dollars: "Dollars")
+            let rankedHoldingsInPercentage = Algorithm.getRankedHoldings(holdings, Percentage_or_Dollars: "Percentage")
+            let rankedHoldingsInDollars = Algorithm.getRankedHoldings(holdings, Percentage_or_Dollars: "Dollars")
             var scores = [Holding: Int]()
             for holding in holdings {
                 if let percentageScore = rankedHoldingsInPercentage.firstIndex(of: holding), let dollarsScore = rankedHoldingsInDollars.firstIndex(of: holding) {

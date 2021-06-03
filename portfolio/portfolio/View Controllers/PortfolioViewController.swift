@@ -19,7 +19,6 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     // Constants
     let CELL_HOLDING = "holdingCell"
     let KEYPATH_TABLEVIEW_HEIGHT = "contentSize"
-    let API_KEY = "fb1e4d1cdf934bdd8ef247ea380bd80a"
     let CELL_HEIGHT: CGFloat = 65.0
     
     // Core Data
@@ -258,7 +257,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
             URLQueryItem(name: "symbol", value: tickers),
             URLQueryItem(name: "interval", value: interval),
             URLQueryItem(name: "start_date", value: startDate), // yyyy-mm-dd
-            URLQueryItem(name: "apikey", value: self.API_KEY),
+            URLQueryItem(name: "apikey", value: Constant.API_KEY),
         ]
         
         // Ensure URL is valid
@@ -367,13 +366,13 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
                         if !onlyUpdateGraph {
                             self.holdingsTableView.reloadData()
                             
-                            let shownTotalReturnInDollars = Calculations.roundToTwo(Calculations.getTotalReturnInDollars(self.shownHoldings))
-                            let shownTotalReturnInPercentage = Calculations.roundToTwo(Calculations.getTotalReturnInPercentage(self.shownHoldings))
-                            let shownPrefix = Calculations.getPrefix(shownTotalReturnInDollars)
+                            let shownTotalReturnInDollars = Algorithm.roundToTwo(Algorithm.getTotalReturnInDollars(self.shownHoldings))
+                            let shownTotalReturnInPercentage = Algorithm.roundToTwo(Algorithm.getTotalReturnInPercentage(self.shownHoldings))
+                            let shownPrefix = Algorithm.getPrefix(shownTotalReturnInDollars)
                             self.totalGainValueLabel.text = "\(shownPrefix) $\(shownTotalReturnInDollars) (\(shownTotalReturnInPercentage)%)"
-                            self.totalGainValueLabel.textColor = Calculations.getReturnColour(shownTotalReturnInDollars)
+                            self.totalGainValueLabel.textColor = Algorithm.getReturnColour(shownTotalReturnInDollars)
                             
-                            let shownTotalEquities = Calculations.roundToTwo(Calculations.getTotalEquities(self.shownHoldings))
+                            let shownTotalEquities = Algorithm.roundToTwo(Algorithm.getTotalEquities(self.shownHoldings))
                             self.totalEquitiesValueLabel.text = "$\(shownTotalEquities)"
                         }
                     }
@@ -408,11 +407,11 @@ extension PortfolioViewController {
         let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_HOLDING, for: indexPath) as! PortfolioHoldingTableViewCell
         let holding = self.shownHoldings[indexPath.row]
         
-        let shownShares = Calculations.roundToTwo(holding.getSharesOwned())
-        let shownReturnInDollars = Calculations.roundToTwo(holding.getReturnInDollars())
-        let shownReturnInPercentage = Calculations.roundToTwo(holding.getReturnInPercentage())
-        let shownPrefix = Calculations.getPrefix(holding.getReturnInDollars())
-        let shownEquity = Calculations.roundToTwo(holding.getEquity())
+        let shownShares = Algorithm.roundToTwo(holding.getSharesOwned())
+        let shownReturnInDollars = Algorithm.roundToTwo(holding.getReturnInDollars())
+        let shownReturnInPercentage = Algorithm.roundToTwo(holding.getReturnInPercentage())
+        let shownPrefix = Algorithm.getPrefix(holding.getReturnInDollars())
+        let shownEquity = Algorithm.roundToTwo(holding.getEquity())
         
         holdingCell.tickerLabel?.text = holding.ticker
         holdingCell.sharesLabel?.text = "\(shownShares) Shares"
@@ -424,7 +423,7 @@ extension PortfolioViewController {
         holdingCell.returnInDollarsAndPercentage?.font = CustomFont.setBodyFont()
         holdingCell.equityLabel?.font = CustomFont.setBodyFont()
         
-        holdingCell.returnInDollarsAndPercentage?.textColor = Calculations.getReturnColour(shownReturnInDollars)
+        holdingCell.returnInDollarsAndPercentage?.textColor = Algorithm.getReturnColour(shownReturnInDollars)
         
         return holdingCell
     }

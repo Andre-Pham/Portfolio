@@ -319,24 +319,23 @@ class PerformanceCollectionViewController: UICollectionViewController {
             
             cell.titleLabel.font = CustomFont.setFont(size: CustomFont.BODY_SIZE, style: CustomFont.BODY_STYLE, weight: .bold)
             
-            cell.tickerLabel1.font = CustomFont.setLarge2Font()
-            cell.gainInPercentageLabel1.font = CustomFont.setBodyFont()
-            cell.gainInDollarsLabel1.font = CustomFont.setBodyFont()
-            
-            cell.tickerLabel2.font = CustomFont.setLarge2Font()
-            cell.gainInPercentageLabel2.font = CustomFont.setBodyFont()
-            cell.gainInDollarsLabel2.font = CustomFont.setBodyFont()
-            
-            cell.tickerLabel3.font = CustomFont.setLarge2Font()
-            cell.gainInPercentageLabel3.font = CustomFont.setBodyFont()
-            cell.gainInDollarsLabel3.font = CustomFont.setBodyFont()
-            
             let holdings = Algorithm.getWinnerAndLoserHoldings(self.shownHoldings)[indexPath.row-5]
             let labels = [
                 [cell.tickerLabel1, cell.gainInPercentageLabel1, cell.gainInDollarsLabel1],
                 [cell.tickerLabel2, cell.gainInPercentageLabel2, cell.gainInDollarsLabel2],
                 [cell.tickerLabel3, cell.gainInPercentageLabel3, cell.gainInDollarsLabel3]
             ]
+            
+            for labelGroup in labels {
+                for (index, label) in labelGroup.enumerated() {
+                    if index == 0 {
+                        label?.font = CustomFont.setLarge2Font()
+                    }
+                    else {
+                        label?.font = CustomFont.setBodyFont()
+                    }
+                }
+            }
             
             for i in 0...2 {
                 if holdings.count > i {

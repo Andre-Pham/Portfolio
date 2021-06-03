@@ -70,6 +70,33 @@ class Algorithm: NSObject {
         return String(tickers.dropLast())
     }
     
+    static func getPreviousOpenDateQuery(unit: Calendar.Component, unitsBackwards: Int) -> String {
+        // Generates the previous day's date, so we can retrieve intraday prices
+        var earlierDate = Calendar.current.date(
+            byAdding: unit,
+            value: -unitsBackwards,
+            to: Date()
+        )
+        var weekdayNumber = Int(Calendar.current.dateComponents([.weekday], from: earlierDate!).weekday ?? 2)
+        while [1, 7].contains(weekdayNumber) {
+            // 1: Sunday, 7: Saturday
+            // If the data being requested is for Saturday/Sunday, change it to a Friday, because the stockmarket would be closed
+            earlierDate = Calendar.current.date(
+                byAdding: .day,
+                value: -1,
+                to: earlierDate!
+            )
+            // One day backwards; 1 (Sun) -> 7 (Sat), 7 (Sat) -> 6 (Fri)
+            weekdayNumber -= 1
+            if weekdayNumber == 0 {
+                weekdayNumber = 7
+            }
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: earlierDate!)
+    }
+    
     static func getTotalReturnInDollars(_ holdings: [Holding]) -> Double {
         var totalReturnInDollars = 0.0
         for holding in holdings {

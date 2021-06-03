@@ -206,35 +206,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         let tickers = Algorithm.getTickerQuery(watchlist)
-        
-        // Generates the previous day's date, so we can retrieve intraday prices
-        var earlierDate = Calendar.current.date(
-            byAdding: unit,
-            value: -unitsBackwards,
-            to: Date()
-        )
-        var weekdayNumber = Int(Calendar.current.dateComponents([.weekday], from: earlierDate!).weekday ?? 2)
-        while [1, 7].contains(weekdayNumber) {
-            // 1: Sunday, 7: Saturday
-            // If the data being requested is for Saturday/Sunday, change it to a Friday, because the stockmarket would be closed
-            earlierDate = Calendar.current.date(
-                byAdding: .day,
-                value: -1,
-                to: earlierDate!
-            )
-            // One day backwards; 1 (Sun) -> 7 (Sat), 7 (Sat) -> 6 (Fri)
-            weekdayNumber -= 1
-            if weekdayNumber == 0 {
-                weekdayNumber = 7
-            }
-        }
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let earlierDateFormatted = formatter.string(from: earlierDate!)
+        let previousOpenDate = Algorithm.getPreviousOpenDateQuery(unit: unit, unitsBackwards: unitsBackwards)
         
         // Calls the API which in turn provides data to the chart
         indicator.startAnimating()
-        self.requestTickerWebData(tickers: tickers, startDate: earlierDateFormatted, interval: interval, onlyUpdateGraph: onlyUpdateGraph)
+        
+        self.requestTickerWebData(tickers: tickers, startDate: previousOpenDate, interval: interval, onlyUpdateGraph: onlyUpdateGraph)
     }
     
     /// Calls a TwelveData request for time series prices for ticker(s), as well as other data

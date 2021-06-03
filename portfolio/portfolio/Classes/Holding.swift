@@ -86,4 +86,18 @@ class Holding: NSObject {
         return 100*returnInDollars/(equity - returnInDollars)
     }
     
+    func getDayReturnInDollars() -> Double? {
+        if let currentPrice = self.currentPrice, let previousPrice = self.prices.last {
+            return self.getSharesOwned()*(currentPrice - previousPrice)
+        }
+        return nil
+    }
+    
+    func getDayReturnInPercentage() -> Double? {
+        if let dayReturnInDollars = self.getDayReturnInDollars() {
+            return 100*(self.getEquity()/(self.getEquity() - dayReturnInDollars) - 1)
+        }
+        return nil
+    }
+    
 }

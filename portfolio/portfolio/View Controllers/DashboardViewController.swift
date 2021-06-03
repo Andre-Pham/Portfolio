@@ -380,6 +380,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
 
 }
 
+// MARK: - SwitchWatchlistDelegate Extension
+
 extension DashboardViewController: SwitchWatchlistDelegate {
     
     func switchWatchlist(_ newWatchlist: CoreWatchlist) {
@@ -411,26 +413,17 @@ extension DashboardViewController {
         let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_HOLDING, for: indexPath)
         let holding = self.shownHoldings[indexPath.row]
         
-        let currentPrice = holding.currentPrice!
-        let previousPrice = holding.prices.last!
-        
-        var dayGainDollars = holding.getSharesOwned()*(currentPrice - previousPrice)
-        var dayGainPercentage = 100*(holding.getEquity()/(holding.getEquity() - dayGainDollars) - 1)
-        
-        // Round to 2 decimal places
-        dayGainDollars = Algorithm.roundToTwo(dayGainDollars)
-        dayGainPercentage = Algorithm.roundToTwo(dayGainPercentage)
-        
-        let prefix = Algorithm.getPrefix(dayGainDollars)
-        
         holdingCell.textLabel?.text = holding.ticker
-        //holdingCell.detailTextLabel?.text = String(holding.currentPrice!)
-        holdingCell.detailTextLabel?.text = "\(prefix) $\(abs(dayGainDollars)) (\(dayGainPercentage)%)"
+        if let dayReturnInDollars = holding.getDayReturnInDollars(), let dayReturnInPercentage = holding.getDayReturnInPercentage() {
+            holdingCell.detailTextLabel?.text = Algorithm.getReturnDescription(returnInDollars: dayReturnInDollars, returnInPercentage: dayReturnInPercentage)
+            holdingCell.detailTextLabel?.textColor = Algorithm.getReturnColour(dayReturnInDollars)
+        }
+        else {
+            holdingCell.detailTextLabel?.text = Constant.ERROR_LABEL
+        }
         
         holdingCell.textLabel?.font = CustomFont.setBodyFont()
         holdingCell.detailTextLabel?.font = CustomFont.setBodyFont()
-        
-        holdingCell.detailTextLabel?.textColor = Algorithm.getReturnColour(dayGainDollars)
         
         return holdingCell
     }

@@ -528,7 +528,7 @@ Annual Return</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KUf-aY-P7g">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="153"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="263.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dgy-wl-lHc">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
@@ -565,7 +565,7 @@ Annual Return</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="T2g-ZV-Mwn">
-                                                <rect key="frame" x="0.0" y="102" width="414" height="51"/>
+                                                <rect key="frame" x="0.0" y="102" width="414" height="161.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Softwares Used" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7E-TF-gQc">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
@@ -573,8 +573,28 @@ Annual Return</string>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZa-1k-ONI">
+                                                        <rect key="frame" x="0.0" y="30.5" width="414" height="30"/>
+                                                        <state key="normal" title="Twelve Data"/>
+                                                        <connections>
+                                                            <action selector="link1Clicked:" destination="sbp-Yx-QS3" eventType="touchUpInside" id="zWZ-zl-h0q"/>
+                                                        </connections>
+                                                    </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8V-9k-TO5">
-                                                        <rect key="frame" x="0.0" y="30.5" width="414" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="70.5" width="414" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YxE-SN-28o">
+                                                        <rect key="frame" x="0.0" y="101" width="414" height="30"/>
+                                                        <state key="normal" title="ChartView"/>
+                                                        <connections>
+                                                            <action selector="link2Clicked:" destination="sbp-Yx-QS3" eventType="touchUpInside" id="hNf-Wp-y9l"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5W-YJ-Ngn">
+                                                        <rect key="frame" x="0.0" y="141" width="414" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -613,7 +633,8 @@ Annual Return</string>
                         <outlet property="disclaimersLabel" destination="9WV-hd-cRt" id="k2v-Hb-LX6"/>
                         <outlet property="disclaimersStackView" destination="Pce-Gd-jHK" id="8Lg-4s-7fo"/>
                         <outlet property="rootStackView" destination="KUf-aY-P7g" id="Zrr-b0-eEq"/>
-                        <outlet property="softwaresUsedContentLabel" destination="i8V-9k-TO5" id="kOH-oG-cfx"/>
+                        <outlet property="softwaresUsedContentLabel1" destination="i8V-9k-TO5" id="kOH-oG-cfx"/>
+                        <outlet property="softwaresUsedContentLabel2" destination="f5W-YJ-Ngn" id="fiz-l3-tFM"/>
                         <outlet property="softwaresUsedLabel" destination="c7E-TF-gQc" id="vE2-ME-cgZ"/>
                         <outlet property="softwaresUsedStackView" destination="T2g-ZV-Mwn" id="NZs-oI-BSG"/>
                     </connections>

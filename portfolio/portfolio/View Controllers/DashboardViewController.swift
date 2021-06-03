@@ -31,6 +31,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // Indicator
     var indicator = UIActivityIndicatorView()
+    var refreshControl = UIRefreshControl()
     
     // Other properties
     var shownWatchlist: CoreWatchlist?
@@ -60,6 +61,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
+        self.scrollView.refreshControl = self.refreshControl
         
         // Sets property databaseController to reference to the databaseController from AppDelegate
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -98,6 +102,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Make it so page scrolls even if all the contents fits on one page
         self.scrollView.alwaysBounceVertical = true
+        self.scrollView.delegate = self
         
         // Fonts
         self.todaysDateLabel.font = CustomFont.setSubtitleFont()
@@ -138,6 +143,26 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillDisappear(_ animated: Bool) {
         // Removes observer which calls observeValue when number of tableview cells changes
         self.holdingsTableView.removeObserver(self, forKeyPath: KEYPATH_TABLEVIEW_HEIGHT)
+    }
+    
+    @objc func refreshControlChanged(_ sender: AnyObject) {
+        if !self.scrollView.isDragging {
+            self.refresh()
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if self.refreshControl.isRefreshing {
+            self.refresh()
+        }
+    }
+    
+    func refresh() {
+        self.shownHoldings.removeAll()
+        self.chartData.data = []
+        self.chartData.title = self.shownWatchlist?.name ?? "-"
+        self.refreshControl.endRefreshing() // End before loading indicator begins
+        self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: false)
     }
     
     /// Calls when triggered by an observer

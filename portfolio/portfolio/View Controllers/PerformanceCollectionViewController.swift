@@ -288,20 +288,19 @@ class PerformanceCollectionViewController: UICollectionViewController {
                 let ticker = holding.ticker
                 var returnValue: Double
                 if returnFormat == "Dollars" {
-                    returnValue = Algorithm.roundToTwo(holding.getReturnInDollars())
+                    returnValue = holding.getReturnInDollars()
                 }
                 else {
-                    returnValue = Algorithm.roundToTwo(holding.getReturnInPercentage())
+                    returnValue = holding.getReturnInPercentage()
                 }
-                let prefix = Algorithm.getPrefix(returnValue)
                 let colour = Algorithm.getReturnColour(returnValue)
                 
                 cell.tickerLabel.text = ticker
                 if returnFormat == "Dollars" {
-                    cell.percentGainLabel.text = "\(prefix) $\(abs(returnValue))"
+                    cell.percentGainLabel.text = Algorithm.getReturnInDollarsDescription(returnValue)
                 }
                 else {
-                    cell.percentGainLabel.text = "\(prefix) \(abs(returnValue))%"
+                    cell.percentGainLabel.text = Algorithm.getReturnInPercentageDescription(returnValue)
                 }
                 cell.percentGainLabel.textColor = colour
             }
@@ -342,14 +341,13 @@ class PerformanceCollectionViewController: UICollectionViewController {
             for i in 0...2 {
                 if holdings.count > i {
                     let holding = holdings[i]
-                    let shownGainInPercentage = Algorithm.roundToTwo(holding.getReturnInPercentage())
-                    let shownGainInDollars = Algorithm.roundToTwo(holding.getReturnInDollars())
-                    let prefix = Algorithm.getPrefix(shownGainInDollars)
-                    let colour = Algorithm.getReturnColour(shownGainInDollars)
+                    let totalGainInPercentage = holding.getReturnInPercentage()
+                    let totalGainInDollars = holding.getReturnInDollars()
+                    let colour = Algorithm.getReturnColour(totalGainInDollars)
                     
                     labels[i][0]?.text = holding.ticker
-                    labels[i][1]?.text = "\(prefix) \(abs(shownGainInPercentage))%"
-                    labels[i][2]?.text = "\(prefix) $\(abs(shownGainInDollars))"
+                    labels[i][1]?.text = Algorithm.getReturnInPercentageDescription(totalGainInPercentage)
+                    labels[i][2]?.text = Algorithm.getReturnInDollarsDescription(totalGainInDollars)
                     
                     labels[i][1]?.textColor = colour
                     labels[i][2]?.textColor = colour

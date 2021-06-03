@@ -327,34 +327,38 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                             self.holdingsTableView.reloadData()
                         }
                         
-                        if let watchlistIsOwned = self.shownWatchlist?.owned {
-                            if watchlistIsOwned && !onlyUpdateGraph {
+                        if let watchlistIsOwned = self.shownWatchlist?.owned, !onlyUpdateGraph {
+                            if watchlistIsOwned {
                                 var dayGainDollars = 0.0
-                                var dayGainPercentage = 0.0
-                                
                                 for holding in self.shownHoldings {
-                                    if let currentPrice = holding.currentPrice, let previousPrice = holding.prices.last {
-                                        
-                                        dayGainDollars += holding.getSharesOwned()*(currentPrice - previousPrice)
-                                        //dayGainPercentage += 100*(currentPrice/previousPrice - 1)
-                                        //dayGainPercentage += 100*(holding.getEquity()/(holding.getEquity() - dayGainDollars) - 1)
+                                    if let dayReturnInDollars = holding.getDayReturnInDollars() {
+                                        dayGainDollars += dayReturnInDollars
                                     }
                                 }
                                 let totalEquity = Algorithm.getTotalEquities(self.shownHoldings)
-                                dayGainPercentage = 100*((totalEquity/(totalEquity - dayGainDollars) - 1))
+                                let dayGainPercentage = 100*((totalEquity/(totalEquity - dayGainDollars) - 1))
                                 
-                                // Round to 2 decimal places
-                                dayGainDollars = Algorithm.roundToTwo(dayGainDollars)
-                                dayGainPercentage = Algorithm.roundToTwo(dayGainPercentage)
-                                
-                                self.daysGainLabel.text = "\(Algorithm.getPrefix(dayGainDollars)) $\(abs(dayGainDollars)) (\(dayGainPercentage)%) Day"
+                                self.daysGainLabel.text = Algorithm.getReturnDescription(returnInDollars: dayGainDollars, returnInPercentage: dayGainPercentage) + " Day"
                                 self.daysGainLabel.textColor = Algorithm.getReturnColour(dayGainDollars)
                                 
-                                let shownTotalReturnInDollars = Algorithm.roundToTwo(Algorithm.getTotalReturnInDollars(self.shownHoldings))
-                                let shownTotalReturnInPercentage = Algorithm.roundToTwo(Algorithm.getTotalReturnInPercentage(self.shownHoldings))
-                                let shownPrefix = Algorithm.getPrefix(shownTotalReturnInDollars)
-                                self.totalGainLabel.text = "\(shownPrefix) $\(shownTotalReturnInDollars) (\(shownTotalReturnInPercentage)%) Total"
+                                let shownTotalReturnInDollars = Algorithm.getTotalReturnInDollars(self.shownHoldings)
+                                let shownTotalReturnInPercentage = Algorithm.getTotalReturnInPercentage(self.shownHoldings)
+                                self.totalGainLabel.isHidden = false
+                                self.totalGainLabel.text = Algorithm.getReturnDescription(returnInDollars: shownTotalReturnInDollars, returnInPercentage: shownTotalReturnInPercentage) + " Total"
                                 self.totalGainLabel.textColor = Algorithm.getReturnColour(shownTotalReturnInDollars)
+                            }
+                            else {
+                                // Watchlist isn't owned
+                                var dayReturnInPercentage = 0.0
+                                for holding in self.shownHoldings {
+                                    if let percentageReturn = holding.getDayReturnInPercentage() {
+                                        dayReturnInPercentage += percentageReturn
+                                    }
+                                }
+                                self.daysGainLabel.text = Algorithm.getReturnInPercentageDescription(dayReturnInPercentage) + " Day"
+                                self.daysGainLabel.textColor = Algorithm.getReturnColour(dayReturnInPercentage)
+                                
+                                self.totalGainLabel.isHidden = true
                             }
                         }
                     }
@@ -414,12 +418,27 @@ extension DashboardViewController {
         let holding = self.shownHoldings[indexPath.row]
         
         holdingCell.textLabel?.text = holding.ticker
-        if let dayReturnInDollars = holding.getDayReturnInDollars(), let dayReturnInPercentage = holding.getDayReturnInPercentage() {
-            holdingCell.detailTextLabel?.text = Algorithm.getReturnDescription(returnInDollars: dayReturnInDollars, returnInPercentage: dayReturnInPercentage)
-            holdingCell.detailTextLabel?.textColor = Algorithm.getReturnColour(dayReturnInDollars)
-        }
-        else {
-            holdingCell.detailTextLabel?.text = Constant.ERROR_LABEL
+        
+        if let watchlistIsOwned = self.shownWatchlist?.owned {
+            if watchlistIsOwned {
+                if let dayReturnInDollars = holding.getDayReturnInDollars(), let dayReturnInPercentage = holding.getDayReturnInPercentage() {
+                    holdingCell.detailTextLabel?.text = Algorithm.getReturnDescription(returnInDollars: dayReturnInDollars, returnInPercentage: dayReturnInPercentage)
+                    holdingCell.detailTextLabel?.textColor = Algorithm.getReturnColour(dayReturnInDollars)
+                }
+                else {
+                    holdingCell.detailTextLabel?.text = Constant.ERROR_LABEL
+                }
+            }
+            else {
+                // Watchlist is not owned
+                if let dayReturnInPercentage = holding.getDayReturnInPercentage() {
+                    holdingCell.detailTextLabel?.text = Algorithm.getReturnInPercentageDescription(dayReturnInPercentage)
+                    holdingCell.detailTextLabel?.textColor = Algorithm.getReturnColour(dayReturnInPercentage)
+                }
+                else {
+                    holdingCell.detailTextLabel?.text = Constant.ERROR_LABEL
+                }
+            }
         }
         
         holdingCell.textLabel?.font = CustomFont.setBodyFont()

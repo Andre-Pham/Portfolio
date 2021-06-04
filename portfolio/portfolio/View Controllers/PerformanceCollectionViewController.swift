@@ -148,72 +148,26 @@ class PerformanceCollectionViewController: UICollectionViewController {
                     
                     // For every ticker with data returned, create a new Holding with its data
                     for ticker in tickerResponse.tickerArray {
-                        // Get price data in Double type retrieved from API
-                        var prices: [Double] = []
-                        for stringPrice in ticker.values {
-                            if let price = Double(stringPrice.open) {
-                                prices.append(price)
-                            }
+                        if let holding = Algorithm.createHoldingFromTickerResponse(ticker) {
+                            self.shownHoldings.append(holding)
                         }
-                        // Create Holding
-                        self.shownHoldings.append(
-                            Holding(ticker: ticker.meta.symbol, prices: prices, currentPrice: prices.last ?? 0)
-                        )
                     }
                 }
                 else {
                     // Single ticker request
                     let tickerResponse = try decoder.decode(Ticker.self, from: data!)
                     
-                    // Get price data in Double type retreived from API
-                    var prices: [Double] = []
-                    var currentPrice: Double? = nil
-                    for stringPrice in tickerResponse.values {
-                        if let price = Double(stringPrice.open) {
-                            prices.append(price)
-                        }
-                        if currentPrice == nil {
-                            currentPrice = Double(stringPrice.close)
-                        }
+                    if let holding = Algorithm.createHoldingFromTickerResponse(tickerResponse) {
+                        self.shownHoldings.append(holding)
                     }
-                    // Create Holding
-                    self.shownHoldings.append(
-                        Holding(ticker: tickerResponse.meta.symbol, prices: prices, currentPrice: currentPrice ?? 0)
-                    )
                 }
                 // Add the purchase data for each holding created
                 let coreHoldings = self.portfolio?.holdings?.allObjects as! [CoreHolding]
-                for coreHolding in coreHoldings {
-                    for holding in self.shownHoldings {
-                        if coreHolding.ticker == holding.ticker {
-                            holding.purchases = coreHolding.purchases?.allObjects as! [CorePurchase]
-                        }
-                    }
-                }
+                Algorithm.transferPurchasesFromCoreToHoldings(coreHoldings: coreHoldings, holdings: self.shownHoldings)
                 
                 // If no holdings were created from the API request, don't run the following code because it'll crash
                 if self.shownHoldings.count > 0 {
-                    // Find how many prices to plot
-                    var num_prices = 0
-                    for holding in self.shownHoldings {
-                        if holding.prices.count > num_prices {
-                            num_prices = holding.prices.count
-                        }
-                    }
-                    // Merge all the prices of the holdings to create the single graph
-                    var combinedPrices = [Double](repeating: 0.0, count: num_prices)
-                    for holding in self.shownHoldings {
-                        let holdingPercentages = holding.convertPricesToPercentages()
-                        for priceIndex in 0..<holdingPercentages.count {
-                            // API provides values in reverse order
-                            let reverseIndex = abs(priceIndex - (holdingPercentages.count-1))
-                            
-                            combinedPrices[reverseIndex] += holdingPercentages[priceIndex]
-                        }
-                    }
-                    
                     DispatchQueue.main.async {
-                        // Do nothing for now
                         self.collectionView.reloadData()
                     }
                 }
@@ -231,7 +185,6 @@ class PerformanceCollectionViewController: UICollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 7

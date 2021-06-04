@@ -221,7 +221,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XF6-c6-w9P">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XF6-c6-w9P">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Miw-XE-InS">
@@ -251,14 +251,17 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Rxd-kJ-bup">
                                                 <rect key="frame" x="0.0" y="31" width="414" height="20.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Current Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJ7-cO-pRN">
-                                                        <rect key="frame" x="0.0" y="0.0" width="386" height="20.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJ7-cO-pRN">
+                                                        <rect key="frame" x="0.0" y="0.0" width="294" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cH-d5-ld6">
-                                                        <rect key="frame" x="406" y="0.0" width="8" height="20.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cH-d5-ld6">
+                                                        <rect key="frame" x="314" y="0.0" width="100" height="20.5"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="cwA-md-Etm"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -268,14 +271,17 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="tbo-yf-PSh">
                                                 <rect key="frame" x="0.0" y="51.5" width="414" height="20.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Change Since Open" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCa-B7-wae">
-                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="20.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Since Open" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCa-B7-wae">
+                                                        <rect key="frame" x="0.0" y="0.0" width="274" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UzV-za-gtQ">
-                                                        <rect key="frame" x="406" y="0.0" width="8" height="20.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UzV-za-gtQ">
+                                                        <rect key="frame" x="314" y="0.0" width="100" height="20.5"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="raR-3p-SVV"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -286,8 +292,10 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="S15-je-atV" firstAttribute="trailing" secondItem="Miw-XE-InS" secondAttribute="trailing" id="cls-D9-4M5"/>
+                                    <constraint firstItem="Miw-XE-InS" firstAttribute="top" secondItem="lqN-Ze-MPA" secondAttribute="top" id="J10-gK-tTB"/>
+                                    <constraint firstItem="Miw-XE-InS" firstAttribute="width" secondItem="XF6-c6-w9P" secondAttribute="width" id="Wwj-du-EUz"/>
                                     <constraint firstItem="Miw-XE-InS" firstAttribute="leading" secondItem="S15-je-atV" secondAttribute="leading" id="oeX-cu-rNo"/>
+                                    <constraint firstAttribute="bottom" secondItem="Miw-XE-InS" secondAttribute="bottom" id="sOx-1W-ptI"/>
                                     <constraint firstAttribute="trailing" secondItem="Miw-XE-InS" secondAttribute="trailing" id="u6w-zl-EuA"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="lqN-Ze-MPA"/>
@@ -297,7 +305,6 @@
                         <viewLayoutGuide key="safeArea" id="W8a-Tn-ftk"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Miw-XE-InS" firstAttribute="top" secondItem="W8a-Tn-ftk" secondAttribute="top" id="5k7-GO-xNu"/>
                             <constraint firstItem="W8a-Tn-ftk" firstAttribute="bottom" secondItem="XF6-c6-w9P" secondAttribute="bottom" id="Scm-Og-MQF"/>
                             <constraint firstItem="XF6-c6-w9P" firstAttribute="top" secondItem="UY0-Xf-Upw" secondAttribute="top" id="nhX-G3-EUR"/>
                             <constraint firstItem="XF6-c6-w9P" firstAttribute="leading" secondItem="W8a-Tn-ftk" secondAttribute="leading" id="tFO-Lg-LHr"/>
@@ -312,6 +319,7 @@
                         <outlet property="graphDurationSegmentedControl" destination="ey1-Ru-1DD" id="BAM-CO-DKG"/>
                         <outlet property="graphDurationStackView" destination="4Ze-gc-2E5" id="eEz-JY-Yjs"/>
                         <outlet property="rootStackView" destination="Miw-XE-InS" id="8WR-VJ-2Dx"/>
+                        <outlet property="scrollView" destination="XF6-c6-w9P" id="MaZ-WI-ebn"/>
                         <outlet property="todaysChangeDescriptionLabel" destination="KCa-B7-wae" id="ZzM-Zl-0bF"/>
                         <outlet property="todaysChangeLabel" destination="UzV-za-gtQ" id="Cun-Ra-DgV"/>
                         <outlet property="todaysChangesStackView" destination="tbo-yf-PSh" id="Fva-iV-bGI"/>
@@ -1449,7 +1457,7 @@ Annual Return</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="cPp-pW-5Jy"/>
-        <segue reference="4un-mS-eFl"/>
+        <segue reference="fH4-1X-fcT"/>
     </inferredMetricsTieBreakers>
     <resources>
         <namedColor name="GreyBlack1">

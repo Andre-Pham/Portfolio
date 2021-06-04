@@ -24,6 +24,7 @@ class HoldingViewController: UIViewController {
     
     // MARK: - Outlets
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var graphDurationSegmentedControl: UISegmentedControl!
     
     // Stack views
@@ -65,6 +66,9 @@ class HoldingViewController: UIViewController {
             self.indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             self.indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
+        
+        // Make it so page scrolls even if all the contents fits on one page
+        self.scrollView.alwaysBounceVertical = true
         
         // Fonts
         self.currentPriceDescriptionLabel.font = CustomFont.setBodyFont().bold

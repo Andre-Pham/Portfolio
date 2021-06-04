@@ -229,6 +229,32 @@ class Algorithm: NSObject {
         return 100*(pow((totalEquity/totalInitialEquities), (1/yearsBetweenFirstDate)) - 1)
     }
     
+    static func getDayReturnInDollars(_ holdings: [Holding]) -> Double {
+        var dayGainDollars = 0.0
+        for holding in holdings {
+            if let dayReturnInDollars = holding.getDayReturnInDollars() {
+                dayGainDollars += dayReturnInDollars
+            }
+        }
+        return dayGainDollars
+    }
+    
+    static func getDayReturnInPercentage(_ holdings: [Holding]) -> Double {
+        let totalEquity = Algorithm.getTotalEquities(holdings)
+        let dayGainDollars = Algorithm.getDayReturnInDollars(holdings)
+        return 100*((totalEquity/(totalEquity - dayGainDollars) - 1))
+    }
+    
+    static func getDayGrowthInPercentage(_ holdings: [Holding]) -> Double {
+        var dayReturnInPercentage = 0.0
+        for holding in holdings {
+            if let percentageReturn = holding.getDayReturnInPercentage() {
+                dayReturnInPercentage += percentageReturn
+            }
+        }
+        return dayReturnInPercentage
+    }
+    
     // MARK: - Watchlist Algorithms
     
     static func getBestOrWorstHolding(_ holdings: [Holding], Best_or_Worst: String, Percentage_or_Dollars: String) -> Holding? {

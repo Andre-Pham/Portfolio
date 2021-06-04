@@ -1159,8 +1159,8 @@ Annual Return</string>
                     </navigationItem>
                     <connections>
                         <outlet property="dateStackView" destination="IL9-sT-s6n" id="mvb-Js-Kfg"/>
-                        <outlet property="dayAndTotalGainStackView" destination="ACy-e7-mwa" id="ts8-X1-UI1"/>
-                        <outlet property="daysGainLabel" destination="zbK-fU-lq5" id="KFk-gx-wfH"/>
+                        <outlet property="dayAndTotalReturnStackView" destination="ACy-e7-mwa" id="ts8-X1-UI1"/>
+                        <outlet property="dayReturnLabel" destination="zbK-fU-lq5" id="KFk-gx-wfH"/>
                         <outlet property="graphDurationSegmentedControl" destination="ELh-J5-QXa" id="YrX-vr-hwq"/>
                         <outlet property="graphDurationStackView" destination="rya-gJ-jCl" id="CDe-CT-xTl"/>
                         <outlet property="holdingsTableView" destination="kwX-gr-7JY" id="ChD-yr-dKJ"/>
@@ -1171,7 +1171,7 @@ Annual Return</string>
                         <outlet property="rootStackView" destination="Are-Ri-qD4" id="oat-zy-Cvh"/>
                         <outlet property="scrollView" destination="uaO-xE-mzs" id="lxy-8k-5wo"/>
                         <outlet property="todaysDateLabel" destination="VYt-PP-odL" id="uy3-c5-v3g"/>
-                        <outlet property="totalGainLabel" destination="fX8-TX-BhC" id="3eN-nE-32q"/>
+                        <outlet property="totalReturnLabel" destination="fX8-TX-BhC" id="3eN-nE-32q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CCv-Ap-Jp2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

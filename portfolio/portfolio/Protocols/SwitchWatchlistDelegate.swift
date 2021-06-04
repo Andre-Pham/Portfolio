@@ -9,6 +9,6 @@ import Foundation
 
 protocol SwitchWatchlistDelegate: AnyObject {
     
-    func switchWatchlist(_ newWatchlist: CoreWatchlist)
+    func switchWatchlist(_ newCoreWatchlist: CoreWatchlist)
     
 }

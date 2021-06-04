@@ -33,8 +33,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     var refreshControl = UIRefreshControl()
     
     // Other properties
-    var shownWatchlist: CoreWatchlist?
-    var shownHoldings: [Holding] = []
+    var coreWatchlist: CoreWatchlist?
+    var holdings: [Holding] = []
     
     // MARK: - Outlets
     
@@ -42,16 +42,18 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var holdingsTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var graphDurationSegmentedControl: UISegmentedControl!
     @IBOutlet weak var scrollView: UIScrollView!
+    
     // Stack views
     @IBOutlet weak var rootStackView: UIStackView!
     @IBOutlet weak var graphDurationStackView: UIStackView!
     @IBOutlet weak var dateStackView: UIStackView!
-    @IBOutlet weak var dayAndTotalGainStackView: UIStackView!
+    @IBOutlet weak var dayAndTotalReturnStackView: UIStackView!
     @IBOutlet weak var holdingsTitleStackView: UIStackView!
+    
     // Labels
     @IBOutlet weak var todaysDateLabel: UILabel!
-    @IBOutlet weak var daysGainLabel: UILabel!
-    @IBOutlet weak var totalGainLabel: UILabel!
+    @IBOutlet weak var dayReturnLabel: UILabel!
+    @IBOutlet weak var totalReturnLabel: UILabel!
     @IBOutlet weak var holdingsTitleLabel: UILabel!
     @IBOutlet weak var holdingsTitleDetailLabel: UILabel!
     
@@ -61,11 +63,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // SOURCE: https://stackoverflow.com/questions/24475792/how-to-use-pull-to-refresh-in-swift
-        // AUTHOR: Ahmad F - https://stackoverflow.com/users/5501940/ahmad-f
-        self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
-        self.scrollView.refreshControl = self.refreshControl
-        
         // Add the chart to the view
         addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
         
@@ -73,19 +70,24 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 0)
         self.graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
         self.dateStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 0, trailing: 15)
-        self.dayAndTotalGainStackView.directionalLayoutMargins = .init(top: 10, leading: 15, bottom: 0, trailing: 15)
+        self.dayAndTotalReturnStackView.directionalLayoutMargins = .init(top: 10, leading: 15, bottom: 0, trailing: 15)
         self.holdingsTitleStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 5, trailing: 15)
         self.rootStackView.isLayoutMarginsRelativeArrangement = true
         self.graphDurationStackView.isLayoutMarginsRelativeArrangement = true
         self.dateStackView.isLayoutMarginsRelativeArrangement = true
-        self.dayAndTotalGainStackView.isLayoutMarginsRelativeArrangement = true
+        self.dayAndTotalReturnStackView.isLayoutMarginsRelativeArrangement = true
         self.holdingsTitleStackView.isLayoutMarginsRelativeArrangement = true
+        
+        // SOURCE: https://stackoverflow.com/questions/24475792/how-to-use-pull-to-refresh-in-swift
+        // AUTHOR: Ahmad F - https://stackoverflow.com/users/5501940/ahmad-f
+        // Add scroll up to refresh
+        self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
+        self.scrollView.refreshControl = self.refreshControl
         
         // Add a loading indicator
         self.indicator.style = UIActivityIndicatorView.Style.large
         self.indicator.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.indicator)
-        
         // Centres the loading indicator
         NSLayoutConstraint.activate([
             self.indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
@@ -94,8 +96,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Fonts
         self.todaysDateLabel.font = CustomFont.setSubtitleFont()
-        self.daysGainLabel.font = CustomFont.setBodyFont()
-        self.totalGainLabel.font = CustomFont.setBodyFont()
+        self.dayReturnLabel.font = CustomFont.setBodyFont()
+        self.totalReturnLabel.font = CustomFont.setBodyFont()
         self.holdingsTitleLabel.font = CustomFont.setSubtitleFont()
         self.holdingsTitleDetailLabel.font = CustomFont.setSubtitleComplementaryFont()
         
@@ -103,8 +105,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
 
-        // SOURCE: https://stackoverflow.com/questions/33234180/uitableview-example-for-swift
-        // AUTHOR: Suragch - https://stackoverflow.com/users/3681880/suragch
+        // Link tableView to self
         self.holdingsTableView.delegate = self
         self.holdingsTableView.dataSource = self
         
@@ -113,6 +114,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // Delegate used for checking when user stops scrolling, so page can refresh
         self.scrollView.delegate = self
         
+        // Update today's date label
         self.todaysDateLabel.text = Algorithm.getCurrentDateDescription()
     }
     
@@ -120,8 +122,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         // If the user has designated a different or new watchlist to be their portfolio, refresh the page's content
         let portfolio = databaseController?.retrievePortfolio()
-        if portfolio != self.shownWatchlist || self.shownWatchlist?.holdings?.count != self.shownHoldings.count {
-            self.shownWatchlist = portfolio
+        if portfolio != self.coreWatchlist || self.coreWatchlist?.holdings?.count != self.holdings.count {
+            self.coreWatchlist = portfolio
             self.refresh()
         }
         
@@ -136,6 +138,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.holdingsTableView.removeObserver(self, forKeyPath: KEYPATH_TABLEVIEW_HEIGHT)
     }
     
+    /// Calls when the user scrolls up to refresh
     @objc func refreshControlChanged(_ sender: AnyObject) {
         if !self.scrollView.isDragging {
             self.refresh()
@@ -144,16 +147,18 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // SOURCE: https://stackoverflow.com/questions/22225207/uirefreshcontrol-jitters-when-pulled-down-and-held
     // AUTHOR: Devin - https://stackoverflow.com/users/968108/devin
+    /// Calls when the user stops dragging, used to detect when to refresh after user scrolls up and holds
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if self.refreshControl.isRefreshing {
             self.refresh()
         }
     }
     
+    /// Refreshes the page's content
     func refresh() {
-        self.shownHoldings.removeAll()
+        self.holdings.removeAll()
         self.chartData.data = []
-        self.chartData.title = self.shownWatchlist?.name ?? Constant.DEFAULT_LABEL
+        self.chartData.title = self.coreWatchlist?.name ?? Constant.DEFAULT_LABEL
         self.refreshControl.endRefreshing() // End before loading indicator begins
         self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: false)
     }
@@ -171,6 +176,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    /// Called when the segmented control that represents the time length of the chart is changed
     @IBAction func graphDurationSegmentedControlChanged(_ sender: Any) {
         let graphDuration = self.graphDurationSegmentedControl.titleForSegment(at: self.graphDurationSegmentedControl.selectedSegmentIndex)
         self.chartData.data = []
@@ -198,13 +204,14 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    /// Assigns calls a request to the API which in turn loads data into the chart
+    /// Assigns calls a request to the API which in turn loads data into the chart and page labels
     func generateChartData(unitsBackwards: Int, unit: Calendar.Component, interval: String, onlyUpdateGraph: Bool) {
-        
-        guard let watchlist = self.shownWatchlist else {
+        // Validate watchlist exists
+        guard let watchlist = self.coreWatchlist else {
             return
         }
         
+        // Create queries for API request
         let tickers = Algorithm.getTickerQuery(watchlist)
         let previousOpenDate = Algorithm.getPreviousOpenDateQuery(unit: unit, unitsBackwards: unitsBackwards)
         
@@ -214,8 +221,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.requestTickerWebData(tickers: tickers, startDate: previousOpenDate, interval: interval, onlyUpdateGraph: onlyUpdateGraph)
     }
     
-    /// Calls a TwelveData request for time series prices for ticker(s), as well as other data
+    /// Calls a TwelveData request for time series prices for ticker(s), as well as other data, and loads them into the chart and page labels
     func requestTickerWebData(tickers: String, startDate: String, interval: String, onlyUpdateGraph: Bool) {
+        // Generate URL from components
         let requestURLComponents = Algorithm.getRequestURLComponents(tickers: tickers, interval: interval, startDate: startDate)
         
         // Ensure URL is valid
@@ -242,7 +250,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 let decoder = JSONDecoder()
                 
                 // Remove previous holdings data
-                self.shownHoldings = []
+                self.holdings = []
                 
                 if tickers.contains(",") {
                     // Multiple ticker request
@@ -251,7 +259,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     // For every ticker with data returned, create a new Holding with its data
                     for ticker in tickerResponse.tickerArray {
                         if let holding = Algorithm.createHoldingFromTickerResponse(ticker) {
-                            self.shownHoldings.append(holding)
+                            self.holdings.append(holding)
                         }
                     }
                 }
@@ -259,57 +267,52 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     // Single ticker request
                     let tickerResponse = try decoder.decode(Ticker.self, from: data!)
                     
+                    // Create a new holding with the returned data
                     if let holding = Algorithm.createHoldingFromTickerResponse(tickerResponse) {
-                        self.shownHoldings.append(holding)
+                        self.holdings.append(holding)
                     }
                 }
                 // Add the purchase data for each holding created
-                let coreHoldings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
-                Algorithm.transferPurchasesFromCoreToHoldings(coreHoldings: coreHoldings, holdings: self.shownHoldings)
+                let coreHoldings = self.coreWatchlist?.holdings?.allObjects as! [CoreHolding]
+                Algorithm.transferPurchasesFromCoreToHoldings(coreHoldings: coreHoldings, holdings: self.holdings)
                 
                 // If no holdings were created from the API request, don't run the following code because it'll crash
-                if self.shownHoldings.count > 0 {
+                if self.holdings.count > 0 {
                     DispatchQueue.main.async {
                         // Update chart and tableview
-                        self.chartData.data = Algorithm.getChartPlots(holdings: self.shownHoldings)
+                        self.chartData.data = Algorithm.getChartPlots(holdings: self.holdings)
                         self.chartData.updateColour()
                         
-                        if !onlyUpdateGraph {
+                        // If the entire page is being updated
+                        if let watchlistIsOwned = self.coreWatchlist?.owned, !onlyUpdateGraph {
                             self.holdingsTableView.reloadData()
-                        }
-                        
-                        if let watchlistIsOwned = self.shownWatchlist?.owned, !onlyUpdateGraph {
+                            
                             if watchlistIsOwned {
-                                var dayGainDollars = 0.0
-                                for holding in self.shownHoldings {
-                                    if let dayReturnInDollars = holding.getDayReturnInDollars() {
-                                        dayGainDollars += dayReturnInDollars
-                                    }
-                                }
-                                let totalEquity = Algorithm.getTotalEquities(self.shownHoldings)
-                                let dayGainPercentage = 100*((totalEquity/(totalEquity - dayGainDollars) - 1))
+                                let dayReturnInDollars = Algorithm.getDayReturnInDollars(self.holdings)
+                                let dayReturnInPercentage = Algorithm.getDayReturnInPercentage(self.holdings)
+                                let totalReturnInDollars = Algorithm.getTotalReturnInDollars(self.holdings)
+                                let totalReturnInPercentage = Algorithm.getTotalReturnInPercentage(self.holdings)
                                 
-                                self.daysGainLabel.text = Algorithm.getReturnDescription(returnInDollars: dayGainDollars, returnInPercentage: dayGainPercentage) + " Day"
-                                self.daysGainLabel.textColor = Algorithm.getReturnColour(dayGainDollars)
+                                // Day's return label
+                                self.dayReturnLabel.text = Algorithm.getReturnDescription(returnInDollars: dayReturnInDollars, returnInPercentage: dayReturnInPercentage) + " Day"
+                                self.dayReturnLabel.textColor = Algorithm.getReturnColour(dayReturnInDollars)
                                 
-                                let shownTotalReturnInDollars = Algorithm.getTotalReturnInDollars(self.shownHoldings)
-                                let shownTotalReturnInPercentage = Algorithm.getTotalReturnInPercentage(self.shownHoldings)
-                                self.totalGainLabel.isHidden = false
-                                self.totalGainLabel.text = Algorithm.getReturnDescription(returnInDollars: shownTotalReturnInDollars, returnInPercentage: shownTotalReturnInPercentage) + " Total"
-                                self.totalGainLabel.textColor = Algorithm.getReturnColour(shownTotalReturnInDollars)
+                                // Total return label
+                                self.totalReturnLabel.isHidden = false
+                                self.totalReturnLabel.text = Algorithm.getReturnDescription(returnInDollars: totalReturnInDollars, returnInPercentage: totalReturnInPercentage) + " Total"
+                                self.totalReturnLabel.textColor = Algorithm.getReturnColour(totalReturnInDollars)
                             }
                             else {
                                 // Watchlist isn't owned
-                                var dayReturnInPercentage = 0.0
-                                for holding in self.shownHoldings {
-                                    if let percentageReturn = holding.getDayReturnInPercentage() {
-                                        dayReturnInPercentage += percentageReturn
-                                    }
-                                }
-                                self.daysGainLabel.text = Algorithm.getReturnInPercentageDescription(dayReturnInPercentage) + " Day"
-                                self.daysGainLabel.textColor = Algorithm.getReturnColour(dayReturnInPercentage)
                                 
-                                self.totalGainLabel.isHidden = true
+                                let dayReturnInPercentage = Algorithm.getDayGrowthInPercentage(self.holdings)
+                                
+                                // Day's return label
+                                self.dayReturnLabel.text = Algorithm.getReturnInPercentageDescription(dayReturnInPercentage) + " Day"
+                                self.dayReturnLabel.textColor = Algorithm.getReturnColour(dayReturnInPercentage)
+                                
+                                // Total return label
+                                self.totalReturnLabel.isHidden = true
                             }
                         }
                     }
@@ -323,6 +326,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         task.resume()
     }
     
+    /// Links self as the delegate to recieve the watchlist to switch to
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "switchWatchlist" {
             // Define the destination ViewController to assign its properties
@@ -339,8 +343,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
 
 extension DashboardViewController: SwitchWatchlistDelegate {
     
-    func switchWatchlist(_ newWatchlist: CoreWatchlist) {
-        self.shownWatchlist = newWatchlist
+    /// Switches the currently displayed watchlist
+    func switchWatchlist(_ newCoreWatchlist: CoreWatchlist) {
+        self.coreWatchlist = newCoreWatchlist
         self.refresh()
     }
     
@@ -358,7 +363,8 @@ extension DashboardViewController {
     
     /// Returns the number of rows in any given section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.shownHoldings.count
+        // Once cell for every holding
+        return self.holdings.count
     }
     
     /// Creates the cells and contents of the TableView
@@ -366,11 +372,14 @@ extension DashboardViewController {
         // Only one section: holdings in watchlist
         
         let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_HOLDING, for: indexPath)
-        let holding = self.shownHoldings[indexPath.row]
+        let holding = self.holdings[indexPath.row]
         
+        // Ticker label
         holdingCell.textLabel?.text = holding.ticker
+        holdingCell.textLabel?.font = CustomFont.setBodyFont()
         
-        if let watchlistIsOwned = self.shownWatchlist?.owned {
+        // Ticker's day's return label
+        if let watchlistIsOwned = self.coreWatchlist?.owned {
             if watchlistIsOwned {
                 if let dayReturnInDollars = holding.getDayReturnInDollars(), let dayReturnInPercentage = holding.getDayReturnInPercentage() {
                     holdingCell.detailTextLabel?.text = Algorithm.getReturnDescription(returnInDollars: dayReturnInDollars, returnInPercentage: dayReturnInPercentage)
@@ -382,6 +391,7 @@ extension DashboardViewController {
             }
             else {
                 // Watchlist is not owned
+                
                 if let dayReturnInPercentage = holding.getDayReturnInPercentage() {
                     holdingCell.detailTextLabel?.text = Algorithm.getReturnInPercentageDescription(dayReturnInPercentage)
                     holdingCell.detailTextLabel?.textColor = Algorithm.getReturnColour(dayReturnInPercentage)
@@ -391,8 +401,6 @@ extension DashboardViewController {
                 }
             }
         }
-        
-        holdingCell.textLabel?.font = CustomFont.setBodyFont()
         holdingCell.detailTextLabel?.font = CustomFont.setBodyFont()
         
         return holdingCell

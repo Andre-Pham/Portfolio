@@ -191,21 +191,21 @@
                     <connections>
                         <outlet property="graphDurationSegmentedControl" destination="LhD-Jm-hOC" id="ANj-v2-cKK"/>
                         <outlet property="graphDurationStackView" destination="G94-uw-twD" id="e1t-hM-KDv"/>
+                        <outlet property="holdingsSubtitleDetailLabel" destination="Ukb-Od-mgC" id="oAR-gU-bCz"/>
+                        <outlet property="holdingsSubtitleLabel" destination="k7i-9h-H4P" id="NOJ-yv-hyu"/>
                         <outlet property="holdingsTableView" destination="OFD-nL-DNr" id="E9e-9P-mxQ"/>
                         <outlet property="holdingsTableViewHeight" destination="ohC-V4-gRN" id="AS4-KU-D3h"/>
-                        <outlet property="holdingsTitleDetailLabel" destination="Ukb-Od-mgC" id="oAR-gU-bCz"/>
-                        <outlet property="holdingsTitleLabel" destination="k7i-9h-H4P" id="NOJ-yv-hyu"/>
                         <outlet property="holdingsTitleStackView" destination="101-hH-oXQ" id="ZWM-b7-akW"/>
                         <outlet property="rootStackView" destination="hwk-dF-REl" id="Wjn-Ev-lUb"/>
                         <outlet property="scrollView" destination="u8J-Jy-dSM" id="0R0-vX-FwM"/>
                         <outlet property="subtitleLabel" destination="Atr-ni-RBO" id="kqx-ms-hyi"/>
                         <outlet property="subtitleStackView" destination="wIf-gW-Sii" id="EKh-HV-UF3"/>
-                        <outlet property="totalEquitiesLabel" destination="yZM-LO-M3Z" id="irw-U9-htw"/>
+                        <outlet property="totalEquitiesDescriptionLabel" destination="yZM-LO-M3Z" id="irw-U9-htw"/>
+                        <outlet property="totalEquitiesLabel" destination="UaL-EX-gGs" id="F5r-o2-nea"/>
                         <outlet property="totalEquitiesStackView" destination="cYY-Ne-TFR" id="yEy-df-jCe"/>
-                        <outlet property="totalEquitiesValueLabel" destination="UaL-EX-gGs" id="F5r-o2-nea"/>
-                        <outlet property="totalGainLabel" destination="UKX-cr-wVL" id="bZu-jt-m0L"/>
-                        <outlet property="totalGainStackView" destination="Tmq-Pp-tBe" id="xLw-H8-9Gf"/>
-                        <outlet property="totalGainValueLabel" destination="A29-nK-wNY" id="DP3-S0-e1a"/>
+                        <outlet property="totalReturnDescriptionLabel" destination="UKX-cr-wVL" id="bZu-jt-m0L"/>
+                        <outlet property="totalReturnLabel" destination="A29-nK-wNY" id="DP3-S0-e1a"/>
+                        <outlet property="totalReturnStackView" destination="Tmq-Pp-tBe" id="xLw-H8-9Gf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vkd-BE-AOT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

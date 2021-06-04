@@ -28,13 +28,13 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     let swiftUIView = ChartView()
     var chartData = ChartData(title: "Title", legend: "Legend", data: [])
     
-    // Indicator
+    // Loading indicators
     var indicator = UIActivityIndicatorView()
     var refreshControl = UIRefreshControl()
     
     // Other properties
     var portfolio: CoreWatchlist?
-    var shownHoldings: [Holding] = []
+    var holdings: [Holding] = []
     
     // MARK: - Outlets
     
@@ -42,40 +42,29 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var holdingsTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var graphDurationSegmentedControl: UISegmentedControl!
     @IBOutlet weak var scrollView: UIScrollView!
+    
     // Stack views
     @IBOutlet weak var rootStackView: UIStackView!
     @IBOutlet weak var graphDurationStackView: UIStackView!
     @IBOutlet weak var subtitleStackView: UIStackView!
-    @IBOutlet weak var totalGainStackView: UIStackView!
+    @IBOutlet weak var totalReturnStackView: UIStackView!
     @IBOutlet weak var totalEquitiesStackView: UIStackView!
     @IBOutlet weak var holdingsTitleStackView: UIStackView!
+    
     // Labels
     @IBOutlet weak var subtitleLabel: UILabel!
-    @IBOutlet weak var totalGainLabel: UILabel!
-    @IBOutlet weak var totalGainValueLabel: UILabel!
+    @IBOutlet weak var totalReturnDescriptionLabel: UILabel!
+    @IBOutlet weak var totalReturnLabel: UILabel!
+    @IBOutlet weak var totalEquitiesDescriptionLabel: UILabel!
     @IBOutlet weak var totalEquitiesLabel: UILabel!
-    @IBOutlet weak var totalEquitiesValueLabel: UILabel!
-    @IBOutlet weak var holdingsTitleLabel: UILabel!
-    @IBOutlet weak var holdingsTitleDetailLabel: UILabel!
+    @IBOutlet weak var holdingsSubtitleLabel: UILabel!
+    @IBOutlet weak var holdingsSubtitleDetailLabel: UILabel!
     
     // MARK: - Methods
     
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // SOURCE: https://stackoverflow.com/questions/24475792/how-to-use-pull-to-refresh-in-swift
-        // AUTHOR: Ahmad F - https://stackoverflow.com/users/5501940/ahmad-f
-        self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
-        self.scrollView.refreshControl = self.refreshControl
-        
-        // Sets property databaseController to reference to the databaseController from AppDelegate
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        databaseController = appDelegate?.databaseController
-        
-        // SOURCE: https://stackoverflow.com/questions/33234180/uitableview-example-for-swift
-        // AUTHOR: Suragch - https://stackoverflow.com/users/3681880/suragch
-        self.holdingsTableView.delegate = self
-        self.holdingsTableView.dataSource = self
         
         // Add the chart to the view
         addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
@@ -84,47 +73,60 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 0, bottom: 20, trailing: 0)
         self.graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
         self.subtitleStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 0, trailing: 15)
-        self.totalGainStackView.directionalLayoutMargins = .init(top: 10, leading: 15, bottom: 0, trailing: 15)
+        self.totalReturnStackView.directionalLayoutMargins = .init(top: 10, leading: 15, bottom: 0, trailing: 15)
         self.totalEquitiesStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
         self.holdingsTitleStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 5, trailing: 15)
         self.rootStackView.isLayoutMarginsRelativeArrangement = true
         self.graphDurationStackView.isLayoutMarginsRelativeArrangement = true
         self.subtitleStackView.isLayoutMarginsRelativeArrangement = true
-        self.totalGainStackView.isLayoutMarginsRelativeArrangement = true
+        self.totalReturnStackView.isLayoutMarginsRelativeArrangement = true
         self.totalEquitiesStackView.isLayoutMarginsRelativeArrangement = true
         self.holdingsTitleStackView.isLayoutMarginsRelativeArrangement = true
+        
+        // SOURCE: https://stackoverflow.com/questions/24475792/how-to-use-pull-to-refresh-in-swift
+        // AUTHOR: Ahmad F - https://stackoverflow.com/users/5501940/ahmad-f
+        // Add scroll up to refresh
+        self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
+        self.scrollView.refreshControl = self.refreshControl
         
         // Add a loading indicator
         self.indicator.style = UIActivityIndicatorView.Style.large
         self.indicator.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(self.indicator)
-        
         // Centres the loading indicator
         NSLayoutConstraint.activate([
             self.indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             self.indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
         
+        // Fonts
+        self.subtitleLabel.font = CustomFont.setSubtitleFont()
+        self.totalReturnDescriptionLabel.font = CustomFont.setBodyFont()
+        self.totalReturnLabel.font = CustomFont.setBodyFont()
+        self.totalEquitiesDescriptionLabel.font = CustomFont.setBodyFont()
+        self.totalEquitiesLabel.font = CustomFont.setBodyFont()
+        self.holdingsSubtitleLabel.font = CustomFont.setSubtitleFont()
+        self.holdingsSubtitleDetailLabel.font = CustomFont.setSubtitleComplementaryFont()
+        
+        // Sets property databaseController to reference to the databaseController from AppDelegate
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+        
+        // Link tableView to self
+        self.holdingsTableView.delegate = self
+        self.holdingsTableView.dataSource = self
+        
         // Make it so page scrolls even if all the contents fits on one page
         self.scrollView.alwaysBounceVertical = true
         // Delegate used for checking when user stops scrolling, so page can refresh
         self.scrollView.delegate = self
-        
-        // Fonts
-        self.subtitleLabel.font = CustomFont.setSubtitleFont()
-        self.totalGainLabel.font = CustomFont.setBodyFont()
-        self.totalGainValueLabel.font = CustomFont.setBodyFont()
-        self.totalEquitiesLabel.font = CustomFont.setBodyFont()
-        self.totalEquitiesValueLabel.font = CustomFont.setBodyFont()
-        self.holdingsTitleLabel.font = CustomFont.setSubtitleFont()
-        self.holdingsTitleDetailLabel.font = CustomFont.setSubtitleComplementaryFont()
     }
     
     /// Calls before the view appears on screen
     override func viewWillAppear(_ animated: Bool) {
         // If the user has designated a different or new watchlist to be their portfolio, refresh the page's content
         let portfolio = databaseController?.retrievePortfolio()
-        if portfolio != self.portfolio || self.portfolio?.holdings?.count != self.shownHoldings.count {
+        if portfolio != self.portfolio || self.portfolio?.holdings?.count != self.holdings.count {
             self.portfolio = portfolio
             self.refresh()
         }
@@ -140,6 +142,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         self.holdingsTableView.removeObserver(self, forKeyPath: KEYPATH_TABLEVIEW_HEIGHT)
     }
     
+    /// Calls when the user scrolls up to refresh
     @objc func refreshControlChanged(_ sender: AnyObject) {
         if !self.scrollView.isDragging {
             self.refresh()
@@ -148,14 +151,16 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // SOURCE: https://stackoverflow.com/questions/22225207/uirefreshcontrol-jitters-when-pulled-down-and-held
     // AUTHOR: Devin - https://stackoverflow.com/users/968108/devin
+    /// Calls when the user stops dragging, used to detect when to refresh after user scrolls up and holds
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if self.refreshControl.isRefreshing {
             self.refresh()
         }
     }
     
+    /// Refreshes the page's content
     func refresh() {
-        self.shownHoldings.removeAll()
+        self.holdings.removeAll()
         self.chartData.data = []
         self.chartData.title = self.portfolio?.name ?? Constant.DEFAULT_LABEL
         self.refreshControl.endRefreshing() // End before loading indicator begins
@@ -175,6 +180,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    /// Calls when the segmented control that represents the time length of the chart is changed
     @IBAction func graphDurationSegmentedControlChanged(_ sender: Any) {
         let graphDuration = self.graphDurationSegmentedControl.titleForSegment(at: self.graphDurationSegmentedControl.selectedSegmentIndex)
         self.chartData.data = []
@@ -202,24 +208,26 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    /// Assigns calls a request to the API which in turn loads data into the chart
+    /// Assigns calls a request to the API which in turn loads data into the chart and page labels
     func generateChartData(unitsBackwards: Int, unit: Calendar.Component, interval: String, onlyUpdateGraph: Bool) {
-        
+        // Validate watchlist exists
         guard let portfolio = self.portfolio else {
             return
         }
         
+        // Create queries for API request
         let tickers = Algorithm.getTickerQuery(portfolio)
         let previousOpenDate = Algorithm.getPreviousOpenDateQuery(unit: unit, unitsBackwards: unitsBackwards)
         
         indicator.startAnimating()
         
-        // Calls the API which in turn provides data to the chart
+        // Calls the API which in turn provides data to the chart and labels
         self.requestTickerWebData(tickers: tickers, startDate: previousOpenDate, interval: interval, onlyUpdateGraph: onlyUpdateGraph)
     }
     
-    /// Calls a TwelveData request for time series prices for ticker(s), as well as other data
+    /// Calls a TwelveData request for time series prices for ticker(s), as well as other data, and loads them into the chart and page labels
     func requestTickerWebData(tickers: String, startDate: String, interval: String, onlyUpdateGraph: Bool) {
+        // Generate URL from components
         let requestURLComponents = Algorithm.getRequestURLComponents(tickers: tickers, interval: interval, startDate: startDate)
         
         // Ensure URL is valid
@@ -246,7 +254,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
                 let decoder = JSONDecoder()
                 
                 // Remove previous holdings data
-                self.shownHoldings = []
+                self.holdings = []
                 
                 if tickers.contains(",") {
                     // Multiple ticker request
@@ -255,7 +263,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
                     // For every ticker with data returned, create a new Holding with its data
                     for ticker in tickerResponse.tickerArray {
                         if let holding = Algorithm.createHoldingFromTickerResponse(ticker) {
-                            self.shownHoldings.append(holding)
+                            self.holdings.append(holding)
                         }
                     }
                 }
@@ -264,30 +272,35 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
                     let tickerResponse = try decoder.decode(Ticker.self, from: data!)
                     
                     if let holding = Algorithm.createHoldingFromTickerResponse(tickerResponse) {
-                        self.shownHoldings.append(holding)
+                        self.holdings.append(holding)
                     }
                 }
                 // Add the purchase data for each holding created
                 let coreHoldings = self.portfolio?.holdings?.allObjects as! [CoreHolding]
-                Algorithm.transferPurchasesFromCoreToHoldings(coreHoldings: coreHoldings, holdings: self.shownHoldings)
+                Algorithm.transferPurchasesFromCoreToHoldings(coreHoldings: coreHoldings, holdings: self.holdings)
                 
                 // If no holdings were created from the API request, don't run the following code because it'll crash
-                if self.shownHoldings.count > 0 {
+                if self.holdings.count > 0 {
                     DispatchQueue.main.async {
                         // Update chart and tableview
-                        self.chartData.data = Algorithm.getChartPlots(holdings: self.shownHoldings)
+                        self.chartData.data = Algorithm.getChartPlots(holdings: self.holdings)
                         self.chartData.updateColour()
                         
                         if !onlyUpdateGraph {
+                            // If the entire page is being updated
+                            
                             self.holdingsTableView.reloadData()
                             
-                            let totalReturnInDollars = Algorithm.getTotalReturnInDollars(self.shownHoldings)
-                            let totalReturnInPercentage = Algorithm.getTotalReturnInPercentage(self.shownHoldings)
-                            self.totalGainValueLabel.text = Algorithm.getReturnDescription(returnInDollars: totalReturnInDollars, returnInPercentage: totalReturnInPercentage)
-                            self.totalGainValueLabel.textColor = Algorithm.getReturnColour(totalReturnInDollars)
+                            let totalReturnInDollars = Algorithm.getTotalReturnInDollars(self.holdings)
+                            let totalReturnInPercentage = Algorithm.getTotalReturnInPercentage(self.holdings)
+                            let totalEquities = Algorithm.roundToTwo(Algorithm.getTotalEquities(self.holdings))
                             
-                            let shownTotalEquities = Algorithm.roundToTwo(Algorithm.getTotalEquities(self.shownHoldings))
-                            self.totalEquitiesValueLabel.text = "$\(shownTotalEquities)"
+                            // Total return label
+                            self.totalReturnLabel.text = Algorithm.getReturnDescription(returnInDollars: totalReturnInDollars, returnInPercentage: totalReturnInPercentage)
+                            self.totalReturnLabel.textColor = Algorithm.getReturnColour(totalReturnInDollars)
+                            
+                            // Total equities label
+                            self.totalEquitiesLabel.text = "$\(totalEquities)"
                         }
                     }
                 }
@@ -306,41 +319,50 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
 
 extension PortfolioViewController {
     
+    /// Returns how many sections the TableView has
     func numberOfSections(in tableView: UITableView) -> Int {
         // Section 0: holdings in portfolio
         return 1
     }
     
+    /// Returns the number of rows in any given section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.shownHoldings.count
+        return self.holdings.count
     }
     
+    /// Creates the cells and contents of the TableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Only one section: holdings in portfolio
         
         let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_HOLDING, for: indexPath) as! PortfolioHoldingTableViewCell
-        let holding = self.shownHoldings[indexPath.row]
+        let holding = self.holdings[indexPath.row]
         
         let shares = Algorithm.roundToTwo(holding.getSharesOwned())
         let totalReturnInDollars = holding.getReturnInDollars()
         let totalReturnInPercentage = holding.getReturnInPercentage()
         let shownEquity = Algorithm.roundToTwo(holding.getEquity())
         
+        // Ticker label
         holdingCell.tickerLabel?.text = holding.ticker
-        holdingCell.sharesLabel?.text = "\(shares) Shares"
-        holdingCell.returnInDollarsAndPercentage?.text = Algorithm.getReturnDescription(returnInDollars: totalReturnInDollars, returnInPercentage: totalReturnInPercentage)
-        holdingCell.equityLabel?.text = "$\(shownEquity)"
-        
         holdingCell.tickerLabel?.font = CustomFont.setFont(size: CustomFont.BODY_SIZE, style: CustomFont.BODY_STYLE, weight: .bold)
-        holdingCell.sharesLabel?.font = CustomFont.setItalicBodyFont()
-        holdingCell.returnInDollarsAndPercentage?.font = CustomFont.setBodyFont()
-        holdingCell.equityLabel?.font = CustomFont.setBodyFont()
         
+        // Shares label
+        holdingCell.sharesLabel?.text = "\(shares) Shares"
+        holdingCell.sharesLabel?.font = CustomFont.setItalicBodyFont()
+        
+        // Total return label
+        holdingCell.returnInDollarsAndPercentage?.text = Algorithm.getReturnDescription(returnInDollars: totalReturnInDollars, returnInPercentage: totalReturnInPercentage)
+        holdingCell.returnInDollarsAndPercentage?.font = CustomFont.setBodyFont()
         holdingCell.returnInDollarsAndPercentage?.textColor = Algorithm.getReturnColour(totalReturnInDollars)
+        
+        // Equity label
+        holdingCell.equityLabel?.text = "$\(shownEquity)"
+        holdingCell.equityLabel?.font = CustomFont.setBodyFont()
         
         return holdingCell
     }
     
+    /// Returns whether a given section can be edited
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Holdings can't be deleted from this page
         return false
@@ -357,7 +379,7 @@ extension PortfolioViewController {
 
 extension PortfolioViewController {
 
-    /// Adds the SwiftUI chart view as a child to DashboardViewController
+    /// Adds the SwiftUI chart view as a child to PortfolioViewController
     func addSubSwiftUIView<Content>(_ swiftUIView: Content, to view: UIView, chartData: ChartData) where Content : View {
         // SOURCE: https://www.avanderlee.com/swiftui/integrating-swiftui-with-uikit/
         // AUTHOR: ANTOINE VAN DER LEE - https://www.avanderlee.com/

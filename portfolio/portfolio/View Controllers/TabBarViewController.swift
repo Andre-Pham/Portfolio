@@ -15,6 +15,7 @@ class TabBarViewController: UITabBarController {
     
     // MARK: - Methods
 
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
         

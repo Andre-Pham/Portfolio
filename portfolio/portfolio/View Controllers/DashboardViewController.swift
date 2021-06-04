@@ -176,7 +176,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    /// Called when the segmented control that represents the time length of the chart is changed
+    /// Calls when the segmented control that represents the time length of the chart is changed
     @IBAction func graphDurationSegmentedControlChanged(_ sender: Any) {
         let graphDuration = self.graphDurationSegmentedControl.titleForSegment(at: self.graphDurationSegmentedControl.selectedSegmentIndex)
         self.chartData.data = []
@@ -217,7 +217,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         indicator.startAnimating()
         
-        // Calls the API which in turn provides data to the chart
+        // Calls the API which in turn provides data to the chart and labels
         self.requestTickerWebData(tickers: tickers, startDate: previousOpenDate, interval: interval, onlyUpdateGraph: onlyUpdateGraph)
     }
     
@@ -283,8 +283,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                         self.chartData.data = Algorithm.getChartPlots(holdings: self.holdings)
                         self.chartData.updateColour()
                         
-                        // If the entire page is being updated
                         if let watchlistIsOwned = self.coreWatchlist?.owned, !onlyUpdateGraph {
+                            // If the entire page is being updated
+                            
                             self.holdingsTableView.reloadData()
                             
                             if watchlistIsOwned {

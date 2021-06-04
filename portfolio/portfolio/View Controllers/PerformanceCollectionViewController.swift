@@ -343,6 +343,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
 // https://stackoverflow.com/questions/38028013/how-to-set-uicollectionviewcell-width-and-height-programmatically
 extension PerformanceCollectionViewController: UICollectionViewDelegateFlowLayout {
     
+    /// Sets up sizing for cells in the collection view
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if self.WIDE_CELL_RANGE.contains(indexPath.row) {
             let width = UIScreen.main.bounds.width - Constant.CGF_LEADING*2

@@ -64,7 +64,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A29-nK-wNY">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A29-nK-wNY">
                                                         <rect key="frame" x="406" y="0.0" width="8" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -81,7 +81,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UaL-EX-gGs">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UaL-EX-gGs">
                                                         <rect key="frame" x="406" y="0.0" width="8" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -98,7 +98,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total P/L &amp; Equities" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ukb-Od-mgC">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total P/L &amp; Equities" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ukb-Od-mgC">
                                                         <rect key="frame" x="268.5" y="0.0" width="145.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -1250,6 +1250,7 @@ Annual Return</string>
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Are-Ri-qD4" secondAttribute="trailing" id="RdZ-bS-d70"/>
                                     <constraint firstItem="Are-Ri-qD4" firstAttribute="leading" secondItem="uaO-xE-mzs" secondAttribute="leading" id="awW-Ht-TiV"/>
@@ -1259,6 +1260,9 @@ Annual Return</string>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="5rJ-8a-7VL"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="YkX-tV-zes"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Wt5-3M-mod" appends="YES" id="LJC-AD-QE9"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="t72-Rx-dag"/>
@@ -1295,6 +1299,11 @@ Annual Return</string>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CCv-Ap-Jp2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="Wt5-3M-mod">
+                    <connections>
+                        <action selector="handlePinch:" destination="hKd-Wq-cug" id="9MS-3m-HLi"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1262.3188405797102" y="-1643.3035714285713"/>
         </scene>
@@ -1457,7 +1466,7 @@ Annual Return</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="cPp-pW-5Jy"/>
-        <segue reference="fH4-1X-fcT"/>
+        <segue reference="4un-mS-eFl"/>
     </inferredMetricsTieBreakers>
     <resources>
         <namedColor name="GreyBlack1">

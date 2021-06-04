@@ -120,6 +120,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Calls before the view appears on screen
     override func viewWillAppear(_ animated: Bool) {
+        if self.chartData.data.isEmpty {
+            // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
+            self.view.isUserInteractionEnabled = false
+        }
+        
         // If the user has designated a different or new watchlist to be their portfolio, refresh the page's content
         let portfolio = databaseController?.retrievePortfolio()
         if portfolio != self.coreWatchlist || self.coreWatchlist?.holdings?.count != self.holdings.count {
@@ -156,6 +161,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Refreshes the page's content
     func refresh() {
+        // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
+        self.view.isUserInteractionEnabled = false
         self.holdings.removeAll()
         self.chartData.data = []
         self.chartData.title = self.coreWatchlist?.name ?? Constant.DEFAULT_LABEL
@@ -179,6 +186,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     /// Calls when the segmented control that represents the time length of the chart is changed
     @IBAction func graphDurationSegmentedControlChanged(_ sender: Any) {
         let graphDuration = self.graphDurationSegmentedControl.titleForSegment(at: self.graphDurationSegmentedControl.selectedSegmentIndex)
+        // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
+        self.view.isUserInteractionEnabled = false
         self.chartData.data = []
         switch graphDuration {
         case "24H":
@@ -282,6 +291,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                         // Update chart and tableview
                         self.chartData.data = Algorithm.getChartPlots(holdings: self.holdings)
                         self.chartData.updateColour()
+                        self.view.isUserInteractionEnabled = true
                         
                         if let watchlistIsOwned = self.coreWatchlist?.owned, !onlyUpdateGraph {
                             // If the entire page is being updated
@@ -325,6 +335,80 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         task.resume()
+    }
+    
+    @IBAction func handlePinch(_ sender: Any) {
+        guard let recognizer = sender as? UIPinchGestureRecognizer else {
+            return
+        }
+        
+        //print(recognizer.location(ofTouch: 0, in: self.view))
+        //print(recognizer.location(ofTouch: 1, in: self.view))
+        
+        print(recognizer.scale)
+        
+        let chartPlotCount = self.chartData.data.count
+        var multiplier = -0.0833*Double(recognizer.scale) + 1.0833
+        if multiplier < 0 {
+            multiplier = 0
+        }
+        else if multiplier > 1 {
+            multiplier = 1
+        }
+        var newChartPlotCount = Int(Double(chartPlotCount)*multiplier)
+        if newChartPlotCount < 2 {
+            newChartPlotCount = 2
+        }
+        if newChartPlotCount == chartPlotCount {
+            if newChartPlotCount >= 4 {
+                newChartPlotCount -= 2
+            }
+            else if newChartPlotCount == 3 {
+                newChartPlotCount -= 1
+            }
+        }
+        
+        let touchCoords = recognizer.location(in: self.view)
+        let screenWidth = UIScreen.main.bounds.width
+        
+        
+        
+        //let touchCoords1 = recognizer.location(ofTouch: 0, in: self.view)
+        //let touchCoords2 = recognizer.location(ofTouch: 1, in: self.view)
+        
+        
+        
+        //let middleIndex = Int(chartPlotCount/2)
+        let middleIndex = Int(Double(chartPlotCount)*(Double(touchCoords.x)/Double(screenWidth)))
+        var leftIndex = middleIndex - Int(floor(Double(newChartPlotCount)/2))
+        if leftIndex < 0 {
+            leftIndex = 0
+        }
+        var rightIndex = middleIndex + Int(floor(Double(newChartPlotCount)/2))
+        if rightIndex > chartPlotCount - 1 {
+            rightIndex = chartPlotCount - 1
+        }
+        let range = leftIndex...rightIndex
+        
+        
+        self.chartData.data = Array(self.chartData.data[range])
+        
+        
+        // 1 -> no zoom -> *1
+        // 5 -> remove 50% -> *0.5
+        // 10 -> remove 100% (minimum of 2 remain) -> *0
+        
+        //recognizer.scale = 1
+        //print(self.rootStackView.subviews.count)
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let touchChart = touch.view?.isDescendant(of: self.rootStackView.subviews[0]) {
+            if touchChart {
+                return true
+            }
+        }
+        return false
     }
     
     /// Calls when a segue is triggered

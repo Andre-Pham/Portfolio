@@ -59,6 +59,14 @@ class Algorithm: NSObject {
         return currentDateFormatted
     }
     
+    static func getAdjustedLargeFontSize(_ number: Double) -> Double {
+        var sizeReduction = 0.0
+        if abs(number) >= 100 {
+            sizeReduction += number*0.0009 + 2.5556
+        }
+        return CustomFont.LARGE_SIZE - sizeReduction
+    }
+    
     // MARK: - API Request Algorithms
     
     static func getTickerQuery(_ coreWatchlist: CoreWatchlist) -> String {

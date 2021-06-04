@@ -10,6 +10,6 @@ import UIKit
 class WidePerformanceCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var percentGainLabel: UILabel!
+    @IBOutlet weak var averageAnnualReturnLabel: UILabel!
     
 }

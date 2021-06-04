@@ -11,6 +11,6 @@ class SinglePerformanceCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tickerLabel: UILabel!
-    @IBOutlet weak var percentGainLabel: UILabel!
+    @IBOutlet weak var totalReturnLabel: UILabel!
     
 }

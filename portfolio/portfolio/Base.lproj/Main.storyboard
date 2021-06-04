@@ -319,7 +319,7 @@ Annual Return</string>
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="347" height="128"/>
                                 <connections>
-                                    <outlet property="percentGainLabel" destination="r49-BQ-0gb" id="A6N-Iv-RUJ"/>
+                                    <outlet property="averageAnnualReturnLabel" destination="r49-BQ-0gb" id="A6N-Iv-RUJ"/>
                                     <outlet property="titleLabel" destination="BH6-Gd-JLe" id="xkw-xn-9jo"/>
                                 </connections>
                             </collectionViewCell>
@@ -360,9 +360,9 @@ Annual Return</string>
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="255" height="128"/>
                                 <connections>
-                                    <outlet property="percentGainLabel" destination="Kuv-27-PpL" id="fG3-6Z-wcS"/>
                                     <outlet property="tickerLabel" destination="hWP-eX-ch1" id="Rf9-9Y-iD9"/>
                                     <outlet property="titleLabel" destination="W6F-kO-bD9" id="MO3-pG-13C"/>
+                                    <outlet property="totalReturnLabel" destination="Kuv-27-PpL" id="fG3-6Z-wcS"/>
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="tallCell" id="Yar-qX-8Vp" customClass="TallPerformanceCollectionViewCell" customModule="portfolio" customModuleProvider="target">
@@ -458,12 +458,12 @@ Annual Return</string>
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="171" height="397"/>
                                 <connections>
-                                    <outlet property="gainInDollarsLabel1" destination="XnT-S7-NX3" id="SeP-NJ-9Yk"/>
-                                    <outlet property="gainInDollarsLabel2" destination="wIO-3R-VIF" id="BQ2-9z-jKf"/>
-                                    <outlet property="gainInDollarsLabel3" destination="Em9-bk-STH" id="zM4-y5-PQi"/>
-                                    <outlet property="gainInPercentageLabel1" destination="ZoR-4s-NT8" id="SCg-wl-jbK"/>
-                                    <outlet property="gainInPercentageLabel2" destination="6ly-lc-9Fp" id="r7n-5s-a0b"/>
-                                    <outlet property="gainInPercentageLabel3" destination="PDP-tK-puL" id="sgW-Xq-mcY"/>
+                                    <outlet property="returnInDollarsLabel1" destination="XnT-S7-NX3" id="SeP-NJ-9Yk"/>
+                                    <outlet property="returnInDollarsLabel2" destination="wIO-3R-VIF" id="BQ2-9z-jKf"/>
+                                    <outlet property="returnInDollarsLabel3" destination="Em9-bk-STH" id="zM4-y5-PQi"/>
+                                    <outlet property="returnInPercentageLabel1" destination="ZoR-4s-NT8" id="SCg-wl-jbK"/>
+                                    <outlet property="returnInPercentageLabel2" destination="6ly-lc-9Fp" id="r7n-5s-a0b"/>
+                                    <outlet property="returnInPercentageLabel3" destination="PDP-tK-puL" id="sgW-Xq-mcY"/>
                                     <outlet property="tickerLabel1" destination="omo-tp-9tr" id="PN8-os-oNb"/>
                                     <outlet property="tickerLabel2" destination="0oB-jh-1Vy" id="eHY-WT-PwW"/>
                                     <outlet property="tickerLabel3" destination="nLz-ij-a9h" id="8uh-ZL-F6j"/>

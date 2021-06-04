@@ -340,7 +340,8 @@ class PerformanceCollectionViewController: UICollectionViewController {
 
 }
 
-// https://stackoverflow.com/questions/38028013/how-to-set-uicollectionviewcell-width-and-height-programmatically
+// SOURCE: https://stackoverflow.com/questions/38028013/how-to-set-uicollectionviewcell-width-and-height-programmatically
+// AUTHOR: pierre23 - https://stackoverflow.com/users/1735977/pierre23
 extension PerformanceCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     /// Sets up sizing for cells in the collection view

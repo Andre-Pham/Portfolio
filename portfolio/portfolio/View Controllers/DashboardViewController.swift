@@ -64,7 +64,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         // Add the chart to the view
-        addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
+        self.addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
         
         // Add margins to the stack views
         self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 0)
@@ -327,14 +327,16 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         task.resume()
     }
     
-    /// Links self as the delegate to recieve the watchlist to switch to
+    /// Calls when a segue is triggered
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "switchWatchlist" {
-            // Define the destination ViewController to assign its properties
             let destination = segue.destination as! SwitchDashboardWatchlistViewController
-            
-            // Assign properties to the destination ViewController
+            // Links self as the delegate to recieve the watchlist to switch to
             destination.switchWatchlistDelegate = self
+        }
+        else if segue.identifier == "viewHolding" {
+            let destination = segue.destination as! HoldingViewController
+            destination.holding = self.holdings[self.holdingsTableView.indexPathForSelectedRow!.row]
         }
     }
 

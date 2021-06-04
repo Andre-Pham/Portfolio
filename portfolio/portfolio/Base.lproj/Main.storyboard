@@ -160,6 +160,7 @@
                                                             <outlet property="returnInDollarsAndPercentage" destination="wUQ-Kq-TV7" id="ahZ-6e-TAg"/>
                                                             <outlet property="sharesLabel" destination="hK7-OJ-hXZ" id="TAp-99-iKL"/>
                                                             <outlet property="tickerLabel" destination="Jsa-tM-mnK" id="s3J-xB-mEv"/>
+                                                            <segue destination="M3a-1G-yE0" kind="show" identifier="viewHolding" id="fH4-1X-fcT"/>
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
@@ -211,6 +212,114 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vkd-BE-AOT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1262.3188405797102" y="-972.32142857142856"/>
+        </scene>
+        <!--Holding-->
+        <scene sceneID="G4p-fs-gQo">
+            <objects>
+                <viewController title="Holding" id="M3a-1G-yE0" customClass="HoldingViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UY0-Xf-Upw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XF6-c6-w9P">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Miw-XE-InS">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4Ze-gc-2E5" userLabel="Graph Duration Stack View">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="31"/>
+                                                <subviews>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ey1-Ru-1DD">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
+                                                        <segments>
+                                                            <segment title="24H"/>
+                                                            <segment title="1W"/>
+                                                            <segment title="1M"/>
+                                                            <segment title="1Y"/>
+                                                            <segment title="5Y"/>
+                                                            <segment title="10Y"/>
+                                                        </segments>
+                                                        <connections>
+                                                            <action selector="graphDurationSegmentedControlChanged:" destination="hKd-Wq-cug" eventType="valueChanged" id="FtH-Um-DEK"/>
+                                                            <action selector="graphDurationSegmentedControlChanged:" destination="ych-yu-AOy" eventType="valueChanged" id="WGE-qb-iKO"/>
+                                                            <action selector="graphDurationSegmentedControlChanged:" destination="M3a-1G-yE0" eventType="valueChanged" id="bTC-7v-j8Z"/>
+                                                        </connections>
+                                                    </segmentedControl>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Rxd-kJ-bup">
+                                                <rect key="frame" x="0.0" y="31" width="414" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Current Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJ7-cO-pRN">
+                                                        <rect key="frame" x="0.0" y="0.0" width="386" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cH-d5-ld6">
+                                                        <rect key="frame" x="406" y="0.0" width="8" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="tbo-yf-PSh">
+                                                <rect key="frame" x="0.0" y="51.5" width="414" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Change Since Open" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCa-B7-wae">
+                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UzV-za-gtQ">
+                                                        <rect key="frame" x="406" y="0.0" width="8" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="S15-je-atV" firstAttribute="trailing" secondItem="Miw-XE-InS" secondAttribute="trailing" id="cls-D9-4M5"/>
+                                    <constraint firstItem="Miw-XE-InS" firstAttribute="leading" secondItem="S15-je-atV" secondAttribute="leading" id="oeX-cu-rNo"/>
+                                    <constraint firstAttribute="trailing" secondItem="Miw-XE-InS" secondAttribute="trailing" id="u6w-zl-EuA"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="lqN-Ze-MPA"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="S15-je-atV"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="W8a-Tn-ftk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Miw-XE-InS" firstAttribute="top" secondItem="W8a-Tn-ftk" secondAttribute="top" id="5k7-GO-xNu"/>
+                            <constraint firstItem="W8a-Tn-ftk" firstAttribute="bottom" secondItem="XF6-c6-w9P" secondAttribute="bottom" id="Scm-Og-MQF"/>
+                            <constraint firstItem="XF6-c6-w9P" firstAttribute="top" secondItem="UY0-Xf-Upw" secondAttribute="top" id="nhX-G3-EUR"/>
+                            <constraint firstItem="XF6-c6-w9P" firstAttribute="leading" secondItem="W8a-Tn-ftk" secondAttribute="leading" id="tFO-Lg-LHr"/>
+                            <constraint firstItem="W8a-Tn-ftk" firstAttribute="trailing" secondItem="XF6-c6-w9P" secondAttribute="trailing" id="znp-2h-fs8"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="TICKER" id="bvX-g8-Mtj"/>
+                    <connections>
+                        <outlet property="currentPriceDescriptionLabel" destination="dJ7-cO-pRN" id="Sc1-r0-gAP"/>
+                        <outlet property="currentPriceLabel" destination="3cH-d5-ld6" id="eos-Bj-a6S"/>
+                        <outlet property="currentPriceStackView" destination="Rxd-kJ-bup" id="bXC-Mj-Mgd"/>
+                        <outlet property="graphDurationSegmentedControl" destination="ey1-Ru-1DD" id="BAM-CO-DKG"/>
+                        <outlet property="graphDurationStackView" destination="4Ze-gc-2E5" id="eEz-JY-Yjs"/>
+                        <outlet property="rootStackView" destination="Miw-XE-InS" id="8WR-VJ-2Dx"/>
+                        <outlet property="todaysChangeDescriptionLabel" destination="KCa-B7-wae" id="ZzM-Zl-0bF"/>
+                        <outlet property="todaysChangeLabel" destination="UzV-za-gtQ" id="Cun-Ra-DgV"/>
+                        <outlet property="todaysChangesStackView" destination="tbo-yf-PSh" id="Fva-iV-bGI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="en7-GQ-cby" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2128.985507246377" y="-972.32142857142856"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="nxD-VZ-Lkq">
@@ -1124,6 +1233,9 @@ Annual Return</string>
                                                                 </label>
                                                             </subviews>
                                                         </tableViewCellContentView>
+                                                        <connections>
+                                                            <segue destination="M3a-1G-yE0" kind="show" identifier="viewHolding" id="4un-mS-eFl"/>
+                                                        </connections>
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>
@@ -1337,6 +1449,7 @@ Annual Return</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="cPp-pW-5Jy"/>
+        <segue reference="4un-mS-eFl"/>
     </inferredMetricsTieBreakers>
     <resources>
         <namedColor name="GreyBlack1">

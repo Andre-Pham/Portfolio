@@ -67,7 +67,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         // Add the chart to the view
-        addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
+        self.addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
         
         // Add margins to the stack views
         self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 0, bottom: 20, trailing: 0)
@@ -101,9 +101,9 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Fonts
         self.subtitleLabel.font = CustomFont.setSubtitleFont()
-        self.totalReturnDescriptionLabel.font = CustomFont.setBodyFont()
+        self.totalReturnDescriptionLabel.font = CustomFont.setBodyFont().bold
         self.totalReturnLabel.font = CustomFont.setBodyFont()
-        self.totalEquitiesDescriptionLabel.font = CustomFont.setBodyFont()
+        self.totalEquitiesDescriptionLabel.font = CustomFont.setBodyFont().bold
         self.totalEquitiesLabel.font = CustomFont.setBodyFont()
         self.holdingsSubtitleLabel.font = CustomFont.setSubtitleFont()
         self.holdingsSubtitleDetailLabel.font = CustomFont.setSubtitleComplementaryFont()
@@ -311,6 +311,14 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         task.resume()
+    }
+    
+    /// Calls when a segue is triggered
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "viewHolding" {
+            let destination = segue.destination as! HoldingViewController
+            destination.holding = self.holdings[self.holdingsTableView.indexPathForSelectedRow!.row]
+        }
     }
 
 }

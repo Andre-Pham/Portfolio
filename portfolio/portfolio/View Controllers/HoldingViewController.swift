@@ -180,6 +180,14 @@ class HoldingViewController: UIViewController {
         
         task.resume()
     }
+    
+    @IBAction func handlePinch(_ sender: Any) {
+        guard let recognizer = sender as? UIPinchGestureRecognizer else {
+            return
+        }
+        let pinchedChartRange = Algorithm.getPinchedChartRange(scale: recognizer.scale, touchCoords: recognizer.location(in: self.view), chartPlotCount: self.chartData.data.count)
+        self.chartData.data = Array(self.chartData.data[pinchedChartRange])
+    }
 
 }
 

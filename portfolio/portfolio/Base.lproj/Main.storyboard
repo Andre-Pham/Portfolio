@@ -168,6 +168,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="hwk-dF-REl" firstAttribute="leading" secondItem="hRO-tj-rw1" secondAttribute="leading" id="Hlk-Yi-yS8"/>
                                     <constraint firstAttribute="bottom" secondItem="hwk-dF-REl" secondAttribute="bottom" id="SBp-Up-Opg"/>
@@ -177,6 +178,9 @@
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="xFM-9R-a5d"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="hRO-tj-rw1"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="php-JH-Y2d" appends="YES" id="dkv-lx-F6g"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nQZ-un-mxT"/>
@@ -210,6 +214,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vkd-BE-AOT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="php-JH-Y2d">
+                    <connections>
+                        <action selector="handlePinch:" destination="ych-yu-AOy" id="UpQ-8d-56u"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1262.3188405797102" y="-972.32142857142856"/>
         </scene>
@@ -291,6 +300,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="Miw-XE-InS" firstAttribute="top" secondItem="lqN-Ze-MPA" secondAttribute="top" id="J10-gK-tTB"/>
                                     <constraint firstItem="Miw-XE-InS" firstAttribute="width" secondItem="XF6-c6-w9P" secondAttribute="width" id="Wwj-du-EUz"/>
@@ -300,6 +310,9 @@
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="lqN-Ze-MPA"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="S15-je-atV"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="LNY-bu-ET0" appends="YES" id="0PQ-i7-meT"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="W8a-Tn-ftk"/>
@@ -326,6 +339,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="en7-GQ-cby" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="LNY-bu-ET0">
+                    <connections>
+                        <action selector="handlePinch:" destination="M3a-1G-yE0" id="7c9-u1-ioh"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2128.985507246377" y="-972.32142857142856"/>
         </scene>

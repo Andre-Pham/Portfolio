@@ -163,7 +163,6 @@ class HoldingViewController: UIViewController {
                     if let holding = self.holding {
                         self.chartData.data = Algorithm.getChartPlots(holdings: [holding])
                     }
-                    self.chartData.updateColour()
                     self.view.isUserInteractionEnabled = true
                     
                     self.indicator.stopAnimating()

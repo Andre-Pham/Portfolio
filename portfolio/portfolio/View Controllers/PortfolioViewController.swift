@@ -288,7 +288,6 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
                     DispatchQueue.main.async {
                         // Update chart and tableview
                         self.chartData.data = Algorithm.getChartPlots(holdings: self.holdings)
-                        self.chartData.updateColour()
                         self.view.isUserInteractionEnabled = true
                         
                         if !onlyUpdateGraph {

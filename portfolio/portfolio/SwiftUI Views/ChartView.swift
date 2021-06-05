@@ -39,7 +39,11 @@ class ChartData: ObservableObject {
     
     @Published var title: String
     @Published var legend: String
-    @Published var data: [Double]
+    @Published var data: [Double] {
+        didSet {
+            self.updateColour()
+        }
+    }
     @Published var lineColour = Styles.lineChartStyleOne
     
     // MARK: - ChartData Constructor

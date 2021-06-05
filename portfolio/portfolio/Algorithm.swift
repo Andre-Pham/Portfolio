@@ -345,4 +345,31 @@ class Algorithm: NSObject {
         return [[], []]
     }
     
+    // MARK: - Gesture Algorithms
+    
+    static func getPinchedChartRange(scale: CGFloat, touchCoords: CGPoint, chartPlotCount: Int) -> ClosedRange<Int> {
+        var multiplier = -0.0833*Double(scale) + 1.0833
+        if multiplier > 1.0 {
+            return 0...chartPlotCount - 1
+        }
+        if multiplier < 0.0 {
+            multiplier = 0.0
+        }
+        var newChartPlotCount = Double(chartPlotCount)*multiplier
+        if newChartPlotCount < 2.0 {
+            newChartPlotCount = 2.0
+        }
+        let screenWidth = UIScreen.main.bounds.width
+        let middleIndex = Int(Double(chartPlotCount)*(Double(touchCoords.x)/Double(screenWidth)))
+        var leftIndex = middleIndex - Int(floor(newChartPlotCount/2))
+        if leftIndex < 0 {
+            leftIndex = 0
+        }
+        var rightIndex = middleIndex + Int(floor(newChartPlotCount/2))
+        if rightIndex > chartPlotCount - 1 {
+            rightIndex = chartPlotCount - 1
+        }
+        return leftIndex...rightIndex
+    }
+    
 }

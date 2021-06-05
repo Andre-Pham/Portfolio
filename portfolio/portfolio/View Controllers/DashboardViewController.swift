@@ -167,6 +167,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.chartData.data = []
         self.chartData.title = self.coreWatchlist?.name ?? Constant.DEFAULT_LABEL
         self.refreshControl.endRefreshing() // End before loading indicator begins
+        self.graphDurationSegmentedControl.selectedSegmentIndex = 0
         self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: false)
     }
     
@@ -341,74 +342,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         guard let recognizer = sender as? UIPinchGestureRecognizer else {
             return
         }
-        
-        //print(recognizer.location(ofTouch: 0, in: self.view))
-        //print(recognizer.location(ofTouch: 1, in: self.view))
-        
-        print(recognizer.scale)
-        
-        let chartPlotCount = self.chartData.data.count
-        var multiplier = -0.0833*Double(recognizer.scale) + 1.0833
-        if multiplier < 0 {
-            multiplier = 0
-        }
-        else if multiplier > 1 {
-            multiplier = 1
-        }
-        var newChartPlotCount = Int(Double(chartPlotCount)*multiplier)
-        if newChartPlotCount < 2 {
-            newChartPlotCount = 2
-        }
-        if newChartPlotCount == chartPlotCount {
-            if newChartPlotCount >= 4 {
-                newChartPlotCount -= 2
-            }
-            else if newChartPlotCount == 3 {
-                newChartPlotCount -= 1
-            }
-        }
-        
-        let touchCoords = recognizer.location(in: self.view)
-        let screenWidth = UIScreen.main.bounds.width
-        
-        
-        
-        //let touchCoords1 = recognizer.location(ofTouch: 0, in: self.view)
-        //let touchCoords2 = recognizer.location(ofTouch: 1, in: self.view)
-        
-        
-        
-        //let middleIndex = Int(chartPlotCount/2)
-        let middleIndex = Int(Double(chartPlotCount)*(Double(touchCoords.x)/Double(screenWidth)))
-        var leftIndex = middleIndex - Int(floor(Double(newChartPlotCount)/2))
-        if leftIndex < 0 {
-            leftIndex = 0
-        }
-        var rightIndex = middleIndex + Int(floor(Double(newChartPlotCount)/2))
-        if rightIndex > chartPlotCount - 1 {
-            rightIndex = chartPlotCount - 1
-        }
-        let range = leftIndex...rightIndex
-        
-        
-        self.chartData.data = Array(self.chartData.data[range])
-        
-        
-        // 1 -> no zoom -> *1
-        // 5 -> remove 50% -> *0.5
-        // 10 -> remove 100% (minimum of 2 remain) -> *0
-        
-        //recognizer.scale = 1
-        //print(self.rootStackView.subviews.count)
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if let touchChart = touch.view?.isDescendant(of: self.rootStackView.subviews[0]) {
-            if touchChart {
-                return true
-            }
-        }
-        return false
+        let pinchedChartRange = Algorithm.getPinchedChartRange(scale: recognizer.scale, touchCoords: recognizer.location(in: self.view), chartPlotCount: self.chartData.data.count)
+        self.chartData.data = Array(self.chartData.data[pinchedChartRange])
     }
     
     /// Calls when a segue is triggered

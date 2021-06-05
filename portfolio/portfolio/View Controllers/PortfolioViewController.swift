@@ -124,6 +124,10 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Calls before the view appears on screen
     override func viewWillAppear(_ animated: Bool) {
+        if self.chartData.data.isEmpty {
+            // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
+            self.view.isUserInteractionEnabled = false
+        }
         // If the user has designated a different or new watchlist to be their portfolio, refresh the page's content
         let portfolio = databaseController?.retrievePortfolio()
         if portfolio != self.portfolio || self.portfolio?.holdings?.count != self.holdings.count {
@@ -160,6 +164,9 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Refreshes the page's content
     func refresh() {
+        // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
+        self.view.isUserInteractionEnabled = false
+        
         self.holdings.removeAll()
         self.chartData.data = []
         self.chartData.title = self.portfolio?.name ?? Constant.DEFAULT_LABEL
@@ -184,6 +191,9 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     /// Calls when the segmented control that represents the time length of the chart is changed
     @IBAction func graphDurationSegmentedControlChanged(_ sender: Any) {
         let graphDuration = self.graphDurationSegmentedControl.titleForSegment(at: self.graphDurationSegmentedControl.selectedSegmentIndex)
+        // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
+        self.view.isUserInteractionEnabled = false
+        
         self.chartData.data = []
         switch graphDuration {
         case "24H":
@@ -286,6 +296,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
                         // Update chart and tableview
                         self.chartData.data = Algorithm.getChartPlots(holdings: self.holdings)
                         self.chartData.updateColour()
+                        self.view.isUserInteractionEnabled = true
                         
                         if !onlyUpdateGraph {
                             // If the entire page is being updated

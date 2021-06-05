@@ -44,6 +44,9 @@ class HoldingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
+        self.view.isUserInteractionEnabled = false
+        
         // Add margins to the stack views
         self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 0)
         self.graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
@@ -165,6 +168,7 @@ class HoldingViewController: UIViewController {
                         self.chartData.data = Algorithm.getChartPlots(holdings: [holding])
                     }
                     self.chartData.updateColour()
+                    self.view.isUserInteractionEnabled = true
                     
                     self.indicator.stopAnimating()
                 }

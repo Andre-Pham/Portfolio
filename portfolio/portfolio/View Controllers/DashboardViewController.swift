@@ -163,6 +163,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     func refresh() {
         // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
         self.view.isUserInteractionEnabled = false
+        
         self.holdings.removeAll()
         self.chartData.data = []
         self.chartData.title = self.coreWatchlist?.name ?? Constant.DEFAULT_LABEL
@@ -189,6 +190,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         let graphDuration = self.graphDurationSegmentedControl.titleForSegment(at: self.graphDurationSegmentedControl.selectedSegmentIndex)
         // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
         self.view.isUserInteractionEnabled = false
+        
         self.chartData.data = []
         switch graphDuration {
         case "24H":

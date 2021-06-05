@@ -6,16 +6,36 @@
 //
 
 import UIKit
+import UserNotifications
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var databaseController: DatabaseProtocol?
+    var notificationsEnabled = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { granted, error in
+            if granted {
+                self.notificationsEnabled = granted
+                UNUserNotificationCenter.current().delegate = self
+            }
+        }
+        
         databaseController = CoreDataController()
+        
         return true
+    }
+    
+    // MARK: Notifications
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler(.banner)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
     }
 
     // MARK: UISceneSession Lifecycle

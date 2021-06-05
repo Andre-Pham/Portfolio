@@ -12,6 +12,7 @@
 		654217D32668BB5C007F9E4D /* SwitchWatchlistDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654217D22668BB5C007F9E4D /* SwitchWatchlistDelegate.swift */; };
 		654217D526695133007F9E4D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654217D426695133007F9E4D /* Constant.swift */; };
 		654217D7266A2DC5007F9E4D /* HoldingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654217D6266A2DC5007F9E4D /* HoldingViewController.swift */; };
+		654217D9266B9A2C007F9E4D /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654217D8266B9A2C007F9E4D /* LocalNotification.swift */; };
 		65511732264A133200CBABAF /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511731264A133200CBABAF /* CustomFont.swift */; };
 		65511734264A8F3100CBABAF /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511733264A8F3100CBABAF /* Algorithm.swift */; };
 		65511736265A650D00CBABAF /* PerformanceCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511735265A650D00CBABAF /* PerformanceCollectionViewController.swift */; };
@@ -60,6 +61,7 @@
 		654217D22668BB5C007F9E4D /* SwitchWatchlistDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchWatchlistDelegate.swift; sourceTree = "<group>"; };
 		654217D426695133007F9E4D /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		654217D6266A2DC5007F9E4D /* HoldingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingViewController.swift; sourceTree = "<group>"; };
+		654217D8266B9A2C007F9E4D /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		65511731264A133200CBABAF /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		65511733264A8F3100CBABAF /* Algorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
 		65511735265A650D00CBABAF /* PerformanceCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceCollectionViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				65511731264A133200CBABAF /* CustomFont.swift */,
 				65511733264A8F3100CBABAF /* Algorithm.swift */,
 				654217D426695133007F9E4D /* Constant.swift */,
+				654217D8266B9A2C007F9E4D /* LocalNotification.swift */,
 			);
 			path = portfolio;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				654217D12668AC40007F9E4D /* SwitchDashboardWatchlistViewController.swift in Sources */,
 				659C8FBF263E773B004D1E30 /* SearchNewHoldingTableViewController.swift in Sources */,
 				659C8FC3263E778C004D1E30 /* HoldingPurchaseViewController.swift in Sources */,
+				654217D9266B9A2C007F9E4D /* LocalNotification.swift in Sources */,
 				659C8FB9263E75A7004D1E30 /* WatchlistTableViewController.swift in Sources */,
 				654217D7266A2DC5007F9E4D /* HoldingViewController.swift in Sources */,
 				659C8FA4263E3ACB004D1E30 /* MulticastDelegate.swift in Sources */,

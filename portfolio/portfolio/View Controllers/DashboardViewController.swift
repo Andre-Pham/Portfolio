@@ -12,7 +12,7 @@
 import UIKit
 import SwiftUI
 
-class DashboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DashboardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UNUserNotificationCenterDelegate {
     
     // MARK: - Properties
     
@@ -62,6 +62,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        LocalNotification.sendMarketStatusNotification()
         
         // Add the chart to the view
         self.addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)

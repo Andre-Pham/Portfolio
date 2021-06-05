@@ -1325,6 +1325,102 @@ Annual Return</string>
             </objects>
             <point key="canvasLocation" x="1262.3188405797102" y="-1643.3035714285713"/>
         </scene>
+        <!--Set Notification Settings-->
+        <scene sceneID="Hk0-9K-Neu">
+            <objects>
+                <viewController storyboardIdentifier="setNotificationSettings" title="Set Notification Settings" id="44s-VD-cFw" customClass="SetNotificationSettingsViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yoN-Vo-JHY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi there." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0D-zF-1kg">
+                                <rect key="frame" x="15" y="74" width="384" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkI-tl-kB6">
+                                <rect key="frame" x="55" y="448.5" width="304" height="50"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="aPB-jM-JJv"/>
+                                </constraints>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveButtonClicked:" destination="44s-VD-cFw" eventType="touchUpInside" id="yO7-bX-SLy"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You've opted in to recieving notifications. Before we get started, you'll need to provide some information." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJM-xz-zdy">
+                                <rect key="frame" x="15" y="109.5" width="384" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B4r-la-dID">
+                                <rect key="frame" x="15" y="309.5" width="384" height="94"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time your preferred market closes at:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMw-oo-RDp">
+                                        <rect key="frame" x="0.0" y="0.0" width="192" height="94"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" datePickerMode="time" minuteInterval="1" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="P6o-1d-h9N">
+                                        <rect key="frame" x="192" y="0.0" width="192" height="94"/>
+                                    </datePicker>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c1V-A2-RZR">
+                                <rect key="frame" x="15" y="205.5" width="384" height="94"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time your preferred market opens at:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gr9-eq-rAl">
+                                        <rect key="frame" x="0.0" y="0.0" width="192" height="94"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" datePickerMode="time" minuteInterval="1" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="fj1-US-fHs">
+                                        <rect key="frame" x="192" y="0.0" width="192" height="94"/>
+                                    </datePicker>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QUu-Bs-sgm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="QUu-Bs-sgm" firstAttribute="trailing" secondItem="tkI-tl-kB6" secondAttribute="trailing" constant="55" id="1RI-Gg-Exe"/>
+                            <constraint firstAttribute="trailing" secondItem="B4r-la-dID" secondAttribute="trailing" constant="15" id="32n-fC-VZe"/>
+                            <constraint firstItem="B4r-la-dID" firstAttribute="leading" secondItem="QUu-Bs-sgm" secondAttribute="leading" constant="15" id="3Fm-jN-Vi2"/>
+                            <constraint firstAttribute="trailing" secondItem="c1V-A2-RZR" secondAttribute="trailing" constant="15" id="8EN-PG-wHv"/>
+                            <constraint firstItem="tkI-tl-kB6" firstAttribute="top" secondItem="B4r-la-dID" secondAttribute="bottom" constant="45" id="8n3-Gk-gOe"/>
+                            <constraint firstItem="QUu-Bs-sgm" firstAttribute="trailing" secondItem="IJM-xz-zdy" secondAttribute="trailing" constant="15" id="Ah6-TX-d8S"/>
+                            <constraint firstItem="tkI-tl-kB6" firstAttribute="leading" secondItem="QUu-Bs-sgm" secondAttribute="leading" constant="55" id="GKZ-C2-0ik"/>
+                            <constraint firstItem="QUu-Bs-sgm" firstAttribute="trailing" secondItem="T0D-zF-1kg" secondAttribute="trailing" constant="15" id="HsV-dW-dba"/>
+                            <constraint firstItem="T0D-zF-1kg" firstAttribute="top" secondItem="QUu-Bs-sgm" secondAttribute="top" constant="30" id="VkT-Sv-ScC"/>
+                            <constraint firstItem="c1V-A2-RZR" firstAttribute="top" secondItem="IJM-xz-zdy" secondAttribute="bottom" constant="35" id="eTo-qH-obW"/>
+                            <constraint firstItem="c1V-A2-RZR" firstAttribute="leading" secondItem="QUu-Bs-sgm" secondAttribute="leading" constant="15" id="iDp-Pw-agN"/>
+                            <constraint firstItem="IJM-xz-zdy" firstAttribute="leading" secondItem="QUu-Bs-sgm" secondAttribute="leading" constant="15" id="nyN-Br-bxe"/>
+                            <constraint firstItem="IJM-xz-zdy" firstAttribute="top" secondItem="T0D-zF-1kg" secondAttribute="bottom" constant="15" id="pCT-BJ-1dq"/>
+                            <constraint firstItem="T0D-zF-1kg" firstAttribute="leading" secondItem="QUu-Bs-sgm" secondAttribute="leading" constant="15" id="rHr-70-kdW"/>
+                            <constraint firstItem="B4r-la-dID" firstAttribute="top" secondItem="c1V-A2-RZR" secondAttribute="bottom" constant="10" id="skO-G2-KEB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="contextLabel" destination="IJM-xz-zdy" id="AmY-a1-Axw"/>
+                        <outlet property="marketCloseDatePicker" destination="P6o-1d-h9N" id="Gcn-gX-Ne2"/>
+                        <outlet property="marketCloseDescriptionLabel" destination="mMw-oo-RDp" id="93q-k4-PxL"/>
+                        <outlet property="marketOpenDatePicker" destination="fj1-US-fHs" id="zny-6B-YFY"/>
+                        <outlet property="marketOpenDescriptionLabel" destination="Gr9-eq-rAl" id="Uw1-aT-jwr"/>
+                        <outlet property="saveButton" destination="tkI-tl-kB6" id="pwD-Ye-34j"/>
+                        <outlet property="titleLabel" destination="T0D-zF-1kg" id="v52-2v-LCA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EgD-Uj-6oD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2128.985507246377" y="-2324.3303571428569"/>
+        </scene>
         <!--Switch-->
         <scene sceneID="yqc-EU-lUu">
             <objects>
@@ -1490,6 +1586,12 @@ Annual Return</string>
         <namedColor name="GreyBlack1">
             <color red="0.93699997663497925" green="0.94099998474121094" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

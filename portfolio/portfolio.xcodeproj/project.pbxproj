@@ -13,6 +13,7 @@
 		654217D526695133007F9E4D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654217D426695133007F9E4D /* Constant.swift */; };
 		654217D7266A2DC5007F9E4D /* HoldingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654217D6266A2DC5007F9E4D /* HoldingViewController.swift */; };
 		654217D9266B9A2C007F9E4D /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654217D8266B9A2C007F9E4D /* LocalNotification.swift */; };
+		654217DB266C3347007F9E4D /* SetNotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654217DA266C3347007F9E4D /* SetNotificationSettingsViewController.swift */; };
 		65511732264A133200CBABAF /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511731264A133200CBABAF /* CustomFont.swift */; };
 		65511734264A8F3100CBABAF /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511733264A8F3100CBABAF /* Algorithm.swift */; };
 		65511736265A650D00CBABAF /* PerformanceCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511735265A650D00CBABAF /* PerformanceCollectionViewController.swift */; };
@@ -62,6 +63,7 @@
 		654217D426695133007F9E4D /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		654217D6266A2DC5007F9E4D /* HoldingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingViewController.swift; sourceTree = "<group>"; };
 		654217D8266B9A2C007F9E4D /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
+		654217DA266C3347007F9E4D /* SetNotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetNotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		65511731264A133200CBABAF /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		65511733264A8F3100CBABAF /* Algorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
 		65511735265A650D00CBABAF /* PerformanceCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceCollectionViewController.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				654217CE265C5950007F9E4D /* InformationViewController.swift */,
 				654217D02668AC40007F9E4D /* SwitchDashboardWatchlistViewController.swift */,
 				654217D6266A2DC5007F9E4D /* HoldingViewController.swift */,
+				654217DA266C3347007F9E4D /* SetNotificationSettingsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				65511736265A650D00CBABAF /* PerformanceCollectionViewController.swift in Sources */,
 				65AFBE33262E2A780039CB66 /* PortfolioViewController.swift in Sources */,
 				654217D32668BB5C007F9E4D /* SwitchWatchlistDelegate.swift in Sources */,
+				654217DB266C3347007F9E4D /* SetNotificationSettingsViewController.swift in Sources */,
 				6551173A265A6C3E00CBABAF /* SinglePerformanceCollectionViewCell.swift in Sources */,
 				65511738265A65A700CBABAF /* WidePerformanceCollectionViewCell.swift in Sources */,
 				659C8FDB263F7519004D1E30 /* CoreHolding+CoreDataProperties.swift in Sources */,

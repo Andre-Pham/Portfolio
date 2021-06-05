@@ -63,7 +63,29 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        LocalNotification.sendMarketStatusNotification()
+        // For testing - clears all notifications
+        // UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        
+        // Only add market status notifications if they haven't been set yet
+        var startMarketStatusNotifications = true
+        UNUserNotificationCenter.current().getPendingNotificationRequests {
+            (notificationRequests) in
+            
+            for notification in notificationRequests {
+                if notification.identifier.dropLast() == LocalNotification.MARKET_STATUS_NOTIFICATION_IDENTIFIER {
+                    startMarketStatusNotifications = false
+                    break
+                }
+            }
+        }
+        if startMarketStatusNotifications && LocalNotification.appDelegate.notificationsEnabled {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let settings = storyboard.instantiateViewController(identifier: "setNotificationSettings") as! SetNotificationSettingsViewController
+            self.present(settings, animated: true,completion: nil)
+            // Disable user from swiping down
+            settings.isModalInPresentation = true
+            //LocalNotification.startMarketStatusNotifications()
+        }
         
         // Add the chart to the view
         self.addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)

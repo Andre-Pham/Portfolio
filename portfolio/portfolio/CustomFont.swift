@@ -32,10 +32,16 @@ class CustomFont: UIFont {
     static let DETAIL_STYLE: TextStyle = .body
     static let DETAIL_WEIGHT: Weight = .light
     
+    // Default sizes and weights for large
     static let LARGE_SIZE = 50.0
     static let LARGE2_SIZE = 35.0
     static let LARGE_STYLE: TextStyle = .body
     static let LARGE_WEIGHT: Weight = .semibold
+    
+    // Default sizes and weights for button text
+    static let BUTTON_SIZE = 20.0
+    static let BUTTON_STYLE: TextStyle = .body
+    static let BUTTON_WEIGHT: Weight = .medium
     
     // MARK: - Methods
 
@@ -81,6 +87,10 @@ class CustomFont: UIFont {
     
     static func setLarge2Font() -> UIFont {
         return self.setFont(size: self.LARGE2_SIZE, style: self.LARGE_STYLE, weight: self.LARGE_WEIGHT)
+    }
+    
+    static func setButtonFont() -> UIFont {
+        return self.setFont(size: self.BUTTON_SIZE, style: self.BUTTON_STYLE, weight: self.BUTTON_WEIGHT)
     }
     
 }

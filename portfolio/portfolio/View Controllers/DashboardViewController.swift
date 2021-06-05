@@ -120,11 +120,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Calls before the view appears on screen
     override func viewWillAppear(_ animated: Bool) {
-        if self.chartData.data.isEmpty {
-            // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
-            self.view.isUserInteractionEnabled = false
-        }
-        
         // If the user has designated a different or new watchlist to be their portfolio, refresh the page's content
         let portfolio = databaseController?.retrievePortfolio()
         if portfolio != self.coreWatchlist || self.coreWatchlist?.holdings?.count != self.holdings.count {
@@ -161,9 +156,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Refreshes the page's content
     func refresh() {
-        // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
-        self.view.isUserInteractionEnabled = false
-        
         self.holdings.removeAll()
         self.chartData.data = []
         self.chartData.title = self.coreWatchlist?.name ?? Constant.DEFAULT_LABEL
@@ -190,8 +182,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         guard let graphDuration = self.graphDurationSegmentedControl.titleForSegment(at: self.graphDurationSegmentedControl.selectedSegmentIndex) else {
             return
         }
-        // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
-        self.view.isUserInteractionEnabled = false
         // Clear chart data
         self.chartData.data = []
 
@@ -286,7 +276,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     DispatchQueue.main.async {
                         // Update chart and tableview
                         self.chartData.data = Algorithm.getChartPlots(holdings: self.holdings)
-                        self.view.isUserInteractionEnabled = true
                         
                         if let watchlistIsOwned = self.coreWatchlist?.owned, !onlyUpdateGraph {
                             // If the entire page is being updated

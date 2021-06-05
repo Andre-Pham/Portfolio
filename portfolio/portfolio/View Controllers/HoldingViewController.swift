@@ -44,9 +44,6 @@ class HoldingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
-        self.view.isUserInteractionEnabled = false
-        
         // Add margins to the stack views
         self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 0)
         self.graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
@@ -102,8 +99,6 @@ class HoldingViewController: UIViewController {
         guard let graphDuration = self.graphDurationSegmentedControl.titleForSegment(at: self.graphDurationSegmentedControl.selectedSegmentIndex) else {
             return
         }
-        // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
-        self.view.isUserInteractionEnabled = false
         // Clear chart data
         self.chartData.data = []
 
@@ -159,11 +154,10 @@ class HoldingViewController: UIViewController {
                 }
 
                 DispatchQueue.main.async {
-                    // Update chart and tableview
+                    // Update chart
                     if let holding = self.holding {
                         self.chartData.data = Algorithm.getChartPlots(holdings: [holding])
                     }
-                    self.view.isUserInteractionEnabled = true
                     
                     self.indicator.stopAnimating()
                 }

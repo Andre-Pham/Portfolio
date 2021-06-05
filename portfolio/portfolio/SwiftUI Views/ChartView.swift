@@ -18,7 +18,9 @@ struct ChartView: View {
     
     var body: some View {
         // Create line chart
-        LineView(data: chartData.data, title: chartData.title, legend: chartData.legend, style: chartData.lineColour).padding(.top, -40.0).padding() // legend is optional, use optional .padding()
+        LineView(data: chartData.data, title: chartData.title, legend: chartData.legend, style: chartData.lineColour).padding(.top, -40.0).padding().disabled(chartData.data.isEmpty)
+        // legend is optional, use optional .padding()
+        // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes, so view interaction is disabled when empty
     }
     
 }
@@ -53,6 +55,8 @@ class ChartData: ObservableObject {
         self.legend = legend
         self.data = data
     }
+    
+    // MARK: - ChartData Methods
     
     func updateColour() {
         if !data.isEmpty {

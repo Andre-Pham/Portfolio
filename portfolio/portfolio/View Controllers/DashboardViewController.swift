@@ -187,32 +187,25 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Calls when the segmented control that represents the time length of the chart is changed
     @IBAction func graphDurationSegmentedControlChanged(_ sender: Any) {
-        let graphDuration = self.graphDurationSegmentedControl.titleForSegment(at: self.graphDurationSegmentedControl.selectedSegmentIndex)
+        guard let graphDuration = self.graphDurationSegmentedControl.titleForSegment(at: self.graphDurationSegmentedControl.selectedSegmentIndex) else {
+            return
+        }
         // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes
         self.view.isUserInteractionEnabled = false
-        
+        // Clear chart data
         self.chartData.data = []
-        switch graphDuration {
-        case "24H":
-            self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: true)
-            break
-        case "1W":
-            self.generateChartData(unitsBackwards: 7, unit: .day, interval: "30min", onlyUpdateGraph: true)
-            break
-        case "1M":
-            self.generateChartData(unitsBackwards: 1, unit: .month, interval: "1day", onlyUpdateGraph: true)
-            break
-        case "1Y":
-            self.generateChartData(unitsBackwards: 1, unit: .year, interval: "1week", onlyUpdateGraph: true)
-            break
-        case "5Y":
-            self.generateChartData(unitsBackwards: 5, unit: .year, interval: "1month", onlyUpdateGraph: true)
-            break
-        case "10Y":
-            self.generateChartData(unitsBackwards: 10, unit: .year, interval: "1month", onlyUpdateGraph: true)
-            break
-        default:
-            break
+
+        if Constant.GRAPH_DURATION_SEGMENTED_CONTROL_PARAMS.keys.contains(graphDuration) {
+            let params = Constant.GRAPH_DURATION_SEGMENTED_CONTROL_PARAMS[graphDuration] as! Dictionary<String, Any>
+            self.generateChartData(
+                unitsBackwards: params["unitsBackwards"] as! Int,
+                unit: params["unit"] as! Calendar.Component,
+                interval: params["interval"] as! String,
+                onlyUpdateGraph: true
+            )
+        }
+        else {
+            fatalError("Constant.GRAPH_DURATION_SEGMENTED_CONTROL_PARAMS doesn't have matching keys to segmented control")
         }
     }
     

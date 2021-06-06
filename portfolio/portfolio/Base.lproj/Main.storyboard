@@ -1340,7 +1340,7 @@ Annual Return</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkI-tl-kB6">
-                                <rect key="frame" x="55" y="448.5" width="304" height="50"/>
+                                <rect key="frame" x="55" y="453.5" width="304" height="50"/>
                                 <color key="backgroundColor" systemColor="linkColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="aPB-jM-JJv"/>
@@ -1352,7 +1352,7 @@ Annual Return</string>
                                     <action selector="saveButtonClicked:" destination="44s-VD-cFw" eventType="touchUpInside" id="yO7-bX-SLy"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You've opted in to recieving notifications. Before we get started, you'll need to provide some information." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJM-xz-zdy">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You've opted in to receiving notifications. Before we get started, you'll need to provide some information." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJM-xz-zdy">
                                 <rect key="frame" x="15" y="109.5" width="384" height="61"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -1386,6 +1386,12 @@ Annual Return</string>
                                     </datePicker>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*Data will be used to notify you when your preferred market opens/closes." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJB-7R-Szt">
+                                <rect key="frame" x="55" y="508.5" width="304" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QUu-Bs-sgm"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1393,12 +1399,15 @@ Annual Return</string>
                             <constraint firstItem="QUu-Bs-sgm" firstAttribute="trailing" secondItem="tkI-tl-kB6" secondAttribute="trailing" constant="55" id="1RI-Gg-Exe"/>
                             <constraint firstAttribute="trailing" secondItem="B4r-la-dID" secondAttribute="trailing" constant="15" id="32n-fC-VZe"/>
                             <constraint firstItem="B4r-la-dID" firstAttribute="leading" secondItem="QUu-Bs-sgm" secondAttribute="leading" constant="15" id="3Fm-jN-Vi2"/>
+                            <constraint firstItem="AJB-7R-Szt" firstAttribute="top" secondItem="tkI-tl-kB6" secondAttribute="bottom" constant="5" id="43b-xm-wYT"/>
+                            <constraint firstItem="QUu-Bs-sgm" firstAttribute="trailing" secondItem="AJB-7R-Szt" secondAttribute="trailing" constant="55" id="6Sc-9k-THs"/>
                             <constraint firstAttribute="trailing" secondItem="c1V-A2-RZR" secondAttribute="trailing" constant="15" id="8EN-PG-wHv"/>
-                            <constraint firstItem="tkI-tl-kB6" firstAttribute="top" secondItem="B4r-la-dID" secondAttribute="bottom" constant="45" id="8n3-Gk-gOe"/>
+                            <constraint firstItem="tkI-tl-kB6" firstAttribute="top" secondItem="B4r-la-dID" secondAttribute="bottom" constant="50" id="8n3-Gk-gOe"/>
                             <constraint firstItem="QUu-Bs-sgm" firstAttribute="trailing" secondItem="IJM-xz-zdy" secondAttribute="trailing" constant="15" id="Ah6-TX-d8S"/>
                             <constraint firstItem="tkI-tl-kB6" firstAttribute="leading" secondItem="QUu-Bs-sgm" secondAttribute="leading" constant="55" id="GKZ-C2-0ik"/>
                             <constraint firstItem="QUu-Bs-sgm" firstAttribute="trailing" secondItem="T0D-zF-1kg" secondAttribute="trailing" constant="15" id="HsV-dW-dba"/>
                             <constraint firstItem="T0D-zF-1kg" firstAttribute="top" secondItem="QUu-Bs-sgm" secondAttribute="top" constant="30" id="VkT-Sv-ScC"/>
+                            <constraint firstItem="AJB-7R-Szt" firstAttribute="leading" secondItem="QUu-Bs-sgm" secondAttribute="leading" constant="55" id="Xr3-9H-sKn"/>
                             <constraint firstItem="c1V-A2-RZR" firstAttribute="top" secondItem="IJM-xz-zdy" secondAttribute="bottom" constant="35" id="eTo-qH-obW"/>
                             <constraint firstItem="c1V-A2-RZR" firstAttribute="leading" secondItem="QUu-Bs-sgm" secondAttribute="leading" constant="15" id="iDp-Pw-agN"/>
                             <constraint firstItem="IJM-xz-zdy" firstAttribute="leading" secondItem="QUu-Bs-sgm" secondAttribute="leading" constant="15" id="nyN-Br-bxe"/>
@@ -1409,6 +1418,7 @@ Annual Return</string>
                     </view>
                     <connections>
                         <outlet property="contextLabel" destination="IJM-xz-zdy" id="AmY-a1-Axw"/>
+                        <outlet property="disclaimerLabel" destination="AJB-7R-Szt" id="2tW-ii-BPZ"/>
                         <outlet property="marketCloseDatePicker" destination="P6o-1d-h9N" id="Gcn-gX-Ne2"/>
                         <outlet property="marketCloseDescriptionLabel" destination="mMw-oo-RDp" id="93q-k4-PxL"/>
                         <outlet property="marketOpenDatePicker" destination="fj1-US-fHs" id="zny-6B-YFY"/>

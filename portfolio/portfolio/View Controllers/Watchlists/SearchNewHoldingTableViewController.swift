@@ -79,9 +79,19 @@ class SearchNewHoldingTableViewController: UITableViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
+        let holding = self.searchResultsHoldings[tableView.indexPathForSelectedRow!.row]
+        
+        // Stop user from adding a duplicate holding
+        let watchlistHoldings = self.watchlist?.holdings?.allObjects as! [CoreHolding]
+        for watchlistHolding in watchlistHoldings {
+            if watchlistHolding.ticker == holding.ticker! {
+                Popup.displayPopup(title: "Duplicate Holding", message: "Watchlist \"\(self.watchlist?.name ?? Constant.ERROR_LABEL)\" already contains \(holding.ticker!).", viewController: self)
+                return false
+            }
+        }
+        
         if let ownedWatchlist = self.watchlist?.owned {
             if !ownedWatchlist {
-                let holding = self.searchResultsHoldings[tableView.indexPathForSelectedRow!.row]
                 let _ = databaseController?.addCoreHoldingToCoreWatchlist(ticker: holding.ticker!, currency: holding.currency!, coreWatchlist: self.watchlist!)
                 databaseController?.saveChanges()
                 

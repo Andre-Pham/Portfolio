@@ -16,4 +16,5 @@ struct Data: Decodable {
     var instrument_name: String
     var exchange: String
     var currency: String
+    var instrument_type: String
 }

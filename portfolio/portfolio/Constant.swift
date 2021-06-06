@@ -22,5 +22,11 @@ class Constant: NSObject {
         "5Y": ["unitsBackwards": 5, "unit": Calendar.Component.year, "interval": "1month"],
         "10Y": ["unitsBackwards": 10, "unit": Calendar.Component.year, "interval": "1month"]
     ]
+    
+    // These are exchanges that are supported that aren't in the US or aren't crypto
+    static let OTHER_SUPPORTED_EXCHANGES = [
+        "TSX", "TSXV", "NEO", "CSE", "BSE", "NSE", "Euronext", "LSE", "XBER", "XDUS", "FSX",
+        "XHAM", "XHAN", "XMUN", "XSTU", "XETR", "BIST"
+    ]
 
 }

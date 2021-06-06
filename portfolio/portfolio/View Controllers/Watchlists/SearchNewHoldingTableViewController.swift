@@ -67,8 +67,14 @@ class SearchNewHoldingTableViewController: UITableViewController {
         let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_SEARCH_RESULT_HOLDING, for: indexPath)
         let holding = self.searchResultsHoldings[indexPath.row]
         
-        holdingCell.textLabel?.text = "\(holding.ticker ?? "[?]").\(holding.exchange ?? "[?]")"
-        holdingCell.detailTextLabel?.text = holding.instrument
+        if holding.instrumentType == "Digital Currency" {
+            holdingCell.textLabel?.text = "\(holding.ticker ?? "[?]") (\(holding.exchange ?? "[?]"))"
+            holdingCell.detailTextLabel?.text = "Cryptocurrency"
+        }
+        else {
+            holdingCell.textLabel?.text = "\(holding.ticker ?? "[?]").\(holding.exchange ?? "[?]")"
+            holdingCell.detailTextLabel?.text = holding.instrument
+        }
         
         return holdingCell
     }
@@ -178,14 +184,17 @@ class SearchNewHoldingTableViewController: UITableViewController {
                 let tickerSearchResponse = try decoder.decode(TickerSearchResults.self, from: data!)
                 
                 for holding in tickerSearchResponse.data {
-                    self.searchResultsHoldings.append(
-                        Holding(
-                            ticker: holding.symbol,
-                            instrument: holding.instrument_name,
-                            exchange: holding.exchange,
-                            currency: holding.currency
+                    if holding.instrument_type == "Digital Currency" || holding.currency == "USD" || Constant.OTHER_SUPPORTED_EXCHANGES.contains(holding.exchange) {
+                        self.searchResultsHoldings.append(
+                            Holding(
+                                ticker: holding.symbol,
+                                instrument: holding.instrument_name,
+                                exchange: holding.exchange,
+                                currency: holding.currency,
+                                instrumentType: holding.instrument_type
+                            )
                         )
-                    )
+                    }
                 }
                 
                 DispatchQueue.main.async {

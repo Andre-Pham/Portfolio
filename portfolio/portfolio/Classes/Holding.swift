@@ -19,6 +19,7 @@ class Holding: NSObject {
     var instrument: String?
     var exchange: String?
     var currency: String?
+    var instrumentType: String?
     
     
     // Not required
@@ -27,11 +28,12 @@ class Holding: NSObject {
     // MARK: - Constructor
     
     // Searched holding
-    init(ticker: String, instrument: String, exchange: String, currency: String) {
+    init(ticker: String, instrument: String, exchange: String, currency: String, instrumentType: String) {
         self.ticker = ticker
         self.instrument = instrument
         self.exchange = exchange
         self.currency = currency
+        self.instrumentType = instrumentType
     }
     
     init(ticker: String, prices: [Double], currentPrice: Double) {

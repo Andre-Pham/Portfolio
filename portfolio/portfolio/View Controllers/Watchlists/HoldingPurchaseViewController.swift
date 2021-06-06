@@ -83,6 +83,9 @@ class HoldingPurchaseViewController: UIViewController {
 
             navigationController?.popViewController(animated: true)
         }
+        else {
+            Popup.displayPopup(title: "Invalid Entries", message: "An error occurred from your entries. Please ensure numbers were entered, and try again.", viewController: self)
+        }
     }
     
 }

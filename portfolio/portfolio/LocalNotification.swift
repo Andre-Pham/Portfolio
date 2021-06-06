@@ -12,9 +12,10 @@ class LocalNotification: NSObject {
     static let appDelegate = {
         return UIApplication.shared.delegate as! AppDelegate
     }()
-    static let MARKET_STATUS_NOTIFICATION_IDENTIFIER = "marketStatusNotification"
+    static let MARKET_OPEN_NOTIFICATION_IDENTIFIER = "marketOpenNotification"
+    static let MARKET_CLOSE_NOTIFICATION_IDENTIIFER = "marketCloseNotification"
     
-    static func startMarketStatusNotifications() {
+    static func startMarketStatusNotifications(time: DateComponents, identifier: String) {
         guard LocalNotification.appDelegate.notificationsEnabled else {
             print("Notifications disabled")
             return
@@ -28,15 +29,13 @@ class LocalNotification: NSObject {
         // 1: Sunday, 2: Monday, etc.
         for day in 2...6 {
             // Notification triggers every weekday at 10:30 am
-            var timeTrigger = DateComponents()
-            timeTrigger.hour = 10
-            timeTrigger.minute = 30
-            timeTrigger.weekday = day
+            var triggerTime = time
+            triggerTime.weekday = day
             
-            let trigger = UNCalendarNotificationTrigger(dateMatching: timeTrigger, repeats: true)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerTime, repeats: true)
             
             let request = UNNotificationRequest(
-                identifier: MARKET_STATUS_NOTIFICATION_IDENTIFIER+String(day),
+                identifier: identifier+String(day),
                 content: content,
                 trigger: trigger
             )

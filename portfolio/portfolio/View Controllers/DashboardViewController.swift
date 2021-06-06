@@ -67,24 +67,27 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
         // Only add market status notifications if they haven't been set yet
-        var startMarketStatusNotifications = true
         UNUserNotificationCenter.current().getPendingNotificationRequests {
             (notificationRequests) in
             
+            var startMarketStatusNotifications = true
             for notification in notificationRequests {
-                if notification.identifier.dropLast() == LocalNotification.MARKET_STATUS_NOTIFICATION_IDENTIFIER {
+                print(notification.identifier)
+                if notification.identifier.dropLast() == LocalNotification.MARKET_OPEN_NOTIFICATION_IDENTIFIER {
                     startMarketStatusNotifications = false
                     break
                 }
             }
-        }
-        if startMarketStatusNotifications && LocalNotification.appDelegate.notificationsEnabled {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let settings = storyboard.instantiateViewController(identifier: "setNotificationSettings") as! SetNotificationSettingsViewController
-            self.present(settings, animated: true,completion: nil)
-            // Disable user from swiping down
-            settings.isModalInPresentation = true
-            //LocalNotification.startMarketStatusNotifications()
+            
+            DispatchQueue.main.async {
+                if startMarketStatusNotifications && LocalNotification.appDelegate.notificationsEnabled {
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let settings = storyboard.instantiateViewController(identifier: "setNotificationSettings") as! SetNotificationSettingsViewController
+                    self.present(settings, animated: true,completion: nil)
+                    // Disable user from swiping down
+                    settings.isModalInPresentation = true
+                }
+            }
         }
         
         // Add the chart to the view

@@ -147,6 +147,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Calls before the view appears on screen
     override func viewWillAppear(_ animated: Bool) {
+        // If the user has no portfolio, notify them
+        if let portfolioAssigned = databaseController?.portfolioAssigned(), !portfolioAssigned {
+            Popup.displayPopup(title: "No Portfolio", message: "You don't have a portfolio set. To get started go to the Watchlists page and create an \"Owned\" watchlist, and make sure to add your holdings. If you have watchlists you'd like to view, select them from the top right \"Switch\" button.", viewController: self)
+        }
+        
         // If the user has designated a different or new watchlist to be their portfolio, refresh the page's content
         let portfolio = databaseController?.retrievePortfolio()
         if portfolio != self.coreWatchlist || self.coreWatchlist?.holdings?.count != self.holdings.count {

@@ -124,6 +124,11 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Calls before the view appears on screen
     override func viewWillAppear(_ animated: Bool) {
+        // If the user has no portfolio, notify them
+        if let portfolioAssigned = databaseController?.portfolioAssigned(), !portfolioAssigned {
+            Popup.displayPopup(title: "No Portfolio", message: "This page can't display content unless you've set a portfolio with holdings. To get started go to the Watchlists page and create an \"Owned\" watchlist, and make sure to add your holdings.", viewController: self)
+        }
+        
         // If the user has designated a different or new watchlist to be their portfolio, refresh the page's content
         let portfolio = databaseController?.retrievePortfolio()
         if portfolio != self.portfolio || self.portfolio?.holdings?.count != self.holdings.count {

@@ -23,11 +23,11 @@ class LocalNotification: NSObject {
         let content = UNMutableNotificationContent()
         if identifier == MARKET_OPEN_NOTIFICATION_IDENTIFIER {
             content.title = "Markets Now Open!"
-            content.body = "Tap to view your Dashboard for today."
+            content.body = "View your Dashboard to see today's changes."
         }
         else if identifier == MARKET_CLOSE_NOTIFICATION_IDENTIIFER {
             content.title = "Markets Have Closed"
-            content.body = "Tap to see your portfolio's and watchlists' performance for today."
+            content.body = "View your Dashboard to see today's performance."
         }
         else {
             fatalError("startMarketStatusNotifications used incorrectly, identifier was not set to one of two options")

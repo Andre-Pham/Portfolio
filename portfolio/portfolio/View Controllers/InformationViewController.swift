@@ -92,6 +92,12 @@ class InformationViewController: UIViewController, SFSafariViewControllerDelegat
     }
     
     @objc func updateNotificationSettings() {
+        guard LocalNotification.appDelegate.notificationsEnabled else {
+            Popup.displayPopup(title: "Notifications Disabled", message: "You've opted out of recieving notifications. Please enable them in your device's Settings, and refresh the app to continue.", viewController: self)
+            
+            return
+        }
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let settings = storyboard.instantiateViewController(identifier: "setNotificationSettings") as! SetNotificationSettingsViewController
         settings.useAlternateTitle = true

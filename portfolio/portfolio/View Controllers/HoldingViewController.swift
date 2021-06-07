@@ -130,6 +130,10 @@ class HoldingViewController: UIViewController {
         let task = URLSession.shared.dataTask(with: requestURL) {
             (data, response, error) in
             
+            DispatchQueue.main.async {
+                self.indicator.stopAnimating()
+            }
+            
             if let error = error {
                 print(error)
                 return
@@ -150,8 +154,6 @@ class HoldingViewController: UIViewController {
                     if let holding = self.holding {
                         self.chartData.data = Algorithm.getChartPlots(holdings: [holding])
                     }
-                    
-                    self.indicator.stopAnimating()
                 }
             }
             catch let err {

@@ -715,7 +715,9 @@ Annual Return</string>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZa-1k-ONI">
                                                         <rect key="frame" x="0.0" y="30.5" width="414" height="30"/>
-                                                        <state key="normal" title="Twelve Data"/>
+                                                        <state key="normal" title="Twelve Data">
+                                                            <color key="titleColor" name="AccentColor"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="link1Clicked:" destination="sbp-Yx-QS3" eventType="touchUpInside" id="zWZ-zl-h0q"/>
                                                         </connections>
@@ -728,7 +730,9 @@ Annual Return</string>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YxE-SN-28o">
                                                         <rect key="frame" x="0.0" y="101" width="414" height="30"/>
-                                                        <state key="normal" title="ChartView"/>
+                                                        <state key="normal" title="ChartView">
+                                                            <color key="titleColor" name="AccentColor"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="link2Clicked:" destination="sbp-Yx-QS3" eventType="touchUpInside" id="hNf-Wp-y9l"/>
                                                         </connections>
@@ -1600,6 +1604,9 @@ Annual Return</string>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="BlackWhite1"/>
     <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="BlackWhite1">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

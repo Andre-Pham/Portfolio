@@ -160,9 +160,8 @@ class WatchlistTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == SECTION_RENAME {
             self.displayRenameWatchlistPopup()
-            
-            tableView.deselectRow(at: indexPath, animated: true)
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     /// A popup that prompts the user for a new name for the watchlist

@@ -169,7 +169,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
             // Average Annual Return label
             if totalReturnInPercentage.isNaN {
                 cell.averageAnnualReturnLabel.text = Constant.DEFAULT_LABEL
-                cell.averageAnnualReturnLabel.textColor = UIColor.black
+                cell.averageAnnualReturnLabel.textColor = UIColor(named: "BodyText1")
             }
             else {
                 cell.averageAnnualReturnLabel.text = Algorithm.getReturnInPercentageDescription(totalReturnInPercentage)
@@ -272,8 +272,8 @@ class PerformanceCollectionViewController: UICollectionViewController {
                     labels[i][1]?.text = Constant.DEFAULT_LABEL
                     labels[i][2]?.text = Constant.DEFAULT_LABEL
                     
-                    labels[i][1]?.textColor = UIColor.black
-                    labels[i][2]?.textColor = UIColor.black
+                    labels[i][1]?.textColor = UIColor(named: "BodyText1")
+                    labels[i][2]?.textColor = UIColor(named: "BodyText1")
                 }
             }
             

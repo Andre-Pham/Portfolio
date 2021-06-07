@@ -64,15 +64,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
         self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
         self.collectionView.refreshControl = self.refreshControl
         
-        // Add a loading indicator
-        self.indicator.style = UIActivityIndicatorView.Style.large
-        self.indicator.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.indicator)
-        // Centres the loading indicator
-        NSLayoutConstraint.activate([
-            self.indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            self.indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
-        ])
+        SharedFunction.setUpLoadingIndicator(indicator: self.indicator, view: self.view)
         
         // Sets property databaseController to reference to the databaseController from AppDelegate
         let appDelegate = UIApplication.shared.delegate as? AppDelegate

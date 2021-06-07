@@ -89,15 +89,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
         self.scrollView.refreshControl = self.refreshControl
         
-        // Add a loading indicator
-        self.indicator.style = UIActivityIndicatorView.Style.large
-        self.indicator.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.indicator)
-        // Centres the loading indicator
-        NSLayoutConstraint.activate([
-            self.indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            self.indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
-        ])
+        SharedFunction.setUpLoadingIndicator(indicator: self.indicator, view: self.view)
         
         // Fonts
         self.subtitleLabel.font = CustomFont.setSubtitleFont()

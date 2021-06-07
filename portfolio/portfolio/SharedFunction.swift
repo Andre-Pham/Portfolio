@@ -78,5 +78,17 @@ class SharedFunction: NSObject {
         
         task.resume()
     }
+    
+    static func setUpLoadingIndicator(indicator: UIActivityIndicatorView, view: UIView) {
+        // Setup indicator
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(indicator)
+        // Centres the loading indicator
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
+    }
 
 }

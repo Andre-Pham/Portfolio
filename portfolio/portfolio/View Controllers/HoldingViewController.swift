@@ -57,15 +57,7 @@ class HoldingViewController: UIViewController {
         // Add the chart to the view
         self.addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
         
-        // Add a loading indicator
-        self.indicator.style = UIActivityIndicatorView.Style.large
-        self.indicator.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.indicator)
-        // Centres the loading indicator
-        NSLayoutConstraint.activate([
-            self.indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            self.indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
-        ])
+        SharedFunction.setUpLoadingIndicator(indicator: self.indicator, view: self.view)
         
         // Make it so page scrolls even if all the contents fits on one page
         self.scrollView.alwaysBounceVertical = true

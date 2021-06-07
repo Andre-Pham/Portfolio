@@ -29,7 +29,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     var chartData = ChartData(title: "Title", legend: "Change in Percentage (%)", data: [])
     
     // Loading indicators
-    var indicator = UIActivityIndicatorView()
+    var indicator: UIActivityIndicatorView {
+        let indicator = UIActivityIndicatorView()
+        SharedFunction.setUpLoadingIndicator(indicator: indicator, view: self.view)
+        return indicator
+    }
     var refreshControl = UIRefreshControl()
     
     // Other properties
@@ -110,8 +114,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         // Add scroll up to refresh
         self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
         self.scrollView.refreshControl = self.refreshControl
-        
-        SharedFunction.setUpLoadingIndicator(indicator: self.indicator, view: self.view)
         
         // Fonts
         self.todaysDateLabel.font = CustomFont.setSubtitleFont()

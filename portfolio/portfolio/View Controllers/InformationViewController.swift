@@ -55,6 +55,7 @@ class InformationViewController: UIViewController, SFSafariViewControllerDelegat
         }
         for content in contents {
             content?.font = CustomFont.setBodyFont()
+            content?.textColor = UIColor(named: "BodyText1")
         }
         
         self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 0, bottom: 20, trailing: 0)

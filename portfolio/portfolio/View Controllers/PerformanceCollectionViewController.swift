@@ -158,7 +158,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
         switch indexPath.row {
         case WIDE_CELL_RANGE:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_WIDE, for: indexPath as IndexPath) as! WidePerformanceCollectionViewCell
-            cell.backgroundColor = UIColor(named: "GreyBlack1")
+            cell.backgroundColor = UIColor(named: "WhiteBlack1")
             
             let totalReturnInPercentage = Algorithm.getAverageAnnualReturnInPercentage(holdings)
             
@@ -181,7 +181,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
             
         case SINGLE_CELL_RANGE:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_SINGLE, for: indexPath as IndexPath) as! SinglePerformanceCollectionViewCell
-            cell.backgroundColor = UIColor(named: "GreyBlack1")
+            cell.backgroundColor = UIColor(named: "WhiteBlack1")
             
             // Title label
             cell.titleLabel.text = self.SINGLE_CELL_TITLES[indexPath.row-1]
@@ -225,7 +225,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
             
         case TALL_CELL_RANGE:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_TALL, for: indexPath as IndexPath) as! TallPerformanceCollectionViewCell
-            cell.backgroundColor = UIColor(named: "GreyBlack1")
+            cell.backgroundColor = UIColor(named: "WhiteBlack1")
             
             // Title label
             cell.titleLabel.text = self.TALL_CELL_TITLES[indexPath.row-5]

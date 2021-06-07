@@ -9,6 +9,8 @@ import UIKit
 
 class SetNotificationSettingsViewController: UIViewController {
     
+    var useAlternateTitle = false
+    
     @IBOutlet weak var marketOpenDatePicker: UIDatePicker!
     @IBOutlet weak var marketCloseDatePicker: UIDatePicker!
     @IBOutlet weak var saveButton: UIButton!
@@ -34,6 +36,11 @@ class SetNotificationSettingsViewController: UIViewController {
         saveButton.backgroundColor = UIColor(named: "GreyBlack1")
         saveButton.layer.cornerRadius = 5
         saveButton.titleLabel?.font = CustomFont.setButtonFont()
+        
+        // Title
+        if useAlternateTitle {
+            self.titleLabel.text = "Notifications"
+        }
     }
     
     @IBAction func saveButtonClicked(_ sender: Any) {

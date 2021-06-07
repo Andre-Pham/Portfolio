@@ -83,7 +83,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                 if startMarketStatusNotifications && LocalNotification.appDelegate.notificationsEnabled {
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let settings = storyboard.instantiateViewController(identifier: "setNotificationSettings") as! SetNotificationSettingsViewController
-                    self.present(settings, animated: true,completion: nil)
+                    self.present(settings, animated: true, completion: nil)
                     // Disable user from swiping down
                     settings.isModalInPresentation = true
                 }

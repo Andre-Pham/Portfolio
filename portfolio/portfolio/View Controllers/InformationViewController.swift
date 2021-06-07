@@ -27,6 +27,16 @@ class InformationViewController: UIViewController, SFSafariViewControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // SOURCE: https://stackoverflow.com/questions/36730787/set-image-and-title-for-bar-button-item
+        // AUTHOR: Olga Nesterenko - https://stackoverflow.com/users/3501300/olga-nesterenko
+        // Set up bar button item for notification settings
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "gearshape.fill"), for: .normal)
+        button.setTitle(" Notifications", for: .normal)
+        button.sizeToFit()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+        button.addTarget(self, action: #selector(self.updateNotificationSettings), for: .touchUpInside)
 
         let titles = [
             self.aboutLabel,
@@ -79,6 +89,13 @@ class InformationViewController: UIViewController, SFSafariViewControllerDelegat
             safariVC.delegate = self
             present(safariVC, animated: true, completion: nil)
         }
+    }
+    
+    @objc func updateNotificationSettings() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let settings = storyboard.instantiateViewController(identifier: "setNotificationSettings") as! SetNotificationSettingsViewController
+        settings.useAlternateTitle = true
+        self.present(settings, animated: true, completion: nil)
     }
     
 }

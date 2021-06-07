@@ -75,7 +75,8 @@ class WatchlistTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == self.SECTION_HOLDING {
             let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_HOLDING, for: indexPath)
-            let holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
+            var holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
+            Algorithm.arrangeCoreHoldings(&holdings)
             let holding = holdings[indexPath.row]
             
             holdingCell.textLabel?.text = holding.ticker
@@ -104,13 +105,15 @@ class WatchlistTableViewController: UITableViewController {
     /// Adds extra actions on the cell when swiped left
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let holding = self.shownWatchlist?.holdings?.allObjects[indexPath.row]
+        var holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
+        Algorithm.arrangeCoreHoldings(&holdings)
+        let holding = holdings[indexPath.row]
         
         // Delete action - deletes the watchlist
         let delete = UIContextualAction(style: .destructive, title: "delete") {
             (action, view, completion) in
         
-            self.databaseController?.deleteCoreHoldingFromCoreWatchlist(coreHolding: holding as! CoreHolding, coreWatchlist: self.shownWatchlist!)
+            self.databaseController?.deleteCoreHoldingFromCoreWatchlist(coreHolding: holding, coreWatchlist: self.shownWatchlist!)
             self.databaseController?.saveChanges()
             
             tableView.reloadData()

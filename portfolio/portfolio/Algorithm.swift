@@ -345,6 +345,33 @@ class Algorithm: NSObject {
         return [[], []]
     }
     
+    static func arrangeHoldingsAlphabetically(_ holdings: inout [Holding]) {
+        holdings.sort {
+            if let ticker1 = $0.ticker, let ticker2 = $1.ticker {
+                return ticker1 < ticker2
+            }
+            return false
+        }
+    }
+    
+    static func arrangeCoreHoldings(_ coreHoldings: inout [CoreHolding]) {
+        coreHoldings.sort {
+            if let ticker1 = $0.ticker, let ticker2 = $1.ticker {
+                return ticker1 < ticker2
+            }
+            return false
+        }
+    }
+    
+    static func arrangeCorePurchases(_ corePurchases: inout [CorePurchase]) {
+        corePurchases.sort {
+            if let date1 = $0.date, let date2 = $1.date {
+                return date1 > date2
+            }
+            return false
+        }
+    }
+    
     // MARK: - Gesture Algorithms
     
     static func getPinchedChartRange(scale: CGFloat, touchCoords: CGPoint, chartPlotCount: Int) -> ClosedRange<Int> {

@@ -51,8 +51,9 @@ class HoldingPurchasesTableViewController: UITableViewController {
     /// Creates the cells and contents of the TableView
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let purchaseCell = tableView.dequeueReusableCell(withIdentifier: CELL_PURCHASE, for: indexPath)
-        let purchases = self.coreHolding?.purchases?.allObjects as! [CorePurchase]
-        let purchase = purchases[indexPath.row]
+        var allPurchases = self.coreHolding?.purchases?.allObjects as! [CorePurchase]
+        Algorithm.arrangeCorePurchases(&allPurchases)
+        let purchase = allPurchases[indexPath.row]
         
         let purchaseDate = purchase.date
         let formatter = DateFormatter()
@@ -77,13 +78,15 @@ class HoldingPurchasesTableViewController: UITableViewController {
     /// Adds extra actions on the cell when swiped left
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let purchase = self.coreHolding?.purchases?.allObjects[indexPath.row]
+        var allPurchases = self.coreHolding?.purchases?.allObjects as! [CorePurchase]
+        Algorithm.arrangeCorePurchases(&allPurchases)
+        let purchase = allPurchases[indexPath.row]
         
         // Delete action - deletes the watchlist
         let delete = UIContextualAction(style: .destructive, title: "delete") {
             (action, view, completion) in
             
-            self.databaseController?.deleteCorePurchaseFromCoreHolding(corePurchase: purchase as! CorePurchase, coreHolding: self.coreHolding!)
+            self.databaseController?.deleteCorePurchaseFromCoreHolding(corePurchase: purchase, coreHolding: self.coreHolding!)
             self.databaseController?.saveChanges()
             
             tableView.reloadData()

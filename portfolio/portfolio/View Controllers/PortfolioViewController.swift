@@ -275,6 +275,8 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
                         self.holdings.append(holding)
                     }
                 }
+                // Arrange the holdings in alphabetical order
+                Algorithm.arrangeHoldingsAlphabetically(&self.holdings)
                 // Add the purchase data for each holding created
                 let coreHoldings = self.portfolio?.holdings?.allObjects as! [CoreHolding]
                 Algorithm.transferPurchasesFromCoreToHoldings(coreHoldings: coreHoldings, holdings: self.holdings)

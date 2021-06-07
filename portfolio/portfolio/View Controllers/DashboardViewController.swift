@@ -26,7 +26,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // ChartView
     let swiftUIView = ChartView()
-    var chartData = ChartData(title: "Title", legend: "Legend", data: [])
+    var chartData = ChartData(title: "Title", legend: "Change in Percentage (%)", data: [])
     
     // Loading indicators
     var indicator = UIActivityIndicatorView()

@@ -14,7 +14,7 @@ class HoldingViewController: UIViewController {
     
     // ChartView
     let swiftUIView = ChartView()
-    var chartData = ChartData(title: "Title", legend: "Legend", data: [])
+    var chartData = ChartData(title: "Individual Performance", legend: "Change in Percentage (%)", data: [])
     
     // Loading indicators
     var indicator = UIActivityIndicatorView()

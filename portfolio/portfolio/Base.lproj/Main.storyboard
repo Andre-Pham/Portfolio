@@ -1173,7 +1173,7 @@ Annual Return</string>
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Are-Ri-qD4">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="198"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="193"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rya-gJ-jCl">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="31"/>
@@ -1205,28 +1205,45 @@ Annual Return</string>
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ACy-e7-mwa">
-                                                <rect key="frame" x="0.0" y="51.5" width="414" height="46"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="byi-OT-ESH">
+                                                <rect key="frame" x="0.0" y="51.5" width="414" height="20.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zbK-fU-lq5">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Day P/L" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJi-yl-AHB">
+                                                        <rect key="frame" x="0.0" y="0.0" width="386" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fX8-TX-BhC">
-                                                        <rect key="frame" x="0.0" y="25.5" width="414" height="20.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zbK-fU-lq5">
+                                                        <rect key="frame" x="406" y="0.0" width="8" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="SP5-F3-xPQ">
-                                                <rect key="frame" x="0.0" y="97.5" width="414" height="20.5"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="ACy-e7-mwa">
+                                                <rect key="frame" x="0.0" y="72" width="414" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total P/L" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p5H-p9-YQW">
+                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fX8-TX-BhC">
+                                                        <rect key="frame" x="406" y="0.0" width="8" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="SP5-F3-xPQ">
+                                                <rect key="frame" x="0.0" y="92.5" width="414" height="20.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Holdings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AnE-tN-mol">
-                                                        <rect key="frame" x="0.0" y="0.0" width="286.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="246.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1240,7 +1257,7 @@ Annual Return</string>
                                                 </subviews>
                                             </stackView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" scrollEnabled="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kwX-gr-7JY">
-                                                <rect key="frame" x="0.0" y="118" width="414" height="80"/>
+                                                <rect key="frame" x="0.0" y="113" width="414" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="PPc-7f-r2Z"/>
                                                 </constraints>
@@ -1310,8 +1327,9 @@ Annual Return</string>
                     </navigationItem>
                     <connections>
                         <outlet property="dateStackView" destination="IL9-sT-s6n" id="mvb-Js-Kfg"/>
-                        <outlet property="dayAndTotalReturnStackView" destination="ACy-e7-mwa" id="ts8-X1-UI1"/>
+                        <outlet property="dayReturnDescriptionLabel" destination="NJi-yl-AHB" id="qe7-ys-5pO"/>
                         <outlet property="dayReturnLabel" destination="zbK-fU-lq5" id="KFk-gx-wfH"/>
+                        <outlet property="dayReturnStackView" destination="byi-OT-ESH" id="7t3-uS-tLt"/>
                         <outlet property="graphDurationSegmentedControl" destination="ELh-J5-QXa" id="YrX-vr-hwq"/>
                         <outlet property="graphDurationStackView" destination="rya-gJ-jCl" id="CDe-CT-xTl"/>
                         <outlet property="holdingsTableView" destination="kwX-gr-7JY" id="ChD-yr-dKJ"/>
@@ -1322,7 +1340,9 @@ Annual Return</string>
                         <outlet property="rootStackView" destination="Are-Ri-qD4" id="oat-zy-Cvh"/>
                         <outlet property="scrollView" destination="uaO-xE-mzs" id="lxy-8k-5wo"/>
                         <outlet property="todaysDateLabel" destination="VYt-PP-odL" id="uy3-c5-v3g"/>
+                        <outlet property="totalReturnDescriptionLabel" destination="p5H-p9-YQW" id="WeB-2U-Zr3"/>
                         <outlet property="totalReturnLabel" destination="fX8-TX-BhC" id="3eN-nE-32q"/>
+                        <outlet property="totalReturnStackView" destination="ACy-e7-mwa" id="ts8-X1-UI1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CCv-Ap-Jp2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

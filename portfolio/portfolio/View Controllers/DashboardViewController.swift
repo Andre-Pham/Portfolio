@@ -47,12 +47,15 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var rootStackView: UIStackView!
     @IBOutlet weak var graphDurationStackView: UIStackView!
     @IBOutlet weak var dateStackView: UIStackView!
-    @IBOutlet weak var dayAndTotalReturnStackView: UIStackView!
+    @IBOutlet weak var dayReturnStackView: UIStackView!
+    @IBOutlet weak var totalReturnStackView: UIStackView!
     @IBOutlet weak var holdingsTitleStackView: UIStackView!
     
     // Labels
     @IBOutlet weak var todaysDateLabel: UILabel!
+    @IBOutlet weak var dayReturnDescriptionLabel: UILabel!
     @IBOutlet weak var dayReturnLabel: UILabel!
+    @IBOutlet weak var totalReturnDescriptionLabel: UILabel!
     @IBOutlet weak var totalReturnLabel: UILabel!
     @IBOutlet weak var holdingsTitleLabel: UILabel!
     @IBOutlet weak var holdingsTitleDetailLabel: UILabel!
@@ -97,12 +100,14 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 0)
         self.graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
         self.dateStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 0, trailing: 15)
-        self.dayAndTotalReturnStackView.directionalLayoutMargins = .init(top: 10, leading: 15, bottom: 0, trailing: 15)
+        self.dayReturnStackView.directionalLayoutMargins = .init(top: 10, leading: 15, bottom: 0, trailing: 15)
+        self.totalReturnStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
         self.holdingsTitleStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 5, trailing: 15)
         self.rootStackView.isLayoutMarginsRelativeArrangement = true
         self.graphDurationStackView.isLayoutMarginsRelativeArrangement = true
         self.dateStackView.isLayoutMarginsRelativeArrangement = true
-        self.dayAndTotalReturnStackView.isLayoutMarginsRelativeArrangement = true
+        self.dayReturnStackView.isLayoutMarginsRelativeArrangement = true
+        self.totalReturnStackView.isLayoutMarginsRelativeArrangement = true
         self.holdingsTitleStackView.isLayoutMarginsRelativeArrangement = true
         
         // SOURCE: https://stackoverflow.com/questions/24475792/how-to-use-pull-to-refresh-in-swift
@@ -115,7 +120,9 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Fonts
         self.todaysDateLabel.font = CustomFont.setSubtitleFont()
+        self.dayReturnDescriptionLabel.font = CustomFont.setBodyFont().bold
         self.dayReturnLabel.font = CustomFont.setBodyFont()
+        self.totalReturnDescriptionLabel.font = CustomFont.setBodyFont().bold
         self.totalReturnLabel.font = CustomFont.setBodyFont()
         self.holdingsTitleLabel.font = CustomFont.setSubtitleFont()
         self.holdingsTitleDetailLabel.font = CustomFont.setSubtitleComplementaryFont()
@@ -273,12 +280,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     let totalReturnInPercentage = Algorithm.getTotalReturnInPercentage(self.holdings)
                     
                     // Day's return label
-                    self.dayReturnLabel.text = Algorithm.getReturnDescription(returnInDollars: dayReturnInDollars, returnInPercentage: dayReturnInPercentage) + " Day"
+                    self.dayReturnLabel.text = Algorithm.getReturnDescription(returnInDollars: dayReturnInDollars, returnInPercentage: dayReturnInPercentage)
                     self.dayReturnLabel.textColor = Algorithm.getReturnColour(dayReturnInDollars)
                     
                     // Total return label
                     self.totalReturnLabel.isHidden = false
-                    self.totalReturnLabel.text = Algorithm.getReturnDescription(returnInDollars: totalReturnInDollars, returnInPercentage: totalReturnInPercentage) + " Total"
+                    self.totalReturnLabel.text = Algorithm.getReturnDescription(returnInDollars: totalReturnInDollars, returnInPercentage: totalReturnInPercentage)
                     self.totalReturnLabel.textColor = Algorithm.getReturnColour(totalReturnInDollars)
                 }
                 else {

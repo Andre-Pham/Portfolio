@@ -14,6 +14,7 @@
 		654217D7266A2DC5007F9E4D /* HoldingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654217D6266A2DC5007F9E4D /* HoldingViewController.swift */; };
 		654217D9266B9A2C007F9E4D /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654217D8266B9A2C007F9E4D /* LocalNotification.swift */; };
 		654217DB266C3347007F9E4D /* SetNotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654217DA266C3347007F9E4D /* SetNotificationSettingsViewController.swift */; };
+		654217DE266E3B89007F9E4D /* SharedFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654217DD266E3B88007F9E4D /* SharedFunction.swift */; };
 		65511732264A133200CBABAF /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511731264A133200CBABAF /* CustomFont.swift */; };
 		65511734264A8F3100CBABAF /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511733264A8F3100CBABAF /* Algorithm.swift */; };
 		65511736265A650D00CBABAF /* PerformanceCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65511735265A650D00CBABAF /* PerformanceCollectionViewController.swift */; };
@@ -64,6 +65,7 @@
 		654217D6266A2DC5007F9E4D /* HoldingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingViewController.swift; sourceTree = "<group>"; };
 		654217D8266B9A2C007F9E4D /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		654217DA266C3347007F9E4D /* SetNotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetNotificationSettingsViewController.swift; sourceTree = "<group>"; };
+		654217DD266E3B88007F9E4D /* SharedFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunction.swift; sourceTree = "<group>"; };
 		65511731264A133200CBABAF /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 		65511733264A8F3100CBABAF /* Algorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
 		65511735265A650D00CBABAF /* PerformanceCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceCollectionViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				65511733264A8F3100CBABAF /* Algorithm.swift */,
 				654217D426695133007F9E4D /* Constant.swift */,
 				654217D8266B9A2C007F9E4D /* LocalNotification.swift */,
+				654217DD266E3B88007F9E4D /* SharedFunction.swift */,
 			);
 			path = portfolio;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				659C8FB7263E741A004D1E30 /* NewWatchlistViewController.swift in Sources */,
 				659C8FC9263EA34E004D1E30 /* Popup.swift in Sources */,
 				659C8F71263C62AB004D1E30 /* TickerWebData.swift in Sources */,
+				654217DE266E3B89007F9E4D /* SharedFunction.swift in Sources */,
 				659C8FD7263F7519004D1E30 /* CoreWatchlist+CoreDataProperties.swift in Sources */,
 				659C8FC7263E85ED004D1E30 /* TickerSearchWebData.swift in Sources */,
 				659C8FC1263E7765004D1E30 /* HoldingPurchasesTableViewController.swift in Sources */,

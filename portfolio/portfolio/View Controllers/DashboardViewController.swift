@@ -242,117 +242,67 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
         let tickers = Algorithm.getTickerQuery(watchlist)
         let previousOpenDate = Algorithm.getPreviousOpenDateQuery(unit: unit, unitsBackwards: unitsBackwards)
         
-        indicator.startAnimating()
-        
         // Calls the API which in turn provides data to the chart and labels
-        self.requestTickerWebData(tickers: tickers, startDate: previousOpenDate, interval: interval, onlyUpdateGraph: onlyUpdateGraph)
+        SharedFunction.requestTickerWebData(
+            tickers: tickers,
+            startDate: previousOpenDate,
+            interval: interval,
+            indicator: self.indicator,
+            coreWatchlist: self.coreWatchlist,
+            completion: { [weak self] result in
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let holdings):
+                    self?.holdings = holdings
+                    DispatchQueue.main.async {
+                        self?.presentData(onlyUpdateGraph: onlyUpdateGraph)
+                    }
+                }
+            }
+        )
     }
     
-    /// Calls a TwelveData request for time series prices for ticker(s), as well as other data, and loads them into the chart and page labels
-    func requestTickerWebData(tickers: String, startDate: String, interval: String, onlyUpdateGraph: Bool) {
-        // Generate URL from components
-        let requestURLComponents = Algorithm.getRequestURLComponents(tickers: tickers, interval: interval, startDate: startDate)
-        
-        // Ensure URL is valid
-        guard let requestURL = requestURLComponents.url else {
-            print("Invalid URL.")
-            return
-        }
-        
-        // Occurs on a new thread
-        let task = URLSession.shared.dataTask(with: requestURL) {
-            (data, response, error) in
+    func presentData(onlyUpdateGraph: Bool) {
+        // If no holdings were created from the API request, don't run the following code because it'll crash
+        if self.holdings.count > 0 {
+            // Update chart and tableview
+            self.chartData.data = Algorithm.getChartPlots(holdings: self.holdings)
             
-            DispatchQueue.main.async {
-                self.indicator.stopAnimating()
-            }
-            
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            // Parse data
-            do {
-                let decoder = JSONDecoder()
+            if let watchlistIsOwned = self.coreWatchlist?.owned, !onlyUpdateGraph {
+                // If the entire page is being updated
                 
-                // Remove previous holdings data
-                self.holdings = []
+                self.holdingsTableView.reloadData()
                 
-                if tickers.contains(",") {
-                    // Multiple ticker request
-                    let tickerResponse = try decoder.decode(DecodedTickerArray.self, from: data!)
+                if watchlistIsOwned {
+                    let dayReturnInDollars = Algorithm.getDayReturnInDollars(self.holdings)
+                    let dayReturnInPercentage = Algorithm.getDayReturnInPercentage(self.holdings)
+                    let totalReturnInDollars = Algorithm.getTotalReturnInDollars(self.holdings)
+                    let totalReturnInPercentage = Algorithm.getTotalReturnInPercentage(self.holdings)
                     
-                    // For every ticker with data returned, create a new Holding with its data
-                    for ticker in tickerResponse.tickerArray {
-                        if let holding = Algorithm.createHoldingFromTickerResponse(ticker) {
-                            self.holdings.append(holding)
-                        }
-                    }
+                    // Day's return label
+                    self.dayReturnLabel.text = Algorithm.getReturnDescription(returnInDollars: dayReturnInDollars, returnInPercentage: dayReturnInPercentage) + " Day"
+                    self.dayReturnLabel.textColor = Algorithm.getReturnColour(dayReturnInDollars)
+                    
+                    // Total return label
+                    self.totalReturnLabel.isHidden = false
+                    self.totalReturnLabel.text = Algorithm.getReturnDescription(returnInDollars: totalReturnInDollars, returnInPercentage: totalReturnInPercentage) + " Total"
+                    self.totalReturnLabel.textColor = Algorithm.getReturnColour(totalReturnInDollars)
                 }
                 else {
-                    // Single ticker request
-                    let tickerResponse = try decoder.decode(Ticker.self, from: data!)
+                    // Watchlist isn't owned
                     
-                    // Create a new holding with the returned data
-                    if let holding = Algorithm.createHoldingFromTickerResponse(tickerResponse) {
-                        self.holdings.append(holding)
-                    }
+                    let dayReturnInPercentage = Algorithm.getDayGrowthInPercentage(self.holdings)
+                    
+                    // Day's return label
+                    self.dayReturnLabel.text = Algorithm.getReturnInPercentageDescription(dayReturnInPercentage) + " Day"
+                    self.dayReturnLabel.textColor = Algorithm.getReturnColour(dayReturnInPercentage)
+                    
+                    // Total return label
+                    self.totalReturnLabel.isHidden = true
                 }
-                // Arrange the holdings in alphabetical order
-                Algorithm.arrangeHoldingsAlphabetically(&self.holdings)
-                // Add the purchase data for each holding created
-                let coreHoldings = self.coreWatchlist?.holdings?.allObjects as! [CoreHolding]
-                Algorithm.transferPurchasesFromCoreToHoldings(coreHoldings: coreHoldings, holdings: self.holdings)
-                
-                // If no holdings were created from the API request, don't run the following code because it'll crash
-                if self.holdings.count > 0 {
-                    DispatchQueue.main.async {
-                        // Update chart and tableview
-                        self.chartData.data = Algorithm.getChartPlots(holdings: self.holdings)
-                        
-                        if let watchlistIsOwned = self.coreWatchlist?.owned, !onlyUpdateGraph {
-                            // If the entire page is being updated
-                            
-                            self.holdingsTableView.reloadData()
-                            
-                            if watchlistIsOwned {
-                                let dayReturnInDollars = Algorithm.getDayReturnInDollars(self.holdings)
-                                let dayReturnInPercentage = Algorithm.getDayReturnInPercentage(self.holdings)
-                                let totalReturnInDollars = Algorithm.getTotalReturnInDollars(self.holdings)
-                                let totalReturnInPercentage = Algorithm.getTotalReturnInPercentage(self.holdings)
-                                
-                                // Day's return label
-                                self.dayReturnLabel.text = Algorithm.getReturnDescription(returnInDollars: dayReturnInDollars, returnInPercentage: dayReturnInPercentage) + " Day"
-                                self.dayReturnLabel.textColor = Algorithm.getReturnColour(dayReturnInDollars)
-                                
-                                // Total return label
-                                self.totalReturnLabel.isHidden = false
-                                self.totalReturnLabel.text = Algorithm.getReturnDescription(returnInDollars: totalReturnInDollars, returnInPercentage: totalReturnInPercentage) + " Total"
-                                self.totalReturnLabel.textColor = Algorithm.getReturnColour(totalReturnInDollars)
-                            }
-                            else {
-                                // Watchlist isn't owned
-                                
-                                let dayReturnInPercentage = Algorithm.getDayGrowthInPercentage(self.holdings)
-                                
-                                // Day's return label
-                                self.dayReturnLabel.text = Algorithm.getReturnInPercentageDescription(dayReturnInPercentage) + " Day"
-                                self.dayReturnLabel.textColor = Algorithm.getReturnColour(dayReturnInPercentage)
-                                
-                                // Total return label
-                                self.totalReturnLabel.isHidden = true
-                            }
-                        }
-                    }
-                }
-            }
-            catch let err {
-                print(err)
             }
         }
-        
-        task.resume()
     }
     
     @IBAction func handlePinch(_ sender: Any) {

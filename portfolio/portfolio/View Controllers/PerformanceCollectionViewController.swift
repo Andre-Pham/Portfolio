@@ -113,11 +113,11 @@ class PerformanceCollectionViewController: UICollectionViewController {
     func refresh() {
         self.holdings.removeAll()
         self.refreshControl.endRefreshing() // End before loading indicator begins
-        self.generateData(unitsBackwards: 1, unit: .day, interval: "30min", onlyUpdateGraph: false)
+        self.generateData(unitsBackwards: 1, unit: .day, interval: "30min")
     }
     
     /// Assigns calls a request to the API which in turn loads data
-    func generateData(unitsBackwards: Int, unit: Calendar.Component, interval: String, onlyUpdateGraph: Bool) {
+    func generateData(unitsBackwards: Int, unit: Calendar.Component, interval: String) {
         // Retrieve and validate portfolio
         self.portfolio = self.databaseController?.retrievePortfolio()
         guard let portfolio = self.portfolio else {
@@ -128,73 +128,25 @@ class PerformanceCollectionViewController: UICollectionViewController {
         let tickers = Algorithm.getTickerQuery(portfolio)
         let previousOpenDate = Algorithm.getPreviousOpenDateQuery(unit: unit, unitsBackwards: unitsBackwards)
         
-        indicator.startAnimating()
-        
-        // Calls the API which in turn provides data
-        self.requestTickerWebData(tickers: tickers, startDate: previousOpenDate, interval: interval, onlyUpdateGraph: onlyUpdateGraph)
-    }
-    
-    /// Calls a TwelveData request for time series prices for ticker(s), as well as other data
-    func requestTickerWebData(tickers: String, startDate: String, interval: String, onlyUpdateGraph: Bool) {
-        // Generate URL from components
-        let requestURLComponents = Algorithm.getRequestURLComponents(tickers: tickers, interval: interval, startDate: startDate)
-        
-        // Ensure URL is valid
-        guard let requestURL = requestURLComponents.url else {
-            print("Invalid URL.")
-            return
-        }
-        
-        // Occurs on a new thread
-        let task = URLSession.shared.dataTask(with: requestURL) {
-            (data, response, error) in
-            
-            DispatchQueue.main.async {
-                self.indicator.stopAnimating()
-            }
-            
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            // Parse data
-            do {
-                let decoder = JSONDecoder()
-                
-                if tickers.contains(",") {
-                    // Multiple ticker request
-                    let tickerResponse = try decoder.decode(DecodedTickerArray.self, from: data!)
-                    
-                    // For every ticker with data returned, create a new Holding with its data
-                    for ticker in tickerResponse.tickerArray {
-                        if let holding = Algorithm.createHoldingFromTickerResponse(ticker) {
-                            self.holdings.append(holding)
-                        }
+        // Calls the API which in turn provides data to the chart and labels
+        SharedFunction.requestTickerWebData(
+            tickers: tickers,
+            startDate: previousOpenDate,
+            interval: interval,
+            indicator: self.indicator,
+            coreWatchlist: self.portfolio,
+            completion: { [weak self] result in
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let holdings):
+                    self?.holdings = holdings
+                    DispatchQueue.main.async {
+                        self?.collectionView.reloadData()
                     }
                 }
-                else {
-                    // Single ticker request
-                    let tickerResponse = try decoder.decode(Ticker.self, from: data!)
-                    
-                    if let holding = Algorithm.createHoldingFromTickerResponse(tickerResponse) {
-                        self.holdings.append(holding)
-                    }
-                }
-                // Add the purchase data for each holding created
-                let coreHoldings = self.portfolio?.holdings?.allObjects as! [CoreHolding]
-                Algorithm.transferPurchasesFromCoreToHoldings(coreHoldings: coreHoldings, holdings: self.holdings)
-                
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
             }
-            catch let err {
-                print(err)
-            }
-        }
-        
-        task.resume()
+        )
     }
 
     // MARK: - UICollectionViewDataSource

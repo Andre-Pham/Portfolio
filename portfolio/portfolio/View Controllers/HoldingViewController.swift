@@ -57,7 +57,6 @@ class HoldingViewController: UIViewController {
         // Add the chart to the view
         SharedFunction.addSubSwiftUIView(swiftUIView, to: self.view, chartData: self.chartData, viewController: self, stackView: self.rootStackView)
         
-        // Set up indicator
         SharedFunction.setUpLoadingIndicator(indicator: self.indicator, view: self.view)
         
         // Make it so page scrolls even if all the contents fits on one page
@@ -125,15 +124,11 @@ class HoldingViewController: UIViewController {
             return
         }
         
-        self.indicator.startAnimating()
+        indicator.startAnimating()
         
         // Occurs on a new thread
         let task = URLSession.shared.dataTask(with: requestURL) {
             (data, response, error) in
-            
-            DispatchQueue.main.async {
-                self.indicator.stopAnimating()
-            }
             
             if let error = error {
                 print(error)
@@ -155,6 +150,8 @@ class HoldingViewController: UIViewController {
                     if let holding = self.holding {
                         self.chartData.data = Algorithm.getChartPlots(holdings: [holding])
                     }
+                    
+                    self.indicator.stopAnimating()
                 }
             }
             catch let err {

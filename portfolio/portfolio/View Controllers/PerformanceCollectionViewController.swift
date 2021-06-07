@@ -31,11 +31,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
     weak var databaseController: DatabaseProtocol?
     
     // Loading indicators
-    var indicator: UIActivityIndicatorView {
-        let indicator = UIActivityIndicatorView()
-        SharedFunction.setUpLoadingIndicator(indicator: indicator, view: self.view)
-        return indicator
-    }
+    var indicator = UIActivityIndicatorView()
     var refreshControl = UIRefreshControl()
     
     // Other properties
@@ -67,6 +63,8 @@ class PerformanceCollectionViewController: UICollectionViewController {
         // Add scroll up to refresh
         self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
         self.collectionView.refreshControl = self.refreshControl
+        
+        SharedFunction.setUpLoadingIndicator(indicator: self.indicator, view: self.view)
         
         // Sets property databaseController to reference to the databaseController from AppDelegate
         let appDelegate = UIApplication.shared.delegate as? AppDelegate

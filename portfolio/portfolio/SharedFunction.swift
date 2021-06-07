@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SharedFunction: NSObject {
     
@@ -89,6 +90,30 @@ class SharedFunction: NSObject {
             indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
+    }
+    
+    /// Adds the SwiftUI chart view as a child to the current ViewController
+    static func addSubSwiftUIView<Content>(_ swiftUIView: Content, to view: UIView, chartData: ChartData, viewController: UIViewController, stackView: UIStackView) where Content : View {
+        // SOURCE: https://www.avanderlee.com/swiftui/integrating-swiftui-with-uikit/
+        // AUTHOR: ANTOINE VAN DER LEE - https://www.avanderlee.com/
+        
+        // Create SwiftUI view (chartViewHostingController) and add it as a child to DashboardViewController
+        let chartViewHostingController = UIHostingController(rootView: swiftUIView.environmentObject(chartData))
+        viewController.addChild(chartViewHostingController)
+
+        // Insert the SwiftUI view without overlap
+        stackView.insertArrangedSubview(chartViewHostingController.view, at: 0)
+
+        // Add constraints to the SwiftUI view
+        chartViewHostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        let constraints = [
+            chartViewHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            chartViewHostingController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.40)
+        ]
+        NSLayoutConstraint.activate(constraints)
+
+        // Notify the SwiftUI view that it has been moved to DashboardViewController
+        chartViewHostingController.didMove(toParent: viewController)
     }
 
 }

@@ -67,7 +67,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         // Add the chart to the view
-        self.addSubSwiftUIView(swiftUIView, to: view, chartData: self.chartData)
+        SharedFunction.addSubSwiftUIView(swiftUIView, to: self.view, chartData: self.chartData, viewController: self, stackView: self.rootStackView)
         
         // Add margins to the stack views
         self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 0, bottom: 20, trailing: 0)
@@ -331,36 +331,6 @@ extension PortfolioViewController {
     /// Returns the height of each cell
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.CELL_HEIGHT
-    }
-    
-}
-
-// MARK: - SwiftUI Chart Methods Extension
-
-extension PortfolioViewController {
-
-    /// Adds the SwiftUI chart view as a child to PortfolioViewController
-    func addSubSwiftUIView<Content>(_ swiftUIView: Content, to view: UIView, chartData: ChartData) where Content : View {
-        // SOURCE: https://www.avanderlee.com/swiftui/integrating-swiftui-with-uikit/
-        // AUTHOR: ANTOINE VAN DER LEE - https://www.avanderlee.com/
-        
-        // Create SwiftUI view (chartViewHostingController) and add it as a child to DashboardViewController
-        let chartViewHostingController = UIHostingController(rootView: swiftUIView.environmentObject(chartData))
-        addChild(chartViewHostingController)
-
-        // Insert the SwiftUI view without overlap
-        rootStackView.insertArrangedSubview(chartViewHostingController.view, at: 0)
-
-        // Add constraints to the SwiftUI view
-        chartViewHostingController.view.translatesAutoresizingMaskIntoConstraints = false
-        let constraints = [
-            chartViewHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            chartViewHostingController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.40)
-        ]
-        NSLayoutConstraint.activate(constraints)
-
-        // Notify the SwiftUI view that it has been moved to DashboardViewController
-        chartViewHostingController.didMove(toParent: self)
     }
     
 }

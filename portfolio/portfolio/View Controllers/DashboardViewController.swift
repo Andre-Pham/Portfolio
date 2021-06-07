@@ -284,7 +284,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     self.dayReturnLabel.textColor = Algorithm.getReturnColour(dayReturnInDollars)
                     
                     // Total return label
-                    self.totalReturnLabel.isHidden = false
+                    self.totalReturnStackView.isHidden = false
                     self.totalReturnLabel.text = Algorithm.getReturnDescription(returnInDollars: totalReturnInDollars, returnInPercentage: totalReturnInPercentage)
                     self.totalReturnLabel.textColor = Algorithm.getReturnColour(totalReturnInDollars)
                 }
@@ -298,7 +298,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
                     self.dayReturnLabel.textColor = Algorithm.getReturnColour(dayReturnInPercentage)
                     
                     // Total return label
-                    self.totalReturnLabel.isHidden = true
+                    self.totalReturnStackView.isHidden = true
                 }
             }
         }

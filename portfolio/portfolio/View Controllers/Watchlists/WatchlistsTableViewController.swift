@@ -129,7 +129,7 @@ class WatchlistsTableViewController: UITableViewController {
             completion(true)
         }
         setToPortfolio.image = UIImage(systemName: "chart.pie.fill")
-        setToPortfolio.backgroundColor = UIColor(red: 0.20, green: 0.48, blue: 0.97, alpha: 1.00)
+        setToPortfolio.backgroundColor = UIColor(named: "BlackWhite1")
         
         // Add actions to the relevant cells
         // * The user's portfolio can't be re-selected as the portfolio

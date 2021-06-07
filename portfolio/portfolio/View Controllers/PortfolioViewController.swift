@@ -71,11 +71,11 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Add margins to the stack views
         self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 0, bottom: 20, trailing: 0)
-        self.graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
-        self.subtitleStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 0, trailing: 15)
-        self.totalReturnStackView.directionalLayoutMargins = .init(top: 10, leading: 15, bottom: 0, trailing: 15)
-        self.totalEquitiesStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
-        self.holdingsTitleStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 5, trailing: 15)
+        self.graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: Constant.CGF_LEADING, bottom: 0, trailing: Constant.CGF_LEADING)
+        self.subtitleStackView.directionalLayoutMargins = .init(top: 35, leading: Constant.CGF_LEADING, bottom: 0, trailing: Constant.CGF_LEADING)
+        self.totalReturnStackView.directionalLayoutMargins = .init(top: 10, leading: Constant.CGF_LEADING, bottom: 0, trailing: Constant.CGF_LEADING)
+        self.totalEquitiesStackView.directionalLayoutMargins = .init(top: 5, leading: Constant.CGF_LEADING, bottom: 0, trailing: Constant.CGF_LEADING)
+        self.holdingsTitleStackView.directionalLayoutMargins = .init(top: 35, leading: Constant.CGF_LEADING, bottom: 5, trailing: Constant.CGF_LEADING)
         self.rootStackView.isLayoutMarginsRelativeArrangement = true
         self.graphDurationStackView.isLayoutMarginsRelativeArrangement = true
         self.subtitleStackView.isLayoutMarginsRelativeArrangement = true

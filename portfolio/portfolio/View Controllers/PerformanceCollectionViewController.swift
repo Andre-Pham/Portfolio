@@ -48,7 +48,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         // Add margins to the collection
-        collectionView!.contentInset = UIEdgeInsets(top: 5, left: 15, bottom: 20, right: 15)
+        collectionView!.contentInset = UIEdgeInsets(top: 5, left: Constant.CGF_LEADING, bottom: 20, right: Constant.CGF_LEADING)
         
         // Set up frame adn spacing for the collection
         let layout = UICollectionViewFlowLayout()

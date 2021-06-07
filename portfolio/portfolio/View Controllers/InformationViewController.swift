@@ -59,9 +59,9 @@ class InformationViewController: UIViewController, SFSafariViewControllerDelegat
         }
         
         self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 0, bottom: 20, trailing: 0)
-        self.aboutStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
-        self.disclaimersStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 0, trailing: 15)
-        self.softwaresUsedStackView.directionalLayoutMargins = .init(top: 35, leading: 15, bottom: 0, trailing: 15)
+        self.aboutStackView.directionalLayoutMargins = .init(top: 5, leading: Constant.CGF_LEADING, bottom: 0, trailing: Constant.CGF_LEADING)
+        self.disclaimersStackView.directionalLayoutMargins = .init(top: 35, leading: Constant.CGF_LEADING, bottom: 0, trailing: Constant.CGF_LEADING)
+        self.softwaresUsedStackView.directionalLayoutMargins = .init(top: 35, leading: Constant.CGF_LEADING, bottom: 0, trailing: Constant.CGF_LEADING)
         self.rootStackView.isLayoutMarginsRelativeArrangement = true
         self.aboutStackView.isLayoutMarginsRelativeArrangement = true
         self.disclaimersStackView.isLayoutMarginsRelativeArrangement = true

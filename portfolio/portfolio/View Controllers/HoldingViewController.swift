@@ -46,9 +46,9 @@ class HoldingViewController: UIViewController {
         
         // Add margins to the stack views
         self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 20, bottom: 20, trailing: 0)
-        self.graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: 15, bottom: 0, trailing: 15)
-        self.currentPriceStackView.directionalLayoutMargins = .init(top: 25, leading: 15, bottom: 0, trailing: 15)
-        self.todaysChangesStackView.directionalLayoutMargins = .init(top: 10, leading: 15, bottom: 0, trailing: 15)
+        self.graphDurationStackView.directionalLayoutMargins = .init(top: 5, leading: Constant.CGF_LEADING, bottom: 0, trailing: Constant.CGF_LEADING)
+        self.currentPriceStackView.directionalLayoutMargins = .init(top: 25, leading: Constant.CGF_LEADING, bottom: 0, trailing: Constant.CGF_LEADING)
+        self.todaysChangesStackView.directionalLayoutMargins = .init(top: 10, leading: Constant.CGF_LEADING, bottom: 0, trailing: Constant.CGF_LEADING)
         self.rootStackView.isLayoutMarginsRelativeArrangement = true
         self.graphDurationStackView.isLayoutMarginsRelativeArrangement = true
         self.currentPriceStackView.isLayoutMarginsRelativeArrangement = true

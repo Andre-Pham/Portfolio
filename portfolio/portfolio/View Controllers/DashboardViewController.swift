@@ -41,6 +41,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     // Other properties
     private var coreWatchlist: CoreWatchlist?
     private var holdings: [Holding] = []
+    private var dontRefresh = false
     
     // MARK: - Outlets
     
@@ -152,6 +153,16 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Calls before the view appears on screen
     override func viewWillAppear(_ animated: Bool) {
+        // Adds observer which calls observeValue when number of tableview cells changes
+        self.holdingsTableView.addObserver(self, forKeyPath: KEYPATH_TABLEVIEW_HEIGHT, options: .new, context: nil)
+        self.holdingsTableView.reloadData()
+        
+        if self.dontRefresh {
+            // Because viewing a holding (HoldingViewController) returns the page back to the portfolio, this is cancelled with this special property
+            self.dontRefresh = false
+            return
+        }
+        
         // If the user has no portfolio, notify them
         if let portfolioAssigned = databaseController?.portfolioAssigned(), !portfolioAssigned {
             Popup.displayPopup(title: "No Portfolio", message: "You don't have a portfolio set. To get started go to the Watchlists page and create an \"Owned\" watchlist, and make sure to add your holdings. If you have watchlists you'd like to view, select them from the top right \"Switch\" button.", viewController: self)
@@ -163,10 +174,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             self.coreWatchlist = portfolio
             self.refresh()
         }
-        
-        // Adds observer which calls observeValue when number of tableview cells changes
-        self.holdingsTableView.addObserver(self, forKeyPath: KEYPATH_TABLEVIEW_HEIGHT, options: .new, context: nil)
-        self.holdingsTableView.reloadData()
     }
     
     /// Calls before the view disappears on screen
@@ -194,13 +201,16 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     /// Refreshes the page's content
     func refresh() {
         self.holdings.removeAll()
+        self.holdingsTableView.reloadData()
         self.chartData.data = []
         self.chartData.title = self.coreWatchlist?.name ?? Constant.DEFAULT_LABEL
         if self.coreWatchlist?.holdings?.count == 0 {
             self.chartData.title.append(" (Empty)")
         }
-        self.dayReturnLabel.text = Constant.DEFAULT_LABEL
-        self.totalReturnLabel.text = Constant.DEFAULT_LABEL
+        for label in [self.dayReturnLabel, self.totalReturnLabel] {
+            label?.text = Constant.DEFAULT_LABEL
+            label?.textColor = UIColor(named: "BlackWhite1")
+        }
         self.refreshControl.endRefreshing() // End before loading indicator begins
         self.graphDurationSegmentedControl.selectedSegmentIndex = 0
         self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: false)
@@ -333,8 +343,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             destination.switchWatchlistDelegate = self
         }
         else if segue.identifier == self.SEGUE_VIEW_HOLDING {
+            self.dontRefresh = true
             let destination = segue.destination as! HoldingViewController
             destination.holding = self.holdings[self.holdingsTableView.indexPathForSelectedRow!.row]
+            self.holdingsTableView.deselectRow(at: self.holdingsTableView.indexPathForSelectedRow!, animated: true)
         }
     }
 

@@ -67,7 +67,7 @@ class NewOwnedHoldingViewController: UIViewController {
             }
             
             // Create and save the new holding to core data
-            let newCoreHolding = databaseController?.addCoreHoldingToCoreWatchlist(ticker: self.holding?.ticker ?? "[?]", currency: self.holding?.currency ?? "[?]", coreWatchlist: self.watchlist!)
+            let newCoreHolding = databaseController?.addCoreHoldingToCoreWatchlist(ticker: self.holding?.ticker ?? Constant.NO_VALUE_FOUND, currency: self.holding?.currency ?? Constant.NO_VALUE_FOUND, coreWatchlist: self.watchlist!)
             // Create and save the new purchase to the holding in core data
             let _ = databaseController?.addCorePurchaseToCoreHolding(shares: shares, date: date, price: price, coreHolding: newCoreHolding!)
             databaseController?.saveChanges()

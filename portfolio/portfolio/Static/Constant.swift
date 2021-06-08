@@ -17,6 +17,8 @@ class Constant: NSObject {
     static let DEFAULT_LABEL = "-"
     // The text of labels if there's an error loading the actual text
     static let ERROR_LABEL = "Error"
+    // The text of labels if the value couldn't be retrieved for whatever reason
+    static let NO_VALUE_FOUND = "(No value found)"
     
     // API key
     static let API_KEY = "fb1e4d1cdf934bdd8ef247ea380bd80a"

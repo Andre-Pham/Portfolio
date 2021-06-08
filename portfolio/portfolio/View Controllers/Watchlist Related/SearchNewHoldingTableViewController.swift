@@ -70,11 +70,11 @@ class SearchNewHoldingTableViewController: UITableViewController {
         
         // Text
         if holding.instrumentType == "Digital Currency" {
-            holdingCell.textLabel?.text = "\(holding.ticker ?? "[?]") (\(holding.exchange ?? "[?]"))"
+            holdingCell.textLabel?.text = "\(holding.ticker ?? Constant.NO_VALUE_FOUND) (\(holding.exchange ?? Constant.NO_VALUE_FOUND))"
             holdingCell.detailTextLabel?.text = "Cryptocurrency"
         }
         else {
-            holdingCell.textLabel?.text = "\(holding.ticker ?? "[?]").\(holding.exchange ?? "[?]")"
+            holdingCell.textLabel?.text = "\(holding.ticker ?? Constant.NO_VALUE_FOUND).\(holding.exchange ?? Constant.NO_VALUE_FOUND)"
             holdingCell.detailTextLabel?.text = holding.instrument
         }
         

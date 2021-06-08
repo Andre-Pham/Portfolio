@@ -83,6 +83,11 @@ class WatchlistTableViewController: UITableViewController {
             
             holdingCell.textLabel?.text = holding.ticker
             
+            // Add accessory if holding is owned
+            if let watchlistIsOwned = self.coreWatchlist?.owned, watchlistIsOwned {
+                holdingCell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
+            }
+            
             return holdingCell
         }
         else {

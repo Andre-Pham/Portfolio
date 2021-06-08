@@ -69,14 +69,20 @@ class Holding: NSObject {
     }
     
     func getEquity() -> Double {
-        return self.currentPrice!*self.getSharesOwned()
+        if let currentPrice = self.currentPrice {
+            return currentPrice*self.getSharesOwned()
+        }
+        print("ERROR: getEquity in Holding used when a price wasn't set")
+        return 0.0
     }
     
     func getReturnInDollars() -> Double {
         var returnInDollars = 0.0
         
         for purchase in self.purchases {
-            returnInDollars += self.currentPrice!*purchase.shares - purchase.price*purchase.shares
+            if let currentPrice = self.currentPrice {
+                returnInDollars += currentPrice*purchase.shares - purchase.price*purchase.shares
+            }
         }
         
         return returnInDollars

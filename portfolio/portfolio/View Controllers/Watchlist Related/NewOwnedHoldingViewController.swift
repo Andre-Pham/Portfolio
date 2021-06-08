@@ -37,6 +37,10 @@ class NewOwnedHoldingViewController: UIViewController {
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+        
+        // Add tap gesture so user can dismiss keyboard
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        self.view.addGestureRecognizer(tap)
 
         self.title = self.holding?.ticker
         self.purchaseDatePicker.maximumDate = Date()
@@ -47,7 +51,9 @@ class NewOwnedHoldingViewController: UIViewController {
         self.dateLabel.font = CustomFont.setSubtitle2Font()
     }
     
-    // MARK: - Actions
+    @objc func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
     
     /// When the save button is pressed, creates and saves a new holding to the watchlist, with its purchase information
     @IBAction func saveBarButtonPressed(_ sender: Any) {

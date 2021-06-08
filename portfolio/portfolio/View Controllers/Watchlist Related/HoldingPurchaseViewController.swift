@@ -36,6 +36,10 @@ class HoldingPurchaseViewController: UIViewController {
         // Sets property databaseController to reference to the databaseController from AppDelegate
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+        
+        // Add tap gesture so user can dismiss keyboard
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        self.view.addGestureRecognizer(tap)
 
         // Set title to ticker
         self.title = self.holding?.ticker
@@ -54,6 +58,10 @@ class HoldingPurchaseViewController: UIViewController {
             self.sharesTextField.text = String(purchaseToEdit.shares)
             self.purchaseDatePicker.date = purchaseToEdit.date!
         }
+    }
+    
+    @objc func dismissKeyboard() {
+        self.view.endEditing(true)
     }
     
     /// Calls when save button is pressed

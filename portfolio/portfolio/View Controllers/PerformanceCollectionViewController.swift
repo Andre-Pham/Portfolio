@@ -18,6 +18,9 @@ class PerformanceCollectionViewController: UICollectionViewController {
     // MARK: - Properties
     
     // Constants
+    private let AVERAGE_UNIT_RETURN_CAPACITY = 100000.00
+    
+    // Cells
     private let CELL_WIDE = "wideCell"
     private let CELL_SINGLE = "singleCell"
     private let CELL_TALL = "tallCell"
@@ -160,22 +163,32 @@ class PerformanceCollectionViewController: UICollectionViewController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CELL_WIDE, for: indexPath as IndexPath) as! WidePerformanceCollectionViewCell
             cell.backgroundColor = UIColor(named: "WhiteBlack1")
             
-            let totalReturnInPercentage = Algorithm.getAverageAnnualReturnInPercentage(holdings)
-            
             // Title label
             cell.titleLabel.text = "Average\nAnnual\nReturn"
             cell.titleLabel.font = CustomFont.setSubtitle2Font()
             
+            var totalReturnInPercentage = Algorithm.getAverageUnitReturnInPercentage(holdings: self.holdings, daysInUnit: 365.25)
+            
+            if totalReturnInPercentage >= self.AVERAGE_UNIT_RETURN_CAPACITY {
+                totalReturnInPercentage = Algorithm.getAverageUnitReturnInPercentage(holdings: self.holdings, daysInUnit: 30)
+                cell.titleLabel.text = "Average\nMonthly\nReturn"
+            }
+            if totalReturnInPercentage >= self.AVERAGE_UNIT_RETURN_CAPACITY {
+                totalReturnInPercentage = Algorithm.getAverageUnitReturnInPercentage(holdings: self.holdings, daysInUnit: 1)
+                cell.titleLabel.text = "Average\nDaily\nReturn"
+            }
+            
             // Average Annual Return label
-            if totalReturnInPercentage.isNaN {
+            cell.averageAnnualReturnLabel.font = CustomFont.setFont(size: Algorithm.getAdjustedLargeFontSize(totalReturnInPercentage), style: CustomFont.LARGE_STYLE, weight: CustomFont.LARGE_WEIGHT)
+            if totalReturnInPercentage.isNaN || totalReturnInPercentage.isInfinite {
                 cell.averageAnnualReturnLabel.text = Constant.DEFAULT_LABEL
                 cell.averageAnnualReturnLabel.textColor = UIColor(named: "BodyText1")
+                cell.averageAnnualReturnLabel.font = CustomFont.setLargeFont()
             }
             else {
                 cell.averageAnnualReturnLabel.text = Algorithm.getReturnInPercentageDescription(totalReturnInPercentage)
                 cell.averageAnnualReturnLabel.textColor = Algorithm.getReturnColour(totalReturnInPercentage)
             }
-            cell.averageAnnualReturnLabel.font = CustomFont.setFont(size: Algorithm.getAdjustedLargeFontSize(totalReturnInPercentage), style: CustomFont.LARGE_STYLE, weight: CustomFont.LARGE_WEIGHT)
             
             return cell
             

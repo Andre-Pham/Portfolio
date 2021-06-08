@@ -265,7 +265,7 @@ class Algorithm: NSObject {
     }
     
     /// Get the average annual return of an array of owned Holdings based on performance
-    static func getAverageAnnualReturnInPercentage(_ holdings: [Holding]) -> Double {
+    static func getAverageUnitReturnInPercentage(holdings: [Holding], daysInUnit: Double) -> Double {
         let totalEquity = Algorithm.getTotalEquities(holdings)
         var furthestDateBack = Date()
         var totalInitialEquities = 0.0
@@ -279,10 +279,10 @@ class Algorithm: NSObject {
         }
         
         let daysBetweenFirstDate = Calendar.current.dateComponents([.day], from: furthestDateBack, to: Date()).day!
-        let yearsBetweenFirstDate = Double(daysBetweenFirstDate)/365.25
+        let unitsBetweenFirstDate = Double(daysBetweenFirstDate)/daysInUnit
         
         // Derived from initialInvestment*averageAnnualReturn^years = totalEquity
-        return 100*(pow((totalEquity/totalInitialEquities), (1/yearsBetweenFirstDate)) - 1)
+        return 100*(pow((totalEquity/totalInitialEquities), (1/unitsBetweenFirstDate)) - 1)
     }
     
     /// Get the return in dollars of an array of owned Holdings for the past 24H

@@ -117,6 +117,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		654217DF266FABB2007F9E4D /* Static */ = {
+			isa = PBXGroup;
+			children = (
+				659C8FC8263EA34E004D1E30 /* Popup.swift */,
+				65511731264A133200CBABAF /* CustomFont.swift */,
+				65511733264A8F3100CBABAF /* Algorithm.swift */,
+				654217D426695133007F9E4D /* Constant.swift */,
+				654217D8266B9A2C007F9E4D /* LocalNotification.swift */,
+				654217DD266E3B88007F9E4D /* SharedFunction.swift */,
+			);
+			path = Static;
+			sourceTree = "<group>";
+		};
 		659C8F78263E134B004D1E30 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,7 +147,7 @@
 			path = "Core Data";
 			sourceTree = "<group>";
 		};
-		659C8FB5263E72BA004D1E30 /* Watchlists */ = {
+		659C8FB5263E72BA004D1E30 /* Watchlist Related */ = {
 			isa = PBXGroup;
 			children = (
 				65AFBE3B262E2AE00039CB66 /* WatchlistsTableViewController.swift */,
@@ -145,7 +158,7 @@
 				659C8FC0263E7765004D1E30 /* HoldingPurchasesTableViewController.swift */,
 				659C8FC2263E778C004D1E30 /* HoldingPurchaseViewController.swift */,
 			);
-			path = Watchlists;
+			path = "Watchlist Related";
 			sourceTree = "<group>";
 		};
 		65AFBE05262D64850039CB66 = {
@@ -174,18 +187,13 @@
 				65AFBE4B262E61F30039CB66 /* Cells */,
 				65AFBE3E262E5CEE0039CB66 /* Classes */,
 				65AFBE2D262E28010039CB66 /* View Controllers */,
+				654217DF266FABB2007F9E4D /* Static */,
 				65AFBE11262D64860039CB66 /* AppDelegate.swift */,
 				65AFBE13262D64860039CB66 /* SceneDelegate.swift */,
 				65AFBE17262D64860039CB66 /* Main.storyboard */,
 				65AFBE1A262D648D0039CB66 /* Assets.xcassets */,
 				65AFBE1C262D648D0039CB66 /* LaunchScreen.storyboard */,
 				65AFBE1F262D648D0039CB66 /* Info.plist */,
-				659C8FC8263EA34E004D1E30 /* Popup.swift */,
-				65511731264A133200CBABAF /* CustomFont.swift */,
-				65511733264A8F3100CBABAF /* Algorithm.swift */,
-				654217D426695133007F9E4D /* Constant.swift */,
-				654217D8266B9A2C007F9E4D /* LocalNotification.swift */,
-				654217DD266E3B88007F9E4D /* SharedFunction.swift */,
 			);
 			path = portfolio;
 			sourceTree = "<group>";
@@ -193,7 +201,7 @@
 		65AFBE2D262E28010039CB66 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				659C8FB5263E72BA004D1E30 /* Watchlists */,
+				659C8FB5263E72BA004D1E30 /* Watchlist Related */,
 				65AFBE2F262E293B0039CB66 /* DashboardViewController.swift */,
 				65AFBE2A262E27FB0039CB66 /* TabBarViewController.swift */,
 				65AFBE32262E2A780039CB66 /* PortfolioViewController.swift */,

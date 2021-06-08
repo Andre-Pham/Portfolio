@@ -164,7 +164,7 @@ class SearchNewHoldingTableViewController: UITableViewController {
                 let tickerSearchResponse = try decoder.decode(TickerSearchResults.self, from: data!)
                 
                 for holding in tickerSearchResponse.data {
-                    if holding.instrument_type == "Digital Currency" || holding.currency == "USD" || Constant.OTHER_SUPPORTED_EXCHANGES.contains(holding.exchange) {
+                    if holding.instrument_type == "Digital Currency" || Constant.OTHER_SUPPORTED_EXCHANGES.contains(holding.exchange) {
                         self.searchResultsHoldings.append(
                             Holding(
                                 ticker: holding.symbol,

@@ -34,10 +34,10 @@ class Constant: NSObject {
         "10Y": ["unitsBackwards": 10, "unit": Calendar.Component.year, "interval": "1month"]
     ]
     
-    // Exchanges that are supported that aren't in the US or aren't crypto
+    // Exchanges that are supported that crypto
     static let OTHER_SUPPORTED_EXCHANGES = [
         "TSX", "TSXV", "NEO", "CSE", "BSE", "NSE", "Euronext", "LSE", "XBER", "XDUS", "FSX",
-        "XHAM", "XHAN", "XMUN", "XSTU", "XETR", "BIST"
+        "XHAM", "XHAN", "XMUN", "XSTU", "XETR", "BIST", "NYSE", "NASDAQ"
     ]
     
     // The colour to use if the Assets are not loaded or unwrapped properly

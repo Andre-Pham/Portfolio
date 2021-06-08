@@ -123,7 +123,7 @@ class SearchNewHoldingTableViewController: UITableViewController {
     
     /// Assign properties to destination
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SEGUE_OWNED_HOLDING {
+        if segue.identifier == self.SEGUE_OWNED_HOLDING {
             // If the user selects a watchlist, and is segued to add purchase data to it
             
             let destination = segue.destination as! NewOwnedHoldingViewController

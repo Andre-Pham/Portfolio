@@ -126,7 +126,7 @@ class HoldingPurchasesTableViewController: UITableViewController {
         let destination = segue.destination as! HoldingPurchaseViewController
         destination.holding = self.coreHolding
         
-        if segue.identifier == SEGUE_EDIT_PURCHASE {
+        if segue.identifier == self.SEGUE_EDIT_PURCHASE {
             // If you're editing an existant pruchase, destination needs to preview its data and edit it
             
             var allPurchases = self.coreHolding?.purchases?.allObjects as! [CorePurchase]

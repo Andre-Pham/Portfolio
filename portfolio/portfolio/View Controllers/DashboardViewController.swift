@@ -17,9 +17,15 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: - Properties
     
     // Constants
-    private let CELL_HOLDING = "holdingCell"
     private let KEYPATH_TABLEVIEW_HEIGHT = "contentSize"
     private let CELL_HEIGHT: CGFloat = 30.0
+    
+    // Cell identifiers
+    private let CELL_HOLDING = "holdingCell"
+    
+    // Segue identifiers
+    private let SEGUE_SWITCH_WATCHLIST = "switchWatchlist"
+    private let SEGUE_VIEW_HOLDING = "viewHolding"
     
     // Core Data
     weak var databaseController: DatabaseProtocol?
@@ -321,12 +327,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Calls when a segue is triggered
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "switchWatchlist" {
+        if segue.identifier == self.SEGUE_SWITCH_WATCHLIST {
             let destination = segue.destination as! SwitchDashboardWatchlistViewController
             // Links self as the delegate to recieve the watchlist to switch to
             destination.switchWatchlistDelegate = self
         }
-        else if segue.identifier == "viewHolding" {
+        else if segue.identifier == self.SEGUE_VIEW_HOLDING {
             let destination = segue.destination as! HoldingViewController
             destination.holding = self.holdings[self.holdingsTableView.indexPathForSelectedRow!.row]
         }

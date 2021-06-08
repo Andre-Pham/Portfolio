@@ -145,7 +145,7 @@ class WatchlistsTableViewController: UITableViewController {
     
     /// Calls when a segue is triggered
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SEGUE_SELECT_WATCHLIST {
+        if segue.identifier == self.SEGUE_SELECT_WATCHLIST {
             // SOURCE: https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
             // AUTHOR: GetSwifty - https://stackoverflow.com/users/1852164/getswifty
             // The page WatchlistTableViewController requires access to the watchlist

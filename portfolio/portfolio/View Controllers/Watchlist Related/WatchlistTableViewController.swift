@@ -150,14 +150,14 @@ class WatchlistTableViewController: UITableViewController {
     
     /// Assigns properties of destination ViewControllers
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SEGUE_ADD_HOLDING {
+        if segue.identifier == self.SEGUE_ADD_HOLDING {
             // User selected "Add Holding"
             
             let destination = segue.destination as! SearchNewHoldingTableViewController
             // So watchlist can have the holding added to it
             destination.watchlist = self.coreWatchlist
         }
-        else if segue.identifier == SEGUE_PURCHASES {
+        else if segue.identifier == self.SEGUE_PURCHASES {
             // User selected holding
             
             let destination = segue.destination as! HoldingPurchasesTableViewController

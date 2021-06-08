@@ -17,9 +17,14 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: - Properties
     
     // Constants
-    private let CELL_HOLDING = "holdingCell"
     private let KEYPATH_TABLEVIEW_HEIGHT = "contentSize"
     private let CELL_HEIGHT: CGFloat = 65.0
+    
+    // Cell identifiers
+    private let CELL_HOLDING = "holdingCell"
+    
+    // Segue identfiers
+    private let SEGUE_VIEW_HOLDING = "viewHolding"
     
     // Core Data
     weak var databaseController: DatabaseProtocol?
@@ -274,7 +279,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     
     /// Calls when a segue is triggered
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "viewHolding" {
+        if segue.identifier == self.SEGUE_VIEW_HOLDING {
             let destination = segue.destination as! HoldingViewController
             destination.holding = self.holdings[self.holdingsTableView.indexPathForSelectedRow!.row]
         }

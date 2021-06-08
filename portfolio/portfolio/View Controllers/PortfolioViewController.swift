@@ -160,6 +160,11 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         self.holdings.removeAll()
         self.chartData.data = []
         self.chartData.title = self.portfolio?.name ?? Constant.DEFAULT_LABEL
+        if self.portfolio?.holdings?.count == 0 {
+            self.chartData.title.append(" (Empty)")
+        }
+        self.totalReturnLabel.text = Constant.DEFAULT_LABEL
+        self.totalEquitiesLabel.text = Constant.DEFAULT_LABEL
         self.refreshControl.endRefreshing() // End before loading indicator begins
         self.graphDurationSegmentedControl.selectedSegmentIndex = 0
         self.generateChartData(unitsBackwards: 1, unit: .day, interval: "5min", onlyUpdateGraph: false)

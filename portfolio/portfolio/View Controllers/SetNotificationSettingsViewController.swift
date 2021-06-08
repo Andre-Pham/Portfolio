@@ -9,7 +9,11 @@ import UIKit
 
 class SetNotificationSettingsViewController: UIViewController {
     
-    var useAlternateTitle = false
+    // MARK: - Properties
+    
+    public var useAlternateTitle = false
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var marketOpenDatePicker: UIDatePicker!
     @IBOutlet weak var marketCloseDatePicker: UIDatePicker!
@@ -22,6 +26,9 @@ class SetNotificationSettingsViewController: UIViewController {
     @IBOutlet weak var marketCloseDescriptionLabel: UILabel!
     @IBOutlet weak var disclaimerLabel: UILabel!
     
+    // MARK: - Methods
+    
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +39,7 @@ class SetNotificationSettingsViewController: UIViewController {
         self.marketCloseDescriptionLabel.font = CustomFont.setBodyFont()
         self.disclaimerLabel.font = CustomFont.setDetailFont()
         
-        // Button
+        // Save button
         saveButton.backgroundColor = UIColor(named: "GreyBlack1")
         saveButton.layer.cornerRadius = 5
         saveButton.titleLabel?.font = CustomFont.setButtonFont()
@@ -43,6 +50,7 @@ class SetNotificationSettingsViewController: UIViewController {
         }
     }
     
+    /// Calls when save button is clicked, begins local notifications
     @IBAction func saveButtonClicked(_ sender: Any) {
         // Make sure previous notifications are cleared
         for day in 2...6 {

@@ -18,25 +18,25 @@ class PerformanceCollectionViewController: UICollectionViewController {
     // MARK: - Properties
     
     // Constants
-    let CELL_WIDE = "wideCell"
-    let CELL_SINGLE = "singleCell"
-    let CELL_TALL = "tallCell"
-    let WIDE_CELL_RANGE = 0...0
-    let SINGLE_CELL_RANGE = 1...4
-    let TALL_CELL_RANGE = 5...6
-    let SINGLE_CELL_TITLES = ["Most Growth", "Most Return", "Least Growth", "Least Return"]
-    let TALL_CELL_TITLES = ["Winners", "Losers"]
+    private let CELL_WIDE = "wideCell"
+    private let CELL_SINGLE = "singleCell"
+    private let CELL_TALL = "tallCell"
+    private let WIDE_CELL_RANGE = 0...0
+    private let SINGLE_CELL_RANGE = 1...4
+    private let TALL_CELL_RANGE = 5...6
+    private let SINGLE_CELL_TITLES = ["Most Growth", "Most Return", "Least Growth", "Least Return"]
+    private let TALL_CELL_TITLES = ["Winners", "Losers"]
     
     // Core Data
     weak var databaseController: DatabaseProtocol?
     
     // Loading indicators
-    var indicator = UIActivityIndicatorView()
-    var refreshControl = UIRefreshControl()
+    private var indicator = UIActivityIndicatorView()
+    private var refreshControl = UIRefreshControl()
     
     // Other properties
-    var portfolio: CoreWatchlist?
-    var holdings: [Holding] = []
+    private var portfolio: CoreWatchlist?
+    private var holdings: [Holding] = []
     
     // MARK: - Methods
     
@@ -50,7 +50,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
         // Add margins to the collection
         collectionView!.contentInset = UIEdgeInsets(top: 5, left: Constant.CGF_LEADING, bottom: 20, right: Constant.CGF_LEADING)
         
-        // Set up frame adn spacing for the collection
+        // Set up frame and spacing for the collection
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = Constant.CGF_LEADING // spacing left/right
@@ -63,7 +63,7 @@ class PerformanceCollectionViewController: UICollectionViewController {
         // Add scroll up to refresh
         self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
         self.collectionView.refreshControl = self.refreshControl
-        
+        // Set up loading indicator
         SharedFunction.setUpLoadingIndicator(indicator: self.indicator, view: self.view)
         
         // Sets property databaseController to reference to the databaseController from AppDelegate
@@ -252,19 +252,19 @@ class PerformanceCollectionViewController: UICollectionViewController {
             for i in 0...2 {
                 if holdings.count > i {
                     let holding = holdings[i]
-                    let totalGainInPercentage = holding.getReturnInPercentage()
-                    let totalGainInDollars = holding.getReturnInDollars()
-                    let colour = Algorithm.getReturnColour(totalGainInDollars)
+                    let totalReturnInPercentage = holding.getReturnInPercentage()
+                    let totalReturnInDollars = holding.getReturnInDollars()
+                    let colour = Algorithm.getReturnColour(totalReturnInDollars)
                     
                     // Ticker label
                     labels[i][0]?.text = holding.ticker
                     
                     // Return in percentage label
-                    labels[i][1]?.text = Algorithm.getReturnInPercentageDescription(totalGainInPercentage)
+                    labels[i][1]?.text = Algorithm.getReturnInPercentageDescription(totalReturnInPercentage)
                     labels[i][1]?.textColor = colour
                     
                     // Return in dollars label
-                    labels[i][2]?.text = Algorithm.getReturnInDollarsDescription(totalGainInDollars)
+                    labels[i][2]?.text = Algorithm.getReturnInDollarsDescription(totalReturnInDollars)
                     labels[i][2]?.textColor = colour
                 }
                 else {
@@ -304,6 +304,7 @@ extension PerformanceCollectionViewController: UICollectionViewDelegateFlowLayou
         }
         else {
             // self.TALL_CELL_RANGE.contains(indexPath.row)
+            
             let width = (UIScreen.main.bounds.width - Constant.CGF_LEADING*3)/2
             return CGSize(width: width, height: 320)
         }

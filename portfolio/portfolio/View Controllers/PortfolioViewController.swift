@@ -17,24 +17,24 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: - Properties
     
     // Constants
-    let CELL_HOLDING = "holdingCell"
-    let KEYPATH_TABLEVIEW_HEIGHT = "contentSize"
-    let CELL_HEIGHT: CGFloat = 65.0
+    private let CELL_HOLDING = "holdingCell"
+    private let KEYPATH_TABLEVIEW_HEIGHT = "contentSize"
+    private let CELL_HEIGHT: CGFloat = 65.0
     
     // Core Data
     weak var databaseController: DatabaseProtocol?
     
     // ChartView
-    let swiftUIView = ChartView()
-    var chartData = ChartData(title: "Title", legend: "Change in Percentage (%)", data: [])
+    private let swiftUIView = ChartView()
+    private var chartData = ChartData(title: "Title", legend: "Change in Percentage (%)", data: [])
     
     // Loading indicators
-    var indicator = UIActivityIndicatorView()
-    var refreshControl = UIRefreshControl()
+    private var indicator = UIActivityIndicatorView()
+    private var refreshControl = UIRefreshControl()
     
     // Other properties
-    var portfolio: CoreWatchlist?
-    var holdings: [Holding] = []
+    private var portfolio: CoreWatchlist?
+    private var holdings: [Holding] = []
     
     // MARK: - Outlets
     
@@ -88,7 +88,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         // Add scroll up to refresh
         self.refreshControl.addTarget(self, action: #selector(self.refreshControlChanged(_:)), for: .valueChanged)
         self.scrollView.refreshControl = self.refreshControl
-        
+        // Set up loading indicator
         SharedFunction.setUpLoadingIndicator(indicator: self.indicator, view: self.view)
         
         // Fonts
@@ -232,6 +232,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         )
     }
     
+    /// Updates the page with the new content provided from a previous API request
     func presentData(onlyUpdateGraph: Bool) {
         // If no holdings were created from the API request, don't run the following code because it'll crash
         if self.holdings.count > 0 {
@@ -257,6 +258,7 @@ class PortfolioViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    /// Updates the chart data after pinching to percieve zooming in
     @IBAction func handlePinch(_ sender: Any) {
         guard let recognizer = sender as? UIPinchGestureRecognizer else {
             return

@@ -12,28 +12,34 @@ class SwitchDashboardWatchlistViewController: UIViewController, UITableViewDeleg
     // MARK: - Properties
     
     // Constants
-    let CELL_WATCHLIST = "watchlistCell"
+    private let CELL_WATCHLIST = "watchlistCell"
     
     // Core data
     weak var databaseController: DatabaseProtocol?
     
     // Listeners
-    var listenerType = ListenerType.watchlist
+    public var listenerType = ListenerType.watchlist
     
     // Other properties
-    var shownWatchlists: [CoreWatchlist] = []
+    private var coreWatchlists: [CoreWatchlist] = []
     
-    var switchWatchlistDelegate: SwitchWatchlistDelegate?
+    public var switchWatchlistDelegate: SwitchWatchlistDelegate?
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var navigationBar: UINavigationBar!
     
+    // MARK: - Methods
+    
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Title font
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: CustomFont.setSubtitle2Font()]
-        
+        // Title vertical position
         self.navigationBar.setTitleVerticalPositionAdjustment(CGFloat(2), for: UIBarMetrics.default)
         
         // SOURCE: https://stackoverflow.com/questions/33234180/uitableview-example-for-swift
@@ -64,15 +70,17 @@ class SwitchDashboardWatchlistViewController: UIViewController, UITableViewDeleg
         databaseController?.removeListener(listener: self)
     }
     
+    /// Calls when a watchlist is selected, calls the delegate to update the Dashboard's shown watchlist
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // When the user selects a row within the Table View
 
-        self.switchWatchlistDelegate?.switchWatchlist(self.shownWatchlists[indexPath.row])
+        self.switchWatchlistDelegate?.switchWatchlist(self.coreWatchlists[indexPath.row])
 
         tableView.deselectRow(at: indexPath, animated: true)
         dismiss(animated: true, completion: nil)
     }
     
+    /// Calls when the cancel button is pressed, dismisses the view
     @IBAction func cancelButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -91,7 +99,7 @@ extension SwitchDashboardWatchlistViewController {
     
     /// Returns the number of rows in any given section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.shownWatchlists.count
+        return self.coreWatchlists.count
     }
     
     /// Creates the cells and contents of the TableView
@@ -99,7 +107,7 @@ extension SwitchDashboardWatchlistViewController {
         // Only one section: watchlists
         
         let watchlistCell = tableView.dequeueReusableCell(withIdentifier: CELL_WATCHLIST, for: indexPath)
-        let watchlist = self.shownWatchlists[indexPath.row]
+        let watchlist = self.coreWatchlists[indexPath.row]
         
         watchlistCell.textLabel?.text = watchlist.name
         // Subtitle indicates if the watchlist is the portfolio or owned (otherwise no subtitle)
@@ -126,7 +134,7 @@ extension SwitchDashboardWatchlistViewController {
 extension SwitchDashboardWatchlistViewController: DatabaseListener {
     
     func onAnyWatchlistChange(change: DatabaseChange, coreWatchlists: [CoreWatchlist]) {
-        self.shownWatchlists = coreWatchlists
+        self.coreWatchlists = coreWatchlists
         tableView.reloadData()
     }
 

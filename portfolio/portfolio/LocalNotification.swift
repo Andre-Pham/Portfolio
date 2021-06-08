@@ -9,17 +9,26 @@ import UIKit
 
 class LocalNotification: NSObject {
     
+    // MARK: - Properties
+    
     static let appDelegate = {
         return UIApplication.shared.delegate as! AppDelegate
     }()
+    
+    // Identifiers
     static let MARKET_OPEN_NOTIFICATION_IDENTIFIER = "marketOpenNotification"
     static let MARKET_CLOSE_NOTIFICATION_IDENTIIFER = "marketCloseNotification"
     
+    // MARK: - Methods
+    
+    /// Assigns repeating local notifications that trigger every time the user's assigned market opens and closes
     static func startMarketStatusNotifications(time: DateComponents, identifier: String) {
+        // Make sure notifications are enabled
         guard LocalNotification.appDelegate.notificationsEnabled else {
             return
         }
         
+        // Set the content of the local notification
         let content = UNMutableNotificationContent()
         if identifier == MARKET_OPEN_NOTIFICATION_IDENTIFIER {
             content.title = "Markets Now Open!"
@@ -36,7 +45,7 @@ class LocalNotification: NSObject {
         
         // 1: Sunday, 2: Monday, etc.
         for day in 2...6 {
-            // Notification triggers every weekday at 10:30 am
+            // Notification triggers Mon-Fri at the set time
             var triggerTime = time
             triggerTime.weekday = day
             

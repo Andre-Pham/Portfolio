@@ -8,13 +8,18 @@
 import UIKit
 
 class Algorithm: NSObject {
+    // These are functions that are either really specific calculations/algorithms
+    // that are better encapsulated to be used as one line, or are repeated enough to
+    // be made as a static function
     
     // MARK: - Description Algorithms
     
+    /// Returns a number rounded to 2 decimal places
     static func roundToTwo(_ number: Double) -> Double {
         return round(number * 100)/100.0
     }
     
+    /// Returns "+" or "-" to be used as a prefix, based on if a number is positive or negative
     static func getPrefix(_ number: Double) -> String {
         if number < 0 {
             return "-"
@@ -22,13 +27,15 @@ class Algorithm: NSObject {
         return "+"
     }
     
+    /// Returns the colour to represent a gain or loss in money
     static func getReturnColour(_ number: Double) -> UIColor {
         if number < 0 {
-            return UIColor(named: "Red1") ?? UIColor.black
+            return UIColor(named: "Red1") ?? Constant.BACKUP_COLOUR
         }
-        return UIColor(named: "Green1") ?? UIColor.black
+        return UIColor(named: "Green1") ?? Constant.BACKUP_COLOUR
     }
     
+    /// Generates the description to represent a return in the format "+ $500 (100%)"
     static func getReturnDescription(returnInDollars: Double, returnInPercentage: Double) -> String {
         let prefix = Algorithm.getPrefix(returnInDollars)
         let shownReturnInDollars = Algorithm.roundToTwo(abs(returnInDollars))
@@ -36,29 +43,37 @@ class Algorithm: NSObject {
         return "\(prefix) $\(shownReturnInDollars) (\(shownReturnInPercentage)%)"
     }
     
+    /// Generates a description to represent a return in the format "+ $500"
     static func getReturnInDollarsDescription(_ returnInDollars: Double) -> String {
         let prefix = Algorithm.getPrefix(returnInDollars)
         let shownReturnInDollars = Algorithm.roundToTwo(abs(returnInDollars))
         return "\(prefix) $\(shownReturnInDollars)"
     }
     
+    /// Generates a description to rpresent a return in the format "+ 100%"
     static func getReturnInPercentageDescription(_ returnInPercentage: Double) -> String {
         let prefix = Algorithm.getPrefix(returnInPercentage)
         let shownReturnInPercentage = Algorithm.roundToTwo(abs(returnInPercentage))
         return "\(prefix) \(shownReturnInPercentage)%"
     }
     
+    /// Generates a description for the current date in the format "Tuesday, June 8"
     static func getCurrentDateDescription() -> String {
+        // Generate current date as a string
         let currentDate = Date()
         let formatter = DateFormatter()
         formatter.dateStyle = .full
         var currentDateFormatted = formatter.string(from: currentDate)
+        
+        // Remove year from the current date string
         formatter.dateFormat = "yyyy"
         let currentYearFormatted = formatter.string(from: currentDate)
         currentDateFormatted = currentDateFormatted.replacingOccurrences(of: ", \(currentYearFormatted)", with: "")
+        
         return currentDateFormatted
     }
     
+    /// Generates a custom font size specifically for the Annual Average Return cell in Performance, based on number
     static func getAdjustedLargeFontSize(_ number: Double) -> Double {
         var sizeReduction = 0.0
         if abs(number) >= 100 {
@@ -69,6 +84,7 @@ class Algorithm: NSObject {
     
     // MARK: - API Request Algorithms
     
+    /// Concatenate tickers in the format to be used as a query for the API request
     static func getTickerQuery(_ coreWatchlist: CoreWatchlist) -> String {
         // Generates argument for what tickers data will be retrieved for
         var tickers = ""
@@ -82,6 +98,7 @@ class Algorithm: NSObject {
         return String(tickers.dropLast())
     }
     
+    /// Get the previous makret open's date and format it to be used as a query for the API request
     static func getPreviousOpenDateQuery(unit: Calendar.Component, unitsBackwards: Int) -> String {
         // Generates the previous day's date, so we can retrieve intraday prices
         var earlierDate = Calendar.current.date(
@@ -109,8 +126,9 @@ class Algorithm: NSObject {
         return formatter.string(from: earlierDate!)
     }
     
-    static func getRequestURLComponents(tickers: String, interval: String, startDate: String) -> URLComponents {
-        // https://api.twelvedata.com/time_series?symbol=MSFT,AMZN&interval=5min&start_date=2021-4-26&timezone=Australia/Sydney&apikey=fb1e4d1cdf934bdd8ef247ea380bd80a
+    /// Form the url for the API request using the parameters as components
+    static func getPricesRequestURLComponents(tickers: String, interval: String, startDate: String) -> URLComponents {
+        // EXAMPLE: https://api.twelvedata.com/time_series?symbol=MSFT,AMZN&interval=5min&start_date=2021-4-26&timezone=Australia/Sydney&apikey=fb1e4d1cdf934bdd8ef247ea380bd80a
         
         // Form URL from different components
         var requestURLComponents = URLComponents()
@@ -127,10 +145,32 @@ class Algorithm: NSObject {
         return requestURLComponents
     }
     
+    static func getSearchRequestURLComponents(searchText: String) -> URLComponents {
+        // EXAMPLE: https://api.twelvedata.com/symbol_search?symbol=NDQ&source=docs
+        
+        // Form URL from different components
+        var requestURLComponents = URLComponents()
+        requestURLComponents.scheme = "https"
+        requestURLComponents.host = "api.twelvedata.com"
+        requestURLComponents.path = "/symbol_search"
+        requestURLComponents.queryItems = [
+            URLQueryItem(
+                name: "symbol",
+                value: searchText
+            ),
+            URLQueryItem(
+                name: "source",
+                value: "docs"
+            )
+        ]
+        
+        return requestURLComponents
+    }
+    
     // MARK: - API Response Algorithms
     
+    /// Retrieve the prices within the decoded API response for a single holding, the last price in the array is the current price
     static func getPrices(_ tickerResponse: Ticker) -> [Double]? {
-        // Get price data in Double type retreived from API
         var prices: [Double] = []
         var currentPrice: Double? = nil
         for stringPrice in tickerResponse.values {
@@ -148,6 +188,7 @@ class Algorithm: NSObject {
         return nil
     }
     
+    /// Using data retrieved from the decoded API response, create an instance of a Holding with said data
     static func createHoldingFromTickerResponse(_ tickerResponse: Ticker) -> Holding? {
         // Get price data in Double type retreived from API
         if let allPrices = Algorithm.getPrices(tickerResponse) {
@@ -159,6 +200,7 @@ class Algorithm: NSObject {
         return nil
     }
     
+    /// Combines the prices of all the holdings to generate graph plots in percentage
     static func getChartPlots(holdings: [Holding]) -> [Double] {
         // Find how many prices to plot
         var num_prices = 0
@@ -167,21 +209,23 @@ class Algorithm: NSObject {
                 num_prices = holding.prices.count
             }
         }
+        
         // Merge all the prices of the holdings to create the single graph
-        var combinedPrices = [Double](repeating: 0.0, count: num_prices)
+        var combinedPlots = [Double](repeating: 0.0, count: num_prices)
         for holding in holdings {
             let holdingPercentages = holding.convertPricesToPercentages()
             for priceIndex in 0..<holdingPercentages.count {
                 // API provides values in reverse order
                 let reverseIndex = abs(priceIndex - (holdingPercentages.count-1))
                 
-                combinedPrices[reverseIndex] += holdingPercentages[priceIndex]
+                combinedPlots[reverseIndex] += holdingPercentages[priceIndex]
             }
         }
         
-        return combinedPrices
+        return combinedPlots
     }
     
+    /// Transfer purchase information from Core Data to Holding instances
     static func transferPurchasesFromCoreToHoldings(coreHoldings: [CoreHolding], holdings: [Holding]) {
         // Add the purchase data for each holding created
         for coreHolding in coreHoldings {
@@ -195,6 +239,7 @@ class Algorithm: NSObject {
     
     // MARK: - Finance Algorithms
     
+    /// Get the return in dollars of an array of owned Holdings since their purchase dates
     static func getTotalReturnInDollars(_ holdings: [Holding]) -> Double {
         var totalReturnInDollars = 0.0
         for holding in holdings {
@@ -203,6 +248,7 @@ class Algorithm: NSObject {
         return totalReturnInDollars
     }
     
+    /// Get the total equities (total dollar value) of an array of owned Holdings
     static func getTotalEquities(_ holdings: [Holding]) -> Double {
         var totalEquities = 0.0
         for holding in holdings {
@@ -211,12 +257,14 @@ class Algorithm: NSObject {
         return totalEquities
     }
     
+    /// Get the return in percentage of an array of owned Holdings since their purchase dates
     static func getTotalReturnInPercentage(_ holdings: [Holding]) -> Double {
         let totalReturnInDollars = Algorithm.getTotalReturnInDollars(holdings)
         let totalEquities = Algorithm.getTotalEquities(holdings)
         return 100*(totalEquities/(totalEquities - totalReturnInDollars) - 1)
     }
     
+    /// Get the average annual return of an array of owned Holdings based on performance
     static func getAverageAnnualReturnInPercentage(_ holdings: [Holding]) -> Double {
         let totalEquity = Algorithm.getTotalEquities(holdings)
         var furthestDateBack = Date()
@@ -237,22 +285,25 @@ class Algorithm: NSObject {
         return 100*(pow((totalEquity/totalInitialEquities), (1/yearsBetweenFirstDate)) - 1)
     }
     
+    /// Get the return in dollars of an array of owned Holdings for the past 24H
     static func getDayReturnInDollars(_ holdings: [Holding]) -> Double {
-        var dayGainDollars = 0.0
+        var dayReturnInDollars = 0.0
         for holding in holdings {
-            if let dayReturnInDollars = holding.getDayReturnInDollars() {
-                dayGainDollars += dayReturnInDollars
+            if let holdingDayReturnInDollars = holding.getDayReturnInDollars() {
+                dayReturnInDollars += holdingDayReturnInDollars
             }
         }
-        return dayGainDollars
+        return dayReturnInDollars
     }
     
+    /// Get the return in percentage of an array of owned Holdings for the past 24H
     static func getDayReturnInPercentage(_ holdings: [Holding]) -> Double {
         let totalEquity = Algorithm.getTotalEquities(holdings)
-        let dayGainDollars = Algorithm.getDayReturnInDollars(holdings)
-        return 100*((totalEquity/(totalEquity - dayGainDollars) - 1))
+        let dayReturnInDollars = Algorithm.getDayReturnInDollars(holdings)
+        return 100*((totalEquity/(totalEquity - dayReturnInDollars) - 1))
     }
     
+    /// Gets the return in percentage of an array of unowned Holdings for the past 24H
     static func getDayGrowthInPercentage(_ holdings: [Holding]) -> Double {
         var dayReturnInPercentage = 0.0
         for holding in holdings {
@@ -265,6 +316,10 @@ class Algorithm: NSObject {
     
     // MARK: - Watchlist Algorithms
     
+    /**
+     Depending on the arguments provided, return the best/worst holding from an array of holdings, based on their return
+     in percentage/dollars
+     */
     static func getBestOrWorstHolding(_ holdings: [Holding], Best_or_Worst: String, Percentage_or_Dollars: String) -> Holding? {
         if !["Best", "Worst"].contains(Best_or_Worst) || !["Percentage", "Dollars"].contains(Percentage_or_Dollars) {
             fatalError("method getBestOrWorstHolding used incorrectly, invalid parameters given")
@@ -291,6 +346,10 @@ class Algorithm: NSObject {
         return nil
     }
     
+    /**
+     Returns an array of holdings ranked from worst to best in terms of return in percentage/dollars, depending on arguments.
+     Holdings are ranked from wost to best so their indices match their score i.e. first index = 0, first holding has score of 0
+     */
     static func getRankedHoldings(_ holdings: [Holding], Percentage_or_Dollars: String) -> [Holding] {
         if !["Percentage", "Dollars"].contains(Percentage_or_Dollars) {
             fatalError("method getBestOrWorstHolding used incorrectly, invalid parameters given")
@@ -316,12 +375,19 @@ class Algorithm: NSObject {
         return sortedHoldings
     }
     
+    /**
+     Returns two nested arrays based off an array of holdings, the first being the 3 "winner" holdings and the second being
+     the 3 "loser" holdings, where ranks are based on merging the ranks of the holdings from their return in dollars and return
+     in percentage
+     */
     static func getWinnerAndLoserHoldings(_ holdings: [Holding]) -> [[Holding]] {
         if holdings.count > 0 {
             var winnerHoldings: [Holding] = []
             var loserHoldings: [Holding] = []
+            
             let rankedHoldingsInPercentage = Algorithm.getRankedHoldings(holdings, Percentage_or_Dollars: "Percentage")
             let rankedHoldingsInDollars = Algorithm.getRankedHoldings(holdings, Percentage_or_Dollars: "Dollars")
+            
             var scores = [Holding: Int]()
             for holding in holdings {
                 if let percentageScore = rankedHoldingsInPercentage.firstIndex(of: holding), let dollarsScore = rankedHoldingsInDollars.firstIndex(of: holding) {
@@ -330,7 +396,7 @@ class Algorithm: NSObject {
             }
             
             // SOURCE: https://stackoverflow.com/questions/25377177/sort-dictionary-by-keys
-            // AUTHOR: rks - Dan Beaulieu - https://stackoverflow.com/users/1664443/dan-beaulieu
+            // AUTHOR: Dan Beaulieu - https://stackoverflow.com/users/1664443/dan-beaulieu
             let rankedHoldings = scores.sorted(by: {$0.1 < $1.1})
             
             for i in 0...2 {
@@ -345,6 +411,7 @@ class Algorithm: NSObject {
         return [[], []]
     }
     
+    /// Mutates an array of Holdings to be alphabetically in order
     static func arrangeHoldingsAlphabetically(_ holdings: inout [Holding]) {
         holdings.sort {
             if let ticker1 = $0.ticker, let ticker2 = $1.ticker {
@@ -354,7 +421,8 @@ class Algorithm: NSObject {
         }
     }
     
-    static func arrangeCoreHoldings(_ coreHoldings: inout [CoreHolding]) {
+    /// Mutates an array of CoreHoldings to be in alphabetical order
+    static func arrangeCoreHoldingsAlphabetically(_ coreHoldings: inout [CoreHolding]) {
         coreHoldings.sort {
             if let ticker1 = $0.ticker, let ticker2 = $1.ticker {
                 return ticker1 < ticker2
@@ -363,6 +431,7 @@ class Algorithm: NSObject {
         }
     }
     
+    /// Mutates an array of CorePurchases to be in order of date, from most recent to least recent
     static func arrangeCorePurchases(_ corePurchases: inout [CorePurchase]) {
         corePurchases.sort {
             if let date1 = $0.date, let date2 = $1.date {
@@ -374,7 +443,9 @@ class Algorithm: NSObject {
     
     // MARK: - Gesture Algorithms
     
+    /// Generate the range of chart plot values to keep based on how much the and horizontally where user has pinched
     static func getPinchedChartRange(scale: CGFloat, touchCoords: CGPoint, chartPlotCount: Int) -> ClosedRange<Int> {
+        // current number of plots * multiplier = new number of plots (minimum of 2 remaining)
         var multiplier = -0.0833*Double(scale) + 1.0833
         if multiplier > 1.0 {
             return 0...chartPlotCount - 1
@@ -386,8 +457,11 @@ class Algorithm: NSObject {
         if newChartPlotCount < 2.0 {
             newChartPlotCount = 2.0
         }
+        
+        // Middle index is the index in the array relative to the horizontal pinch position
         let screenWidth = UIScreen.main.bounds.width
         let middleIndex = Int(Double(chartPlotCount)*(Double(touchCoords.x)/Double(screenWidth)))
+        
         var leftIndex = middleIndex - Int(floor(newChartPlotCount/2))
         if leftIndex < 0 {
             leftIndex = 0

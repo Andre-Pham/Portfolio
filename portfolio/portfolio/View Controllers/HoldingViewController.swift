@@ -13,14 +13,14 @@ class HoldingViewController: UIViewController {
     // MARK: - Properties
     
     // ChartView
-    let swiftUIView = ChartView()
-    var chartData = ChartData(title: "Individual Performance", legend: "Change in Percentage (%)", data: [])
+    private let swiftUIView = ChartView()
+    private var chartData = ChartData(title: "Individual Performance", legend: "Change in Percentage (%)", data: [])
     
     // Loading indicators
-    var indicator = UIActivityIndicatorView()
+    private var indicator = UIActivityIndicatorView()
     
     // Other properties
-    var holding: Holding?
+    public var holding: Holding?
     
     // MARK: - Outlets
     
@@ -57,12 +57,13 @@ class HoldingViewController: UIViewController {
         // Add the chart to the view
         SharedFunction.addSubSwiftUIView(swiftUIView, to: self.view, chartData: self.chartData, viewController: self, stackView: self.rootStackView)
         
+        // Set up loading indicator
         SharedFunction.setUpLoadingIndicator(indicator: self.indicator, view: self.view)
         
         // Make it so page scrolls even if all the contents fits on one page
         self.scrollView.alwaysBounceVertical = true
         
-        // Fonts
+        // Description labels
         self.currentPriceDescriptionLabel.font = CustomFont.setBodyFont().bold
         self.todaysChangeDescriptionLabel.font = CustomFont.setBodyFont().bold
         
@@ -116,7 +117,7 @@ class HoldingViewController: UIViewController {
         let startDate = Algorithm.getPreviousOpenDateQuery(unit: unit, unitsBackwards: unitsBackwards)
         
         // Generate URL from components
-        let requestURLComponents = Algorithm.getRequestURLComponents(tickers: ticker, interval: interval, startDate: startDate)
+        let requestURLComponents = Algorithm.getPricesRequestURLComponents(tickers: ticker, interval: interval, startDate: startDate)
         
         // Ensure URL is valid
         guard let requestURL = requestURLComponents.url else {
@@ -164,6 +165,7 @@ class HoldingViewController: UIViewController {
         task.resume()
     }
     
+    /// Updates the chart data after pinching to percieve zooming in
     @IBAction func handlePinch(_ sender: Any) {
         guard let recognizer = sender as? UIPinchGestureRecognizer else {
             return

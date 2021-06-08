@@ -15,8 +15,8 @@ class NewOwnedHoldingViewController: UIViewController {
     weak var databaseController: DatabaseProtocol?
     
     // Other properties
-    var watchlist: CoreWatchlist?
-    var holding: Holding?
+    public var watchlist: CoreWatchlist?
+    public var holding: Holding?
     
     // MARK: - Outlets
     
@@ -60,24 +60,9 @@ class NewOwnedHoldingViewController: UIViewController {
         let date = formatter.date(from: dateTextInput)
         
         if let price = Double(self.priceTextField.text!), let shares = Double(self.sharesTextField.text!), let date = date {
-            // Validate
-            var valid = true
-            var errorMessage = ""
-            if price <= 0 {
-                valid = false
-                errorMessage.append("The purchase price")
-            }
-            if shares <= 0 {
-                if !valid {
-                    errorMessage.append(" and the number of shares")
-                }
-                else {
-                    errorMessage.append("The number of shares")
-                }
-                valid = false
-            }
-            if !valid {
-                Popup.displayPopup(title: "Invalid Entries", message: errorMessage+" must be positive. Ensure your entries are valid and try again.", viewController: self)
+            // Validate entries
+            if !SharedFunction.purchaseEntriesIsValid(price: price, shares: shares, viewController: self) {
+                // Popup is taken care of by function
                 return
             }
             
@@ -101,6 +86,7 @@ class NewOwnedHoldingViewController: UIViewController {
             }
         }
         else {
+            // NaN entries cancels the save and triggers a popup
             Popup.displayPopup(title: "Invalid Entries", message: "An error occurred from your entries. Please ensure numbers were entered, and try again.", viewController: self)
         }
     }

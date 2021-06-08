@@ -12,17 +12,17 @@ class WatchlistsTableViewController: UITableViewController {
     // MARK: - Properties
     
     // Constants
-    let CELL_WATCHLIST = "watchlistCell"
-    let SEGUE_SELECT_WATCHLIST = "selectWatchlistSegue"
+    private let CELL_WATCHLIST = "watchlistCell"
+    private let SEGUE_SELECT_WATCHLIST = "selectWatchlistSegue"
     
     // Core data
     weak var databaseController: DatabaseProtocol?
     
     // Listeners
-    var listenerType = ListenerType.watchlist
+    public var listenerType = ListenerType.watchlist
     
     // Other properties
-    var shownWatchlists: [CoreWatchlist] = []
+    private var coreWatchlists: [CoreWatchlist] = []
     
     // MARK: - Methods
     
@@ -61,7 +61,7 @@ class WatchlistsTableViewController: UITableViewController {
     
     /// Returns the number of rows in any given section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.shownWatchlists.count
+        return self.coreWatchlists.count
     }
     
     /// Creates the cells and contents of the TableView
@@ -69,7 +69,7 @@ class WatchlistsTableViewController: UITableViewController {
         // Only one section: watchlists
         
         let watchlistCell = tableView.dequeueReusableCell(withIdentifier: CELL_WATCHLIST, for: indexPath)
-        let watchlist = self.shownWatchlists[indexPath.row]
+        let watchlist = self.coreWatchlists[indexPath.row]
         
         watchlistCell.textLabel?.text = watchlist.name
         // Subtitle indicates if the watchlist is the portfolio or owned (otherwise no subtitle)
@@ -108,7 +108,7 @@ class WatchlistsTableViewController: UITableViewController {
     /// Adds extra actions on the cell when swiped left
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let watchlist = self.shownWatchlists[indexPath.row]
+        let watchlist = self.coreWatchlists[indexPath.row]
         
         // Delete action - deletes the watchlist
         let delete = UIContextualAction(style: .destructive, title: "delete") {
@@ -143,14 +143,15 @@ class WatchlistsTableViewController: UITableViewController {
         return swipeActions
     }
     
+    /// Calls when a segue is triggered
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SEGUE_SELECT_WATCHLIST {
             // SOURCE: https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
             // AUTHOR: GetSwifty - https://stackoverflow.com/users/1852164/getswifty
-            // The page that shows the watchlist (WatchlistTableViewController) requires access to the watchlist
-            let watchlist = self.shownWatchlists[tableView.indexPathForSelectedRow!.row]
+            // The page WatchlistTableViewController requires access to the watchlist
+            let watchlist = self.coreWatchlists[tableView.indexPathForSelectedRow!.row]
             let destination = segue.destination as! WatchlistTableViewController
-            destination.shownWatchlist = watchlist
+            destination.coreWatchlist = watchlist
         }
     }
 
@@ -160,8 +161,9 @@ class WatchlistsTableViewController: UITableViewController {
 
 extension WatchlistsTableViewController: DatabaseListener {
     
+    /// Calls when there are changes to the watchlists in Core Data
     func onAnyWatchlistChange(change: DatabaseChange, coreWatchlists: [CoreWatchlist]) {
-        self.shownWatchlists = coreWatchlists
+        self.coreWatchlists = coreWatchlists
         tableView.reloadData()
     }
 

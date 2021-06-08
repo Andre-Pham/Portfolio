@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 
 class SharedFunction: NSObject {
+    // These are functions that are shared by multiple classes
     
     /// Calls a TwelveData request for time series prices for ticker(s), as well as other data
     static func requestTickerWebData(tickers: String, startDate: String, interval: String, indicator: UIActivityIndicatorView, coreWatchlist: CoreWatchlist?, completion: @escaping(Result<[Holding], Error>) -> Void) {
@@ -17,7 +18,7 @@ class SharedFunction: NSObject {
         }
         
         // Generate URL from components
-        let requestURLComponents = Algorithm.getRequestURLComponents(tickers: tickers, interval: interval, startDate: startDate)
+        let requestURLComponents = Algorithm.getPricesRequestURLComponents(tickers: tickers, interval: interval, startDate: startDate)
         
         // Ensure URL is valid
         guard let requestURL = requestURLComponents.url else {
@@ -80,6 +81,7 @@ class SharedFunction: NSObject {
         task.resume()
     }
     
+    /// Sets the style and constraints for a loading indicator
     static func setUpLoadingIndicator(indicator: UIActivityIndicatorView, view: UIView) {
         // Setup indicator
         indicator.style = UIActivityIndicatorView.Style.large
@@ -114,6 +116,30 @@ class SharedFunction: NSObject {
 
         // Notify the SwiftUI view that it has been moved to DashboardViewController
         chartViewHostingController.didMove(toParent: viewController)
+    }
+    
+    /// Determines if entires for a purchase is valid, and also displays a popup if they're invalid
+    static func purchaseEntriesIsValid(price: Double, shares: Double, viewController: UIViewController) -> Bool {
+        var valid = true
+        var errorMessage = ""
+        if price <= 0 {
+            valid = false
+            errorMessage.append("The purchase price")
+        }
+        if shares <= 0 {
+            if !valid {
+                errorMessage.append(" and the number of shares")
+            }
+            else {
+                errorMessage.append("The number of shares")
+            }
+            valid = false
+        }
+        if !valid {
+            Popup.displayPopup(title: "Invalid Entries", message: errorMessage+" must be positive. Ensure your entries are valid and try again.", viewController: viewController)
+        }
+        
+        return valid
     }
 
 }

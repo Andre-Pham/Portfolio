@@ -24,6 +24,7 @@ class CustomFont: UIFont {
     
     // Default sizes and weights for body
     static let BODY_SIZE = 16.0
+    static let BODY2_SIZE = 14.0
     static let BODY_STYLE: TextStyle = .body
     static let BODY_WEIGHT: Weight = .regular
     
@@ -54,7 +55,6 @@ class CustomFont: UIFont {
         return metrics.scaledFont(for: font)
     }
     
-    /// Assigns a font to a text field with the parameters to make a subtitle font
     static func setSubtitleFont() -> UIFont {
         return self.setFont(size: self.SUBTITLE_SIZE, style: self.SUBTITLE_STYLE, weight: self.SUBTITLE_WEIGHT)
     }
@@ -70,6 +70,10 @@ class CustomFont: UIFont {
     /// Assigns a font to a text field with the parameters to make a body font
     static func setBodyFont() -> UIFont {
         return self.setFont(size: self.BODY_SIZE, style: self.BODY_STYLE, weight: self.BODY_WEIGHT)
+    }
+    
+    static func setBody2Font() -> UIFont {
+        return self.setFont(size: self.BODY2_SIZE, style: self.BODY_STYLE, weight: self.BODY_WEIGHT)
     }
     
     static func setItalicBodyFont() -> UIFont {
@@ -95,10 +99,8 @@ class CustomFont: UIFont {
     
 }
 
-// CLEAN UP THIS IMPLEMENTATION LATER
 // https://stackoverflow.com/questions/4713236/how-do-i-set-bold-and-italic-on-uilabel-of-iphone-ipad
-// Maksymilian Wojakowski
-
+// AUTHOR: Maksymilian Wojakowski - https://stackoverflow.com/users/3254898/maksymilian-wojakowski
 extension UIFont {
     
     var bold: UIFont {

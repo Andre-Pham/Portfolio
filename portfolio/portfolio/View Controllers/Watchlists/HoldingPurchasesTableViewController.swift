@@ -9,16 +9,24 @@ import UIKit
 
 class HoldingPurchasesTableViewController: UITableViewController {
     
-    var coreHolding: CoreHolding?
+    // MARK: - Properties
     
-    let CELL_PURCHASE = "purchaseCell"
+    // Cell identifiers
+    private let CELL_PURCHASE = "purchaseCell"
     
-    let SEGUE_EDIT_PURCHASE = "editPurchaseSegue"
-    let SEGUE_NEW_PURCHASE = "newPurchaseSegue"
+    // Segue identifiers
+    private let SEGUE_EDIT_PURCHASE = "editPurchaseSegue"
+    private let SEGUE_NEW_PURCHASE = "newPurchaseSegue"
     
     // Core Data
     weak var databaseController: DatabaseProtocol?
+    
+    // Other properties
+    public var coreHolding: CoreHolding?
+    
+    // MARK: - Methods
 
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,12 +34,16 @@ class HoldingPurchasesTableViewController: UITableViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
+        // Adds an observer so that other pages can call reloadTableView to refresh the page
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableview), name: NSNotification.Name(rawValue: "reloadPurchases"), object: nil)
 
+        // Sets title to ticker
         self.title = self.coreHolding?.ticker
     }
     
-    // https://stackoverflow.com/questions/25921623/how-to-reload-tableview-from-another-view-controller-in-swift
+    // SOURCE: https://stackoverflow.com/questions/25921623/how-to-reload-tableview-from-another-view-controller-in-swift
+    // AUTHOR: Sebasitan - https://stackoverflow.com/users/673526/sebastian
+    /// Allows other pages to refresh the contents of this page
     @objc func reloadTableview(notification: NSNotification){
         //load data here
         self.tableView.reloadData()
@@ -51,6 +63,7 @@ class HoldingPurchasesTableViewController: UITableViewController {
     /// Creates the cells and contents of the TableView
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let purchaseCell = tableView.dequeueReusableCell(withIdentifier: CELL_PURCHASE, for: indexPath)
+        
         var allPurchases = self.coreHolding?.purchases?.allObjects as! [CorePurchase]
         Algorithm.arrangeCorePurchases(&allPurchases)
         let purchase = allPurchases[indexPath.row]
@@ -59,10 +72,12 @@ class HoldingPurchasesTableViewController: UITableViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
         
+        // Text label
         purchaseCell.textLabel?.text = formatter.string(from: purchaseDate!)
-        purchaseCell.detailTextLabel?.text = "\(purchase.shares) shares at $\(purchase.price)"
-        
         purchaseCell.textLabel?.font = CustomFont.setBodyFont()
+        
+        // Detail text label
+        purchaseCell.detailTextLabel?.text = "\(purchase.shares) shares at $\(purchase.price)"
         purchaseCell.detailTextLabel?.font = CustomFont.setDetailFont()
         
         return purchaseCell
@@ -107,12 +122,16 @@ class HoldingPurchasesTableViewController: UITableViewController {
     
     /// Transfers the name, instructions and ingredients of the selected meal to the CreateMealTableViewController when the user travels there
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // You're either adding a purchase, or editing a purchase, either way the destination requires access to the holding to edit/add to
         let destination = segue.destination as! HoldingPurchaseViewController
         destination.holding = self.coreHolding
         
         if segue.identifier == SEGUE_EDIT_PURCHASE {
-            let purchases = self.coreHolding?.purchases?.allObjects as! [CorePurchase]
-            destination.purchaseToEdit = purchases[tableView.indexPathForSelectedRow!.row]
+            // If you're editing an existant pruchase, destination needs to preview its data and edit it
+            
+            var allPurchases = self.coreHolding?.purchases?.allObjects as! [CorePurchase]
+            Algorithm.arrangeCorePurchases(&allPurchases)
+            destination.purchaseToEdit = allPurchases[tableView.indexPathForSelectedRow!.row]
         }
     }
 

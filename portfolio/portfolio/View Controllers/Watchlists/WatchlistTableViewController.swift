@@ -12,22 +12,22 @@ class WatchlistTableViewController: UITableViewController {
     // MARK: - Properties
     
     // Cell identifiers
-    let CELL_HOLDING = "holdingCell"
-    let CELL_RENAME = "renameCell"
+    private let CELL_HOLDING = "holdingCell"
+    private let CELL_RENAME = "renameCell"
     
     // Section identifiers
-    let SECTION_HOLDING = 0
-    let SECTION_RENAME = 1
+    private let SECTION_HOLDING = 0
+    private let SECTION_RENAME = 1
     
     // Segue identifiers
-    let SEGUE_ADD_HOLDING = "addHoldingSegue"
-    let SEGUE_PURCHASES = "holdingPurchasesSegue"
+    private let SEGUE_ADD_HOLDING = "addHoldingSegue"
+    private let SEGUE_PURCHASES = "holdingPurchasesSegue"
     
     // Core Data
     weak var databaseController: DatabaseProtocol?
     
     // Other properties
-    var shownWatchlist: CoreWatchlist?
+    public var coreWatchlist: CoreWatchlist?
     
     // MARK: - Methods
     
@@ -39,10 +39,11 @@ class WatchlistTableViewController: UITableViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
+        // Adds an observer so that other pages can call reloadTableView to refresh the page
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableview), name: NSNotification.Name(rawValue: "reloadHoldings"), object: nil)
         
         // Sets title to watchlist name
-        self.title = self.shownWatchlist?.name
+        self.title = self.coreWatchlist?.name
     }
     
     // SOURCE: https://stackoverflow.com/questions/25921623/how-to-reload-tableview-from-another-view-controller-in-swift
@@ -63,7 +64,7 @@ class WatchlistTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case self.SECTION_HOLDING:
-            return self.shownWatchlist?.holdings?.count ?? 0
+            return self.coreWatchlist?.holdings?.count ?? 0
         case self.SECTION_RENAME:
             return 1
         default:
@@ -75,8 +76,9 @@ class WatchlistTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == self.SECTION_HOLDING {
             let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_HOLDING, for: indexPath)
-            var holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
-            Algorithm.arrangeCoreHoldings(&holdings)
+            
+            var holdings = self.coreWatchlist?.holdings?.allObjects as! [CoreHolding]
+            Algorithm.arrangeCoreHoldingsAlphabetically(&holdings)
             let holding = holdings[indexPath.row]
             
             holdingCell.textLabel?.text = holding.ticker
@@ -105,15 +107,15 @@ class WatchlistTableViewController: UITableViewController {
     /// Adds extra actions on the cell when swiped left
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        var holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
-        Algorithm.arrangeCoreHoldings(&holdings)
+        var holdings = self.coreWatchlist?.holdings?.allObjects as! [CoreHolding]
+        Algorithm.arrangeCoreHoldingsAlphabetically(&holdings)
         let holding = holdings[indexPath.row]
         
         // Delete action - deletes the watchlist
         let delete = UIContextualAction(style: .destructive, title: "delete") {
             (action, view, completion) in
         
-            self.databaseController?.deleteCoreHoldingFromCoreWatchlist(coreHolding: holding, coreWatchlist: self.shownWatchlist!)
+            self.databaseController?.deleteCoreHoldingFromCoreWatchlist(coreHolding: holding, coreWatchlist: self.coreWatchlist!)
             self.databaseController?.saveChanges()
             
             tableView.reloadData()
@@ -129,10 +131,11 @@ class WatchlistTableViewController: UITableViewController {
         return swipeActions
     }
     
-    /// If the watchlist isn't owned, then the holding can't have purchases added to it, so no segue to add purchases
+    /// Calls when a segue is triggered
     override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
         if identifier == SEGUE_PURCHASES {
-            if let ownedWatchlist = self.shownWatchlist?.owned {
+            // If the watchlist isn't owned, the holding can't have purchases added to it, so no segue is triggered
+            if let ownedWatchlist = self.coreWatchlist?.owned {
                 return ownedWatchlist
             }
         }
@@ -143,14 +146,18 @@ class WatchlistTableViewController: UITableViewController {
     /// Assigns properties of destination ViewControllers
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SEGUE_ADD_HOLDING {
+            // User selected "Add Holding"
+            
             let destination = segue.destination as! SearchNewHoldingTableViewController
             // So watchlist can have the holding added to it
-            destination.watchlist = self.shownWatchlist
+            destination.watchlist = self.coreWatchlist
         }
         else if segue.identifier == SEGUE_PURCHASES {
+            // User selected holding
+            
             let destination = segue.destination as! HoldingPurchasesTableViewController
             // Holding is provided to load its purchases
-            let holdings = self.shownWatchlist?.holdings?.allObjects as! [CoreHolding]
+            let holdings = self.coreWatchlist?.holdings?.allObjects as! [CoreHolding]
             let holding = holdings[tableView.indexPathForSelectedRow!.row]
             destination.coreHolding = holding
         }
@@ -188,7 +195,7 @@ class WatchlistTableViewController: UITableViewController {
                         return
                     }
                     
-                    self.shownWatchlist?.name = trimmedTextInput
+                    self.coreWatchlist?.name = trimmedTextInput
                     self.title = trimmedTextInput
                     self.databaseController?.saveChanges()
                 }

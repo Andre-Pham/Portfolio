@@ -34,16 +34,14 @@ class NewWatchlistViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
+        // Fonts
         self.nameLabel.font = CustomFont.setSubtitle2Font()
         self.ownedLabel.font = CustomFont.setSubtitle2Font()
         self.disclaimerLabel.font = CustomFont.setDetailFont()
     }
     
-    // MARK: - Actions
-    
     /// Saves the new watchlist if save button is pressed
     @IBAction func saveBarButtonPressed(_ sender: Any) {
-        
         let watchlistName = self.nameTextField.text
         let trimmedWatchlistName = watchlistName?.trimmingCharacters(in: .whitespacesAndNewlines)
         

@@ -62,9 +62,9 @@ class ChartData: ObservableObject {
         if !data.isEmpty {
             if data.last! > 0 {
                 let newGradient = GradientColor(
-                    start: Color(UIColor(named: "Green1") ?? UIColor.black
+                    start: Color(UIColor(named: "Green1")  ?? Constant.BACKUP_COLOUR
                     ),
-                    end: Color(UIColor(named: "Green2") ?? UIColor.black
+                    end: Color(UIColor(named: "Green2")  ?? Constant.BACKUP_COLOUR
                     )
                 )
                 let newStyle = ChartStyle(

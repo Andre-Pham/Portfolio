@@ -5,13 +5,18 @@
 //  Created by Andre Pham on 25/5/21.
 //
 
-// https://stackoverflow.com/questions/31668970/is-it-possible-for-uistackview-to-scroll
+// Scrolling
+// SOURCE: https://stackoverflow.com/questions/31668970/is-it-possible-for-uistackview-to-scroll
+// AUTHOR: Arjan - https://stackoverflow.com/users/1766265/arjan
 
 import UIKit
 import SafariServices
 
 class InformationViewController: UIViewController, SFSafariViewControllerDelegate {
     
+    // MARK: - Outlets
+    
+    // Labels
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var aboutContentLabel: UILabel!
     @IBOutlet weak var disclaimersLabel: UILabel!
@@ -20,11 +25,15 @@ class InformationViewController: UIViewController, SFSafariViewControllerDelegat
     @IBOutlet weak var softwaresUsedContentLabel1: UILabel!
     @IBOutlet weak var softwaresUsedContentLabel2: UILabel!
     
+    // Stack views
     @IBOutlet weak var rootStackView: UIStackView!
     @IBOutlet weak var aboutStackView: UIStackView!
     @IBOutlet weak var disclaimersStackView: UIStackView!
     @IBOutlet weak var softwaresUsedStackView: UIStackView!
     
+    // MARK: - Methods
+    
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,26 +47,29 @@ class InformationViewController: UIViewController, SFSafariViewControllerDelegat
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
         button.addTarget(self, action: #selector(self.updateNotificationSettings), for: .touchUpInside)
 
+        // Titles formatting
         let titles = [
             self.aboutLabel,
             self.disclaimersLabel,
             self.softwaresUsedLabel
         ]
+        for title in titles {
+            title?.font = CustomFont.setSubtitleFont()
+        }
+        
+        // Contents formatting
         let contents = [
             self.aboutContentLabel,
             self.disclaimersContentLabel,
             self.softwaresUsedContentLabel1,
             self.softwaresUsedContentLabel2
         ]
-        
-        for title in titles {
-            title?.font = CustomFont.setSubtitleFont()
-        }
         for content in contents {
             content?.font = CustomFont.setBodyFont()
             content?.textColor = UIColor(named: "BodyText1")
         }
         
+        // Add margins to the stack views
         self.rootStackView.directionalLayoutMargins = .init(top: 10, leading: 0, bottom: 20, trailing: 0)
         self.aboutStackView.directionalLayoutMargins = .init(top: 5, leading: Constant.CGF_LEADING, bottom: 0, trailing: Constant.CGF_LEADING)
         self.disclaimersStackView.directionalLayoutMargins = .init(top: 35, leading: Constant.CGF_LEADING, bottom: 0, trailing: Constant.CGF_LEADING)
@@ -76,14 +88,17 @@ class InformationViewController: UIViewController, SFSafariViewControllerDelegat
         self.softwaresUsedContentLabel2.text = "To present market data in a digestible format, charts were implemented using the ChartView package, available as a public GitHub repository. The package offers simple and clean line charts (as well as other forms of charts) using Apple's SwiftUI framework."
     }
     
+    /// Calls when first hyperlink is clicked
     @IBAction func link1Clicked(_ sender: Any) {
         self.openLink(url: "https://twelvedata.com/")
     }
     
+    /// Calls when second hyperlink is clicked
     @IBAction func link2Clicked(_ sender: Any) {
         self.openLink(url: "https://github.com/AppPear/ChartView")
     }
     
+    /// Opens any url provided in Safari
     func openLink(url: String) {
         if let url = URL(string: url) {
             let safariVC = SFSafariViewController(url: url)
@@ -92,13 +107,16 @@ class InformationViewController: UIViewController, SFSafariViewControllerDelegat
         }
     }
     
+    /// Calls when the right bar button item is pressed, and presents view to update notification settings
     @objc func updateNotificationSettings() {
+        // Check if user has enabled notifications
         guard LocalNotification.appDelegate.notificationsEnabled else {
             Popup.displayPopup(title: "Notifications Disabled", message: "You've opted out of recieving notifications. Please enable them in your device's Settings, and refresh the app to continue.", viewController: self)
             
             return
         }
         
+        // Modally present view to adjust notifications
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let settings = storyboard.instantiateViewController(identifier: "setNotificationSettings") as! SetNotificationSettingsViewController
         settings.useAlternateTitle = true

@@ -9,18 +9,27 @@ import UIKit
 
 class SearchNewHoldingTableViewController: UITableViewController {
     
+    // MARK: - Properties
+    
+    // Cell identifiers
+    private let CELL_SEARCH_RESULT_HOLDING = "searchResultHoldingCell"
+    
+    // Segue identifiers
+    private let SEGUE_OWNED_HOLDING = "ownedHoldingSegue"
+    
+    // Core Data
     weak var databaseController: DatabaseProtocol?
     
-    var watchlist: CoreWatchlist?
-    var searchResultsHoldings = [Holding]()
+    // Loading indicator
+    private var indicator = UIActivityIndicatorView()
     
-    let CELL_SEARCH_RESULT_HOLDING = "searchResultHoldingCell"
+    // Other properties
+    public var watchlist: CoreWatchlist?
+    private var searchResultsHoldings = [Holding]()
     
-    let SEGUE_OWNED_HOLDING = "ownedHoldingSegue"
-    
-    // Indicator
-    var indicator = UIActivityIndicatorView()
+    // MARK: - Methods
 
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,16 +48,8 @@ class SearchNewHoldingTableViewController: UITableViewController {
         // Ensure search is always visible
         navigationItem.hidesSearchBarWhenScrolling = false
         
-        // Add a loading indicator view
-        self.indicator.style = UIActivityIndicatorView.Style.large
-        self.indicator.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(self.indicator)
-        
-        // Centres the loading indicator view
-        NSLayoutConstraint.activate([
-            self.indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            self.indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
-        ])
+        // Set up the loading indicator view
+        SharedFunction.setUpLoadingIndicator(indicator: self.indicator, view: self.view)
     }
     
     /// Returns how many sections the TableView has
@@ -67,6 +68,7 @@ class SearchNewHoldingTableViewController: UITableViewController {
         let holdingCell = tableView.dequeueReusableCell(withIdentifier: CELL_SEARCH_RESULT_HOLDING, for: indexPath)
         let holding = self.searchResultsHoldings[indexPath.row]
         
+        // Text
         if holding.instrumentType == "Digital Currency" {
             holdingCell.textLabel?.text = "\(holding.ticker ?? "[?]") (\(holding.exchange ?? "[?]"))"
             holdingCell.detailTextLabel?.text = "Cryptocurrency"
@@ -76,6 +78,10 @@ class SearchNewHoldingTableViewController: UITableViewController {
             holdingCell.detailTextLabel?.text = holding.instrument
         }
         
+        // Fonts
+        holdingCell.textLabel?.font = CustomFont.setBody2Font()
+        holdingCell.detailTextLabel?.font = CustomFont.setDetailFont()
+        
         return holdingCell
     }
     
@@ -84,6 +90,7 @@ class SearchNewHoldingTableViewController: UITableViewController {
         return false
     }
     
+    /// Cancels segue being executed if duplicate holding or if watchlist isn't "Owned" (hence no need to add purchases)
     override func shouldPerformSegue(withIdentifier identifier: String?, sender: Any?) -> Bool {
         let holding = self.searchResultsHoldings[tableView.indexPathForSelectedRow!.row]
         
@@ -96,8 +103,10 @@ class SearchNewHoldingTableViewController: UITableViewController {
             }
         }
         
+        // Stop user from adding purchase data for an unowned holding
         if let ownedWatchlist = self.watchlist?.owned {
             if !ownedWatchlist {
+                // Add holding to watchlist in Core Data in the process
                 let _ = databaseController?.addCoreHoldingToCoreWatchlist(ticker: holding.ticker!, currency: holding.currency!, coreWatchlist: self.watchlist!)
                 databaseController?.saveChanges()
                 
@@ -112,51 +121,23 @@ class SearchNewHoldingTableViewController: UITableViewController {
         return true
     }
     
-    /// Transfers the name, instructions and ingredients of the selected meal to the CreateMealTableViewController when the user travels there
+    /// Assign properties to destination
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SEGUE_OWNED_HOLDING {
+            // If the user selects a watchlist, and is segued to add purchase data to it
+            
             let destination = segue.destination as! NewOwnedHoldingViewController
             let holding = self.searchResultsHoldings[tableView.indexPathForSelectedRow!.row]
             
+            // Needs access to watchlist and holding to create coreHolding and add it to the watchlist
             destination.watchlist = self.watchlist
             destination.holding = holding
         }
-        /*
-        if segue.identifier == "searchMealSegue" {
-            // Define meal from cell being selected
-            // SOURCE: https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
-            // AUTHOR: GetSwifty
-            let meal = self.shownMeals[tableView.indexPathForSelectedRow!.row]
-            
-            // Define the destination ViewController to assign its properties
-            let destination = segue.destination as! CreateMealTableViewController
-            
-            // Assign properties to the destination ViewController
-            destination.mealName = meal.name ?? ""
-            destination.mealInstructions = meal.instructions ?? ""
-            destination.mealIngredients = meal.ingredients ?? []
-        }
-        */
     }
 
     func requestSearchTickerWebData(searchText: String) {
-        // https://api.twelvedata.com/symbol_search?symbol=NDQ&source=docs
-        
-        // Form URL from different components
-        var requestURLComponents = URLComponents()
-        requestURLComponents.scheme = "https"
-        requestURLComponents.host = "api.twelvedata.com"
-        requestURLComponents.path = "/symbol_search"
-        requestURLComponents.queryItems = [
-            URLQueryItem(
-                name: "symbol",
-                value: searchText
-            ),
-            URLQueryItem(
-                name: "source",
-                value: "docs"
-            )
-        ]
+        // Generate URL from components
+        let requestURLComponents = Algorithm.getSearchRequestURLComponents(searchText: searchText)
         
         // Ensure URL is valid
         guard let requestURL = requestURLComponents.url else {
@@ -172,7 +153,6 @@ class SearchNewHoldingTableViewController: UITableViewController {
                 self.indicator.stopAnimating()
             }
             
-            // If we have recieved an error message
             if let error = error {
                 print(error)
                 return
@@ -203,10 +183,9 @@ class SearchNewHoldingTableViewController: UITableViewController {
                         Popup.displayPopup(title: "No Results", message: "No results matched \"\(searchText)\".", viewController: self)
                     }
                     
-                    // Shows new empty meal button, and any recipes found
+                    // Update table to show results
                     self.tableView.reloadData()
                 }
-            
             }
             catch let err {
                 print(err)

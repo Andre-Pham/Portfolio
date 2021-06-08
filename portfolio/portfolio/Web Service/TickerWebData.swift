@@ -7,6 +7,8 @@
 
 import Foundation
 
+// Breaks down the API return structure for prices of holdings
+
 struct DecodedTickerArray: Decodable {
     var tickerArray: [Ticker]
     

@@ -50,9 +50,7 @@
 		65AFBE33262E2A780039CB66 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE32262E2A780039CB66 /* PortfolioViewController.swift */; };
 		65AFBE3C262E2AE00039CB66 /* WatchlistsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE3B262E2AE00039CB66 /* WatchlistsTableViewController.swift */; };
 		65AFBE40262E5D950039CB66 /* Holding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE3F262E5D950039CB66 /* Holding.swift */; };
-		65AFBE45262E5DCE0039CB66 /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE44262E5DCE0039CB66 /* Watchlist.swift */; };
 		65AFBE4D262E624D0039CB66 /* PortfolioHoldingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE4C262E624D0039CB66 /* PortfolioHoldingTableViewCell.swift */; };
-		65AFBE52262F548B0039CB66 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE51262F548B0039CB66 /* Purchase.swift */; };
 		65B7D8CA26376E5800FA8284 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 65B7D8C926376E5800FA8284 /* SwiftUICharts */; };
 		65B7D8CE263770E400FA8284 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B7D8CD263770E400FA8284 /* ChartView.swift */; };
 /* End PBXBuildFile section */
@@ -103,9 +101,7 @@
 		65AFBE32262E2A780039CB66 /* PortfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewController.swift; sourceTree = "<group>"; };
 		65AFBE3B262E2AE00039CB66 /* WatchlistsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistsTableViewController.swift; sourceTree = "<group>"; };
 		65AFBE3F262E5D950039CB66 /* Holding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Holding.swift; sourceTree = "<group>"; };
-		65AFBE44262E5DCE0039CB66 /* Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist.swift; sourceTree = "<group>"; };
 		65AFBE4C262E624D0039CB66 /* PortfolioHoldingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioHoldingTableViewCell.swift; sourceTree = "<group>"; };
-		65AFBE51262F548B0039CB66 /* Purchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		65B7D8CD263770E400FA8284 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,8 +210,6 @@
 			isa = PBXGroup;
 			children = (
 				65AFBE3F262E5D950039CB66 /* Holding.swift */,
-				65AFBE44262E5DCE0039CB66 /* Watchlist.swift */,
-				65AFBE51262F548B0039CB66 /* Purchase.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -351,11 +345,9 @@
 				659C8FDB263F7519004D1E30 /* CoreHolding+CoreDataProperties.swift in Sources */,
 				654217CF265C5950007F9E4D /* InformationViewController.swift in Sources */,
 				659C8FBB263E76CB004D1E30 /* NewOwnedHoldingViewController.swift in Sources */,
-				65AFBE45262E5DCE0039CB66 /* Watchlist.swift in Sources */,
 				65AFBE3C262E2AE00039CB66 /* WatchlistsTableViewController.swift in Sources */,
 				65AFBE12262D64860039CB66 /* AppDelegate.swift in Sources */,
 				65AFBE14262D64860039CB66 /* SceneDelegate.swift in Sources */,
-				65AFBE52262F548B0039CB66 /* Purchase.swift in Sources */,
 				65AFBE40262E5D950039CB66 /* Holding.swift in Sources */,
 				65AFBE30262E293B0039CB66 /* DashboardViewController.swift in Sources */,
 				659C8FD9263F7519004D1E30 /* CorePurchase+CoreDataProperties.swift in Sources */,

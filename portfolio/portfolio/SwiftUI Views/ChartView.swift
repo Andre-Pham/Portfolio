@@ -19,7 +19,6 @@ struct ChartView: View {
     var body: some View {
         // Create line chart
         LineView(data: chartData.data, title: chartData.title, legend: chartData.legend, style: chartData.lineColour).padding(.top, -40.0).padding().disabled(chartData.data.isEmpty)
-        // legend is optional, use optional .padding()
         // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes, so view interaction is disabled when empty
     }
     
@@ -37,18 +36,19 @@ class ChartData: ObservableObject {
     // SOURCE: https://stackoverflow.com/questions/61732887/pass-data-from-uikit-to-swiftui-container-uihostingcontroller
     // AUTHOR: James - https://stackoverflow.com/users/828768/james
     
-    // MARK: - ChartData Properties
+    // MARK: - Properties
     
     @Published var title: String
     @Published var legend: String
     @Published var data: [Double] {
         didSet {
+            // Update graph colour
             self.updateColour()
         }
     }
     @Published var lineColour = Styles.lineChartStyleOne
     
-    // MARK: - ChartData Constructor
+    // MARK: - Constructor
     
     init(title: String, legend: String, data: [Double]) {
         self.title = title
@@ -56,11 +56,14 @@ class ChartData: ObservableObject {
         self.data = data
     }
     
-    // MARK: - ChartData Methods
+    // MARK: - Methods
     
+    /// Updates the graph's colour to match trends
     func updateColour() {
         if !data.isEmpty {
             if data.last! > 0 {
+                // Positive growth
+                
                 let newGradient = GradientColor(
                     start: Color(UIColor(named: "Green1")  ?? Constant.BACKUP_COLOUR
                     ),
@@ -78,9 +81,12 @@ class ChartData: ObservableObject {
                 self.lineColour = newStyle
             }
             else if data.last! == 0 {
+                // Neither positive nor negative
+                
                 let newGradient = GradientColor(
-                    start: Color.gray,
-                    end: Color.gray
+                    // Backup colour is neutral grey
+                    start: Color(Constant.BACKUP_COLOUR),
+                    end: Color(Constant.BACKUP_COLOUR)
                 )
                 let newStyle = ChartStyle(
                     backgroundColor: Color.white,

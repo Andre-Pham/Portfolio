@@ -7,6 +7,8 @@
 
 import Foundation
 
+// Breaks down the API return structure for searching holdings
+
 struct TickerSearchResults: Decodable {
     var data: [Data]
 }

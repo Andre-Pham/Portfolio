@@ -11,21 +11,21 @@ class Holding: NSObject {
     
     // MARK: - Properties
     
-    // Required
-    var ticker: String?
-    var prices: [Double] = []
-    var currentPrice: Double?
+    // All instances have this
+    public var ticker: String?
     
-    var instrument: String?
-    var exchange: String?
-    var currency: String?
-    var instrumentType: String?
+    // Instances that present financial data or a graph have this
+    public var prices: [Double] = []
+    public var currentPrice: Double?
+    public var purchases: [CorePurchase] = [] // Added after instantiation
     
+    // Instances that are being added to a watchlist have this
+    public var instrument: String?
+    public var exchange: String?
+    public var currency: String?
+    public var instrumentType: String?
     
-    // Not required
-    var purchases: [CorePurchase] = []
-    
-    // MARK: - Constructor
+    // MARK: - Constructors
     
     // Searched holding
     init(ticker: String, instrument: String, exchange: String, currency: String, instrumentType: String) {
@@ -36,6 +36,7 @@ class Holding: NSObject {
         self.instrumentType = instrumentType
     }
     
+    // Shown holding
     init(ticker: String, prices: [Double], currentPrice: Double) {
         self.ticker = ticker
         self.prices = prices

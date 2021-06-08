@@ -82,7 +82,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate, UITableVie
             
             var startMarketStatusNotifications = true
             for notification in notificationRequests {
-                print(notification.identifier)
                 if notification.identifier.dropLast() == LocalNotification.MARKET_OPEN_NOTIFICATION_IDENTIFIER {
                     startMarketStatusNotifications = false
                     break

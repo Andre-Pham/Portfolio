@@ -98,6 +98,11 @@ class InformationViewController: UIViewController, SFSafariViewControllerDelegat
         self.openLink(url: "https://github.com/AppPear/ChartView")
     }
     
+    /// Calls when third hyperlink is clicked
+    @IBAction func link3Clicked(_ sender: Any) {
+        self.openLink(url: "https://github.com/AppPear/ChartView/blob/master/LICENSE")
+    }
+    
     /// Opens any url provided in Safari
     func openLink(url: String) {
         if let url = URL(string: url) {

@@ -17,6 +17,9 @@ struct ChartView: View {
     // MARK: - ChartView Views
     
     var body: some View {
+        // PACKAGE SOURCE: https://github.com/AppPear/ChartView
+        // PACKAGE LICENSE: https://github.com/AppPear/ChartView/blob/master/LICENSE
+        
         // Create line chart
         LineView(data: chartData.data, title: chartData.title, legend: chartData.legend, style: chartData.lineColour).padding(.top, -40.0).padding().disabled(chartData.data.isEmpty)
         // Package SwiftUICharts has a bug where if the chart is interacted with but isn't loaded in yet, the application fatally crashes, so view interaction is disabled when empty

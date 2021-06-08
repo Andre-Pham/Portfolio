@@ -707,7 +707,7 @@ Annual Return</string>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="T2g-ZV-Mwn">
                                                 <rect key="frame" x="0.0" y="102" width="414" height="161.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Softwares Used" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7E-TF-gQc">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Third-Party Softwares Used" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7E-TF-gQc">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -728,15 +728,29 @@ Annual Return</string>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YxE-SN-28o">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="2bl-7N-mAJ">
                                                         <rect key="frame" x="0.0" y="101" width="414" height="30"/>
-                                                        <state key="normal" title="ChartView">
-                                                            <color key="titleColor" name="AccentColor"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="link2Clicked:" destination="sbp-Yx-QS3" eventType="touchUpInside" id="hNf-Wp-y9l"/>
-                                                        </connections>
-                                                    </button>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YxE-SN-28o">
+                                                                <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                                                <state key="normal" title="ChartView">
+                                                                    <color key="titleColor" name="AccentColor"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="link2Clicked:" destination="sbp-Yx-QS3" eventType="touchUpInside" id="hNf-Wp-y9l"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DpY-t4-U9J">
+                                                                <rect key="frame" x="286" y="0.0" width="128" height="30"/>
+                                                                <state key="normal" title="ChartView License">
+                                                                    <color key="titleColor" name="AccentColor"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="link3Clicked:" destination="sbp-Yx-QS3" eventType="touchUpInside" id="ihw-ri-UsT"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5W-YJ-Ngn">
                                                         <rect key="frame" x="0.0" y="141" width="414" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>

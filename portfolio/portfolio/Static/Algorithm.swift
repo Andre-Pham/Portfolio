@@ -412,6 +412,10 @@ class Algorithm: NSObject {
                 }
             }
             
+            // Winner holdings can't be negative, loser holdings can't be positive
+            winnerHoldings = winnerHoldings.filter() { $0.getReturnInDollars() > 0 }
+            loserHoldings = loserHoldings.filter() { $0.getReturnInDollars() < 0 }
+            
             return [winnerHoldings, loserHoldings]
         }
         return [[], []]

@@ -160,7 +160,7 @@ class WatchlistTableViewController: UITableViewController {
         else if segue.identifier == self.SEGUE_PURCHASES {
             // User selected holding
             
-            let destination = segue.destination as! HoldingPurchasesTableViewController
+            let destination = segue.destination as! AllHoldingPurchasesTableViewController
             // Holding is provided to load its purchases
             let holdings = self.coreWatchlist?.holdings?.allObjects as! [CoreHolding]
             let holding = holdings[tableView.indexPathForSelectedRow!.row]

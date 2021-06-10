@@ -804,7 +804,7 @@ Annual Return</string>
         <!--Watchlists-->
         <scene sceneID="yrp-wL-Znv">
             <objects>
-                <tableViewController title="Watchlists" id="YzP-0r-Xg6" customClass="WatchlistsTableViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Watchlists" id="YzP-0r-Xg6" customClass="AllWatchlistsTableViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="GId-wn-YSN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -978,7 +978,7 @@ Annual Return</string>
         <!--TICKER Purchases-->
         <scene sceneID="GfJ-2N-t8Q">
             <objects>
-                <tableViewController id="MNB-bh-0FE" customClass="HoldingPurchasesTableViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="MNB-bh-0FE" customClass="AllHoldingPurchasesTableViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="755-A9-k7A">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1080,7 +1080,7 @@ Annual Return</string>
         <!--TICKER-->
         <scene sceneID="1et-6D-f6d">
             <objects>
-                <viewController id="BeY-gR-m69" customClass="NewOwnedHoldingViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BeY-gR-m69" customClass="NewHoldingPurchaseViewController" customModule="portfolio" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LXe-4k-Rrf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

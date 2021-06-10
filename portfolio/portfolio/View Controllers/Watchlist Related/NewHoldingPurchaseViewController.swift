@@ -1,5 +1,5 @@
 //
-//  NewOwnedHoldingViewController.swift
+//  NewHoldingPurchaseViewController.swift
 //  portfolio
 //
 //  Created by Andre Pham on 2/5/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewOwnedHoldingViewController: UIViewController {
+class NewHoldingPurchaseViewController: UIViewController {
     
     // MARK: - Properties
     

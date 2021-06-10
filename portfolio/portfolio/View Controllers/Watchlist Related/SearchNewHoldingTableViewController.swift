@@ -126,7 +126,7 @@ class SearchNewHoldingTableViewController: UITableViewController {
         if segue.identifier == self.SEGUE_OWNED_HOLDING {
             // If the user selects a watchlist, and is segued to add purchase data to it
             
-            let destination = segue.destination as! NewOwnedHoldingViewController
+            let destination = segue.destination as! NewHoldingPurchaseViewController
             let holding = self.searchResultsHoldings[tableView.indexPathForSelectedRow!.row]
             
             // Needs access to watchlist and holding to create coreHolding and add it to the watchlist

@@ -1,5 +1,5 @@
 //
-//  HoldingPurchasesTableViewController.swift
+//  AllHoldingPurchasesTableViewController.swift
 //  portfolio
 //
 //  Created by Andre Pham on 2/5/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HoldingPurchasesTableViewController: UITableViewController {
+class AllHoldingPurchasesTableViewController: UITableViewController {
     
     // MARK: - Properties
     

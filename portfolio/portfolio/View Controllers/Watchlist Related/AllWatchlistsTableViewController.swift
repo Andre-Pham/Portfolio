@@ -1,5 +1,5 @@
 //
-//  WatchlistsTableViewController.swift
+//  AllWatchlistsTableViewController.swift
 //  portfolio
 //
 //  Created by Andre Pham on 20/4/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WatchlistsTableViewController: UITableViewController {
+class AllWatchlistsTableViewController: UITableViewController {
     
     // MARK: - Properties
     
@@ -159,7 +159,7 @@ class WatchlistsTableViewController: UITableViewController {
 
 // MARK: - DatabaseListener Extension
 
-extension WatchlistsTableViewController: DatabaseListener {
+extension AllWatchlistsTableViewController: DatabaseListener {
     
     /// Calls when there are changes to the watchlists in Core Data
     func onAnyWatchlistChange(change: DatabaseChange, coreWatchlists: [CoreWatchlist]) {

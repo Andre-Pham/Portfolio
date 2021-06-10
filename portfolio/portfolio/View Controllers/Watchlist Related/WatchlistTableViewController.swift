@@ -62,6 +62,9 @@ class WatchlistTableViewController: UITableViewController {
     
     /// Returns the number of rows in any given section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Every time table view needs to know how many rows, also updates label to notify if empty
+        SharedFunction.notifyIfTableViewEmpty(message: "No Holdings", isEmpty: self.coreWatchlist?.holdings?.count == 0, tableView: self.tableView)
+        
         switch section {
         case self.SECTION_HOLDING:
             return self.coreWatchlist?.holdings?.count ?? 0

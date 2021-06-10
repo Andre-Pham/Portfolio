@@ -99,6 +99,9 @@ extension SwitchDashboardWatchlistViewController {
     
     /// Returns the number of rows in any given section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Every time table view needs to know how many rows, also updates label to notify if empty
+        SharedFunction.notifyIfTableViewEmpty(message: "No Watchlists", isEmpty: self.coreWatchlists.isEmpty, tableView: self.tableView)
+        
         return self.coreWatchlists.count
     }
     

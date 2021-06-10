@@ -141,5 +141,28 @@ class SharedFunction: NSObject {
         
         return valid
     }
+    
+    // SOURCE: https://stackoverflow.com/questions/15746745/handling-an-empty-uitableview-print-a-friendly-message
+    // AUTHOR: Frankie - https://stackoverflow.com/users/2047476/frankie
+    /// Adds a label indicating to the user that the tableview is empty, if necessary
+    static func notifyIfTableViewEmpty(message: String, isEmpty: Bool, tableView: UITableView) {
+        if isEmpty {
+            let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            messageLabel.text = message
+            messageLabel.textColor = UIColor(named: "BlackWhite1")
+            messageLabel.alpha = 0.35
+            messageLabel.numberOfLines = 0
+            messageLabel.textAlignment = .center
+            messageLabel.font = CustomFont.setFont(size: 25, style: .body, weight: .light)
+            messageLabel.sizeToFit()
+            
+            tableView.backgroundView = messageLabel
+            tableView.separatorStyle = .none
+        }
+        else {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .singleLine
+        }
+    }
 
 }

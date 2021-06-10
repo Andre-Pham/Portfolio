@@ -108,9 +108,12 @@ class SharedFunction: NSObject {
 
         // Add constraints to the SwiftUI view
         chartViewHostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        // * Multiplier is the amount of the SwiftUI Screen shown - calculated based on fits of different screens
+        let h = UIScreen.main.bounds.height
+        let multiplier = 0.0000004313*h*h - 0.0012435555*h + 1.1460070991
         let constraints = [
             chartViewHostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            chartViewHostingController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.40)
+            chartViewHostingController.view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: multiplier)
         ]
         NSLayoutConstraint.activate(constraints)
 

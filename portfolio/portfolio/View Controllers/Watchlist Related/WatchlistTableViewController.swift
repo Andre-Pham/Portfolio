@@ -115,6 +115,11 @@ class WatchlistTableViewController: UITableViewController {
     /// Adds extra actions on the cell when swiped left
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
+        // Only holdings have actions
+        if indexPath.section != self.SECTION_HOLDING {
+            return UISwipeActionsConfiguration(actions: [])
+        }
+        
         var holdings = self.coreWatchlist?.holdings?.allObjects as! [CoreHolding]
         Algorithm.arrangeCoreHoldingsAlphabetically(&holdings)
         let holding = holdings[indexPath.row]

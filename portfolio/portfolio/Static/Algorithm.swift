@@ -175,7 +175,13 @@ class Algorithm: NSObject {
         var currentPrice: Double? = nil
         for stringPrice in tickerResponse.values {
             if let price = Double(stringPrice.open) {
-                prices.append(price)
+                if price == 0 {
+                    // If the price is very low (e.g. Doge Coin) the price is reported as 0 by the API, which breaks the program - 0.00001 is the smallest reportable number by the API
+                    prices.append(0.00001)
+                }
+                else {
+                    prices.append(price)
+                }
             }
             if currentPrice == nil {
                 currentPrice = Double(stringPrice.close)

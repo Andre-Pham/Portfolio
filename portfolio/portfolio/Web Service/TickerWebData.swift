@@ -47,7 +47,6 @@ struct Ticker: Decodable {
 
 struct MetaData: Decodable {
     var symbol: String
-    var currency: String
 }
 
 struct TimeSeriesCloses: Decodable {

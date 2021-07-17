@@ -11,25 +11,25 @@ Creating owned and unowned watchlists.
 
 Adding holdings to watchlists.
 
-<img src="Demos/short_demos_gif/adding_holdings_to_watchlists.gif" style="zoom:40%;" /> 
+<img src="Demos/short_demos_gif/adding_holdings_to_watchlists.gif" width="40%" /> 
 
 The Dashboard page.
 
-<img src="Demos/short_demos_gif/dashboard_page.gif" style="zoom:40%;" /> 
+<img src="Demos/short_demos_gif/dashboard_page.gif" width="40%" /> 
 
 The Portfolio page.
 
-<img src="Demos/short_demos_gif/portfolio_page.gif" style="zoom:40%;" /> 
+<img src="Demos/short_demos_gif/portfolio_page.gif" width="40%" /> 
 
 The Performance page.
 
-<img src="Demos/short_demos_gif/performance_page.gif" style="zoom:40%;" /> 
+<img src="Demos/short_demos_gif/performance_page.gif" width="40%" /> 
 
 Local notifications, and the Info page.
 
-<img src="Demos/short_demos_gif/notifications_and_info_page.gif" style="zoom:40%;" /> 
+<img src="Demos/short_demos_gif/notifications_and_info_page.gif" width="40%" /> 
 
 Darkmode support.
 
-<img src="Demos/short_demos_gif/darkmode.gif" style="zoom:40%;" /> 
+<img src="Demos/short_demos_gif/darkmode.gif" width="40%" /> 
 

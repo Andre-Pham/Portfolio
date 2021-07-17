@@ -7,17 +7,29 @@ Due to only GIFs being supported in READMEs, the demos below are choppy and sped
 
 Creating owned and unowned watchlists.
 
-![](Demos/short demos gif/adding_holdings_to_watchlists.gif)
+<img src="Demos/short_demos_gif/creating_owned_and_unowned_watchlists.gif" style="zoom: 40%;" /> 
 
 Adding holdings to watchlists.
 
+<img src="Demos/short_demos_gif/adding_holdings_to_watchlists.gif" style="zoom:40%;" /> 
+
 The Dashboard page.
+
+<img src="Demos/short_demos_gif/dashboard_page.gif" style="zoom:40%;" /> 
 
 The Portfolio page.
 
+<img src="Demos/short_demos_gif/portfolio_page.gif" style="zoom:40%;" /> 
+
 The Performance page.
+
+<img src="Demos/short_demos_gif/performance_page.gif" style="zoom:40%;" /> 
 
 Local notifications, and the Info page.
 
+<img src="Demos/short_demos_gif/notifications_and_info_page.gif" style="zoom:40%;" /> 
+
 Darkmode support.
+
+<img src="Demos/short_demos_gif/darkmode.gif" style="zoom:40%;" /> 
 

@@ -7,7 +7,7 @@ Due to only GIFs being supported in READMEs, the demos below are choppy and sped
 
 Creating owned and unowned watchlists.
 
-<img src="Demos/short_demos_gif/creating_owned_and_unowned_watchlists.gif" style="zoom: 40%;" /> 
+<img src="Demos/short_demos_gif/creating_owned_and_unowned_watchlists.gif" width="40%" /> 
 
 Adding holdings to watchlists.
 
